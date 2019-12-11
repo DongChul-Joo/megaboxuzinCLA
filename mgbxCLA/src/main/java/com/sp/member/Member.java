@@ -9,6 +9,8 @@ public class Member {
 	private String birth;
 	private String zip, addr1, addr2;
 	private int enabled;
+	private String authority;
+	
 	
 	public long getMemberIdx() {
 		return memberIdx;
@@ -130,4 +132,12 @@ public class Member {
 	public void setEnabled(int enabled) {
 		this.enabled = enabled;
 	}
+	public String getAuthority() {
+		return authority;
+	}
+	public void setAuthority(String authority) {
+		this.authority = authority;
+	}
+	
+	
 }
