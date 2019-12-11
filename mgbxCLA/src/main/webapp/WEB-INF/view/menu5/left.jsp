@@ -6,6 +6,19 @@
 	String cp=request.getContextPath();
 %>
 
+<style>
+.list-group-item {
+ height: 100px;
+ text-align: center;
+ padding-top: 38px;
+}
+
+.list-group-item lefthead {
+	height: 30px;
+}
+
+</style>
+
 <script type="text/javascript">
 $(function(){
 	var idx="${subMenu}";
@@ -16,12 +29,11 @@ $(function(){
 </script>
 
 <div class="list-group">
-       <div class="list-group-item lefthead"><i></i> 마이페이지</div>
-       <a href="<%=cp%>/mypage/info" class="list-group-item">정보확인</a>
-       <a href="#" class="list-group-item">다이어리</a>
-       <a href="#" class="list-group-item">일정관리</a>
-       <a href="#" class="list-group-item">친구관리</a>
-       <a href="#" class="list-group-item">쪽지</a>
+       <div class="list-group-item lefthead" style="height: 50px; padding-top: 15px;"><i></i> MYPAGE</div>
+       <a href="<%=cp%>/mypage/info" class="list-group-item">멤버십정보</a>
+       <a href="<%=cp%>/mypage/membership" class="list-group-item">스토어 구매내역</a>
+       <a href="#" class="list-group-item">나의무비스토리</a>
+       <a href="#" class="list-group-item">나의문의내역</a>
        <a href="<%=cp%>/member/pwd" class="list-group-item">정보수정</a>
     <c:if test="${sessionScope.member.userId!='admin' }">
 	    <a href="<%=cp%>/member/pwd?dropout" class="list-group-item">회원탈퇴</a>

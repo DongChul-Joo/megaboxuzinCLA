@@ -14,4 +14,12 @@ public class MyPageController {
 		model.addAttribute("subMenu", "1");
 		return ".four.menu5.mypage.info";
 	}
+	
+	@RequestMapping(value="/mypage/membership")
+	public String membership(
+			Model model) throws Exception {
+		
+		model.addAttribute("subMenu", "2");
+		return ".four.menu5.mypage.membership";
+	}
 }

@@ -17,6 +17,10 @@
 <link rel="stylesheet" href="<%=cp%>/resource/css/style.css" type="text/css">
 <link rel="stylesheet" href="<%=cp%>/resource/css/layout.css" type="text/css">
 <link rel="stylesheet" href="<%=cp%>/resource/jquery/css/smoothness/jquery-ui.min.css" type="text/css">
+<link rel="stylesheet" href="<%=cp%>/resource/bootstrap/css/bootstrap.css">
+<link href="https://fonts.googleapis.com/css?family=Sunflower:300&display=swap&subset=korean" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
+
 
 <script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery-3.4.1.min.js"></script>
 
@@ -30,7 +34,7 @@
     <tiles:insertAttribute name="header"/>
 </div>
 
-<div class="container" style="height: 700px;">
+<div class="container" style="height: 700px; padding-top: 20px;">
     <div class="body-container">
         <div class="body-left">
             <tiles:insertAttribute name="left"/>

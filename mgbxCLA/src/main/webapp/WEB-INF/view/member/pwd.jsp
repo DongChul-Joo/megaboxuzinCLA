@@ -47,8 +47,8 @@
 	}
 </script>
 
-<div class="body-container">
-    <div style="width:420px; margin: 0px auto; padding-top:90px;">
+<div class="body-container" style="min-height: 780px;">
+    <div style="width:420px; margin: 0px auto; padding-top:200px;">
 	
     	<div style="text-align: center;">
         	<span style="font-weight: bold; font-size:27px; color: #424951;">패스워드 재확인</span>

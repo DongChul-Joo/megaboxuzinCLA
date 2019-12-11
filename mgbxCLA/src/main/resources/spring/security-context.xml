@@ -33,8 +33,7 @@
 		<intercept-url pattern="/member/userIdCheck" access="permitAll"/>
 		<intercept-url pattern="/member/complete" access="permitAll"/>
 		<intercept-url pattern="/resource/**" access="permitAll"/>
-		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
-		<intercept-url pattern="/**" access="hasAnyRole('ROLE_USER')"/>
+		
 		
 		<form-login
 			login-page="/member/login"
