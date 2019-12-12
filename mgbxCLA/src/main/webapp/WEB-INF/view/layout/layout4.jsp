@@ -5,14 +5,13 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%
    String cp = request.getContextPath();
-// String path = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+cp;
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>spring</title>
+<title>mgbxCLA</title>
 
 <link rel="stylesheet" href="<%=cp%>/resource/css/style.css" type="text/css">
 <link rel="stylesheet" href="<%=cp%>/resource/css/layout.css" type="text/css">

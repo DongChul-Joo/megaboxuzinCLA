@@ -289,34 +289,9 @@ function userIdCheck() {
 			      </td>
 			  </tr>
 			  
-			  <tr>
-			      <td width="100" valign="top" style="text-align: right; padding-top: 5px;">
-			            <label style="font-weight: 900;">우편번호</label>
-			      </td>
-			      <td style="padding: 0 0 15px 15px;">
-			        <p style="margin-top: 1px; margin-bottom: 5px;">
-			            <input type="text" name="zip" id="zip" value="${dto.zip}"
-			                       class="boxTF" readonly="readonly">
-			            <button type="button" class="btn" onclick="daumPostcode();">우편번호</button>          
-			        </p>
-			      </td>
-			  </tr>
+
 			  
-			  <tr>
-			      <td width="100" valign="top" style="text-align: right; padding-top: 5px;">
-			            <label style="font-weight: 900;">주소</label>
-			      </td>
-			      <td style="padding: 0 0 15px 15px;">
-			        <p style="margin-top: 1px; margin-bottom: 5px;">
-			            <input type="text" name="addr1" id="addr1"  value="${dto.addr1}" maxlength="50" 
-			                       class="boxTF" style="width: 95%;" placeholder="기본 주소" readonly="readonly">
-			        </p>
-			        <p style="margin-bottom: 5px;">
-			            <input type="text" name="addr2" id="addr2" value="${dto.addr2}" maxlength="50" 
-			                       class="boxTF" style="width: 95%;" placeholder="나머지 주소">
-			        </p>
-			      </td>
-			  </tr>
+			
 			  <c:if test="${mode=='member'}">
 				  <tr>
 				      <td width="100" valign="top" style="text-align: right; padding-top: 5px;">
