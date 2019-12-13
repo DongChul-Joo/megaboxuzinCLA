@@ -8,9 +8,9 @@
 
 <style>
 .list-group-item {
- height: 100px;
+ height: 50px;
  text-align: center;
- padding-top: 38px;
+ padding-top: 15px;
 }
 
 .list-group-item lefthead {

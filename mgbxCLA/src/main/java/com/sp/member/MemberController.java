@@ -129,6 +129,8 @@ public class MemberController {
 		SessionInfo info=(SessionInfo)session.getAttribute("member");
 		
 		Member dto=service.readMember(info.getUserId());
+//		System.out.println(dto.toString());
+		
 		if(dto==null) {
 			session.invalidate();
 			return "redirect:/";
@@ -186,20 +188,24 @@ public class MemberController {
 		
 		try {
 			// 패스워드 암호화
+			dto.setTel(dto.getTel1()+"-"+dto.getTel2()+"-"+dto.getTel3());
+			dto.setEmail(dto.getEmail1()+"@"+dto.getEmail2());
+			
 			String encPwd = bcryptEncoder.encode(dto.getUserPwd());
 			dto.setUserPwd(encPwd);
+			
 			
 			service.updateMember(dto);
 		} catch (Exception e) {
 		}
 		
-		StringBuilder sb=new StringBuilder();
-		sb.append(dto.getUserName()+ "님의 회원정보가 정상적으로 변경되었습니다.<br>");
-		sb.append("메인화면으로 이동 하시기 바랍니다.<br>");
-		
-		reAttr.addFlashAttribute("title", "회원 정보 수정");
-		reAttr.addFlashAttribute("message", sb.toString());
-		
+//		StringBuilder sb=new StringBuilder();
+//		sb.append(dto.getUserName()+ "님의 회원정보가 정상적으로 변경되었습니다.<br>");
+//		sb.append("메인화면으로 이동 하시기 바랍니다.<br>");
+//		
+//		reAttr.addFlashAttribute("title", "회원 정보 수정");
+//		reAttr.addFlashAttribute("message", sb.toString());
+//		
 		return "redirect:/member/complete";
 	}
 

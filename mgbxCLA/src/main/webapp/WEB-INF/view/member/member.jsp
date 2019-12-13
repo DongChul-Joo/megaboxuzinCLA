@@ -176,6 +176,7 @@ function userIdCheck() {
     
         <div>
 			<form name="memberForm" method="post">
+			<input type="hidden" name="customerCode" value="${dto.customerCode}">
 			  <table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px;">
 			  <tr>
 			      <td width="100" valign="top" style="text-align: right; padding-top: 5px;">

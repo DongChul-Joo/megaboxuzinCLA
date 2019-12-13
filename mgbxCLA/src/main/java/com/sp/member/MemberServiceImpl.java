@@ -45,13 +45,35 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public void updateLastLogin(String userId) throws Exception {
-		// TODO Auto-generated method stub
+		
+		try {
+			dao.updateData("member.updateLastLogin", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 
 	}
 
 	@Override
 	public void updateMember(Member dto) throws Exception {
-		// TODO Auto-generated method stub
+		try {
+			if(dto.getEmail1() != null && dto.getEmail1().length()!=0 &&
+					dto.getEmail2() != null && dto.getEmail2().length()!=0)
+				dto.setEmail(dto.getEmail1() + "@" + dto.getEmail2());
+			
+			if(dto.getTel1() != null && dto.getTel1().length()!=0 &&
+					dto.getTel2() != null && dto.getTel2().length()!=0 &&
+							dto.getTel3() != null && dto.getTel3().length()!=0)
+				dto.setTel(dto.getTel1() + "-" + dto.getTel2() + "-" + dto.getTel3());
+			
+			dao.updateData("member.updateMember1", dto);
+			dao.updateData("member.updateMember2", dto);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 
 	}
 
@@ -61,6 +83,22 @@ public class MemberServiceImpl implements MemberService {
 
 		try {
 			dto = dao.selectOne("member.readMember1", userId);
+			
+			if(dto!=null) {
+				if(dto.getEmail()!=null) {
+					String [] s=dto.getEmail().split("@");
+					dto.setEmail1(s[0]);
+					dto.setEmail2(s[1]);
+				}
+
+				if(dto.getTel()!=null) {
+					String [] s=dto.getTel().split("-");
+					dto.setTel1(s[0]);
+					dto.setTel2(s[1]);
+					dto.setTel3(s[2]);
+				}
+			}
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -74,6 +112,24 @@ public class MemberServiceImpl implements MemberService {
 
 		try {
 			dto = dao.selectOne("member.readMember2", customerCode);
+			
+			
+			if(dto!=null) {
+				if(dto.getEmail()!=null) {
+					String [] s=dto.getEmail().split("@");
+					dto.setEmail1(s[0]);
+					dto.setEmail2(s[1]);
+				}
+
+				if(dto.getTel()!=null) {
+					String [] s=dto.getTel().split("-");
+					dto.setTel1(s[0]);
+					dto.setTel2(s[1]);
+					dto.setTel3(s[2]);
+				}
+			}
+			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -98,5 +154,7 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
 
 }

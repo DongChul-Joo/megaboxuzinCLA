@@ -5,7 +5,9 @@
     <select id="memberSeq" resultType="Long">
        SELECT CUSTOMER_seq.NEXTVAL FROM dual 
     </select>
+    
 
+<!-- 회원가입 정도 넣는 것 -->
     <insert id="insertMember1" parameterType="com.sp.member.Member">
        INSERT INTO CUSTOMER
        			(customerCode, tel, email, userName, birth)  VALUES 
@@ -23,10 +25,12 @@
     </insert>
     
 	<update id="updateLastLogin" parameterType="String">
-		UPDATE  MEMBER SET last_login = SYSDATE
+		UPDATE MEMBER SET last_login = SYSDATE
 		WHERE userId=#{userId}
 	</update>
 
+
+<!-- 로그인 하는거 -->
     <select id="readMember1" parameterType="String" resultType="com.sp.member.Member">
 		SELECT m1.customercode, userId, userName, userPwd, enabled, created_date, last_login
 		            ,TO_CHAR(birth, 'YYYY-MM-DD') birth, email, tel
@@ -36,11 +40,43 @@
 	</select>
 
     <select id="readMember2" parameterType="Long" resultType="com.sp.member.Member">
-		SELECT m1.customercode, userId, userName, userPwd, enabled, created_date, last_login
+		SELECT m1.customerCode, userId, userName, userPwd, enabled, created_date, last_login
 		            ,TO_CHAR(birth, 'YYYY-MM-DD') birth, email, tel
 		FROM CUSTOMER m1
-		LEFT OUTER JOIN member m2 ON m1.customercode = m2.customercode
-		WHERE m1.customercode = #{customercode}
+		LEFT OUTER JOIN member m2 ON m1.customerCode = m2.customerCode
+		WHERE m1.customerCode = #{customerCode}
 	</select>
+	
+	
+	
+	<!-- 회원정보 수정 -->
+	<update id="updateMemberEnabled" parameterType="map">
+        UPDATE member SET enabled=#{enabled} WHERE userId=#{userId}
+    </update>
+    
+    
+    
+    <select id="updateReder" parameterType="Long" resultType="com.sp.member.Member">
+    	SELECT m1.customerCode, userId, userPwd ,TO_CHAR(birth, 'YYYY-MM-DD') birth, email, tel
+		FROM CUSTOMER m1
+		LEFT OUTER JOIN member m2 ON m1.customerCode = m2.customerCode
+		WHERE m1.userId = #{userId}
+    </select>
+    
+    
+    <update id="updateMember1" parameterType="com.sp.member.Member">
+        UPDATE CUSTOMER SET tel = #{tel, jdbcType=VARCHAR} , email = #{email, jdbcType=VARCHAR}
+        ,birth=#{birth, jdbcType=DATE}
+               WHERE customerCode=#{customerCode}
+    </update>
+    
+
+    <update id="updateMember2" parameterType="com.sp.member.Member">
+        UPDATE member SET userPwd = #{userPwd}
+               WHERE userId=#{userId}
+    </update>
+    
+    
+  
 
 </mapper>

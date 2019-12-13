@@ -15,10 +15,11 @@
 
 .cancle {
 border: 1px solid #e4e4e4;
-width: 830px;
+width: 100%;
 height: 40px;
 text-align: center;
 }
+
 
 </style>
 

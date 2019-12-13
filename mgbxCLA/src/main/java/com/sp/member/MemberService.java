@@ -11,7 +11,7 @@ public interface MemberService {
 	
 	public Member readMember(String userId);
 	public Member readMember(long customerCode);
-	
+		
 	public void deleteMember(Map<String, Object> map) throws Exception;
 	
 	public int dataCount(Map<String, Object> map);

@@ -145,4 +145,21 @@ public class Member {
 	public void setAuthority(String authority) {
 		this.authority = authority;
 	}
+
+	@Override
+	public String toString() {
+		return "Member [customerCode=" + customerCode + ", userId=" + userId + ", userName=" + userName + ", userPwd="
+				+ userPwd + ", created_date=" + created_date + ", modify_date=" + modify_date + ", last_login="
+				+ last_login + ", email=" + email + ", email1=" + email1 + ", email2=" + email2 + ", tel=" + tel
+				+ ", tel1=" + tel1 + ", tel2=" + tel2 + ", tel3=" + tel3 + ", birth=" + birth + ", enabled=" + enabled
+				+ ", authority=" + authority + ", getCustomerCode()=" + getCustomerCode() + ", getUserId()="
+				+ getUserId() + ", getUserName()=" + getUserName() + ", getUserPwd()=" + getUserPwd()
+				+ ", getCreated_date()=" + getCreated_date() + ", getModify_date()=" + getModify_date()
+				+ ", getLast_login()=" + getLast_login() + ", getEmail()=" + getEmail() + ", getEmail1()=" + getEmail1()
+				+ ", getEmail2()=" + getEmail2() + ", getTel()=" + getTel() + ", getTel1()=" + getTel1()
+				+ ", getTel2()=" + getTel2() + ", getTel3()=" + getTel3() + ", getBirth()=" + getBirth()
+				+ ", getEnabled()=" + getEnabled() + ", getAuthority()=" + getAuthority() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+	}
+	
 }
