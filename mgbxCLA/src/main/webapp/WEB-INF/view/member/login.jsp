@@ -6,6 +6,7 @@
    String cp = request.getContextPath();
 %>
 
+
 <style type="text/css">
 .lbl {
    position:absolute; 
@@ -26,36 +27,8 @@
 }
 </style>
 
-<script type="text/javascript">
-function bgLabel(ob, id) {
-    if(!ob.value) {
-	    document.getElementById(id).style.display="";
-    } else {
-	    document.getElementById(id).style.display="none";
-    }
-}
 
-function sendLogin() {
-    var f = document.loginForm;
 
-	var str = f.userId.value;
-    if(!str) {
-        alert("아이디를 입력하세요. ");
-        f.userId.focus();
-        return;
-    }
-
-    str = f.userPwd.value;
-    if(!str) {
-        alert("패스워드를 입력하세요. ");
-        f.userPwd.focus();
-        return;
-    }
-
-    f.action = "<%=cp%>/member/login";
-    f.submit();
-}
-</script>
 
 <div class="body-container" style="padding-top: 140px; padding-bottom: 140px;">
     <div style="width:400px; margin: 0px auto; padding-top:40px; ">
@@ -98,11 +71,67 @@ function sendLogin() {
 		      </td>
 		  </tr>
 		  
+
 		  <tr align="center" height="40" >
 		    	<td><span style="color: blue;">${message}</span></td>
 		  </tr>
 		  
 		  </table>
+		  
+		  <div style="text-align: center;">
+		  <a id="kakao-login-btn"></a>
+		  <a href="http://developers.kakao.com/logout"></a>
+		  </div>
+		
 		</form>           
 	</div>
 </div>
+
+<script type="text/javascript">
+function bgLabel(ob, id) {
+    if(!ob.value) {
+	    document.getElementById(id).style.display="";
+    } else {
+	    document.getElementById(id).style.display="none";
+    }
+}
+
+function sendLogin() {
+    var f = document.loginForm;
+
+	var str = f.userId.value;
+    if(!str) {
+        alert("아이디를 입력하세요. ");
+        f.userId.focus();
+        return;
+    }
+
+    str = f.userPwd.value;
+    if(!str) {
+        alert("패스워드를 입력하세요. ");
+        f.userPwd.focus();
+        return;
+    }
+
+    f.action = "<%=cp%>/member/login";
+    f.submit();
+}
+
+
+
+	Kakao.init('e82edd74cbeb98477819c8975314c345');
+
+	Kakao.Auth.createLoginButton({
+	  container: '#kakao-login-btn',
+	  success: function(authObj) {
+	    alert(JSON.stringify(authObj));
+	  },
+	  fail: function(err) {
+	     alert(JSON.stringify(err));
+	  }
+	});
+	
+
+
+</script>
+

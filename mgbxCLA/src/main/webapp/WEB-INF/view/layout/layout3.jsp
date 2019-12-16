@@ -22,11 +22,16 @@
 <link href="https://fonts.googleapis.com/css?family=Sunflower:300&display=swap&subset=korean" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
 
+
 <script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery-3.4.1.min.js"></script>
 
 <script type="text/javascript" src="<%=cp%>/resource/js/util-jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
 <script type="text/javascript" src="<%=cp%>/resource/js/util.js"></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+
+
 
 </head>
 
