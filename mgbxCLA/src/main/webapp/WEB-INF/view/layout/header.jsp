@@ -61,7 +61,7 @@
             <c:if test="${not empty sessionScope.member}">
             <a class="btn btn-outline-primary" style="border: none; font-size: 18px; padding:3px; padding-top: 14px;" href="<%=cp%>/mypage/info">마이페이지</a>
         	</c:if>
-            <a class="btn btn-outline-primary" style="border: none; font-size: 18px; padding:3px; padding-top: 14px;"  href="<%=cp%>/notice/notice">고객센터</a>
+            <a class="btn btn-outline-primary" style="border: none; font-size: 18px; padding:3px; padding-top: 14px;"  href="<%=cp%>/customer/main">고객센터</a>
             
         </p>
     </div>
