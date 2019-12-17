@@ -2,6 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="question">
 
-
+	<insert id="insertQuestion1" parameterType="com.sp.customer.question.Question">
+		INSERT INTO question (qcode, qsubject, qcontent, qisanswer, qcreated, userId) 
+		VALUES (#{QUESTION_seq.NEXTVAL}, #{qsubject}, #{qcontent} , #{qisanswer} ,#{qcreated}, #{userId})
+	</insert>
+	
+	<insert id="insertQuestion2" parameterType="com.sp.customer.question.Question">
+		INSERT INTO questionanswer (qcode, asubject, acontent, acreated, userName, userId) 
+		VALUES (#{qcode} , #{asubject}, #{acontent} , #{acreated} ,#{userName}, #{userId})
+	</insert>
 
 </mapper>

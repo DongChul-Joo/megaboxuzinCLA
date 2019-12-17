@@ -288,8 +288,8 @@ function deleteBoard(num, page, mode) {
 
 </script>
 
-<div class="body-container" style="width: 800px;">
-    <div class="body-title">
+<div class="body-container" style="width: 66%; padding-top: 30px" >
+    <div class="body-title" style="border: none;">
         <h3><i class="fas fa-phone-square"></i> 고객센터 </h3>
     </div>
     
