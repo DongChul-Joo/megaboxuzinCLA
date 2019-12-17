@@ -41,7 +41,7 @@
     <tiles:insertAttribute name="header"/>
 </div>
 	
-<div class="container" style="height: 100%; width: 100%; padding-right: 0px; padding-left: 0px;">
+<div class="container" style="height: 100%; width: 100%; padding-right: 0px; padding-left: 0px; min-height: 800px;">
     <tiles:insertAttribute name="body"/>
 </div>
 
