@@ -6,14 +6,22 @@
    String cp = request.getContextPath();
 %>
 
+<style>
+th {
+text-align: center;
+
+}
+
+</style>
+
 <div class="alert-info">
     <i class="fas fa-info-circle"></i>
-    1:1 문의 공간 입니다. 문의 결과를 이메일, 핸드폰등으로 확인 가능합니다.
+    1:1 문의 공간 입니다.
 </div>
 
 <table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px;">
    <tr height="35">
-      <td align="left" width="50%">
+      <td align="left" width="50%" style="padding-left: 20px;">
           ${dataCount}개(${pageNo}/${total_page} 페이지)
       </td>
       <td align="right">

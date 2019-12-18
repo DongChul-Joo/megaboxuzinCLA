@@ -14,7 +14,7 @@
     background-color: #d9edf7;
     color: #31708f;
     padding: 15px;
-    margin-top: 10px;
+    margin-top: 40px;
     margin-bottom: 20px;
 }
 </style>
@@ -179,19 +179,6 @@ function sendOk(mode, page) {
         return;
     }
     
-    if(tab=="inquiry" && mode=="created") {
-    	if(f.emailRecv.checked && ! f.email.value) {
-    		alert("이메일을 입력하세요. ");
-            f.email.focus();
-            return;
-    	}
-    	
-    	if(f.phoneRecv.checked && ! f.phone.value) {
-    		alert("전화번호를 입력하세요. ");
-            f.phone.focus();
-            return;
-    	}
-    }
 	
     var url="<%=cp%>/customer/"+tab+"/"+mode;
     var query = new FormData(f); // IE는 10이상에서만 가능
@@ -288,7 +275,7 @@ function deleteBoard(num, page, mode) {
 
 </script>
 
-<div class="body-container" style="width: 66%; padding-top: 30px" >
+<div class="body-container" style="width: 60%; padding-top: 30px" >
     <div class="body-title" style="border: none;">
         <h3><i class="fas fa-phone-square"></i> 고객센터 </h3>
     </div>

@@ -3,13 +3,18 @@
 <mapper namespace="question">
 
 	<insert id="insertQuestion1" parameterType="com.sp.customer.question.Question">
-		INSERT INTO question (qcode, qsubject, qcontent, qisanswer, qcreated, userId) 
-		VALUES (#{QUESTION_seq.NEXTVAL}, #{qsubject}, #{qcontent} , #{qisanswer} ,#{qcreated}, #{userId})
+		INSERT INTO question (code, subject, content, isAnswer, userId) 
+		VALUES (QUESTION_seq.NEXTVAL, #{subject}, #{content} , #{isAnswer} , #{userId})
 	</insert>
 	
 	<insert id="insertQuestion2" parameterType="com.sp.customer.question.Question">
-		INSERT INTO questionanswer (qcode, asubject, acontent, acreated, userName, userId) 
-		VALUES (#{qcode} , #{asubject}, #{acontent} , #{acreated} ,#{userName}, #{userId})
+		INSERT INTO questionAnswer (code, subject, content, , userName, userId) 
+		VALUES (#{code} , #{subject}, #{content} ,#{userName}, #{userId})
+	</insert>
+	
+	<insert id="insertQuestion3" parameterType="com.sp.customer.question.Question">
+		INSERT INTO questionCate (cateCode, cateName) 
+		VALUES (questionCate_seq.NEXTVAL , #{cateName})
 	</insert>
 
 </mapper>

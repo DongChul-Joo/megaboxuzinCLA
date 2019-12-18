@@ -16,7 +16,15 @@ public class QuestionServiceImpl implements QuestionService{
 
 	@Override
 	public void insertQuestion(Question dto, String mode) throws Exception {
-		// TODO Auto-generated method stub
+			try {
+				
+				dao.insertData("question.insertQuestion1", dto);
+				dao.insertData("question.insertQuestion3", dto);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw e;
+			}
 		
 	}
 

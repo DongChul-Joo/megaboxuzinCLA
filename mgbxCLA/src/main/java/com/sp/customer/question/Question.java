@@ -1,46 +1,45 @@
 package com.sp.customer.question;
 
 public class Question {
-	private int qcode;
-	private String qsubject;
-	private String qcontent;
-	private int qisanswer;
-	private String qcreated;
+	private int code;
+	private String subject;
+	private String content;
+	private int isAnswer;
+	private String created;
 	private String userId;
-	private String asubject;
-	private String acontent;
-	private String acreated;
 	private String userName;
+	private int cateCode;
+	private String cateName;
 	
-	public int getQcode() {
-		return qcode;
+	public int getCode() {
+		return code;
 	}
-	public void setQcode(int qcode) {
-		this.qcode = qcode;
+	public void setCode(int code) {
+		this.code = code;
 	}
-	public String getQsubject() {
-		return qsubject;
+	public String getSubject() {
+		return subject;
 	}
-	public void setQsubject(String qsubject) {
-		this.qsubject = qsubject;
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
-	public String getQcontent() {
-		return qcontent;
+	public String getContent() {
+		return content;
 	}
-	public void setQcontent(String qcontent) {
-		this.qcontent = qcontent;
+	public void setContent(String content) {
+		this.content = content;
 	}
-	public int getQisanswer() {
-		return qisanswer;
+	public int getIsAnswer() {
+		return isAnswer;
 	}
-	public void setQisanswer(int qisanswer) {
-		this.qisanswer = qisanswer;
+	public void setIsAnswer(int isAnswer) {
+		this.isAnswer = isAnswer;
 	}
-	public String getQcreated() {
-		return qcreated;
+	public String getCreated() {
+		return created;
 	}
-	public void setQcreated(String qcreated) {
-		this.qcreated = qcreated;
+	public void setCreated(String created) {
+		this.created = created;
 	}
 	public String getUserId() {
 		return userId;
@@ -48,29 +47,23 @@ public class Question {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public String getAsubject() {
-		return asubject;
-	}
-	public void setAsubject(String asubject) {
-		this.asubject = asubject;
-	}
-	public String getAcontent() {
-		return acontent;
-	}
-	public void setAcontent(String acontent) {
-		this.acontent = acontent;
-	}
-	public String getAcreated() {
-		return acreated;
-	}
-	public void setAcreated(String acreated) {
-		this.acreated = acreated;
-	}
 	public String getUserName() {
 		return userName;
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-
+	public int getCateCode() {
+		return cateCode;
+	}
+	public void setCateCode(int cateCode) {
+		this.cateCode = cateCode;
+	}
+	public String getCateName() {
+		return cateName;
+	}
+	public void setCateName(String cateName) {
+		this.cateName = cateName;
+	}
+	
 }
