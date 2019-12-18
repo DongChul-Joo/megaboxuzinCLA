@@ -27,6 +27,7 @@ public class MemberController {
 	@RequestMapping(value="/member/member", method=RequestMethod.GET)
 	public String memberForm(Model model) {
 		// 회원가입 폼 
+		
 		model.addAttribute("mode", "member");
 		return ".member.member";
 	}

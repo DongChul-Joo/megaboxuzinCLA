@@ -24,12 +24,15 @@ public class MemberServiceImpl implements MemberService {
 					&& dto.getTel2().length() != 0 && dto.getTel3() != null && dto.getTel3().length() != 0)
 				dto.setTel(dto.getTel1() + "-" + dto.getTel2() + "-" + dto.getTel3());
 
-			long memberSeq = dao.selectOne("member.memberSeq");
+			int memberSeq = dao.selectOne("member.memberSeq");
+			
+			
 			dto.setCustomerCode(memberSeq);
 			dto.setEnabled(1);
 
 			// 회원정보 저장
 			dao.insertData("member.insertMember1", dto); // CUSTOMER 저장
+			
 			dao.insertData("member.insertMember2", dto); // MEMBER 저장
 
 			// 권한 저장
