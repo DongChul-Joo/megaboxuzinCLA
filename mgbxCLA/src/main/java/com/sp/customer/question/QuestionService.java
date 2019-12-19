@@ -16,5 +16,7 @@ public interface QuestionService {
 	public void updateQuestionQisanswer(Map<String, Object> map) throws Exception;
 	public void updateQuestion(Question dto) throws Exception;
 	public void deleteQuestion(int num) throws Exception;
+	public List<Question> listCategory(Map<String, Object> map);
+	
 
 }

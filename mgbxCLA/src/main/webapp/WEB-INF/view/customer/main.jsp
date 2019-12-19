@@ -210,12 +210,12 @@ function sendCancel(page) {
 }
 
 // 게시글 보기
-function articleBoard(num, page) {
+function articleBoard(code, page) {
 	var $tab = $(".tabs .active");
 	var tab = $tab.attr("data-tab");
 	
 	var url="<%=cp%>/customer/"+tab+"/article";
-	var query="num="+num;
+	var query="code="+code;
 	var search=$('form[name=customerSearchForm]').serialize();
 	query=query+"&pageNo="+page+"&"+search;
 	var selector = "#tab-content";

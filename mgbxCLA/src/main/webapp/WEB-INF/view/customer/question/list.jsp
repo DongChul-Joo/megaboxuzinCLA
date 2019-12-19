@@ -41,13 +41,13 @@ text-align: center;
  
  <c:forEach var="dto" items="${list}">
   <tr align="center" bgcolor="#ffffff" height="35" style="border-bottom: 1px solid #cccccc;"> 
-      <td>${dto.category}</td>
+      <td>${dto.cateName}</td>
       <td align="left" style="padding-left: 10px;">
-           <a href="javascript:articleBoard('${dto.num}', '${pageNo}');">${dto.subject}</a>
+           <a href="javascript:articleBoard('${dto.code}', '${pageNo}');">${dto.subject}</a>
       </td>
       <td>${dto.userName}</td>
       <td>${dto.created}</td>
-      <td>${dto.state=="0"?"답변대기":"답변완료"}</td>
+      <td>${dto.isAnswer=="0"?"답변대기":"답변완료"}</td>
   </tr>
 </c:forEach>
 

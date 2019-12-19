@@ -364,7 +364,7 @@
 						    <div class="swiper-wrapper">
 						      <div class="swiper-slide">
 						      	<div>
-				      				<img src="<%=cp%>/resource/images/eee1.jpg" height="300px;" width="300px;">
+				      				<img src="<%=cp%>/resource/images/eee1.jpg" height="330px;" width="300px;">
 					      			<div style="border: 1px solid #e4e4e4; height: 100px;">
 										<p style="margin-top: 10px;">MoonLight</p>
 										<button id="modal_opne_btn" class="btn btn-outline-primary1" type="button">상세정보</button>
@@ -380,7 +380,7 @@
 						      
 						      <div class="swiper-slide">
 						      	<div>
-				      				<img src="<%=cp%>/resource/images/eee2.jpg" height="300px;" width="300px;">
+				      				<img src="<%=cp%>/resource/images/eee2.jpg" height="330px;" width="300px;">
 				      				<div style="border: 1px solid #e4e4e4; height: 100px;">
 									<p style="margin-top: 10px;">MoonLight</p>
 									<button class="btn btn-outline-primary1">상세정보</button>
@@ -392,7 +392,7 @@
 						      <div class="swiper-slide">
 						      
 						      	<div>
-				      				<img src="<%=cp%>/resource/images/eee3.jpg" height="300px;" width="300px;">
+				      				<img src="<%=cp%>/resource/images/eee3.jpg" height="330px;" width="300px;">
 				      				<div style="border: 1px solid #e4e4e4; height: 100px;">
 									<p style="margin-top: 10px;">MoonLight</p>
 									<button class="btn btn-outline-primary1">상세정보</button>
@@ -404,7 +404,7 @@
 						      
 						      <div class="swiper-slide">
 						      	<div>
-				      				<img src="<%=cp%>/resource/images/eee4.jpg" height="300px;" width="300px;">
+				      				<img src="<%=cp%>/resource/images/eee4.jpg" height="330px;" width="300px;">
 				      				<div style="border: 1px solid #e4e4e4; height: 100px;">
 									<p style="margin-top: 10px;">MoonLight</p>
 									<button class="btn btn-outline-primary1">상세정보</button>

@@ -19,7 +19,6 @@ public class QuestionServiceImpl implements QuestionService{
 			try {
 				
 				dao.insertData("question.insertQuestion1", dto);
-				dao.insertData("question.insertQuestion3", dto);
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -30,14 +29,25 @@ public class QuestionServiceImpl implements QuestionService{
 
 	@Override
 	public int dataCount(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = 0;
+		try {
+			result = dao.selectOne("question.dataCount", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 
 	@Override
 	public List<Question> listQuestion(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Question> list  = null;
+		try {
+			list = dao.selectList("question.listQuestion", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 	@Override
@@ -68,6 +78,19 @@ public class QuestionServiceImpl implements QuestionService{
 	public void deleteQuestion(int num) throws Exception {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<Question> listCategory(Map<String, Object> map) {
+		List<Question> list = null;
+		
+			try {
+				list = dao.selectList("question.listCategory" , map);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+		return list;
 	}
 
 }

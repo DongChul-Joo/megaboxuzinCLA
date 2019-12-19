@@ -6,6 +6,7 @@
    String cp = request.getContextPath();
 %>
 
+
 <div class="alert-info">
     <i class="fas fa-info-circle"></i>
     1:1 문의 공간 입니다.
@@ -26,11 +27,11 @@
   <tr align="left" height="50" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
       <td width="100" bgcolor="#eeeeee" style="text-align: center;">구&nbsp;&nbsp;&nbsp;&nbsp;분</td>
       <td style="padding-left:10px;"> 
-           <select name="cateName" class="selectField">
-               <option value="스터디" ${dto.cateName=="스터디"?"selected='selected'":"" }>스터디</option>
-               <option value="결제문의" ${dto.cateName=="결제문의"?"selected='selected'":"" }>결제문의</option>
-               <option value="회원가입" ${dto.cateName=="회원가입"?"selected='selected'":"" }>회원가입</option>
-               <option value="기타문의" ${dto.cateName=="기타문의"?"selected='selected'":"" }>기타문의</option>
+           <select name="cateCode" class="selectField">
+               <option value="">::분류선택::</option>
+	               <c:forEach var="vo" items="${list}">
+	               		<option value="${vo.cateCode}">${vo.cateName}</option>
+	               </c:forEach>
            </select>
       </td>
   </tr>
