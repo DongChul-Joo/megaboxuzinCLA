@@ -169,7 +169,7 @@ function userIdCheck() {
 }
 
 </script>
-<div class="body-container" style="width: 700px; padding-top: 30px;" >
+<div class="body-container" style="width: 700px; padding-top: 50px;" >
     <div class="body-title">
         <h3><span style="font-family: Webdings"></span> ${mode=="member"?"회원 가입":"회원 정보 수정"} </h3>
     </div>

@@ -68,7 +68,7 @@ public class MailSender {
 	    	  
 	          //String username =  "아이디@naver.com"; // 네이버 사용자;
 	          String username =  "아이디@gmail.com"; // gmail 사용자;  
-	          String password = "패스워드"; // 패스워드;  
+	          String password = "비밀번호"; // 패스워드;  
 	          return new PasswordAuthentication(username, password);  
 	       }  
 	}
@@ -130,7 +130,7 @@ public class MailSender {
 		// SMTP 서버의 계정 설정   
 		// Naver와 연결할 경우 네이버 아이디
 		// Gmail과 연결할 경우 Gmail 아이디
-		p.put("mail.smtp.user", "아이디");   
+		p.put("mail.smtp.user", "아이디@gmail.com");   
   
 		// SMTP 서버 정보 설정   
 		//p.put("mail.smtp.host", "smtp.naver.com"); // 네이버   
@@ -166,7 +166,7 @@ public class MailSender {
 			msg.setSubject(dto.getSubject());
 			
 			// HTML 형식인 경우 \r\n을  <br>로 변환
-			if(mailType.indexOf("text/html") != -1) {
+			if(mailType.indexOf("text/html") == -1) {
 				dto.setContent(myUtil.htmlSymbols(dto.getContent()));
 			}
 			makeMessage(msg, dto);

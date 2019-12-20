@@ -285,7 +285,7 @@ function deleteBoard(num, page, mode) {
 	           <ul class="tabs">
 			       <li id="" data-tab="notice">공지사항</li>
 			       <li id="tab-question" data-tab="question">1:1문의</li>
-			       <!-- <li id="" data-tab="">질문답변</li> -->
+			       <li id="" data-tab="">질문답변</li>
 			   </ul>
 		   </div>
 		   <div id="tab-content" style="clear:both; padding: 20px 10px 0px;"></div>

@@ -48,6 +48,15 @@
 	</select>
 	
 	
+	<select id="readMember3" parameterType="String" resultType="com.sp.member.Member">
+		SELECT m1.customerCode, userId, userName, userPwd, enabled, created_date, last_login
+		            ,TO_CHAR(birth, 'YYYY-MM-DD') birth, email, tel
+		FROM CUSTOMER m1
+		JOIN member m2 ON m1.customerCode = m2.customerCode
+		WHERE email = #{email}
+	</select>
+	
+	
 	
 	<!-- 회원정보 수정 -->
 	<update id="updateMemberEnabled" parameterType="map">

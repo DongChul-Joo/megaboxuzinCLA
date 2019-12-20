@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.sp.common.dao.CommonDAO;
@@ -19,6 +20,9 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MailSender mailSender;
 
+	@Autowired 
+	private BCryptPasswordEncoder bcryptEncoder;
+	
 	@Override
 	public void insertMember(Member dto) throws Exception {
 		try {
@@ -171,7 +175,8 @@ public class MemberServiceImpl implements MemberService {
 				Random rd = new Random();
 				String s="!@#$%^&*~-+ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
 				for(int i=0; i<10; i++) {
-					sb.append(rd.nextInt(s.length()));
+					int n = rd.nextInt(s.length());
+					sb.append(s.substring(n, n+1));
 				}
 				
 				String result;
@@ -190,11 +195,59 @@ public class MemberServiceImpl implements MemberService {
 				boolean b = mailSender.mailSend(mail);
 				
 				if(b) {
-					dto.setUserPwd(sb.toString());
+					String encPwd = bcryptEncoder.encode(sb.toString());
+					dto.setUserPwd(encPwd);
+	
 					updateMember(dto);
 				} else {
 					throw new Exception("이메일 전송중 오류가 발생했습니다.");
 				}
 		
+	}
+
+	@Override
+	public void generateId(Member dto) throws Exception {
+		
+		String result;
+		result = "고객님의 아이디는"+ dto.getUserId()+"입니다.";
+		
+		Mail mail = new Mail();
+		mail.setReceiverEmail(dto.getEmail());
+		
+		mail.setSenderEmail("clsrnemfdml@gmail.com");
+		mail.setSenderName("관리자");
+		mail.setSubject("아이디 발급");
+		mail.setContent(result);
+		
+		boolean b = mailSender.mailSend(mail);
+			
+	}
+
+	@Override
+	public Member readMember2(String email) {
+		Member dto = null;
+		try {
+			dto = dao.selectOne("member.readMember3" , email);
+						
+			if(dto!=null) {
+				if(dto.getEmail()!=null) {
+					String [] s=dto.getEmail().split("@");
+					dto.setEmail1(s[0]);
+					dto.setEmail2(s[1]);
+				}
+
+				if(dto.getTel()!=null) {
+					String [] s=dto.getTel().split("-");
+					dto.setTel1(s[0]);
+					dto.setTel2(s[1]);
+					dto.setTel3(s[2]);
+				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+				
+		return dto;
 	}
 }

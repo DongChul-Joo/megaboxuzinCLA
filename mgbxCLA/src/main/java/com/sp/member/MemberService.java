@@ -11,6 +11,8 @@ public interface MemberService {
 	
 	public Member readMember(String userId);
 	public Member readMember(long customerCode);
+	public Member readMember2(String email);
+	
 		
 	public void deleteMember(Map<String, Object> map) throws Exception;
 	
@@ -18,4 +20,5 @@ public interface MemberService {
 	public List<Member> listMember(Map<String, Object> map);
 	
 	public void generatePwd(Member dto) throws Exception;
+	public void generateId(Member dto) throws Exception;
 }

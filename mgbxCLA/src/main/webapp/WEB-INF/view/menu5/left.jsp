@@ -11,6 +11,8 @@
  height: 50px;
  text-align: center;
  padding-top: 15px;
+ 
+ 
 }
 
 .list-group-item lefthead {

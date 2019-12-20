@@ -237,5 +237,75 @@ public class MemberController {
 		return ".member.pwdFind";
 	}
 	
+	@RequestMapping(value="/member/pwdFind", method=RequestMethod.POST)
+	public String pwdFindSubmit(
+			@RequestParam String userId,
+			final RedirectAttributes reAttr,
+			Model model
+			) throws Exception {
+		
+		Member dto = service.readMember(userId);
+		if(dto==null || dto.getEmail()==null || dto.getEnabled()==0) {
+			model.addAttribute("message", "등록된 아이디가 아닙니다.");
+			return ".member.pwdFind";
+		}
+		
+		try {
+			
+			service.generatePwd(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("message", "이메일 전송이 실패했습니다.");
+			return ".member.pwdFind";			
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("회원님의 이메일로 임시패스워드를 전송했습니다.<br>");
+		sb.append("로그인 후 패스워드를 변경하시기 바랍니다.<br>");
+		
+		reAttr.addFlashAttribute("title", "패스워드 찾기");
+		reAttr.addFlashAttribute("message", sb.toString());
+		
+		return "redirect:/member/complete";
+	}
+	
+	@RequestMapping(value="/member/idFind", method=RequestMethod.GET)
+	public String idFindForm(HttpSession session) throws Exception {
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		if(info!= null) {
+			return "redirect:/";
+		}
+		return ".member.idFind";
+	}
+	
+	@RequestMapping(value="/member/idFind", method=RequestMethod.POST)
+	public String idFindSubmit(@RequestParam String email,
+			final RedirectAttributes reAttr,
+			Model model
+			) throws Exception {
+		
+		Member dto = service.readMember2(email);
+		if(dto==null || dto.getEnabled()==0) {
+			model.addAttribute("message", "등록된 이메일이 아닙니다.");
+			return ".member.idFind";
+		}
+		
+		try {
+			service.generateId(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("message", "이메일 전송이 실패했습니다.");
+			return ".member.idFind";
+		}
+		
+		StringBuilder sb=new StringBuilder();
+		sb.append("회원님의 이메일로 아이디를 전송했습니다.<br>");
+		
+		reAttr.addFlashAttribute("title", "아이디 찾기");
+		reAttr.addFlashAttribute("message", sb.toString());
+
+		return "redirect:/member/complete";
+	}
+	
 	
 }
