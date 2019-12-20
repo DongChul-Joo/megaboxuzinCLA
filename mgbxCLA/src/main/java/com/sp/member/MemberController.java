@@ -226,4 +226,16 @@ public class MemberController {
 		model.put("passed", p);
 		return model;
 	}
+	
+	@RequestMapping(value="/member/pwdFind", method=RequestMethod.GET)
+	public String pwdFindForm(HttpSession session) throws Exception {
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		if(info!=null) {
+			return "redirect:/";
+		}
+		
+		return ".member.pwdFind";
+	}
+	
+	
 }
