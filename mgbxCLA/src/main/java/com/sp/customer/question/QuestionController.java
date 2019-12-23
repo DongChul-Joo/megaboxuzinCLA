@@ -118,6 +118,34 @@ public class QuestionController {
 		return model;
 	}
 	
+	@RequestMapping(value="/customer/question/article")
+	public String article(
+			@RequestParam int code,
+			@RequestParam String pageNo,
+			HttpSession session,
+			Model model
+			) throws Exception {
+		
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		Question dto = service.readQuestion1(code);
+		Question adto = service.readQuestion2(code);
+		
+		if(dto==null) {
+			return "customer/error";
+			
+		}
+		
+		if(! info.getUserId().equals("admin") && ! info.getUserId().equals(dto.getUserId())) {
+			return "customer/error";
+		}
+
+		model.addAttribute("adto", adto);
+		model.addAttribute("dto", dto);
+		model.addAttribute("pageNo", pageNo);
+				
+		return "customer/question/article";
+		
+	}
 
 
 

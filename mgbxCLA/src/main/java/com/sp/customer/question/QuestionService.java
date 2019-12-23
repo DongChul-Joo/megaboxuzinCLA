@@ -11,7 +11,8 @@ public interface QuestionService {
 	public List<Question> listQuestion(Map<String, Object> map);
 	
 	public List<Question> relationQuestion(int num);
-	public Question readQuestion(int num);
+	public Question readQuestion1(int code);
+	public Question readQuestion2(int code);
 	
 	public void updateQuestionQisanswer(Map<String, Object> map) throws Exception;
 	public void updateQuestion(Question dto) throws Exception;

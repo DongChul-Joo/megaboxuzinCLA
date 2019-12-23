@@ -73,8 +73,34 @@
 		ORDER BY code DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
 	</select>
+	
+	
+	<select id="readQuestion1" resultType="com.sp.customer.question.Question" parameterType="Integer">
+		SELECT code, type, parent, isAnswer, q.userId, 
+			subject, content, created , userName , cateName
+		FROM QUESTION q   
+        JOIN member m ON q.userId = m.userId 
+        JOIN customer c ON m.customercode = c.customercode
+        JOIN QUESTIONCATE q2 ON q.catecode = q2.catecode
+		WHERE code = #{code}
+	</select>
+	
+	
+	<select id="readQuestion2" resultType="com.sp.customer.question.Question" parameterType="Integer">
+		SELECT code, q.userId , content, created
+		FROM QUESTIONANSWER q   
+        JOIN member m ON q.userId = m.userId 
+        JOIN customer c ON m.customercode = c.customercode
+		WHERE code = #{code}
+	</select>
+	
+	
+	<update id="updateQuestionQisanswer" parameterType="map">
+		UPDATE question SET isAnswer=#{isAnswer}
+		WHERE code = #{code}
+	</update>
+	
+	
+	
 
-	
-	
-	
 </mapper>

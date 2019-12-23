@@ -1,5 +1,6 @@
 package com.sp.customer.question;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,18 @@ public class QuestionServiceImpl implements QuestionService{
 	@Override
 	public void insertQuestion(Question dto, String mode) throws Exception {
 			try {
+				
+				if(mode.equals("reply")) {
+					dto.setType(1);
+					dto.setIsAnswer(1);
+					
+					Map<String, Object> map = new HashMap<String, Object>();
+					map.put("code", dto.getParent());
+					map.put("isAnswer", "1");
+					updateQuestionQisanswer(map);					
+				} else {
+					dto.setType(0);
+				}
 				
 				dao.insertData("question.insertQuestion1", dto);
 				
@@ -57,14 +70,37 @@ public class QuestionServiceImpl implements QuestionService{
 	}
 
 	@Override
-	public Question readQuestion(int num) {
-		// TODO Auto-generated method stub
-		return null;
+	public Question readQuestion1(int code) {
+		Question dto = null;
+		
+		try {
+			dto=dao.selectOne("question.readQuestion1", code);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
 	}
+	
+	@Override
+	public Question readQuestion2(int code) {
+		Question dto = null;
+		try {
+			dto=dao.selectOne("question.readQuestion2", code);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+
 
 	@Override
 	public void updateQuestionQisanswer(Map<String, Object> map) throws Exception {
-		// TODO Auto-generated method stub
+		try {
+			dao.updateData("question.updateQuestionQisanswer", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 		
 	}
 
@@ -93,4 +129,5 @@ public class QuestionServiceImpl implements QuestionService{
 		return list;
 	}
 
+	
 }

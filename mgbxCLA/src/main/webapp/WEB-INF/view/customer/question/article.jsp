@@ -18,7 +18,7 @@
   .questionSubject{
     display: inline-block;
     position:absolute;
-    width:748px;
+    width:1091px;
     overflow:hidden;
     text-overflow:ellipsis;
     word-spacing:nowrap;
@@ -40,7 +40,7 @@
   .answerSubject{
     display: inline-block;
     position:absolute;
-    width:748px;
+     width:1091px;
     overflow:hidden;
     text-overflow:ellipsis;
     word-spacing:nowrap;
@@ -60,73 +60,61 @@
 
 <table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
 
-<c:forEach var="vo" items="${list}" varStatus="vs">
-<c:if test="${vs.index==0}">
+
 	<tr height="35">
 	    <td colspan="2">
-	        <span class="questionQ">Q</span><span class="questionSubject">[${vo.category}] ${vo.subject}</span>
+	        <span class="questionQ">Q</span><span class="questionSubject">[${dto.cateName}] ${dto.subject}</span>
 	    </td>
 	</tr>
 	
 	<tr height="35" style="border-bottom: 1px solid #cccccc;">
 	    <td width="50%" align="left" style="padding-left: 5px;">
-	         작성자 : ${vo.userName}
-	     <c:if test="${sessionScope.member.userId=='admin'}">(${vo.userId})</c:if>
+	         작성자 : ${dto.userName}
+	     <c:if test="${sessionScope.member.userId=='admin'}">(${dto.userId})</c:if>
 	    </td>
 	    <td width="50%" align="left" style="padding-right: 5px;">
-	        문의일자 : ${vo.created}
+	        문의일자 : ${dto.created}
 	    </td>
 	</tr>
 	
-	<tr height="35" style="border-bottom: 1px solid #cccccc;">
-	    <td width="50%" align="left" style="padding-left: 5px;">
-	       이메일 : 이메일 답변 ${vo.emailRecv=="1"?"O":"X" }
-	           <c:if test="${not empty vo.email}">(${vo.email})</c:if>
-	    </td>
-	    <td width="50%" align="left" style="padding-right: 5px;">
-	       전화번호 : 문자 답변 ${vo.phoneRecv=="1"?"O":"X" }
-	           <c:if test="${not empty vo.phone}">(${vo.phone})</c:if>
-	    </td>
-	</tr>
 
 	<tr>
 	  <td colspan="2" align="left" style="padding: 10px 5px;" valign="top" height="90">
-	      ${vo.content}
+	      ${dto.content}
 	   </td>
 	</tr>
-</c:if>
 
-<c:if test="${vo.type==1}">
+
+<c:if test="${dto.type==0}">
 	<tr height="35">
 	    <td colspan="2">
-	       <span class="answerA">A</span><span class="answerSubject">[RE] ${vo.subject}</span>
+	       <span class="answerA">A</span><span class="answerSubject">[RE] ${dto.subject}</span>
 	    </td>
 	</tr>
 	<tr height="35" style="border-bottom: 1px solid #cccccc;">
 	    <td width="50%" align="left" style="padding-left: 5px;">
-	         담당자 : ${vo.userName}
+	         담당자 : ${adto.userId}
 	    </td>
 	    <td width="50%" align="left" style="padding-right: 5px;">
-	        답변일자 : ${vo.created}
+	        답변일자 : ${adto.created}
 	    </td>
 	</tr>
 	
 	<tr style="border-bottom: 1px solid #cccccc;">
 	  <td colspan="2" align="left" style="padding: 10px 5px;" valign="top" height="90">
-	      <div style="min-height: 75px; ">${vo.content}</div>
+	      <div style="min-height: 75px; ">${adto.content}</div>
 	      <c:if test="${sessionScope.member.userId=='admin'}">
 	         <div style="margin-top: 5px; margin-bottom: 5px; text-align: right;">
-                  <a href="javascript:deleteBoard('${vo.num}', '${pageNo}')">답변삭제</a>
+                  <a href="javascript:deleteBoard('${dto.code}', '${pageNo}')">답변삭제</a>
 	         </div>
 	      </c:if>
 	   </td>
 	</tr>
 </c:if>
-</c:forEach>
 
 <tr height="45" style="border-top: 1px solid #cccccc;">
     <td align="left">
-       <button onclick="javascript:deleteBoard('${dto.num}', '${pageNo}');" class="btn">문의삭제</button>
+       <button onclick="javascript:deleteBoard('${dto.code}', '${pageNo}');" class="btn">문의삭제</button>
 	</td>
 	<td align="right">
 	   <button type="button" class="btn" onclick="listPage('${pageNo}')">리스트</button>
@@ -154,11 +142,7 @@
     </tr>
 </table>
     <input type="hidden" name="subject" value="${dto.subject}">
-    <input type="hidden" name="category" value="${dto.category}">
-    <input type="hidden" name="parent" value="${dto.num}">
-    <input type="hidden" name="email" value="${dto.email}">
-    <input type="hidden" name="emailRecv" value="${dto.emailRecv}">
-    <input type="hidden" name="phone" value="${dto.phone}">
-    <input type="hidden" name="phoneRecv" value="${dto.phoneRecv}">
+    <input type="hidden" name="cateName" value="${dto.cateName}">
+    <input type="hidden" name="parent" value="${dto.code}">
 </form>
 </c:if>
