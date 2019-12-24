@@ -102,16 +102,16 @@ public class QuestionController {
 			HttpSession session
 			) throws Exception{
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
-		String qisanswer="true";
+		String isAnswer="true";
 		try {
 			dto.setUserId(info.getUserId());
 			service.insertQuestion(dto, "created");
 		} catch (Exception e) {		
-			qisanswer = "false";
+			isAnswer = "false";
 		}
 		
 		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("qisanswer", qisanswer);
+		model.put("isAnswer", isAnswer);
 		
 		
 		
@@ -146,7 +146,33 @@ public class QuestionController {
 		return "customer/question/article";
 		
 	}
-
-
+	
+	
+	@RequestMapping(value="/customer/question/reply" ,method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> replySubmit(
+			Question dto,
+			HttpSession session
+			) throws Exception {
+		
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		String isAnswer="false";
+		
+		if(info.getUserId().equals("admin")) {
+			try {
+				dto.setUserId(info.getUserId());
+				service.insertQuestionAnswer(dto, "reply");
+				isAnswer="true";			
+			} catch (Exception e) {
+				
+			}
+		}
+		
+		Map<String, Object> model = new HashMap<>();
+		model.put("isAnswer", isAnswer);
+		
+		return model;	
+		
+	}
 
 }

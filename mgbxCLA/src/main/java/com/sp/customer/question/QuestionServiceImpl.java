@@ -19,19 +19,7 @@ public class QuestionServiceImpl implements QuestionService{
 	public void insertQuestion(Question dto, String mode) throws Exception {
 			try {
 				
-				if(mode.equals("reply")) {
-					dto.setType(1);
-					dto.setIsAnswer(1);
-					
-					Map<String, Object> map = new HashMap<String, Object>();
-					map.put("code", dto.getParent());
-					map.put("isAnswer", "1");
-					updateQuestionQisanswer(map);					
-				} else {
-					dto.setType(0);
-				}
-				
-				dao.insertData("question.insertQuestion1", dto);
+				dao.insertData("question.insertQuestion1", dto);				
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -129,5 +117,30 @@ public class QuestionServiceImpl implements QuestionService{
 		return list;
 	}
 
+	@Override
+	public void insertQuestionAnswer(Question dto, String mode) throws Exception {
+		try {
+
+			if(mode.equals("reply")) {
+				dto.setType(1);
+				dto.setIsAnswer(1);
+				
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("code", dto.getParent());
+				map.put("isAnswer", "1");
+				map.put("type", "1");
+				updateQuestionQisanswer(map);					
+			} else {
+				dto.setType(0);
+			}
+			
+			dao.insertData("question.insertQuestion2", dto);				
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}	
+		
+	}
 	
 }

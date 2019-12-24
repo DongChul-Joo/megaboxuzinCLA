@@ -85,7 +85,7 @@
 	</tr>
 
 
-<c:if test="${dto.type==0}">
+<c:if test="${dto.type==1}">
 	<tr height="35">
 	    <td colspan="2">
 	       <span class="answerA">A</span><span class="answerSubject">[RE] ${dto.subject}</span>

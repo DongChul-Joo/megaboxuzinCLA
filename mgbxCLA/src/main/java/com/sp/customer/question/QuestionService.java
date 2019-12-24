@@ -6,6 +6,7 @@ import java.util.Map;
 public interface QuestionService {
 	
 	public void insertQuestion(Question dto, String mode) throws Exception;
+	public void insertQuestionAnswer(Question dto, String mode) throws Exception;
 	
 	public int dataCount(Map<String, Object> map);
 	public List<Question> listQuestion(Map<String, Object> map);

@@ -33,7 +33,7 @@
     <tiles:insertAttribute name="header"/>
 </div>
 
-<div class="container" style="height: 700px; padding-top: 20px;">
+<div class="container" style="height: 700px; padding-top: 20px; margin-left: 250px;">
     <div class="body-container">
         <div class="body-left">
             <tiles:insertAttribute name="left"/>

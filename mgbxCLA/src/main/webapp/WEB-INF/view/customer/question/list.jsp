@@ -14,10 +14,6 @@ text-align: center;
 
 </style>
 
-<div class="alert-info">
-    <i class="fas fa-info-circle"></i>
-    1:1 문의 공간 입니다.
-</div>
 
 <table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px;">
    <tr height="35">
@@ -31,7 +27,7 @@ text-align: center;
 </table>
 
 <table style="width: 100%; margin: 0px auto; border-spacing: 0px; border-collapse: collapse;">
-  <tr align="center" bgcolor="#eeeeee" height="35" style="border-top: 2px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+  <tr align="center" bgcolor="#f8f8f8" height="50" style="border-top: 2px solid #731070; border-bottom: 1px solid #cccccc;"> 
       <th width="80" style="color: #787878;">분류</th>
       <th style="color: #787878;">제목</th>
       <th width="100" style="color: #787878;">작성자</th>
@@ -40,7 +36,7 @@ text-align: center;
   </tr>
  
  <c:forEach var="dto" items="${list}">
-  <tr align="center" bgcolor="#ffffff" height="35" style="border-bottom: 1px solid #cccccc;"> 
+  <tr align="center" bgcolor="#ffffff" height="50" style="border-bottom: 1px solid #cccccc;"> 
       <td>${dto.cateName}</td>
       <td align="left" style="padding-left: 10px;">
            <a href="javascript:articleBoard('${dto.code}', '${pageNo}');">${dto.subject}</a>

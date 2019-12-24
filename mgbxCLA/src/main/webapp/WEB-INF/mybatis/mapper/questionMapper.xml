@@ -7,9 +7,9 @@
 		VALUES (QUESTION_seq.NEXTVAL, #{type}, #{parent}, #{subject}, #{content}, #{isAnswer} , #{userId} , #{cateCode})
 	</insert>
 	
-	<insert id="insertQuestion2" parameterType="com.sp.customer.question.Question">
-		INSERT INTO questionAnswer (code, subject, content, , userName, userId) 
-		VALUES (#{code} , #{subject}, #{content} ,#{userName}, #{userId})
+	<insert parameterType="com.sp.customer.question.Question" id="insertQuestion2">
+	INSERT INTO questionAnswer (code, content, userId)VALUES 
+	(#{parent} , #{content} , #{userId}) 
 	</insert>
 	
 	<select id="listCategory" parameterType="map" resultType="com.sp.customer.question.Question">
@@ -96,7 +96,7 @@
 	
 	
 	<update id="updateQuestionQisanswer" parameterType="map">
-		UPDATE question SET isAnswer=#{isAnswer}
+		UPDATE question SET isAnswer=#{isAnswer}, type=#{type}
 		WHERE code = #{code}
 	</update>
 	

@@ -13,7 +13,6 @@ public interface MemberService {
 	public Member readMember(long customerCode);
 	public Member readMember2(String email);
 	
-		
 	public void deleteMember(Map<String, Object> map) throws Exception;
 	
 	public int dataCount(Map<String, Object> map);

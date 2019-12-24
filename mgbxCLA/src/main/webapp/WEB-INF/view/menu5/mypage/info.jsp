@@ -20,6 +20,10 @@ height: 40px;
 text-align: center;
 }
 
+.body-content-container{
+width: 1100px;
+}
+
 
 </style>
 

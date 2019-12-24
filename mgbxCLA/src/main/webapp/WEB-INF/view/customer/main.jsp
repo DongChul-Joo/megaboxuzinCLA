@@ -253,12 +253,12 @@ function replyForm(num, page) {
 }
 
 // 글 삭제
-function deleteBoard(num, page, mode) {
+function deleteBoard(code, page, mode) {
 	var $tab = $(".tabs .active");
 	var tab = $tab.attr("data-tab");
 	var url="<%=cp%>/customer/"+tab+"/delete";
 	
-	var query="num="+num;
+	var query="code="+code;
 	if(tab=="qna") {
 		query+="&mode="+mode;
 	}
@@ -284,7 +284,9 @@ function deleteBoard(num, page, mode) {
             <div style="clear: both;">
 	           <ul class="tabs">
 			       <li id="" data-tab="notice">공지사항</li>
-			       <li id="tab-question" data-tab="question">1:1문의</li>
+			       <li id="tab-question" data-tab="question">
+			       <img src="<%=cp%>/resource/images/answer.png" width="50px;" height="50px;">
+			       1:1문의</li>
 			       <li id="" data-tab="">질문답변</li>
 			   </ul>
 		   </div>
