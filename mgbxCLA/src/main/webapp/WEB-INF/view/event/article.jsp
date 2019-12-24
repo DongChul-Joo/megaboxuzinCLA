@@ -157,7 +157,60 @@ $(function(){
 	});
 });
 
-// 댓글별 답글 개수
+//댓글별 답글 등록
+$(function(){
+	$("body").on("click", ".btnSendReplyAnswer", function(){
+		var ecode="${dto.ecode}";
+		var rcode = $(this).attr("data-rcode");
+		var $td = $(this).closest("td");
+		var content=$td.find("textarea").val().trim();
+		if(! content) {
+			$td.find("textarea").focus();
+			return false;
+		}
+		content = encodeURIComponent(content);
+		
+		var url="<%=cp%>/event/insertReply";
+		var query="ecode="+ecode+"&content="+content+"&answer="+rcode;
+		
+		var fn = function(data){
+			$td.find("textarea").val("");
+			
+			var state=data.state;
+			if(state=="true") {
+				listReplyAnswer(rcode);
+				// countReplyAnswer(rcode);
+			}
+		};
+		
+		ajaxJSON(url, "post", query, fn);
+		
+	});
+});
+
+//답글 버튼(댓글별 답글 등록폼 및 답글리스트)
+$(function(){
+	$("body").on("click", ".btnReplyAnswerLayout", function(){
+		var $trReplyAnswer = $(this).closest("tr").next();
+		
+		var isVisible = $trReplyAnswer.is(':visible');
+		var rcode = $(this).attr("data-rcode");
+			
+		if(isVisible) {
+			$trReplyAnswer.hide();
+		} else {
+			$trReplyAnswer.show();
+            
+			// 답글 리스트
+			listReplyAnswer(rcode);
+			// 답글 개수
+			countReplyAnswer(rcode);
+
+		}
+	});
+});
+
+//댓글별 답글 개수
 function countReplyAnswer(answer) {
 	var url = "<%=cp%>/event/countReplyAnswer";
 	var query = {answer:answer};
@@ -167,6 +220,7 @@ function countReplyAnswer(answer) {
 		var vid="#answerCount"+answer;
 		$(vid).html(count);
 	};
+	
 	ajaxJSON(url, "post", query, fn);
 }
 
@@ -175,10 +229,9 @@ function listReplyAnswer(answer) {
 	var url="<%=cp%>/event/listReplyAnswer";
 	var query = {answer:answer};
 	var selector = "#listReplyAnswer"+answer;
-	
+
 	ajaxHTML(url, "get", query, selector);
 }
-
 
 </script>
 

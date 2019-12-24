@@ -7,8 +7,9 @@ public class Reply {
 	private int ecode; // 이벤트 코드
 	private String content; // 내용
 	private String created; // 생성일
-	private String userId; // 유저 아이디
+	private String userId, userName; // 유저 아이디
 	
+	private int answerCount; // 답글 개수
 	private int like_Hate; // 좋아요 ,싫어요 
 
 	public int getRcode() {
@@ -65,6 +66,22 @@ public class Reply {
 
 	public void setLike_Hate(int like_Hate) {
 		this.like_Hate = like_Hate;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public int getAnswerCount() {
+		return answerCount;
+	}
+
+	public void setAnswerCount(int answerCount) {
+		this.answerCount = answerCount;
 	}
 	
 	

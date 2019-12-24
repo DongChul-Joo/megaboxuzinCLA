@@ -95,12 +95,17 @@
 	
 	<!-- 댓글 리스트 -->
 	<select id="listReply" parameterType="map" resultType="com.sp.event.Reply">
-		SELECT rcode, r.userId, userName, ecode, content, created
+		SELECT r.rcode, r.userId, userName, ecode, content, created,
+				NVL(answerCount, 0) answerCount
 		FROM eventReply r
 		JOIN member  m ON r.userId = m.userId
 		JOIN customer  c ON m.customerCode = c.customerCode
+		LEFT OUTER JOIN (
+			SELECT answer, COUNT(*) answerCount
+			FROM eventReply WHERE answer!=0 GROUP BY answer
+		) a ON r.rcode = a.answer
 		WHERE ecode=#{ecode} AND answer=0
-		ORDER BY ecode DESC
+		ORDER BY r.rcode DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
 	</select>
 	

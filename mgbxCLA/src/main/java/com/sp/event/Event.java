@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class Event {
 	private int ecode; // 이벤트 코드
 	private int rcode; // 댓글 코드
-	private String userId; // 회원 아이디
+	private String userId, userName; // 회원 아이디
 	private String sdate; // 시작날짜
 	private String edate; // 종료날짜
 	private String subject; // 제목
@@ -115,6 +115,12 @@ public class Event {
 	}
 	public void setUpload(MultipartFile upload) {
 		this.upload = upload;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 }

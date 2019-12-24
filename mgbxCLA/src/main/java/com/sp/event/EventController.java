@@ -222,7 +222,7 @@ public class EventController {
 	}
 	
 	// 댓글의 답글 개수
-	@RequestMapping(value="/evetn/countReplyAnswer")
+	@RequestMapping(value="/event/countReplyAnswer")
 	@ResponseBody
 	public Map<String, Object> countReplyAnswer(
 			@RequestParam(value="answer") int answer
@@ -235,12 +235,13 @@ public class EventController {
 		
 		return model;
 	}
+	
 	// 댓글의 답글 리스트
 	@RequestMapping(value="/event/listReplyAnswer")
 	public String listReplyAnswer(
 			@RequestParam int answer,
 			Model model
-			) {
+			) throws Exception {
 		
 		List<Reply> listReplyAnswer=service.listReplyAnswer(answer);
 		for(Reply dto : listReplyAnswer) {
