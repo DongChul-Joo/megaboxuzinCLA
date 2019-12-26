@@ -24,13 +24,17 @@ text-align: center;
 width: 1100px;
 }
 
+.cancle {
+font-size: 18px;
+}
+
 
 </style>
 
 <div class="body-content-container">
      <div class="body-title">
-     		<h3>나의 예매내역</h3>
-         	<h6>지난 1개월까지의 예매내역을 확인하실 수 있으며, 영수증은 신용카드 결제 내역만 출력 가능합니다.</h6>
+     		<h1>나의 예매내역</h1>
+         	<h4>지난 1개월까지의 예매내역을 확인하실 수 있으며, 영수증은 신용카드 결제 내역만 출력 가능합니다.</h4>
 
      </div>
      
@@ -42,7 +46,7 @@ width: 1100px;
      	</div>
      
      <div class="body-title2">
-     		<h3>My 취소내역</h3><h6>상영일 기준 지난 7일 동안의 취소내역입니다.</h6>
+     		<h1>My 취소내역</h1><h4>상영일 기준 지난 7일 동안의 취소내역입니다.</h4>
 
      </div>
      <div>

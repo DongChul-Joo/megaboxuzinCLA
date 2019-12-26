@@ -15,14 +15,15 @@
    
 }
 .loginTF {
-  width: 350px; height: 35px;
+  width: 372px; height: 35px;
   padding: 5px;
   padding-left: 15px;
   border: 1px solid;
-  color:#e4e4e4;
+  color:black;
   margin-top:5px; margin-bottom:5px;
   font-size:14px;
   border-radius:4px;
+  border-color: #e4e4e4;
   
 }
 </style>
@@ -66,7 +67,7 @@
 		      <td>
 		       		<a href="<%=cp%>/member/idFind">아이디찾기</a>&nbsp;&nbsp;&nbsp;
 		       		<a href="<%=cp%>/member/pwdFind">패스워드찾기</a>&nbsp;&nbsp;&nbsp;
-		       		<a href="<%=cp%>/">비회원예매확인</a>&nbsp;&nbsp;
+		       		<a href="<%=cp%>/member/nonmembers">비회원예매확인</a>&nbsp;&nbsp;
 		       		<a href="<%=cp%>/member/member">회원가입</a>
 		      </td>
 		  </tr>

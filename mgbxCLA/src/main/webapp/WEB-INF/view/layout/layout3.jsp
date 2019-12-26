@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="<%=cp%>/resource/css/layout.css" type="text/css">
 <link rel="stylesheet" href="<%=cp%>/resource/jquery/css/smoothness/jquery-ui.min.css" type="text/css">
 <link rel="stylesheet" href="<%=cp%>/resource/bootstrap/css/bootstrap.css">
-<link href="https://fonts.googleapis.com/css?family=Amatic+SC|Architects+Daughter|Gaegu:300,400,700&display=swap&subset=korean" rel="stylesheet">
+
 <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Architects+Daughter|Do+Hyeon|Gaegu:300,400,700|Gamja+Flower|Jua|Noto+Serif+KR|Sunflower:300&display=swap&subset=korean" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Sunflower:300&display=swap&subset=korean" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">

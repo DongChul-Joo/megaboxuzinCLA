@@ -285,7 +285,9 @@ function deleteBoard(code, page, mode) {
 	           <ul class="tabs">
 			       <li id="" data-tab="notice">공지사항</li>
 			       <li id="tab-question" data-tab="question">
+			       <a href="<%=cp%>/member/login">
 			       <img src="<%=cp%>/resource/images/answer.png" width="50px;" height="50px;">
+			       </a>
 			       1:1문의</li>
 			       <li id="" data-tab="">질문답변</li>
 			   </ul>

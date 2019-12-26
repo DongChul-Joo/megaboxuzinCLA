@@ -80,7 +80,8 @@
     color: #ffffff;    
     background-color: black;    
     border-color: black;
-    font-family: "Malgun Gothic", "Nanum Gothic", "Dotum";
+    /* font-family: "Malgun Gothic", "Nanum Gothic", "Dotum"; */
+    font-family: 'Do Hyeon', sans-serif;
     font-size: 14px;
     font-weight: bold;    
 }

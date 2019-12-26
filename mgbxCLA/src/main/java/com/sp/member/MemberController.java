@@ -307,5 +307,13 @@ public class MemberController {
 		return "redirect:/member/complete";
 	}
 	
+	@RequestMapping(value="/member/nonmembers", method=RequestMethod.GET)
+	public String nonmemberReservationForm() {
+		
+		
+		return ".member.nonmembers";
+	}
+	
+	
 	
 }

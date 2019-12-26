@@ -10,8 +10,8 @@
 .list-group-item {
  height: 50px;
  text-align: center;
- padding-top: 15px;
- 
+ padding-top: 14px;
+ font-size: 17px;
  
 }
 
@@ -35,7 +35,6 @@ $(function(){
        <a href="<%=cp%>/mypage/info" class="list-group-item">멤버십정보</a>
        <a href="<%=cp%>/mypage/membership" class="list-group-item">스토어 구매내역</a>
        <a href="#" class="list-group-item">나의무비스토리</a>
-       <a href="#" class="list-group-item">나의문의내역</a>
        <a href="<%=cp%>/member/pwd" class="list-group-item">정보수정</a>
     <c:if test="${sessionScope.member.userId!='admin' }">
 	    <a href="<%=cp%>/member/pwd?dropout" class="list-group-item">회원탈퇴</a>

@@ -13,7 +13,7 @@
    color: #999999; font-size: 11pt;
 }
 .loginTF {
-  width: 340px; height: 35px;
+  width: 360px; height: 35px;
   padding: 5px;
   padding-left: 15px;
   border:1px solid #999999;
@@ -55,7 +55,7 @@
         </div>
 	
 		<form name="pwdFindForm" method="post" action="">
-		  <table style="width:100%; margin: 20px auto; padding:30px;  border-collapse: collapse; border: 1px solid #DAD9FF;">
+		  <table style="width:100%; margin: 20px auto; padding:30px;  border-collapse: collapse; border: 1px solid #060606;">
 		  <tr style="height:50px;"> 
 		      <td style="text-align: center;">
 		          회원 아이디를 입력 하세요.
