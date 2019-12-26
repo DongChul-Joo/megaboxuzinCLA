@@ -27,7 +27,7 @@
 	       <td width='50%' style='padding:5px 5px; border:1px solid #cccccc; border-left:none;' align='right'>
 	           <span>${vo.created}</span> |
 	                <span class="deleteReply" style="cursor: pointer;" data-rcode='${vo.rcode}' data-pageNo='${pageNo}'>삭제</span>
-	           		<span class="notifyReply">신고</span>
+	           		<button type='button' class='btn btnSendReplyReport' data-rcode='${vo.rcode}' data-reportCount='1' title="신고"> 신고 <span>${vo.reportCount}</span></button>
 	        </td>
 	    </tr>
 	    <tr>
@@ -41,8 +41,8 @@
 	            <button type='button' class='btn btnReplyAnswerLayout' data-rcode='${vo.rcode}'>답글 <span id="answerCount${vo.rcode}">${vo.answerCount}</span></button>
 	        </td>
 	        <td style='padding:7px 5px;' align='right'>
-                <button type='button' class='btn btnSendReplyLike' title="좋아요"><i class="far fa-hand-point-up"></i> <span>좋아요</span></button>
-                <button type='button' class='btn btnSendReplyLike' title="싫어요"><i class="far fa-hand-point-down"></i> <span>싫어요</span></button>	        
+                <button type='button' class='btn btnSendReplyLike' data-rcode='${vo.rcode}' data-like_Hate='1'  title="좋아요"> 좋아요 <span>${vo.likeCount}</span></button>
+                <button type='button' class='btn btnSendReplyLike' data-rcode='${vo.rcode}' data-like_Hate='0' title="싫어요"> 싫어요 <span>${vo.disLikeCount}</span></button>	        
 	        </td>
 	    </tr>
 	    

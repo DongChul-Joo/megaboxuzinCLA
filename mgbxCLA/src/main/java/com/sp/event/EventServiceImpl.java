@@ -118,13 +118,33 @@ public class EventServiceImpl implements EventService{
 	}
 	@Override
 	public void insertReplyLike(Map<String, Object> map) throws Exception {
-		// TODO Auto-generated method stub
+		try {
+			dao.insertData("event.insertReplyLike", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 		
 	}
 	@Override
 	public Map<String, Object> replyLikeCount(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, Object> countMap=null;
+		try {
+			countMap=dao.selectOne("event.replyLikeCount", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return countMap;
+	}
+	@Override
+	public void insertReplyReport(Map<String, Object> map) throws Exception {
+		try {
+			dao.insertData("event.insertReplyReport", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
 	}
 	
 }

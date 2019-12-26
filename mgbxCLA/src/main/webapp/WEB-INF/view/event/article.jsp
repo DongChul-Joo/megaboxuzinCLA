@@ -233,6 +233,87 @@ function listReplyAnswer(answer) {
 	ajaxHTML(url, "get", query, selector);
 }
 
+//댓글별 답글 삭제
+$(function(){
+	$("body").on("click", ".deleteReplyAnswer", function(){
+		if(! confirm("게시물을 삭제하시겠습니까 ? "))
+		    return;
+		
+		var rcode=$(this).attr("data-rcode");
+		var answer=$(this).attr("data-answer");
+		
+		var url="<%=cp%>/event/deleteReply";
+		var query="rcode="+rcode+"&mode=answer";
+		
+		var fn = function(data){
+			listReplyAnswer(answer);
+			countReplyAnswer(answer);
+		};
+		
+		ajaxJSON(url, "post", query, fn);
+	});
+});
+
+// 댓글 좋아요 / 싫어요
+$(function(){
+	// 댓글 좋아요 / 싫어요 등록
+	$("body").on("click", ".btnSendReplyLike", function(){
+		var rcode=$(this).attr("data-rcode");
+		var like_Hate=$(this).attr("data-like_Hate");
+		var $btn = $(this);
+		var msg="댓글이 마음에 들지 않으십니까?";
+		if(like_Hate==1)
+			msg="댓글이 마음에 드십니까?";
+		if(! confirm(msg)) {
+			return false;
+		}
+		
+		var url="<%=cp%>/event/insertReplyLike";
+		var query="rcode="+rcode+"&like_Hate="+like_Hate;
+		
+		var fn = function(data){
+			var state=data.state;
+			if(state=="true") {
+				var likeCount=data.likeCount;
+				var disLikeCount=data.disLikeCount;
+				
+				$btn.parent("td").children().eq(0).find("span").html(likeCount);
+				$btn.parent("td").children().eq(1).find("span").html(disLikeCount);
+			} else if(state=="false") {
+				alert("댓글 좋아요와 싫어요는 한번만 가능합니다 ~ !!!");
+			}
+		};
+		ajaxJSON(url, "post", query, fn);
+	});
+});
+
+// 댓글 신고
+$(function(){
+	
+	$("body").on("click", ".btnSendReplyReport", function(){
+		var rcode=$(this).attr("data-rcode");
+		var $btn = $(this);
+		
+		var msg="이 글을 신고하시겠습니까?";
+		
+		var url="<%=cp%>/event/insertReplyReport";
+		var query="rcode="+rcode+"&userId="+userId;
+			
+		var fn = function(data) {
+			var state=data.state;
+			if(state=="true"){
+				var reportCount=data.reportCount;
+			
+				$btn.parent("td").children().eq(0).find("span").html(reportCount);
+			} else if(state=="false") {
+				alert("신고는 한번만 가능합니다.");
+			}
+		};
+		ajaxJSON(url, "post", query, fn);
+	});
+});
+
+
 </script>
 
  

@@ -1,5 +1,6 @@
 package com.sp.event;
 
+import java.math.BigDecimal;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -202,7 +203,7 @@ public class EventController {
 		return model;
 	}
 	
-	// 댓글 삭제
+	// 댓글 및 댓글의 답글 삭제
 	@RequestMapping(value="/event/deleteReply", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> deleteReply(
@@ -251,7 +252,79 @@ public class EventController {
 		model.addAttribute("listReplyAnswer", listReplyAnswer);
 		return "event/listReplyAnswer";
 	}
+	// 댓글의 좋아요/싫어요 추가 : AJAX-JSON
+	@RequestMapping(value="/event/insertReplyLike", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> insertReplyLike(
+			@RequestParam Map<String, Object> paramMap,
+			HttpSession session
+			) {
+		String state="true";
 		
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		Map<String, Object> model=new HashMap<>();
+		
+		try {
+			paramMap.put("userId", info.getUserId());
+			service.insertReplyLike(paramMap);
+		} catch (Exception e) {
+			state="false";
+		}
+		Map<String, Object> countMap=service.replyLikeCount(paramMap);
+		
+		int likeCount=((BigDecimal)countMap.get("LIKECOUNT")).intValue();
+		int disLikeCount=((BigDecimal)countMap.get("DISLIKECOUNT")).intValue();		
+		
+		model.put("likeCount", likeCount);
+		model.put("disLikeCount", disLikeCount);
+		model.put("state", state);
+		return model;
+	}
 	
+	// 댓글의 좋아요/싫어요 개수 : AJAX-JSON
+	@RequestMapping(value="/event/countReplyLike", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> countReplyLike(
+			@RequestParam Map<String, Object> paramMap,
+			HttpSession session
+			) {
+		
+		Map<String, Object> countMap=service.replyLikeCount(paramMap);
+		int likeCount=((BigDecimal)countMap.get("LIKECOUNT")).intValue();
+		int disLikeCount=((BigDecimal)countMap.get("DISLIKECOUNT")).intValue();
+		
+		Map<String, Object> model=new HashMap<>();
+		model.put("likeCount", likeCount);
+		model.put("disLikeCount", disLikeCount);
+			
+		return model;
+		}
+	// 댓글에 신고 추가
+	@RequestMapping(value="/event/insertReplyReport", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> insertReplyReport(
+			@RequestParam Map<String, Object> paramMap,
+			HttpSession session
+			) {
+		String state="true";
+		
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		Map<String, Object> model=new HashMap<>();
+		
+		try {
+			paramMap.put("userId", info.getUserId());
+			service.insertReplyLike(paramMap);
+		} catch (Exception e) {
+			state="false";
+		}
+		
+		Map<String, Object> countMap=service.replyLikeCount(paramMap);
+		
+		int reportCount=((BigDecimal)countMap.get("REPORTCOUNT")).intValue();
+		
+		model.put("reportCount", reportCount);
+		model.put("state", state);
+		return model;
+	}
 	
 }
