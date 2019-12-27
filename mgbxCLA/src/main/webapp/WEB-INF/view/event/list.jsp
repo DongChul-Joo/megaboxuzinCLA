@@ -73,10 +73,7 @@ function article(ecode) {
 		<li><a href="<%=cp%>/event/list?state=1&ecategoryCode=${ecategoryCode}">진행중 이벤트 | </a></li>
 		<li><a href="<%=cp%>/event/list?state=0&ecategoryCode=${ecategoryCode}">종료된 이벤트</a></li>
 	</ul>
-	<div style="width: 40%; height: 5%; float: right; margin: 10px;">
-		<input type="text" title="검색어 입력" placeholder="검색어를 입력하세요">
-		<button type="submit" onclick="">이미지</button>
-	</div>
+
 </div>
 <table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
 <c:forEach var="dto" items="${list}" varStatus="status">

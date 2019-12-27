@@ -289,24 +289,24 @@ $(function(){
 
 // 댓글 신고
 $(function(){
-	
 	$("body").on("click", ".btnSendReplyReport", function(){
 		var rcode=$(this).attr("data-rcode");
 		var $btn = $(this);
 		
-		var msg="이 글을 신고하시겠습니까?";
+		var msg="게시물을 신고하시겠습니까?";
+		if(! confirm(msg)) {
+			return false;
+		}
 		
 		var url="<%=cp%>/event/insertReplyReport";
-		var query="rcode="+rcode+"&userId="+userId;
-			
-		var fn = function(data) {
+		var query="rcode="+rcode;
+		
+		var fn = function(data){
 			var state=data.state;
-			if(state=="true"){
-				var reportCount=data.reportCount;
-			
-				$btn.parent("td").children().eq(0).find("span").html(reportCount);
+			if(state=="true") {
+				alert("게시물 신고를 완료했습니다.");
 			} else if(state=="false") {
-				alert("신고는 한번만 가능합니다.");
+				alert("게시물 신고는 한번만 가능합니다.");
 			}
 		};
 		ajaxJSON(url, "post", query, fn);
@@ -359,7 +359,7 @@ $(function(){
     </div>
     <div style="width: 80%; margin: 10px auto 0px; text-align: center;">
     	<a href="${dto.elink}">
-    		<img src="/mgbxAD/uploads/event/${dto.imageFilename}" width="70%" style="margin: 0px 10px;">
+    		<img src="/mgbxCLA/uploads/event/${dto.imageFilename}" width="70%" style="margin: 0px 10px;">
     	</a>
 
     </div>
@@ -368,7 +368,7 @@ $(function(){
 	<table style='width: 100%; margin: 15px auto 0px; border-spacing: 0px;'>
 		<tr height='30'> 
 			 <td align='left' >
-				<span style='font-weight: bold;' >댓글쓰기</span><span> - 타인을 비방하거나 개인정보를 유출하는 글의 게시를 삼가 주세요.</span>
+				<span style='font-weight: bold;'>댓글쓰기</span><span> - 타인을 비방하거나 개인정보를 유출하는 글의 게시를 삼가 주세요.</span>
 			 </td>
 		</tr>
 		<tr>

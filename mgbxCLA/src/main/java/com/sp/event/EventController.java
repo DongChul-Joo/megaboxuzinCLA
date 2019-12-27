@@ -313,16 +313,11 @@ public class EventController {
 		
 		try {
 			paramMap.put("userId", info.getUserId());
-			service.insertReplyLike(paramMap);
+			service.insertReplyReport(paramMap);
 		} catch (Exception e) {
 			state="false";
 		}
-		
-		Map<String, Object> countMap=service.replyLikeCount(paramMap);
-		
-		int reportCount=((BigDecimal)countMap.get("REPORTCOUNT")).intValue();
-		
-		model.put("reportCount", reportCount);
+
 		model.put("state", state);
 		return model;
 	}

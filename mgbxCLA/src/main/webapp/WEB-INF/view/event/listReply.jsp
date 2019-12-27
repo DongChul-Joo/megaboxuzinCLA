@@ -27,7 +27,7 @@
 	       <td width='50%' style='padding:5px 5px; border:1px solid #cccccc; border-left:none;' align='right'>
 	           <span>${vo.created}</span> |
 	                <span class="deleteReply" style="cursor: pointer;" data-rcode='${vo.rcode}' data-pageNo='${pageNo}'>삭제</span>
-	           		<button type='button' class='btn btnSendReplyReport' data-rcode='${vo.rcode}' data-reportCount='1' title="신고"> 신고 <span>${vo.reportCount}</span></button>
+	           		<button type='button' class='btnSendReplyReport' data-rcode='${vo.rcode}' title="신고"> 신고</button>
 	        </td>
 	    </tr>
 	    <tr>
