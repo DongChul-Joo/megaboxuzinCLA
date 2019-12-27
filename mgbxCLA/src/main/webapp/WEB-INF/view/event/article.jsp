@@ -15,8 +15,8 @@ margin:0px auto; width: 1000px;
 
 
 .ll li{
-display:block; width:130px; height:40px; background:tomato; color:#fff; border:1px black; font-size:12px; font-family:"돋움";
- text-align:center; padding-top:10px; text-decoration:none; float:left; list-style:none; margin: 1;
+display:block; width:140px; height:40px; background:#D5D5D5; color:#fff; border:1px black; font-size:12px; font-family:"돋움";
+ text-align:center; padding-top:10px; text-decoration:none; float:left; list-style:none; margin: 1; font-size: large;
  }
  
 .lo {
@@ -317,14 +317,9 @@ $(function(){
 </script>
 
  
- <div class="body-container" style="width: 1200px;">
+ <div class="body-container" style="width: 1000px;">
 
-<div style="width:100% ;height:100px; background: purple;">
-공백
-</div>
-
-
-<div style="width: 100%; height:100px; background-color: white; ">
+<div style="width: 1000px; height:100px; background-color: white; ">
     <ul class="ll" > 
         <li><a href="<%=cp%>/event/list?ecategoryCode=0">전체</a></li>
         <li><a href="<%=cp%>/event/list?ecategoryCode=1">메가박수진이벤트</a></li>
@@ -336,13 +331,13 @@ $(function(){
     </ul>
 </div>
 
-<div class="body-container" style="width: 700px;">
+<div class="body-container" style="width: 800px;">
     <div class="body-title">
         <h3><i class="far fa-image"></i> ${dto.subject} </h3>
     </div>
     
     <div>
-    	<table>
+    	<table style="width: 800px;">
     		<tr style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
         		<td width="40%" align="left" style="padding-right: 10px; border-spacing: 0px; border-collapse: collapse;">
 			    	 이벤트 기간 : ${dto.sdate} ~ ${dto.edate}
@@ -361,11 +356,10 @@ $(function(){
     	<a href="${dto.elink}">
     		<img src="/mgbxCLA/uploads/event/${dto.imageFilename}" width="70%" style="margin: 0px 10px;">
     	</a>
-
     </div>
 	</div>
 
-	<table style='width: 100%; margin: 15px auto 0px; border-spacing: 0px;'>
+	<table style='width: 800px; margin: 15px auto 0px; border-spacing: 0px;'>
 		<tr height='30'> 
 			 <td align='left' >
 				<span style='font-weight: bold;'>댓글쓰기</span><span> - 타인을 비방하거나 개인정보를 유출하는 글의 게시를 삼가 주세요.</span>

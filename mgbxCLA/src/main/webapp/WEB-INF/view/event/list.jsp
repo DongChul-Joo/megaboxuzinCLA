@@ -11,11 +11,13 @@ list-style:none;
 margin:0px auto; width: 1000px;
 }
 
-
+.title{
+font-size: X-large;
+}
 
 .ll li{
-display:block; width:130px; height:40px; background:tomato; color:#fff; border:1px black; font-size:12px; font-family:"돋움";
- text-align:center; padding-top:10px; text-decoration:none; float:left; list-style:none; margin: 1;
+display:block; width:140px; height:40px; background:#D5D5D5; color:#fff; border:1px black; font-size:12px; font-family:"돋움";
+ text-align:center; padding-top:10px; text-decoration:none; float:left; list-style:none; margin: 1; font-size: large;
  }
  
 .lo {
@@ -51,12 +53,9 @@ function article(ecode) {
 }
 </script>
 
-<div class="body-container" style="width: 1200px;">
+<div class="body-container" style="width: 1000px;">
 
-<div style="width:100% ;height:100px; background: purple;">
-</div>
-
-<div style="width: 100%; height:100px; background-color: white; ">
+<div style="width: 1000px; height:100px; background-color: white; ">
     <ul class="ll" > 
         <li><a href="<%=cp%>/event/list?ecategoryCode=0">전체</a></li>
         <li><a href="<%=cp%>/event/list?ecategoryCode=1">메가박수진이벤트</a></li>
@@ -75,29 +74,31 @@ function article(ecode) {
 	</ul>
 
 </div>
-<table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
+<table style="width: 1000px; margin: 80px auto; border-spacing: 0px;">
 <c:forEach var="dto" items="${list}" varStatus="status">
 	<c:if test="${dtatus.index==0}">
 		<tr>
 	</c:if>
-	<c:if test="${status.index!=0 && status.index%3==0}">
+	<c:if test="${status.index!=0 && status.index%4==0}">
     	<c:out value="</tr><tr>" escapeXml="false"/>
     </c:if>
-	<td width="210" align="center">
-		<div class="imglayout">
-			<img src="<%=cp%>/uploads/event/${dto.imageFilename}" width="180"
+	<td width="20px" align="center" style="padding-bottom: 30px">
+		<div>
+			<img src="<%=cp%>/uploads/event/${dto.imageFilename}" width="200"
 				height="180" border="0" onclick="article('${dto.ecode}');">
-			<span class="subject" onclick="javascript:article('${dto.ecode}');" ><br>
+		</div>
+		
+		<div style="height: 70px; width: 200px; border: 1px solid #BDBDBD; background-color: white;">
+			<span class="title" onclick="javascript:article('${dto.ecode}');" >
 				${dto.subject}<br>
-				${dto.sdate} ~ ${dto.edate}
-			</span>
-			
+				</span>
+				<span>${dto.sdate} ~ ${dto.edate}</span>
 		</div>
 	</td>     
 </c:forEach>
 	<c:set var="n" value="${list.size()}"/>
-	<c:if test="${n>0&&n%3!=0}">
-		        <c:forEach var="i" begin="${n%3+1}" end="3" step="1">
+	<c:if test="${n>0&&n%4!=0}">
+		        <c:forEach var="i" begin="${n%4+1}" end="4" step="1">
 			         <td width="210">
 			             <div class="imgLayout">&nbsp;</div>
 			         </td>
