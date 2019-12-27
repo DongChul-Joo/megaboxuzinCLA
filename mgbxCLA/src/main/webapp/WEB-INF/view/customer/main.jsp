@@ -283,13 +283,12 @@ function deleteBoard(code, page, mode) {
     <div>
             <div style="clear: both;">
 	           <ul class="tabs">
-			       <li id="" data-tab="notice">공지사항</li>
+			       <li id="notice" data-tab="notice">공지사항</li>
 			       <li id="tab-question" data-tab="question">
-			       <a href="<%=cp%>/member/login">
 			       <img src="<%=cp%>/resource/images/answer.png" width="50px;" height="50px;">
-			       </a>
 			       1:1문의</li>
-			       <li id="" data-tab="">질문답변</li>
+			       <li id="tab-menual" data-tab="menual">
+			         	질문답변</li>
 			   </ul>
 		   </div>
 		   <div id="tab-content" style="clear:both; padding: 20px 10px 0px;"></div>
