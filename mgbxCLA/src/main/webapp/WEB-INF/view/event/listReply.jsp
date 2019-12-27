@@ -6,12 +6,12 @@
 	String cp=request.getContextPath();
 %>
 
-<table style='width: 100%; margin: 10px auto 30px; border-spacing: 0px;'>
+<table style='width: 800px; margin: 10px auto 30px; border-spacing: 0px;'>
 	<thead id='listReplyHeader'>
 		<tr height='35'>
 		    <td colspan='2'>
 		       <div style='clear: both;'>
-		           <div style='float: left;'><span style='color: #3EA9CD; font-weight: bold;'>댓글  개</span> <span>[댓글 목록, ${pageNo}/${total_page} 페이지]</span></div>
+		           <div style='float: left;'><span style='color: #3EA9CD; font-weight: bold;'>댓글${replyCount}개</span> <span>[댓글 목록, ${pageNo}/${total_page} 페이지]</span></div>
 		           <div style='float: right; text-align: right;'></div>
 		       </div>
 		    </td>
