@@ -310,10 +310,26 @@ public class MemberController {
 	@RequestMapping(value="/member/nonmembers", method=RequestMethod.GET)
 	public String nonmemberReservationForm() {
 		
-		
 		return ".member.nonmembers";
 	}
 	
+	@RequestMapping(value="/member/nonmembers", method=RequestMethod.POST)
+	public String nonmemberReservationSubmit(
+			@RequestParam Map<String, Object> paramMap,
+			Model model
+			) {
+		
+		try {
+			Member dto = service.readNonMember(paramMap);
+			
+			model.addAttribute("dto", dto);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return ".member.nonmembersCheck";
+	}
 	
 	
 }

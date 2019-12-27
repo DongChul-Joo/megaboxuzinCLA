@@ -219,7 +219,7 @@ public class MemberServiceImpl implements MemberService {
 		mail.setSubject("아이디 발급");
 		mail.setContent(result);
 		
-		boolean b = mailSender.mailSend(mail);
+		mailSender.mailSend(mail);
 			
 	}
 
@@ -248,6 +248,19 @@ public class MemberServiceImpl implements MemberService {
 			e.printStackTrace();
 		}
 				
+		return dto;
+	}
+
+	@Override
+	public Member readNonMember(Map<String, Object> map) {
+		Member dto = null;
+
+		try {
+			dto = dao.selectOne("member.readNonMember", map);		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return dto;
 	}
 }

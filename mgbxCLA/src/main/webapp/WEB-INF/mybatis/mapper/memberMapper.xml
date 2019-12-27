@@ -85,7 +85,11 @@
                WHERE userId=#{userId}
     </update>
     
-    
+    <select id="readNonMember" parameterType="map" resultType="com.sp.member.Member">
+    	SELECT userName, birth, email, tel
+		FROM customer 
+		where userName=#{userName} AND birth=#{birth} AND email=#{email} AND tel=#{tel}
+    </select>
   
 
 </mapper>

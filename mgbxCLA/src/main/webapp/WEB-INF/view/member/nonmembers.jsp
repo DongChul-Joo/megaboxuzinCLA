@@ -20,6 +20,9 @@ function nonmemberOk() {
 	}
 	f.userName.value = str;
 	
+	f.action = "<%=cp%>/member/nonmembers";
+	f.submit();
+	
 }
 </script>
 
@@ -87,7 +90,7 @@ text-align: right;
 			<li class="reservation">
 				<label class="reservationput">이름</label>
 				<div>
-					<input class="reservationput1" type="text" name="userName">
+					<input class="reservationput1" type="text" name="userName" id="userName">
 				</div>
 			</li>
 		</ul>
@@ -96,7 +99,7 @@ text-align: right;
 			<li class="reservation">
 				<label class="reservationput">생년월일</label>
 				<div>
-					<input class="reservationput1" type="text" name="birth">
+					<input class="reservationput1" type="text" name="birth" id="birth">
 				</div>
 			</li>
 		</ul>
@@ -105,9 +108,7 @@ text-align: right;
 			<li class="reservation">
 				<label class="reservationput">휴대폰번호</label>
 				<div>
-					<input class="reservationput1" style="width: 61px;" name="tel1">-
-					<input class="reservationput1" style="width: 61px;" name="tel2">-
-					<input class="reservationput1" style="width: 61px;" name="tel3">
+					<input class="reservationput1" type="text" name="tel" id="tel">					
 				</div>
 			</li>
 		</ul>
@@ -116,7 +117,7 @@ text-align: right;
 			<li class="reservation">
 				<label class="reservationput">이메일</label>
 				<div>
-					<input class="reservationput1" type="text" name="email">
+					<input class="reservationput1" type="text" name="email" id="email">
 				</div>
 			</li>
 		</ul>
@@ -127,7 +128,7 @@ text-align: right;
 	
 	<div class="btn_wrap">
 		<button class="btn btn-outline-primary1" type="reset">취소</button>
-		<button class="btn btn-outline-primary1" type="button" onclick="nonmemberOk">확인</button>
+		<button class="btn btn-outline-primary1" type="button" onclick="nonmemberOk();">확인</button>
 	</div>
 	
 	</form>
@@ -138,6 +139,6 @@ text-align: right;
 		<li> > 비회원 로그인 시 비회원 예매 확인/취소 메뉴만 이용 가능합니다.</li>
 		<li> > 이외의 서비스는 회원 가입 후 이용 가능합니다.</li>
 	</ul>
-
-
+	
+	
 </div>
