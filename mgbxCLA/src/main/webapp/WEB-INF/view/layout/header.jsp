@@ -55,7 +55,7 @@
             
             
             <a class="btn btn-outline-primary" style="border: none; font-size: 18px; padding:3px; padding-top: 14px;" href="<%=cp%>/movie/newmovie">영화</a>
-            <a class="btn btn-outline-primary" style="border: none; font-size: 18px; padding:3px; padding-top: 14px;"  href="<%=cp%>/movieschedule/schedulecinema">영화관</a>
+            <a class="btn btn-outline-primary" style="border: none; font-size: 18px; padding:3px; padding-top: 14px;"  href="<%=cp%>/branchCla/branchCla">영화관</a>
             <a class="btn btn-outline-primary" style="border: none; font-size: 18px; padding:3px; padding-top: 14px;" href="<%=cp%>/event/list">이벤트</a>
             <a class="btn btn-outline-primary" style="border: none; font-size: 18px; padding:3px; padding-top: 14px;" href="<%=cp%>/store/store">스토어</a>
             <c:if test="${not empty sessionScope.member}">

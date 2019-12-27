@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="branchCla">
+
+<select id="listArea" resultType="com.sp.branchCla.BranchCla">
+	 SELECT parent, LISTAGG(areaName, '/') WITHIN GROUP(ORDER BY parent) areaName
+              FROM area
+              GROUP BY parent
+</select>
+
+<select id="listBranch" parameterType="Integer" resultType="com.sp.branchCla.BranchCla">
+	select branCode,branName from branch b 
+	join area a on b.areaCode=a.areaCode where parent=#{parent}
+</select>
+
+<select id="readBranch" parameterType="Integer" resultType="com.sp.branchCla.BranchCla">
+	select branCode,branName,branZip,branAddr1,branAddr2,imageFilename from branch
+	where branCode=#{branCode}
+	
+</select>
+
+</mapper>
