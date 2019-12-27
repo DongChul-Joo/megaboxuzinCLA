@@ -11,7 +11,7 @@ public class Movie {
 	private String endDate;
 	
 	//영화 평점 테이블
-	private long movieScores;
+	private long movieScores; 
 	
 	//출연진 테이블
 	private String director;

@@ -7,7 +7,7 @@
 			FROM movie
 			WHERE endDate> SYSDATE
 	</select>
-	
+	 
 	
 	
 	

@@ -14,7 +14,7 @@ public class MovieController {
 	@RequestMapping(value="/movie/newmovie", method=RequestMethod.GET)
 	public String showingList(
 			Model model
-			) {
+			) { 
 		Movie dto = new Movie();
 		
 		try {

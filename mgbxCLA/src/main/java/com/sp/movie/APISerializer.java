@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class APISerializer {
 	// XML을 JSON으로 변환
 	/*
-		<dependency>
+		<dependency> 
 		    <groupId>org.json</groupId>
 		    <artifactId>json</artifactId>
 		    <version>20180813</version>

@@ -10,7 +10,7 @@ public class MovieServiceImpl implements MovieService{
 	@Autowired
 	private CommonDAO dao;
 	
-	@Override
+	@Override 
 	public Movie readMovie() {
 		Movie dto =null;
 		try {
