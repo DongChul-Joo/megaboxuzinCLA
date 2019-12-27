@@ -6,6 +6,9 @@ public class Movie {
 	private String audits;
 	private String thumbNail;
 	private String movieStory;
+	private String openDate;
+	private String startDate;
+	private String endDate;
 	
 	//영화 평점 테이블
 	private long movieScores;
@@ -23,6 +26,30 @@ public class Movie {
 	
 	//댓글 신고
 	private String reportUserId;
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getOpenDate() {
+		return openDate;
+	}
+
+	public void setOpenDate(String openDate) {
+		this.openDate = openDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
 
 	public int getMovieCode() {
 		return movieCode;

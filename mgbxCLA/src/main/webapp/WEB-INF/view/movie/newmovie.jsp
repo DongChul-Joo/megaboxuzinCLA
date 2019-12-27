@@ -5,6 +5,56 @@
 <%
 	String cp=request.getContextPath();
 %>
+<script type="text/javascript">
+
+jQuery(function(){
+	   jQuery(".movieDetail").click(function(){
+		  var url="<%=cp%>/movie/showingList";
+	      var query=;
+	      
+	      jQuery.ajax({
+	         type:"post"
+	         ,url:url
+	         ,data:query
+	         ,dataType:"json"
+	         ,success:function(data){
+	            console.log(data);
+	         // console.log(data.movieListResult.movieList[0].movieNm);
+	         	jQuery("#movieList").empty(); 
+	         	
+	         	for(var i=0; i<data.movieListResult.movieList.length; i++){
+	         		var tag;
+	         		var movieTitle= data.movieListResult.movieList[i].movieNm;
+	         		var movieCd= data.movieListResult.movieList[i].movieCd;
+	         		tag="<tr style='height:35px;'><td><a href='javascript:detailMovie(\""+movieCd+"\");'>"+"영화제목 :"+movieTitle;
+	         		
+				for(var j=0; j<data.movieListResult.movieList[i].directors.length; j++){
+	        	  		
+		        	  	var director = data.movieListResult.movieList[i].directors[j].peopleNm;
+		        	  	
+		        	  	tag+="&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"+"| 감독 명 :"+director+"</a></td>";
+	        	  	}
+	        	  	
+	        	  	tag+="</tr>">
+	        	  		
+	        	  	jQuery("#movieList").append(tag);
+	          }
+	         
+	          
+	         }
+	         ,error:function(e){
+	            console.log(e.responseText);
+	         }
+	      });
+	      
+	   });
+	   
+});  
+
+
+</script>
+
+
 <style>
 	*{margin:0;padding:0;}
 	
@@ -83,10 +133,10 @@ list-style: none;}
 			  <ul>
 			     <li style="margin-left: 50px;">
 			     
-			     
+			     <c:forEach var="vo" items="listMovie">
 			      <div class="a1" style="height: 420px; width: 230px; float: left; margin-top: 100px; padding-right: 245px">
 				      <div style="height: 336px; border: none; width: 230px;">
-				      	<img src="<%=cp%>/resource/images/eee1.jpg" width="230px;" height="336px;">
+				      	<img src="${vo.thumbNail}" width="230px;" height="336px;">
 				   	  </div>
 				   	  
 				   	  <div style="height: 51px; width: 230px; border: 1px solid #e4e4e4; background-color: white; ">
@@ -96,12 +146,17 @@ list-style: none;}
 				   	  
 				      	<div style=" height: 110px; border: 1px solid #e4e4e4; width: 230px; background-color: white;">
 				      		<div class="ccc">
-				      			<p class="ddd" style="font-size: 15pt;">Moon Light</p>
-				      			<button class="btn btn-outline-primary1">상세정보</button>
+				      			<p class="ddd" style="font-size: 15pt; width: 20%">${vo.audits}</p>
+				      			<p class="ddd" style="font-size: 15pt; width: 80%">${vo.movieNm}</p>
+				      			<button type="button" name ="movieDetail" class="btn btn-outline-primary1">상세정보</button>
 				      			<button class="btn btn-outline-primary1">예매하기</button>
 				      		</div>
 				      </div>
 			      </div>
+			      </c:forEach>
+			      
+			      
+			      
 			      
 			       <div class="a1" style="height: 420px; width: 230px; float: left; margin-top: 100px; padding-right: 245px">
 				      <div style="height: 336px; border: none; width: 230px;">
