@@ -78,8 +78,8 @@ list-style: none;}
 			 </div>
 		</div>	
 
-	<div style="width: 100%; min-height: 300px; margin-top:20px; background-color: #f2f2f2 ">
-		<div style="width: 90%;margin: 0 auto;">
+	
+		<div style="width: 90%;margin: 0 auto; height: 100px;">
 			  <ul>
 			     <li style="margin-left: 50px;">
 			     
@@ -222,138 +222,7 @@ list-style: none;}
 			       <li style="margin-left: 50px;">
 			     
 			     
-			      <div class="a1" style="height: 420px; width: 230px; float: left; margin-top: 100px; padding-right: 245px">
-				      <div style="height: 336px; border: none; width: 230px;">
-				      	<img src="<%=cp%>/resource/images/eee1.jpg" width="230px;" height="336px;">
-				   	  </div>
-				   	  
-				   	  <div style="height: 51px; width: 230px; border: 1px solid #e4e4e4; background-color: white; ">
-					   	 <span style="float:left; font-size: 15pt;">평점 : 9.5</span>
-					   	 <span style="float:right; margin-right:5px; font-size: 15pt;">★★★★☆</span>
-				   	  </div>
-				   	  
-				      	<div style=" height: 110px; border: 1px solid #e4e4e4; width: 230px; background-color: white;">
-				      		<div class="ccc">
-				      			<p class="ddd" style="font-size: 15pt;">Moon Light</p>
-				      			<button class="btn btn-outline-primary1">상세정보</button>
-				      			<button class="btn btn-outline-primary1">예매하기</button>
-				      		</div>
-				      </div>
-			      </div>
-			      
-			       <div class="a1" style="height: 420px; width: 230px; float: left; margin-top: 100px; padding-right: 245px">
-				      <div style="height: 336px; border: none; width: 230px;">
-				      	<img src="<%=cp%>/resource/images/eee2.jpg" width="230px;" height="336px;">
-				   	  </div>
-				   	  
-				   	  <div style="height: 51px; width: 230px; border: 1px solid #e4e4e4; background-color: white; ">
-					   	 <span style="float:left; font-size: 15pt;">평점 : 9.5</span>
-					   	 <span style="float:right; margin-right:5px; font-size: 15pt;">★★★★☆</span>
-				   	  </div>
-				   	  
-				      	<div style=" height: 110px; border: 1px solid #e4e4e4; width: 230px; background-color: white;">
-				      		<div class="ccc">
-				      			<p class="ddd" style="font-size: 15pt;">마센필라트2</p>
-				      			<button class="btn btn-outline-primary1">상세정보</button>
-				      			<button class="btn btn-outline-primary1">예매하기</button>
-				      		</div>
-				      </div>
-			      </div>
-			      
-			       <div class="a1" style="height: 420px; width: 230px; float: left; margin-top: 100px; padding-right: 245px">
-				      <div style="height: 336px; border: none; width: 230px;">
-				      	<img src="<%=cp%>/resource/images/eee3.jpg" width="230px;" height="336px;">
-				   	  </div>
-				   	  
-				   	  <div style="height: 51px; width: 230px; border: 1px solid #e4e4e4; background-color: white; ">
-					   	 <span style="float:left; font-size: 15pt;">평점 : 9.5</span>
-					   	 <span style="float:right; margin-right:5px; font-size: 15pt;">★★★★☆</span>
-				   	  </div>
-				   	  
-				      	<div style=" height: 110px; border: 1px solid #e4e4e4; width: 230px; background-color: white;">
-				      		<div class="ccc">
-				      			<p class="ddd" style="font-size: 15pt;">유리정원</p>
-				      			<button class="btn btn-outline-primary1">상세정보</button>
-				      			<button class="btn btn-outline-primary1">예매하기</button>
-				      		</div>
-				      </div>
-			      </div>
-			      
-			       <div class="a1" style="height: 420px; width: 230px; float: left; margin-top: 100px; padding-right: 245px">
-				      <div style="height: 336px; border: none; width: 230px;">
-				      	<img src="<%=cp%>/resource/images/eee4.jpg" width="230px;" height="336px;">
-				   	  </div>
-				   	  
-				   	  <div style="height: 51px; width: 230px; border: 1px solid #e4e4e4; background-color: white; ">
-					   	 <span style="float:left; font-size: 15pt;">평점 : 9.5</span>
-					   	 <span style="float:right; margin-right:5px; font-size: 15pt;">★★★★☆</span>
-				   	  </div>
-				   	  
-				      	<div style=" height: 110px; border: 1px solid #e4e4e4; width: 230px; background-color: white;">
-				      		<div class="ccc">
-				      			<p class="ddd" style="font-size: 15pt;">BlackSwan</p>
-				      			<button class="btn btn-outline-primary1">상세정보</button>
-				      			<button class="btn btn-outline-primary1">예매하기</button>
-				      		</div>
-				      </div>
-			      </div>
-			      
-			      <div class="a1" style="height: 420px; width: 230px; float: left; margin-top: 100px; padding-right: 245px">
-				      <div style="height: 336px; border: none; width: 230px;">
-				      	<img src="<%=cp%>/resource/images/eee4.jpg" width="230px;" height="336px;">
-				   	  </div>
-				   	  
-				   	  <div style="height: 51px; width: 230px; border: 1px solid #e4e4e4; background-color: white; ">
-					   	 <span style="float:left; font-size: 15pt;">평점 : 9.5</span>
-					   	 <span style="float:right; margin-right:5px; font-size: 15pt;">★★★★☆</span>
-				   	  </div>
-				   	  
-				      	<div style=" height: 110px; border: 1px solid #e4e4e4; width: 230px; background-color: white;">
-				      		<div class="ccc">
-				      			<p class="ddd" style="font-size: 15pt;">BlackSwan</p>
-				      			<button class="btn btn-outline-primary1">상세정보</button>
-				      			<button class="btn btn-outline-primary1">예매하기</button>
-				      		</div>
-				      </div>
-			      </div>
-			      
-			      <div class="a1" style="height: 420px; width: 230px; float: left; margin-top: 100px; padding-right: 245px">
-				      <div style="height: 336px; border: none; width: 230px;">
-				      	<img src="<%=cp%>/resource/images/eee4.jpg" width="230px;" height="336px;">
-				   	  </div>
-				   	  
-				   	  <div style="height: 51px; width: 230px; border: 1px solid #e4e4e4; background-color: white; ">
-					   	 <span style="float:left; font-size: 15pt;">평점 : 9.5</span>
-					   	 <span style="float:right; margin-right:5px; font-size: 15pt;">★★★★☆</span>
-				   	  </div>
-				   	  
-				      	<div style=" height: 110px; border: 1px solid #e4e4e4; width: 230px; background-color: white;">
-				      		<div class="ccc">
-				      			<p class="ddd" style="font-size: 15pt;">BlackSwan</p>
-				      			<button class="btn btn-outline-primary1">상세정보</button>
-				      			<button class="btn btn-outline-primary1">예매하기</button>
-				      		</div>
-				      </div>
-			      </div>
-			      
-			      <div class="a1" style="height: 420px; width: 230px; float: left; margin-top: 100px; padding-right: 245px">
-				      <div style="height: 336px; border: none; width: 230px;">
-				      	<img src="<%=cp%>/resource/images/eee4.jpg" width="230px;" height="336px;">
-				   	  </div>
-				   	  
-				   	  <div style="height: 51px; width: 230px; border: 1px solid #e4e4e4; background-color: white; ">
-					   	 <span style="float:left; font-size: 15pt;">평점 : 9.5</span>
-					   	 <span style="float:right; margin-right:5px; font-size: 15pt;">★★★★☆</span>
-				   	  </div>
-				   	  
-				      	<div style=" height: 110px; border: 1px solid #e4e4e4; width: 230px; background-color: white;">
-				      		<div class="ccc">
-				      			<p class="ddd" style="font-size: 15pt;">BlackSwan</p>
-				      			<button class="btn btn-outline-primary1">상세정보</button>
-				      			<button class="btn btn-outline-primary1">예매하기</button>
-				      		</div>
-				      </div>
-			      </div>
+			     
 			      
 			      </li>
 			      
@@ -361,4 +230,4 @@ list-style: none;}
 			    </ul>
 			    </div>	
 
-		  	</div>
+		
