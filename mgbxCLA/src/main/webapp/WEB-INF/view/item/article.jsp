@@ -160,8 +160,6 @@ $(function(){
 						</h3>		
 					<button type="button" class="btn" onclick="sendOk();">구매하기</button>
 					<button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/item/list';">뒤로가기</button>
-					<button type="button" class="btn" onclick="updateItem();">상품수정</button>
-					<button type="button" class="btn" onclick="deleteItem();">상품삭제</button>
 					
 					</form>
 				</li>
