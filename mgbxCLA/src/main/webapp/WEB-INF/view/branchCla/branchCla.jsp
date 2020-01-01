@@ -43,17 +43,52 @@ function ajaxHTML(url, type, query, selector) {
 }
 
 
+
+function listArea(parent){
+	var type="get";
+	var query="parent="+parent;
+	var url="<%=cp%>/branchCla/list";
+	var fn=function (data){
+		$("#listBranchs").empty();
+		 
+		if(data.length>0){
+			for(var i=0;i<data.length;i++){
+		  		var lb="<span><a href='javascript:readBranch(\""+data[i].branCode+"\")'>"+data[i].branName+"</a></span>";
+		  		$("#listBranchs").append(lb);
+			}
+		}else{
+			var lb="<span>해당 지역에는 지점이 존재하지 않습니다.</span>";
+	  		$("#listBranchs").append(lb);
+		}
+		
+	};
+	
+	ajaxJSON(url, type, query, fn);
+	
+}
+
+function readBranch(branCode){
+	var type="get";
+	var query="branCode="+branCode;
+	var url="<%=cp%>/branchCla/article";
+	var selector="#articleBranch";
+	
+	$("#articleBranch").empty();
+	
+	ajaxHTML(url, type, query, selector);
+	
+}
 </script>
 
 <div>
-	<div>
+	<div id="listAreas">
 		<c:forEach var="vo" items="${areaList}" >
-			<span><a href="javascript:listBranch('${vo.areaCode}')">${vo.areaName}</a></span>
+			<span><a href="javascript:listArea('${vo.parent}')">${vo.areaName}</a></span>
 		</c:forEach>
 	</div>
 	<div id="listBranchs">
 		<c:forEach var="dto" items="${branchList}" >
-			<span><a href="javascript:listBranch('${dto.branCode}')">${dto.branName}</a></span>
+			<span><a href="javascript:readBranch('${dto.branCode}')">${dto.branName}</a></span>
 		</c:forEach>
 	</div>
 	<div id="articleBranch">

@@ -6,12 +6,16 @@
 	String cp=request.getContextPath();
 %>
 	<div>
-	<div>
-		<p>${dto.branName}</p>
-	</div>
-	<div>
-		<p>우편번호 : ${dto.branZip}</p>
-		<p>주소 : ${dto.branAddr1+' '+dto.branAddr2}</p>
-	</div>
+		<div>
+			<p>${dto.branName}</p>
+		</div>
+		
+		<div style="width: 700px;height: 400px;background-image: url('http://localhost:9090/mgbxAD/branchImg/branch/${dto.imageFilename}');background-size: 100% 100%;">
+		
+			<div style="color: white;background-color: rgba( 000, 000, 000, 0.5 );">
+				  <p>우편번호 : ${dto.branZip}</p>
+			      <p>주소 : ${dto.branAddr1} ${dto.branAddr2}</p>
+			</div>
+		</div>
 	
 	</div>
