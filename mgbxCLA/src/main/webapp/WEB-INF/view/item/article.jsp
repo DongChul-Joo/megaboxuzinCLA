@@ -98,12 +98,12 @@ $(function(){
 
 <div class="body-container" style="min-height: 700px;margin-bottom: 20px;">
 	<div class="body-title">
-		<h3> 상품정보 </h3>
+		<h3 style="padding-top: 100px;"> 상품정보 </h3>
 	</div>
 
   <div style="clear: both;">
 	<div class="box1">
-		<h3 style="margin:border-bottom-width: 10px;margin-bottom: 10px;">판매기간 : 2019-12-19~</h3>
+		<h4 style="margin:border-bottom-width: 10px;margin-bottom: 10px;">판매기간 : 2019-12-19~</h4>
 			
 		 <p>
 			<img src="<%=cp%>/uploads/item/${dto.itemImg}" width="380">
@@ -115,8 +115,8 @@ $(function(){
 	
 	<div class="box2">
 		<div class="itemName" style="margin-bottom: 20px;padding-bottom: 10px; border-bottom: 2px #878787;">
-			<h2 style="margin-bottom: 10px;">${dto.itemName}</h2>
-			<h4 style="text-align: right; margin-right: 10px;">${dto.itemPart}</h4>
+			<h4 style="margin-bottom: 10px;">${dto.itemName}</h4>
+			<h5 style="text-align: right; margin-right: 10px;">${dto.itemPart}</h5>
 		</div>
 		<div class="itemDetail">
 			<ul class="detail">

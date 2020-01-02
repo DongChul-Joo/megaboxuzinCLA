@@ -17,6 +17,7 @@
     margin-top: 40px;
     margin-bottom: 20px;
 }
+
 </style>
 
 <script type="text/javascript" src="<%=cp%>/resource/jquery/js/jquery.form.js"></script>
@@ -224,16 +225,12 @@ function articleBoard(code, page) {
 }
 
 // 글 수정폼
-function updateForm(num, page) {
+function updateForm(code, page) {
 	var $tab = $(".tabs .active");
 	var tab = $tab.attr("data-tab");
 	
 	var url="<%=cp%>/customer/"+tab+"/update";
-	var query;
-	if(tab=="board")
-		query="boardNum="+num;
-	else
-		query="num="+num;
+	var query="code="+code;
 	query=query+"&pageNo="+page
 	var selector = "#tab-content";
 	
@@ -241,7 +238,7 @@ function updateForm(num, page) {
 }
 
 // 글 답변폼
-function replyForm(num, page) {
+function replyForm(code, page) {
 	var $tab = $(".tabs .active");
 	var tab = $tab.attr("data-tab");
 	
@@ -283,12 +280,15 @@ function deleteBoard(code, page, mode) {
     <div>
             <div style="clear: both;">
 	           <ul class="tabs">
-			       <li id="notice" data-tab="notice">공지사항</li>
+			       <li id="tab-notice" data-tab="notice">
+			        <img src="<%=cp%>/resource/images/notice.png" width="50px;" height="50px;">
+			       	공지사항</li>
 			       <li id="tab-question" data-tab="question">
 			       <img src="<%=cp%>/resource/images/answer.png" width="50px;" height="50px;">
 			       1:1문의</li>
 			       <li id="tab-menual" data-tab="menual">
-			         	질문답변</li>
+			       	<img src="<%=cp%>/resource/images/faq.png" width="50px;" height="50px;">
+			         	자주묻는질문</li>
 			   </ul>
 		   </div>
 		   <div id="tab-content" style="clear:both; padding: 20px 10px 0px;"></div>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice">
+	<select id="seq" resultType="Integer">
+		SELECT notice_seq.NEXTVAL FROM dual
+	</select>
+	
+	<insert id="insertNotice" parameterType="com.sp.customer.notice.Notice">
+		INSERT INTO notice(code, subject, content, userId)
+			VALUES(#{code}, #{subject}, #{content}, #{userId})
+	</insert>
+	
+	<insert id="insertNoticeFile" parameterType="com.sp.customer.notice.Notice">
+		INSERT INTO noticeFile(fileNum, saveFilename, originalFilename, fileSize, code)
+			VALUES(noticeFile_seq.NEXTVAL, #{saveFilename,jdbcType=VARCHAR}, #{originalFilename,jdbcType=VARCHAR}, #{fileSize}, #{code})
+	</insert>
+
+	<sql id="where-list">
+		<choose>
+			<when test="condition=='all' ">
+				( INSTR(content, #{keyword}) &gt; 0
+					OR DBMS_LOB.INSTR(content, #{keyword}) &gt; 0 )
+			</when>
+			<when test="condition=='subject'">
+				DBMS_LOB.INSTR(subject, #{keyword}) &gt; 0
+			</when>
+			<when test="condition=='created'">
+				( TO_CHAR(created, 'YYYY-MM-DD') = #{keyword}
+					OR TO_CHAR(created, 'YYYYMMDD') = #{keyword} )
+			</when>
+			<otherwise>
+				INSTR(${condition}, #{keyword}) &gt; 0 
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM notice n
+		JOIN member m ON n.userId=m.userId
+		<where>
+			<if test="keyword != null and keyword!='' ">
+				<include refid="where-list"/>
+			</if>
+		</where>
+	</select>
+	
+	<select id="listNotice" parameterType="map" resultType="com.sp.customer.notice.Notice">
+		SELECT code, subject, TO_CHAR(created, 'YYYY-MM-DD') created, n.userId,
+		(select NVL(count(*),0) from noticeFIle where code=48) fileCount
+		FROM notice n
+		JOIN member m ON n.userId=m.userId
+		<where>
+			<if test="keyword != null and keyword != ''">
+				<include refid="where-list"/>
+			</if>
+		</where>
+		ORDER BY code DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+	</select>
+	
+	<select id="readNotice" parameterType="Integer" resultType="com.sp.customer.notice.Notice">
+		SELECT code, subject, content, TO_CHAR(created, 'YYYY-MM-DD') created, n.userId
+		FROM notice n
+		JOIN member m ON n.userId=m.userId
+		WHERE code=  #{code}
+	</select>
+	
+	<select id="preReadNotice" parameterType="map" resultType="com.sp.customer.notice.Notice">
+		SELECT code, subject
+		FROM notice n
+		JOIN member m ON n.userId=m.userId
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (code &gt; #{code})
+		</where>
+		ORDER BY code ASC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<select id="nextReadNotice" parameterType="map" resultType="com.sp.customer.notice.Notice">
+		SELECT code, subject
+		FROM notice n
+		JOIN member m ON n.userId=m.userId
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-list"/>
+			</if>
+			AND (code &lt; #{code})
+		</where>
+		ORDER BY code DESC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<update id="updateNotice" parameterType="com.sp.customer.notice.Notice">
+		UPDATE notice SET subject=#{subject}, content=#{content}
+		WHERE code= #{code}
+	</update>
+	
+	<delete id="deleteNotice" parameterType="Integer">
+		DELETE FROM notice WHERE code = #{code}
+	</delete>
+	
+	<select id="listFile" parameterType="Integer" resultType="com.sp.customer.notice.Notice">
+		SELECT fileNum, saveFilename, originalFilename, code
+		FROM noticeFile
+		WHERE code=#{code}
+	</select>
+	
+	<select id="fileCount" parameterType="Integer" resultType="Integer">
+		SELECT NVL(count(*),0) from noticeFile
+		WHERE code=#{code}
+	</select>
+	
+	<select id="readFile" parameterType="Integer" resultType="com.sp.customer.notice.Notice">
+		SELECT fileNum, saveFilename, originalFilename, fileSize, code
+		FROM noticeFile
+		WHERE fileNum=#{fileNum}
+	</select>
+	
+	<delete id="deleteFile" parameterType="map">
+		DELETE FROM noticeFile WHERE ${field} = #{code}
+	</delete>
+	
+</mapper>
