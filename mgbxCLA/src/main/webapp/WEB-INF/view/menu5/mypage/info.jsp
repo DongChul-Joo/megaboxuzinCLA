@@ -6,58 +6,42 @@
    String cp = request.getContextPath();
 %>
 
+
 <style>
 
-.body-top {
- height: 300px;
+.nomemberR {
+font-size: 30px;
+text-align: left;
+padding-top: 90px;
+
+
 }
-
-
-.cancle {
-border: 1px solid #e4e4e4;
-width: 100%;
-height: 40px;
-text-align: center;
-}
-
-.body-content-container{
-width: 1100px;
-}
-
-.cancle {
-font-size: 18px;
-}
-
-
 </style>
 
-<div class="body-content-container">
-     <div class="body-title">
-     		<h1>나의 예매내역</h1>
-         	<h4>지난 1개월까지의 예매내역을 확인하실 수 있으며, 영수증은 신용카드 결제 내역만 출력 가능합니다.</h4>
+<div class="body-container" style="min-height: 220px;">
+	<div class="nomemberR">멤버십정보</div>
 
-     </div>
-     
-     <div class="body-top">   		
-         	<h6>현장에서 발권하실 경우 꼭 예매번호를 확인하세요.
-			티켓판매기에서 예매번호를 입력하면 티켓을 발급받을 수 있습니다.
-			고객님의 최근 예매내역이 존재하지 않습니다.</h6>
-     	
-     	</div>
-     
-     <div class="body-title2">
-     		<h1>My 취소내역</h1><h4>상영일 기준 지난 7일 동안의 취소내역입니다.</h4>
-
-     </div>
-     <div>
-     		<table class="cancle">
-				<tr>
-					<td>관람영화</td>
-					<td>관람 일시</td>
-					<td>취소일</td>
-					<td>결제 취소 금액</td>
-				</tr>	
+		<div>
+			<h3 style="float: right;">박수진님은 VIP회원입니다.</h3>
+			</div>
+		<div>
+			
+				<div style="margin-top: 50px; width: 100%; border-top: 2px solid #731070;">				
 					
-			</table>
+					<div style="width: 40%; background-color: #f7f4f4; height: 400px; float: left;">
+					</div>	
+					
+					<div style="width: 100%; height: 400px;">
+					
+					</div>			
+					
+				</div>
+			
+		</div>
+		
 	</div>
-</div>
+	
+			
+			
+			
+

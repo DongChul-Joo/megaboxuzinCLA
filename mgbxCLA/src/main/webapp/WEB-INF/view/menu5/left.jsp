@@ -8,9 +8,9 @@
 
 <style>
 .list-group-item {
- height: 50px;
+ height: 120px;
  text-align: center;
- padding-top: 14px;
+ padding-top: 20px;
  font-size: 17px;
  
 }
@@ -32,11 +32,30 @@ $(function(){
 
 <div class="list-group">
        <div class="list-group-item lefthead" style="height: 50px; padding-top: 15px;"><i></i> MYPAGE</div>
-       <a href="<%=cp%>/mypage/info" class="list-group-item">멤버십정보</a>
-       <a href="<%=cp%>/mypage/membership" class="list-group-item">스토어 구매내역</a>
-       <a href="#" class="list-group-item">나의무비스토리</a>
-       <a href="<%=cp%>/member/pwd" class="list-group-item">정보수정</a>
+       <a href="<%=cp%>/mypage/info" class="list-group-item">
+       <img src="<%=cp%>/resource/images/ple.png" width="50px;" height="50px;" style="margin-bottom: 10px;"> 
+       	<br>
+       	멤버십정보</a>
+       <a href="<%=cp%>/mypage/membership" class="list-group-item">
+       <img src="<%=cp%>/resource/images/ticket.png" width="50px;" height="50px;" style="margin-bottom: 10px;"> 
+       	<br>예매확인/취소      
+       </a>
+       <a href="#" class="list-group-item">
+       <img src="<%=cp%>/resource/images/pcon.png" width="50px;" height="50px;" style="margin-bottom: 10px;"> 
+      	 <br>
+       	스토어 구매내역
+       	</a>
+       <a href="#" class="list-group-item">
+       <img src="<%=cp%>/resource/images/movie.png" width="50px;" height="50px;" style="margin-bottom: 10px;"> 
+       	<br>
+       	나의 무비스토리</a>
+       <a href="<%=cp%>/member/pwd" class="list-group-item">
+       <img src="<%=cp%>/resource/images/myinfo.png" width="50px;" height="50px;" style="margin-bottom: 10px;"> 
+       <br>
+       	정보수정</a>
     <c:if test="${sessionScope.member.userId!='admin' }">
-	    <a href="<%=cp%>/member/pwd?dropout" class="list-group-item">회원탈퇴</a>
+	    <a href="<%=cp%>/member/pwd?dropout" class="list-group-item">
+	  <br>  
+	    회원탈퇴</a>
 	</c:if>        
 </div>

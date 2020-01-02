@@ -5,6 +5,13 @@
 <%
    String cp = request.getContextPath();
 %>
+<style>
+.body-title {
+    color: #424951;
+    padding-bottom: 5px;
+    margin: 0 0 20px 0;
+    border-bottom: 3px solid #1e0265;
+</style>
 
 <script type="text/javascript">
 function memberOk() {
@@ -169,10 +176,18 @@ function userIdCheck() {
 }
 
 </script>
-<div class="body-container" style="width: 700px; padding-top: 50px;" >
+<div class="body-container" style="width: 800px; padding-top: 50px;" >
     <div class="body-title">
         <h3><span style="font-family: Webdings"></span> ${mode=="member"?"회원 가입":"회원 정보 수정"} </h3>
+        <h5>MEGABOXUZIN에 오신것을 환영합니다.</h5>
+        
+        <div style="margin: 33px 150px;">
+    		<img src="<%=cp%>/resource/images/logo.png" width="500px;">
+    	</div>
+        
     </div>
+    
+    	
     
         <div>
 			<form name="memberForm" method="post">
