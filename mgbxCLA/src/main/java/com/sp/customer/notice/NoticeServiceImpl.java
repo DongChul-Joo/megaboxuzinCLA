@@ -17,6 +17,7 @@ public class NoticeServiceImpl implements NoticeService {
 	private CommonDAO dao;
 	@Autowired
 	private FileManager fileManager;
+	
 	@Override
 	public void insertNotice(Notice dto, String pathname) throws Exception {
 		try {
