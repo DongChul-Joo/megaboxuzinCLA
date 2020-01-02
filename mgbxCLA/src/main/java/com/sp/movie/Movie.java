@@ -1,6 +1,7 @@
 package com.sp.movie;
 
 public class Movie {
+	private int listNum;
 	private int movieCode;
 	private String movieNm;
 	private String audits;
@@ -9,6 +10,7 @@ public class Movie {
 	private String openDate;
 	private String startDate;
 	private String endDate;
+	
 	
 	//영화 평점 테이블
 	private long movieScores; 
@@ -45,6 +47,14 @@ public class Movie {
 
 	public String getEndDate() {
 		return endDate;
+	}
+
+	public int getListNum() {
+		return listNum;
+	}
+
+	public void setListNum(int listNum) {
+		this.listNum = listNum;
 	}
 
 	public void setEndDate(String endDate) {

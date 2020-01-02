@@ -10,7 +10,7 @@
 jQuery(function(){
 	   jQuery(".movieDetail").click(function(){
 		  var url="<%=cp%>/movie/showingList";
-	      var query=;
+	      var query=
 	      
 	      jQuery.ajax({
 	         type:"post"
@@ -65,7 +65,7 @@ jQuery(function(){
 	}
 	
 	.sub_navi{
-	backgroun-color : #f2f2f2;
+	background-color : #f2f2f2;
 	border-top: 1px solid #e1e1e1;
 	border-bottom: 3px solid #503396;
 	height: 60px;
@@ -129,14 +129,23 @@ list-style: none;}
 		</div>	
 
 	
-		<div style="width: 90%;margin: 0 auto; height: 100px;">
-			  <ul>
-			     <li style="margin-left: 50px;">
-			     
-			     <c:forEach var="vo" items="listMovie">
+	<div style="width: 90%;margin: 0 auto; min-height: 1800px;">
+		<ul>
+			<li style="margin-left: 50px;">
+			
+			    <c:forEach var="vo" items="${list}">
 			      <div class="a1" style="height: 420px; width: 230px; float: left; margin-top: 100px; padding-right: 245px">
 				      <div style="height: 336px; border: none; width: 230px;">
-				      	<img src="${vo.thumbNail}" width="230px;" height="336px;">
+				      	<c:choose>
+					      	<c:when test="${vo.thumbNail != 'No images'}">
+					      		<img src="${vo.thumbNail}" width="230px;" height="336px;">
+					      	</c:when>
+				      		<c:otherwise>
+				      			<div style="width: 230px; height: 336px; text-align: center;">
+				      				<p style="height: 150px; font-size: 30px; padding-top: 130px;">이미지가 없습니다.</p>
+				      			</div>
+				      		</c:otherwise>
+				      	</c:choose>
 				   	  </div>
 				   	  
 				   	  <div style="height: 51px; width: 230px; border: 1px solid #e4e4e4; background-color: white; ">
@@ -146,143 +155,32 @@ list-style: none;}
 				   	  
 				      	<div style=" height: 110px; border: 1px solid #e4e4e4; width: 230px; background-color: white;">
 				      		<div class="ccc">
-				      			<p class="ddd" style="font-size: 15pt; width: 20%">${vo.audits}</p>
-				      			<p class="ddd" style="font-size: 15pt; width: 80%">${vo.movieNm}</p>
+				      			<c:choose>
+				      				<c:when test="${vo.audits == '전체'}">
+				      					<p class="ddd" style="margin-left: 5px; margin-right: 5px; font-size: 10pt; color: white; height:25px; width: 14%; float: left;
+				      						 border-style: solid; border-width: 1px; border-color: green; border-radius: 5px; background: green; ">${vo.audits}</p>
+				      				</c:when>
+				      				<c:when test="${vo.audits == '12'}">
+				      					<p class="ddd" style="margin-left: 5px; margin-right: 5px; font-size: 10pt; color: white; height:25px; width: 14%; float: left;
+				      						 border-style: solid; border-width: 1px; border-color: green; border-radius: 5px; background-color: #3DB7CC; ">${vo.audits}</p>
+				      				</c:when>
+				      				<c:when test="${vo.audits == '15'}">
+				      					<p class="ddd" style="margin-left: 5px; margin-right: 5px; font-size: 10pt; color: white; height:25px; width: 14%; float: left;
+				      						 border-style: solid; border-width: 1px; border-color: green; border-radius: 5px; background: orange;">${vo.audits}</p>
+				      				</c:when>
+				      				<c:otherwise>
+				      					<p class="ddd" style="margin-left: 5px; margin-right: 5px; font-size: 10pt; color: white; height:25px; width: 14%; float: left; border-style: solid; border-width: 1px; border-color: green; border-radius: 5px; background: red; ">${vo.audits}</p>
+				      				</c:otherwise>
+				      			</c:choose>
+				      			<p class="ddd" style="margin-left: 5px; font-weight: bold; font-size: 15pt; width: 70%; float: left; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: inline-block;">${vo.movieNm}</p>
 				      			<button type="button" name ="movieDetail" class="btn btn-outline-primary1">상세정보</button>
 				      			<button class="btn btn-outline-primary1">예매하기</button>
 				      		</div>
 				      </div>
 			      </div>
-			      </c:forEach>
-			      
-			      
-			      
-			      
-			       <div class="a1" style="height: 420px; width: 230px; float: left; margin-top: 100px; padding-right: 245px">
-				      <div style="height: 336px; border: none; width: 230px;">
-				      	<img src="<%=cp%>/resource/images/eee2.jpg" width="230px;" height="336px;">
-				   	  </div>
-				   	  
-				   	  <div style="height: 51px; width: 230px; border: 1px solid #e4e4e4; background-color: white; ">
-					   	 <span style="float:left; font-size: 15pt;">평점 : 9.5</span>
-					   	 <span style="float:right; margin-right:5px; font-size: 15pt;">★★★★☆</span>
-				   	  </div>
-				   	  
-				      	<div style=" height: 110px; border: 1px solid #e4e4e4; width: 230px; background-color: white;">
-				      		<div class="ccc">
-				      			<p class="ddd" style="font-size: 15pt;">마센필라트2</p>
-				      			<button class="btn btn-outline-primary1">상세정보</button>
-				      			<button class="btn btn-outline-primary1">예매하기</button>
-				      		</div>
-				      </div>
-			      </div>
-			      
-			       <div class="a1" style="height: 420px; width: 230px; float: left; margin-top: 100px; padding-right: 245px">
-				      <div style="height: 336px; border: none; width: 230px;">
-				      	<img src="<%=cp%>/resource/images/eee3.jpg" width="230px;" height="336px;">
-				   	  </div>
-				   	  
-				   	  <div style="height: 51px; width: 230px; border: 1px solid #e4e4e4; background-color: white; ">
-					   	 <span style="float:left; font-size: 15pt;">평점 : 9.5</span>
-					   	 <span style="float:right; margin-right:5px; font-size: 15pt;">★★★★☆</span>
-				   	  </div>
-				   	  
-				      	<div style=" height: 110px; border: 1px solid #e4e4e4; width: 230px; background-color: white;">
-				      		<div class="ccc">
-				      			<p class="ddd" style="font-size: 15pt;">유리정원</p>
-				      			<button class="btn btn-outline-primary1">상세정보</button>
-				      			<button class="btn btn-outline-primary1">예매하기</button>
-				      		</div>
-				      </div>
-			      </div>
-			      
-			       <div class="a1" style="height: 420px; width: 230px; float: left; margin-top: 100px; padding-right: 245px">
-				      <div style="height: 336px; border: none; width: 230px;">
-				      	<img src="<%=cp%>/resource/images/eee4.jpg" width="230px;" height="336px;">
-				   	  </div>
-				   	  
-				   	  <div style="height: 51px; width: 230px; border: 1px solid #e4e4e4; background-color: white; ">
-					   	 <span style="float:left; font-size: 15pt;">평점 : 9.5</span>
-					   	 <span style="float:right; margin-right:5px; font-size: 15pt;">★★★★☆</span>
-				   	  </div>
-				   	  
-				      	<div style=" height: 110px; border: 1px solid #e4e4e4; width: 230px; background-color: white;">
-				      		<div class="ccc">
-				      			<p class="ddd" style="font-size: 15pt;">BlackSwan</p>
-				      			<button class="btn btn-outline-primary1">상세정보</button>
-				      			<button class="btn btn-outline-primary1">예매하기</button>
-				      		</div>
-				      </div>
-			      </div>
-			      
-			      <div class="a1" style="height: 420px; width: 230px; float: left; margin-top: 100px; padding-right: 245px">
-				      <div style="height: 336px; border: none; width: 230px;">
-				      	<img src="<%=cp%>/resource/images/eee4.jpg" width="230px;" height="336px;">
-				   	  </div>
-				   	  
-				   	  <div style="height: 51px; width: 230px; border: 1px solid #e4e4e4; background-color: white; ">
-					   	 <span style="float:left; font-size: 15pt;">평점 : 9.5</span>
-					   	 <span style="float:right; margin-right:5px; font-size: 15pt;">★★★★☆</span>
-				   	  </div>
-				   	  
-				      	<div style=" height: 110px; border: 1px solid #e4e4e4; width: 230px; background-color: white;">
-				      		<div class="ccc">
-				      			<p class="ddd" style="font-size: 15pt;">BlackSwan</p>
-				      			<button class="btn btn-outline-primary1">상세정보</button>
-				      			<button class="btn btn-outline-primary1">예매하기</button>
-				      		</div>
-				      </div>
-			      </div>
-			      
-			      <div class="a1" style="height: 420px; width: 230px; float: left; margin-top: 100px; padding-right: 245px">
-				      <div style="height: 336px; border: none; width: 230px;">
-				      	<img src="<%=cp%>/resource/images/eee4.jpg" width="230px;" height="336px;">
-				   	  </div>
-				   	  
-				   	  <div style="height: 51px; width: 230px; border: 1px solid #e4e4e4; background-color: white; ">
-					   	 <span style="float:left; font-size: 15pt;">평점 : 9.5</span>
-					   	 <span style="float:right; margin-right:5px; font-size: 15pt;">★★★★☆</span>
-				   	  </div>
-				   	  
-				      	<div style=" height: 110px; border: 1px solid #e4e4e4; width: 230px; background-color: white;">
-				      		<div class="ccc">
-				      			<p class="ddd" style="font-size: 15pt;">BlackSwan</p>
-				      			<button class="btn btn-outline-primary1">상세정보</button>
-				      			<button class="btn btn-outline-primary1">예매하기</button>
-				      		</div>
-				      </div>
-			      </div>
-			      
-			      <div class="a1" style="height: 420px; width: 230px; float: left; margin-top: 100px; padding-right: 245px">
-				      <div style="height: 336px; border: none; width: 230px;">
-				      	<img src="<%=cp%>/resource/images/eee4.jpg" width="230px;" height="336px;">
-				   	  </div>
-				   	  
-				   	  <div style="height: 51px; width: 230px; border: 1px solid #e4e4e4; background-color: white; ">
-					   	 <span style="float:left; font-size: 15pt;">평점 : 9.5</span>
-					   	 <span style="float:right; margin-right:5px; font-size: 15pt;">★★★★☆</span>
-				   	  </div>
-				   	  
-				      	<div style=" height: 110px; border: 1px solid #e4e4e4; width: 230px; background-color: white;">
-				      		<div class="ccc">
-				      			<p class="ddd" style="font-size: 15pt;">BlackSwan</p>
-				      			<button class="btn btn-outline-primary1">상세정보</button>
-				      			<button class="btn btn-outline-primary1">예매하기</button>
-				      		</div>
-				      </div>
-			      </div>
-			      
-			      </li>
-			      
-			       <li style="margin-left: 50px;">
-			     
-			     
-			     
-			      
-			      </li>
-			      
-			      
-			    </ul>
-			    </div>	
+			    </c:forEach>
+			    
+			</li>
+		</ul>
+	</div>	
 
-		
