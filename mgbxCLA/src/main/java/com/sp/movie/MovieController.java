@@ -73,4 +73,9 @@ public class MovieController {
 		return ".movie.newmovie";
 	}
 	
+	@RequestMapping(value="/movie/movieDetail")
+	public String movieDetail() {
+		
+		return "movie/movieDetail";
+	}
 }
