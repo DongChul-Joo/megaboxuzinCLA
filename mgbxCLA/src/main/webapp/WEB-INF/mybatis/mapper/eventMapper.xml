@@ -166,4 +166,5 @@
 			VALUES (#{rcode}, #{userId})
 	</insert>
 
+
 </mapper>

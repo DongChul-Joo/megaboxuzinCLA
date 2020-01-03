@@ -365,7 +365,7 @@ $(function(){
     </div>
     <div style="width: 80%; margin: 10px auto 0px; text-align: center;">
     	<a href="${dto.elink}">
-    		<img src="/mgbxCLA/uploads/event/${dto.imageFilename}" width="70%" style="margin: 0px 10px;">
+    		<img src="http://localhost:9090/mgbxAD/uploads/event/${dto.imageFilename}" width="70%" style="margin: 0px 10px;">
     	</a>
     </div>
 	</div>

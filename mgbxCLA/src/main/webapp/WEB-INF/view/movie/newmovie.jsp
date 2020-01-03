@@ -7,86 +7,161 @@
 %>
 <script type="text/javascript">
 
-jQuery(function(){
-	   jQuery(".movieDetail").click(function(){
-		  var url="<%=cp%>/movie/showingList";
-	      var query=
-	      
-	      jQuery.ajax({
-	         type:"post"
-	         ,url:url
-	         ,data:query
-	         ,dataType:"json"
-	         ,success:function(data){
-	            console.log(data);
-	         // console.log(data.movieListResult.movieList[0].movieNm);
-	         	jQuery("#movieList").empty(); 
-	         	
-	         	for(var i=0; i<data.movieListResult.movieList.length; i++){
-	         		var tag;
-	         		var movieTitle= data.movieListResult.movieList[i].movieNm;
-	         		var movieCd= data.movieListResult.movieList[i].movieCd;
-	         		tag="<tr style='height:35px;'><td><a href='javascript:detailMovie(\""+movieCd+"\");'>"+"영화제목 :"+movieTitle;
-	         		
-				for(var j=0; j<data.movieListResult.movieList[i].directors.length; j++){
-	        	  		
-		        	  	var director = data.movieListResult.movieList[i].directors[j].peopleNm;
-		        	  	
-		        	  	tag+="&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"+"| 감독 명 :"+director+"</a></td>";
-	        	  	}
-	        	  	
-	        	  	tag+="</tr>">
-	        	  		
-	        	  	jQuery("#movieList").append(tag);
-	          }
-	         
-	          
-	         }
-	         ,error:function(e){
-	            console.log(e.responseText);
-	         }
-	      });
-	      
-	   });
-	   
-});  
 
+function ajaxHTML(url, type, query, selector) {
+	$.ajax({
+		type:type
+		,url:url
+		,data:query
+		,success:function(data) {
+			$(selector).html(data);
+		}
+	});
+}
 
 
 
 function showMovieDetail(movieCode){
-	var url ="<%=cp%>/movie/showDetail";
+	var url ="<%=cp%>/movie/movieDetail";
 	var query ="movieCode="+movieCode; 
-		
-		jQuery.ajax({
-    		type:"post"
-    		,url:url
-    		,data:query
-    		,dataType:"json"
-    		,success:function(data) {
-    			console.log(data);
+	var selector = "#showDetail";
+	var type="get";
+	
+	$("#showDetail").empty();
+	ajaxHTML(url, type, query, selector);
+	detailMovie(movieCode);
     			
     			$("#showDetail").dialog({
 					modal: true,
 					height:2000,
 					width:1000,
-					title: "영화 상세", 
-					
-					
-					
+					title: "영화 상세", 				
 					close: function(event, ui) {
 					}
 				});
-			} 
-    		
-    	    ,error:function(jqXHR) {
-    	    	alert("실패");
-    	    }
-	
-	}); 
 }
 
+function detailMovie(movieCd){
+	var url="<%=cp%>/movie/showDetail";
+	var query="movieCode="+movieCd;
+	    
+	
+	      jQuery.ajax({
+	         type:"get"
+	         ,url:url
+	         ,data:query
+	         ,dataType:"json"
+	         ,success:function(data){
+	            console.log(data);
+	            
+	            showTime="";
+				movieOpen="";
+				country="";
+				prdtYear="";
+	            movieNm="";
+			
+	            movieNm= data.movieInfoResult.movieInfo.movieNm;
+				country = data.movieInfoResult.movieInfo.nations[0].nationNm
+	        	
+	        	var director="";
+	        	if(data.movieInfoResult.movieInfo.directors.length > 0){
+		        	for(var i=0; i<data.movieInfoResult.movieInfo.directors.length; i++){
+		            	director +=data.movieInfoResult.movieInfo.directors[i].peopleNm+"/";
+		        	}
+		            	
+		        	jQuery("input[name=moviedirector]").val(director);
+	        	} else {
+	        		jQuery("input[name=moviedirector]").val("unknown");
+	        	}
+	        	
+	        	var showType="";
+	        	if(data.movieInfoResult.movieInfo.showTypes.length> 0){
+		            for(var i=0; i<data.movieInfoResult.movieInfo.showTypes.length; i++){
+		            	showType += data.movieInfoResult.movieInfo.showTypes[i].showTypeGroupNm+"("
+		        	  		+data.movieInfoResult.movieInfo.showTypes[i].showTypeNm+")/\n";
+		            }
+		           		 jQuery("textarea[name=showing]").val(showType);
+		            
+	        	} else {
+	        		jQuery("textarea[name=showing]").val("unknown");
+	        	}
+	        	
+	            var limit="";
+	            if(data.movieInfoResult.movieInfo.audits.length > 0){
+		            for(var i=0; i<data.movieInfoResult.movieInfo.audits.length; i++){
+		        		limit =data.movieInfoResult.movieInfo.audits[0].watchGradeNm;
+		            }
+		            jQuery("input[name=audits]").val(limit);
+	            } else {
+	            	jQuery("input[name=movieLimit]").val("unknown");
+	            }
+		            
+	        	
+	            var actors="";
+	        	for(var i=0; i<data.movieInfoResult.movieInfo.actors.length; i++){
+	        	  	actors += data.movieInfoResult.movieInfo.actors[i].peopleNm+"/";
+	        	  
+	            }
+	            
+	        	var production="";
+	        	if(data.movieInfoResult.movieInfo.companys.length >0 ){
+		        	for(var i=0; i<data.movieInfoResult.movieInfo.companys.length; i++){
+		        		production += data.movieInfoResult.movieInfo.companys[0].companyNm+"/";
+		            }
+		        	 
+		        	jQuery("input[name=production]").val(production);
+	        	} else {
+		        	jQuery("input[name=production]").val("unknown");
 
+	        	}
+				
+	        	var prdtYear="";
+	        	
+	        	prdtYear = data.movieInfoResult.movieInfo.prdtYear;
+	        	 	
+			    jQuery("input[name=mcreated]").val(prdtYear);
+	           
+	            
+	            var genre="";
+	            if(data.movieInfoResult.movieInfo.genres.length > 0){
+		            for(var i=0; i<data.movieInfoResult.movieInfo.genres.length; i++){
+		            	genre +=data.movieInfoResult.movieInfo.genres[i].genreNm+"/" ;
+		            }
+		            jQuery("input[name=genre]").val(genre);
+	            } else {
+	            	jQuery("input[name=genre]").val("unknown");
+	            }
+	            
+	            if(data.movieInfoResult.movieInfo.showTm > 0){
+		            showTime= data.movieInfoResult.movieInfo.showTm+"분";
+	            	
+		            jQuery("input[name=mtime]").val(showTime);
+	            } else {
+	            	jQuery("input[name=mtime]").val("unknown");
+	            }
+	          	
+	            
+	            
+	            if(data.movieInfoResult.movieInfo.openDt >0){
+	            	movieOpen = data.movieInfoResult.movieInfo.openDt   
+	            	
+	            	jQuery("input[name=openDate]").val(movieOpen);
+	            } else {
+	            	jQuery("input[name=openDate]").val("unknown");
+	            }
+				
+		        jQuery("input[name=movieCode]").val(movieCd);
+		        jQuery("input[name=movieNm]").val(movieNm);
+		        jQuery("textarea[name=actor]").val(actors);
+		        jQuery("input[name=country]").val(country);
+		       
+	         }
+	         ,error:function(e){
+	            console.log(e.responseText);
+	        
+	         }
+	   });
+}
 </script>
 
 

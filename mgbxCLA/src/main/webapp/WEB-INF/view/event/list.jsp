@@ -68,7 +68,7 @@ function article(ecode) {
         <li><a href="<%=cp%>/event/list?ecategoryCode=2">영화 이벤트</a></li>   
         <li><a href="<%=cp%>/event/list?ecategoryCode=3">제휴 이벤트</a></li>
         <li><a href="<%=cp%>/event/list?ecategoryCode=4">영화관이벤트</a></li>
-        <li><a href="<%=cp%>">당첨자발표</a></li>
+        <li><a href="<%=cp%>/event/eventDott">당첨자발표</a></li>
         <li><a href="<%=cp%>">현황 통계</a></li>
     </ul>
     </div>
@@ -93,7 +93,7 @@ function article(ecode) {
     </c:if>
 	<td width="20px" align="center" style="padding-bottom: 30px">
 		<div>
-			<img src="<%=cp%>/uploads/event/${dto.imageFilename}" width="200"
+			<img src="http://localhost:9090/mgbxAD/uploads/event/${dto.imageFilename}" width="200"
 				height="180" border="0" onclick="article('${dto.ecode}');">
 		</div>
 		

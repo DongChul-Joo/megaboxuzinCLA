@@ -27,8 +27,6 @@ float: left;
 <div class="body-container">
 	<div class="nomemberR">${dto.userName}예매내역</div>
 	
-	
-
 	<div>
 		<div>
 				
@@ -46,12 +44,12 @@ float: left;
 				
 				<c:forEach var="dto" items="${list}">
 				  <tr align="center" bgcolor="#ffffff" height="35" style="border-bottom: 1px solid #cccccc;"> 
-				      <td>${dto.userName}</td>
+				      <td></td>
 				      <td>${dto.bookCode}</td>
+				      <td>${dto.movienm}</td>				      
 				      <td>${dto.cmName}</td>
-				      <td>${dto.movienm}</td>
 				      <td>${dto.showingdate}</td>
-				      <td>${dto.bookdate}</td>
+				      <td>${dto.bookdate}</td>			     
 				  </tr>
 		  		</c:forEach>
 		  		  			
