@@ -20,14 +20,15 @@
 	
 	<tbody id='listReplyBody'>
 	<c:forEach var="vo" items="${listReply}">
-	    <tr height='35' style='background: #eeeeee;'>
-	       <td width='50%' style='padding:5px 5px; border:1px solid #cccccc; border-right:none;'>
-	           <span><b>${vo.userName}</b></span>
+	    <tr height='35' style="margin-top: 20px;">
+	       <td width='50%' style='padding: 10px 5px; padding-top: 35px;  border-right:none; '>
+	           <span style="font-size: large; color: #9B7CC9;"><b>${vo.userName}</b></span>
 	        </td>
-	       <td width='50%' style='padding:5px 5px; border:1px solid #cccccc; border-left:none;' align='right'>
+	       <td width='50%' style='padding: 10px 5px; padding-top: 35px; border-left:none;' align='right'>
 	           <span>${vo.created}</span> |
 	                <span class="deleteReply" style="cursor: pointer;" data-rcode='${vo.rcode}' data-pageNo='${pageNo}'>삭제</span>
-	           		<button type='button' class='btnSendReplyReport' data-rcode='${vo.rcode}' title="신고"> 신고</button>
+	           		<button type='button' class='btnSendReplyReport' data-rcode='${vo.rcode}' title="신고">
+	           			<img src="<%=cp%>/resource/images/siren.png" style="width: 20px; height: 20px;"> 신고하기 </button>
 	        </td>
 	    </tr>
 	    <tr>
@@ -37,33 +38,35 @@
 	    </tr>
 	   
 	   <tr>
-	        <td style='padding:7px 5px;'>
-	            <button type='button' class='btn btnReplyAnswerLayout' data-rcode='${vo.rcode}'>답글 <span id="answerCount${vo.rcode}">${vo.answerCount}</span></button>
+	        <td style="padding:7px 5px; width: 10px; height: 10px; font-size: lagie; border-bottom:1px solid #cccccc;">
+	            <button type='button' class='btn btnReplyAnswerLayout' data-rcode='${vo.rcode}' style="width: 50px; height: 25px; font-size: 10px">
+	            	답글 <span id="answerCount${vo.rcode}">${vo.answerCount}</span></button>
 	        </td>
-	        <td style='padding:7px 5px;' align='right'>
-                <button type='button' class='btn btnSendReplyLike' data-rcode='${vo.rcode}' data-like_Hate='1'  title="좋아요"> 좋아요 <span>${vo.likeCount}</span></button>
-                <button type='button' class='btn btnSendReplyLike' data-rcode='${vo.rcode}' data-like_Hate='0' title="싫어요"> 싫어요 <span>${vo.disLikeCount}</span></button>	        
+	        <td style="padding:7px 5px; border-bottom:1px solid #cccccc;"  align='right'>
+                <button type='button' class='btn btnSendReplyLike' data-rcode='${vo.rcode}' data-like_Hate='1'  title="좋아요" style="width: 70px; height: 25px; font-size: 10px">
+                	<img src="<%=cp%>/resource/images/good.png" style="width: 15px; height: 15px;"> 좋아요 <span>${vo.likeCount}</span></button>
+                <button type='button' class='btn btnSendReplyLike' data-rcode='${vo.rcode}' data-like_Hate='0' title="싫어요" style="width: 70px; height: 25px; font-size: 10px">
+                	<img src="<%=cp%>/resource/images/bad.png" style="width: 15px; height: 15px;"> 싫어요 <span>${vo.disLikeCount}</span></button>	        
 	        </td>
 	    </tr>
 	    
 	    <tr class='replyAnswer' style='display: none;'>
 	        <td colspan='2'>
-	            <div id='listReplyAnswer${vo.rcode}' class='answerList' style='border-top: 1px solid #cccccc;'></div>
+	            <div id='listReplyAnswer${vo.rcode}' class='answerList'></div>
 	            <div style='clear: both; padding: 10px 10px;'>
 	                <div style='float: left; width: 5%;'>└</div>
 	                <div style='float: left; width:95%'>
 	                    <textarea cols='72' rows='12' class='boxTA' style='width:98%; height: 70px;'></textarea>
 	                 </div>
 	            </div>
-	             <div style='padding: 0px 13px 10px 10px; text-align: right;'>
+	             <div style='padding: 0px 13px 10px 10px; text-align: right; '>
 	                <button type='button' class='btn btnSendReplyAnswer' data-rcode='${vo.rcode}'>답글 등록</button>
 	            </div>
-	        
 	        </td>
 	    </tr>
-	   
 	</c:forEach>
 	</tbody>
+
 	
 	<tfoot id='listReplyFooter'>
 		<tr height='40' align="center">

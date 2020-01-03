@@ -95,7 +95,7 @@
 	
 	<!-- 댓글 리스트 -->
 	<select id="listReply" parameterType="map" resultType="com.sp.event.Reply">
-		SELECT r.rcode, r.userId, userName, r.ecode, r.content, r.created,
+		SELECT r.rcode, r.userId, userName, r.ecode, r.content, TO_CHAR(r.created, 'yyyy-mm-dd') as created,
 				 NVL(a.answerCount, 0) answerCount,
 				 NVL(likeCount, 0) likeCount,
 				 NVL(disLikeCount, 0) disLikeCount
@@ -139,7 +139,7 @@
 	
 	<!-- 댓글의 답글 리스트 -->
 	<select id="listReplyAnswer" parameterType="Integer" resultType="com.sp.event.Reply">
-		SELECT rcode, ecode, r.userId, userName, content, created, answer
+		SELECT rcode, ecode, r.userId, userName, content, TO_CHAR(created, 'yyyy-mm-dd') as created, answer
 		FROM eventReply r
 		JOIN member m ON r.userId = m.userId
 		JOIN customer  c ON m.customerCode = c.customerCode
