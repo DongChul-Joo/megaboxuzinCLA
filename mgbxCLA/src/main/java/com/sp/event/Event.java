@@ -18,6 +18,8 @@ public class Event {
 	private int mcount; // 당첨자 수
 	private int ecategoryCode; // 분류 코드
 	private String ecategoryName; // 분류 이름
+	private int dott; // 당첨자
+	
 	private MultipartFile upload;
 	
 	public int getEcode() {
@@ -121,6 +123,12 @@ public class Event {
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+	public int getDott() {
+		return dott;
+	}
+	public void setDott(int dott) {
+		this.dott = dott;
 	}
 
 }
