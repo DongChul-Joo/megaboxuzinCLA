@@ -20,6 +20,10 @@ function nonmemberOk() {
 	}
 	f.userName.value = str;
 	
+	console.log(f.userName.value);
+	console.log(f.birth.value);
+	console.log(f.tel.value);
+	console.log(f.email.value);
 	f.action = "<%=cp%>/member/nonmembers";
 	f.submit();
 	

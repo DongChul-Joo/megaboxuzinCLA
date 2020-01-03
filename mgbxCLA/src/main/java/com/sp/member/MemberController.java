@@ -318,33 +318,21 @@ public class MemberController {
 	public String nonmemberReservationSubmit(
 			@RequestParam Map<String, Object> paramMap,
 			Model model
-			) {
-		
+			) { 
+		 
+		List<Member> list = null;
 		try {
-			Member dto = service.readNonMember(paramMap);
 			
-			model.addAttribute("dto", dto);
+		list = service.listNonMember(paramMap);
+			
+			if(list==null) {
+				return ".member.nonmembers"; 
+			} 
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		return ".member.nonmembersCheck";
-	}
-	
-	@RequestMapping(value="/member/nonmembersCheck")
-	public String nonmemberList(Model model) throws Exception{
-
-		
-		Map<String, Object> map = new HashMap<>();
-		
-		List<Member> list = service.listNonMember(map);
-		
 		model.addAttribute("list", list);
-		
-		
 		return ".member.nonmembersCheck";
-	}
-	
-	
+	} 
 }
