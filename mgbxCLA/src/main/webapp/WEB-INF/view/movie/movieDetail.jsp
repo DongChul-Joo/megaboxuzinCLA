@@ -13,9 +13,8 @@
 	
 	<div style="width: 900px; height: 400px; margin: 0px auto; margin-top: 30px;">
 		
-		<c:forEach var="vo" items="${movie}">
 			<div style="width:250px; height: 350px;">
-				<img src="${vo.thumbNail}" style="width: 230px; height: 336px;">
+				<img src="${movie.thumbNail}" style="width: 230px; height: 336px;">
 			</div>
 		
 		
@@ -24,23 +23,23 @@
 			<div style="width:100%; height: 69px; border-bottom: 2px; border-bottom-style: dotted;">
 				<h3>
 					<c:choose>
-					      <c:when test="${vo.audits == '전체'}">
+					      <c:when test="${movie.audits == '전체'}">
 					      		<p class="ddd" style="margin-left: 5px; margin-right: 5px; font-size: 10pt; color: white; height:25px; width: 14%; float: left;
-					      						 border-style: solid; border-width: 1px; border-color: green; border-radius: 5px; background: green; ">${vo.audits}</p>
+					      						 border-style: solid; border-width: 1px; border-color: green; border-radius: 5px; background: green; ">${movie.audits}</p>
 					      </c:when>
-					      <c:when test="${vo.audits == '12'}">
+					      <c:when test="${movie.audits == '12'}">
 					      	<p class="ddd" style="margin-left: 5px; margin-right: 5px; font-size: 10pt; color: white; height:25px; width: 14%; float: left;
-					      						 border-style: solid; border-width: 1px; border-color: green; border-radius: 5px; background-color: #3DB7CC; ">${vo.audits}</p>
+					      						 border-style: solid; border-width: 1px; border-color: green; border-radius: 5px; background-color: #3DB7CC; ">${movie.audits}</p>
 					      </c:when>
-					      <c:when test="${vo.audits == '15'}">
+					      <c:when test="${movie.audits == '15'}">
 					      		<p class="ddd" style="margin-left: 5px; margin-right: 5px; font-size: 10pt; color: white; height:25px; width: 14%; float: left;
-					      						 border-style: solid; border-width: 1px; border-color: green; border-radius: 5px; background: orange;">${vo.audits}</p>
+					      						 border-style: solid; border-width: 1px; border-color: green; border-radius: 5px; background: orange;">${movie.audits}</p>
 					      </c:when>
 					      <c:otherwise>
-					      	<p class="ddd" style="margin-left: 5px; margin-right: 5px; font-size: 10pt; color: white; height:25px; width: 14%; float: left; border-style: solid; border-width: 1px; border-color: green; border-radius: 5px; background: red; ">${vo.audits}</p>
+					      	<p class="ddd" style="margin-left: 5px; margin-right: 5px; font-size: 10pt; color: white; height:25px; width: 14%; float: left; border-style: solid; border-width: 1px; border-color: green; border-radius: 5px; background: red; ">${movie.audits}</p>
 					      </c:otherwise>
 				     </c:choose>
-					<span>${vo.movieNm}</span>
+					<span>${movie.movieNm}</span>
 				</h3>
 			</div>
 		
@@ -83,7 +82,6 @@
 		</div>
 
 
-		</c:forEach>
 	</div>
 
 
@@ -140,6 +138,159 @@
 		</div>
 		
 	</div>
-	
+	<table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
+				 <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+				 	
+				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">영&nbsp;&nbsp;화&nbsp;&nbsp;명</td>
+				     
+				 	 <td style="padding-left:10px;"> 
+						<input id="movieTitle" type="text" placeholder="영화 제목"/><button type="button" id="btnMovie">영화 검색</button>
+					 </td> 
+					 
+				</tr>
+				
+				<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">감&nbsp;&nbsp;독&nbsp;&nbsp;명</td>
+				 	 <td style="padding-left:10px;"> 
+						<input id="director" type="text" placeholder="영화 감독"/>
+					 </td> 
+				</tr>
+			</table>
+			<br>
+			
+			<div style="width: 100%; min-height: 10px;">
+				<h3>영화 선택</h3>
+				<table id="movieList" style="width: 100%; height: 100%'">
+				
+				</table>
+			</div>
+			<br>
+			
+			<table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
+				<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">영&nbsp;화&nbsp;코&nbsp;&nbsp;드</td>
+				 	 <td style="padding-left:10px;"> 
+						<input name="movieCode" type="text" style="width: 200px;">
+					 </td> 
+				</tr>
+				
+				<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">영&nbsp;&nbsp;화&nbsp;&nbsp;명</td>
+				 	 <td style="padding-left:10px;"> 
+						<input name="movieNm" type="text" style="width: 200px;">
+					 </td> 
+				</tr>
+				
+				<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">감&nbsp;&nbsp;독&nbsp;&nbsp;명</td>
+				 	 <td style="padding-left:10px;"> 
+						<input name="moviedirector" type="text" style="width: 200px;">
+					 </td> 
+				</tr>
+				
+				<tr align="left" height="110" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">출&nbsp;연&nbsp;진&nbsp;&nbsp;</td>
+				 	 <td style="padding-left:10px;"> 
+						<textarea name="actor" style="width: 250px; height: 95px;"/></textarea>
+					 </td> 
+				</tr>
+				
+				<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">장&nbsp;&nbsp;&nbsp;&nbsp;르</td>
+				 	 <td style="padding-left:10px;"> 
+						<input name="genre" type="text" style="width: 200px;">
+					 </td> 
+				</tr>
+				
+				<tr align="left" height="110" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">상&nbsp;영&nbsp;분&nbsp;&nbsp;류</td>
+				 	 <td style="padding-left:10px;"> 
+						<textarea name="showing" style="width: 250px; height: 95px;"/></textarea>
+					 </td> 
+				</tr>
+				
+				<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">영&nbsp;화&nbsp;등&nbsp;&nbsp;급</td>
+				 	 <td style="padding-left:10px;"> 
+						<input name="audits" type="text" style="width: 200px;">
+					 </td> 
+				</tr>
+				
+				<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">제&nbsp;&nbsp;작&nbsp;&nbsp;사</td>
+				 	 <td style="padding-left:10px;"> 
+						<input name="production" type="text" style="width: 200px;">
+					 </td> 
+				</tr>
+				
+				<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">제&nbsp;작&nbsp;년&nbsp;&nbsp;도</td>
+				 	 <td style="padding-left:10px;"> 
+						<input name="mcreated" type="text" style="width: 200px;">
+					 </td> 
+				</tr>
+				
+				<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">상&nbsp;영&nbsp;시&nbsp;&nbsp;간</td>
+				 	 <td style="padding-left:10px;"> 
+						<input name="mtime" type="text" style="width: 200px;">
+					 </td> 
+				</tr>
+				
+				
+				
+				<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">제&nbsp;작&nbsp;국&nbsp;&nbsp;가</td>
+				 	 <td style="padding-left:10px;"> 
+						<input name="country" type="text" style="width: 200px;">
+					 </td> 
+				</tr>
+				
+				<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">썸&nbsp;네&nbsp;일&nbsp;&nbsp;</td>
+				 	 <td style="padding-left:10px;"> 
+						<input name="thumbNail" type="text" style="width: 200px;">
+					 </td> 
+				</tr>
+				
+				<tr align="left" height="110" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">줄&nbsp;&nbsp;거&nbsp;&nbsp;리</td>
+				 	 <td style="padding-left:10px;"> 
+						<textarea name="movieStory" style="width: 500px; height: 95px;"></textarea>
+					 </td> 
+				</tr>
+				
+				<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">개&nbsp;봉&nbsp;날&nbsp;&nbsp;짜</td>
+				 	 <td style="padding-left:10px;"> 
+						<input name="openDate" type="text" style="width: 200px;">
+					 </td> 
+				</tr>
+				
+				<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">상&nbsp;영&nbsp;시&nbsp;작&nbsp;일(ex:20191227)</td>
+				 	 <td style="padding-left:10px;"> 
+						<input name="startDate" type="text"  style="width: 200px;">
+					 </td> 
+				</tr>
+				
+				
+				<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
+				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">상&nbsp;영&nbsp;종&nbsp;료&nbsp;일(ex:20200127)</td>
+				 	 <td style="padding-left:10px;"> 
+						<input name="endDate" type="text"  style="width: 200px;">
+					 </td> 
+				</tr>
+				</table>
+				
+				
+				<table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
+			     	<tr height="45"> 
+			      		<td align="center" >
+			        		<button type="button" onclick="submitMovie();">${mode=='update'?'수정완료':'등록하기'}</button>
+			        		<button type="reset" name="resetMovie">다시입력</button>
+				 		</td>
+			    	</tr>
+			  </table>
 	
 </div>
