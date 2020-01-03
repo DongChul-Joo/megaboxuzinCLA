@@ -1,6 +1,7 @@
 package com.sp.member;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -327,6 +328,20 @@ public class MemberController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		return ".member.nonmembersCheck";
+	}
+	
+	@RequestMapping(value="/member/nonmembersCheck")
+	public String nonmemberList(Model model) throws Exception{
+
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		List<Member> list = service.listNonMember(map);
+		
+		model.addAttribute("list", list);
+		
 		
 		return ".member.nonmembersCheck";
 	}

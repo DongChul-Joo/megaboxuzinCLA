@@ -86,8 +86,13 @@
     </update>
     
     <select id="readNonMember" parameterType="map" resultType="com.sp.member.Member">
-    	SELECT userName, birth, email, tel
-		FROM customer 
+    	SELECT userName, b.bookcode, b.bookdate, s.showingdate, cn.cmName, m.movienm
+		FROM customer c
+		JOIN BOOKING b ON c.customerCode = b.memberCode
+		JOIN showingSchedule s ON b.scheduleCode = s.scheduleCode
+		JOIN SHOWINGMOVIE s1 ON s.showingcode = s1.showingcode
+		JOIN cinema cn ON s1.cmCode = cn.cmcode
+		JOIN movie m ON s1.movieCode = m.moviecode
 		where userName=#{userName} AND birth=#{birth} AND email=#{email} AND tel=#{tel}
     </select>
   

@@ -263,4 +263,16 @@ public class MemberServiceImpl implements MemberService {
 
 		return dto;
 	}
+
+	@Override
+	public List<Member> listNonMember(Map<String, Object> map) {
+		List<Member> list = null;
+		
+		try {
+			list =dao.selectList("member.readNonMember", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 }

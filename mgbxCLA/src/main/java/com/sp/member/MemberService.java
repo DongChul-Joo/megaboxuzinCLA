@@ -13,6 +13,7 @@ public interface MemberService {
 	public Member readMember(long customerCode);
 	public Member readMember2(String email);
 	public Member readNonMember(Map<String, Object> map);
+	public List<Member> listNonMember(Map<String, Object> map);
 	
 	public void deleteMember(Map<String, Object> map) throws Exception;
 	
