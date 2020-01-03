@@ -52,6 +52,41 @@ jQuery(function(){
 });  
 
 
+
+
+function showMovieDetail(movieCode){
+	var url ="<%=cp%>/movie/showDetail";
+	var query ="movieCode="+movieCode; 
+		
+		jQuery.ajax({
+    		type:"post"
+    		,url:url
+    		,data:query
+    		,dataType:"json"
+    		,success:function(data) {
+    			console.log(data);
+    			
+    			$("#showDetail").dialog({
+					modal: true,
+					height:2000,
+					width:1000,
+					title: "영화 상세", 
+					
+					
+					
+					close: function(event, ui) {
+					}
+				});
+			} 
+    		
+    	    ,error:function(jqXHR) {
+    	    	alert("실패");
+    	    }
+	
+	}); 
+}
+
+
 </script>
 
 
@@ -130,6 +165,7 @@ list-style: none;}
 
 	
 	<div style="width: 90%;margin: 0 auto; min-height: 1800px;">
+		
 		<ul>
 			<li style="margin-left: 50px;">
 			
@@ -173,8 +209,8 @@ list-style: none;}
 				      				</c:otherwise>
 				      			</c:choose>
 				      			<p class="ddd" style="margin-left: 5px; font-weight: bold; font-size: 15pt; width: 70%; float: left; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: inline-block;">${vo.movieNm}</p>
-				      			<button type="button" name ="movieDetail" class="btn btn-outline-primary1">상세정보</button>
-				      			<button class="btn btn-outline-primary1">예매하기</button>
+				      			<button type="button" name ="movieDetail" class="btn btn-outline-primary1" onclick="showMovieDetail('${vo.movieCode}')">상세정보</button>
+				      			<button type="button" class="btn btn-outline-primary1">예매하기</button>
 				      		</div>
 				      </div>
 			      </div>
@@ -182,5 +218,9 @@ list-style: none;}
 			    
 			</li>
 		</ul>
+		
 	</div>	
 
+	<div id="showDetail" style="display: none;width: 1000px;"></div>
+	
+	

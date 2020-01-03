@@ -7,25 +7,46 @@
 %>
 
 
-<div style="width: 1000px; min-height: 1000px">
-	<!-- 상단 -->
-	<div style="width: 900px; height: 400px;">
-		<!--왼쪽 이미지 -->
-		<div style="width:250px; height: 350px;">
-			<img src="" style="width: 230px; height: 336px;">
-		</div>
+<div style="width: 1000px; min-height: 2000px; border-style: solid; border-radius: 3px; margin: 0px auto;">
+	
+	
+	
+	<div style="width: 900px; height: 400px; margin: 0px auto; margin-top: 30px;">
 		
-		<!-- 오른쪽 전체 -->
+		<c:forEach var="vo" items="${movie}">
+			<div style="width:250px; height: 350px;">
+				<img src="${vo.thumbNail}" style="width: 230px; height: 336px;">
+			</div>
+		
+		
 		<div style="width: 630px; height: 330px;">
-			<!-- 타이틀 -->
-			<div style="height: 69px;">
+
+			<div style="width:100%; height: 69px; border-bottom: 2px; border-bottom-style: dotted;">
 				<h3>
-					<i>몇세관람가</i>
-					<span>타이틀</span>
+					<c:choose>
+					      <c:when test="${vo.audits == '전체'}">
+					      		<p class="ddd" style="margin-left: 5px; margin-right: 5px; font-size: 10pt; color: white; height:25px; width: 14%; float: left;
+					      						 border-style: solid; border-width: 1px; border-color: green; border-radius: 5px; background: green; ">${vo.audits}</p>
+					      </c:when>
+					      <c:when test="${vo.audits == '12'}">
+					      	<p class="ddd" style="margin-left: 5px; margin-right: 5px; font-size: 10pt; color: white; height:25px; width: 14%; float: left;
+					      						 border-style: solid; border-width: 1px; border-color: green; border-radius: 5px; background-color: #3DB7CC; ">${vo.audits}</p>
+					      </c:when>
+					      <c:when test="${vo.audits == '15'}">
+					      		<p class="ddd" style="margin-left: 5px; margin-right: 5px; font-size: 10pt; color: white; height:25px; width: 14%; float: left;
+					      						 border-style: solid; border-width: 1px; border-color: green; border-radius: 5px; background: orange;">${vo.audits}</p>
+					      </c:when>
+					      <c:otherwise>
+					      	<p class="ddd" style="margin-left: 5px; margin-right: 5px; font-size: 10pt; color: white; height:25px; width: 14%; float: left; border-style: solid; border-width: 1px; border-color: green; border-radius: 5px; background: red; ">${vo.audits}</p>
+					      </c:otherwise>
+				     </c:choose>
+					<span>${vo.movieNm}</span>
 				</h3>
 			</div>
 		
-			<!-- 타이틀 및 내용 -->
+		
+		
+		
 			<div style="width: 623px; height: 206px;">
 				<span>별 몇개</span>
 				<p>3353명 참여 7.1점(총점)</p>
@@ -36,59 +57,67 @@
 			
 			<ul>
 				<li>
-					<strong>타입</strong>
+					<strong>타입 :</strong>
 				</li>
 				
 				<li>
-					<strong>개봉일</strong>
+					<strong>개봉일 :</strong>
 				</li>
 				
 				<li>
-					<strong>감독</strong>
+					<strong>감독 : </strong>
 				</li>
 				
 				<li>
-					<strong>출연진</strong>
+					<strong>출연진 :</strong>
 				</li>
 				
 				<li>
-					<strong>장르</strong>
+					<strong>장르 :</strong>
 				</li>
 				
 				<li>
-					<strong>누적관객</strong>
+					<strong>누적관객 :</strong>
 				</li>
 			</ul>
 		</div>
-		<!-- 오른쪽 전체끝-->
+
+
+		</c:forEach>
 	</div>
-	<!-- 상단 전체 끝 -->
+
+
 	
-	<!-- 줄거리 -->
+
+
 	<div style="width: 888px; height: 274px;">
 		<h3>줄거리</h3>
 		<div>줄거리내용 블라블라</div>
 	</div>
-	<!-- 줄거리 끝 -->
+
+
+
 	
-	<!-- 동영상 -->
+
+
 	<div style="width: 888px; height: 625px;">
 		<h3>동영상</h3>
 		<div>동영상 재생</div>
 	</div>
-	<!-- 동영상 끝-->
 	
-	<!-- 아래 게시판 전체 -->
+
+
 	<div style="888px; height: 1070px;">
 		<h3>한줄평(개수)</h3>
 		
-		<!-- 댓글입력창 -->
+
+
 		<div style="height: 123px;">
-			<!-- 로그인모양 이미지 -->
+
 			<div style="width: 56px;">
 				<img src="">
 			</div>
-			<!-- 로그인모양 이미지 끝 -->
+			
 			
 			<div style="width: 807px; height: 86px;">
 				<form action="">
@@ -104,16 +133,13 @@
 				</form>
 			</div>
 		</div>
-		<!-- 댓글입력창 끝 -->
 		
-		<!-- 댓글 목록 -->
+
 		<div style="width: 888px; height: 884px;">
 			게시판
 		</div>
 		
 	</div>
-	<!-- 아래 게시판 전체 -->
 	
 	
 </div>
-<!-- 전체 -->

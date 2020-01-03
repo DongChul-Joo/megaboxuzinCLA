@@ -8,6 +8,13 @@
 			WHERE endDate > SYSDATE
 	</select>
 	 
+	<select id="movieDetail" parameterType="Integer" resultType="com.sp.movie.Movie">
+		SELECT movieCode, movieNm, audits, thumbNail, movieStory, startDate, endDate
+			FROM movie
+			WHERE movieCode=#{movieCode}
+	</select>
+	 
+	 
 	<select id="dataCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(*), 0)
 		FROM movie m

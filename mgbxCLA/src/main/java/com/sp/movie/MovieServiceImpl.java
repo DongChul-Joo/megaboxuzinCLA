@@ -40,5 +40,18 @@ public class MovieServiceImpl implements MovieService{
 		return result;
 	}
 
+	@Override
+	public Movie readDetail(int movieCode) {
+		Movie dto = null;
+		
+		try {
+			dto=dao.selectOne("movie.movieDetail", movieCode);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+
 
 }
