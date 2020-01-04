@@ -5,107 +5,179 @@
 <%
 	String cp=request.getContextPath();
 %>
+<style>
+div{
+float: left;
+margin: 0px auto;
+}
+
+.type{
+margin-top: 15px;
 
 
-<div style="width: 1000px; min-height: 2000px; border-style: solid; border-radius: 3px; margin: 0px auto;">
+
+}
+
+</style>
+
+
+<script>
+var movieNm ="${movie.movieNm}"+' 예고편';
+
+$(document).ready(function () {
+	showTrailer();
+});
+
+function showTrailer(){
+	
+	$.ajax({
+		  dataType: "json",
+		  url: 
+		    'https://www.googleapis.com/youtube/v3/search'+
+		    '?part=snippet'+
+		    '&maxResults=1'+
+		    '&order=relevance'+
+		    '&q='+encodeURI(movieNm)+
+		    '&type=video'+
+		    '&videoDefinition=high'+
+		    '&key=AIzaSyChPQ7wyJdU2QcGXf3DJqeqAy4uHhdRdLA'
+		    
+		}).done(function(data){
+		    /* Initial */
+		    var tag = document.createElement('script');
+		    tag.src = "https://www.youtube.com/iframe_api";
+		    var firstScriptTag = document.getElementsByTagName('script')[0];
+		    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+	
+		    onYouTubeIframeAPIReady = function(event){
+		        player = new YT.Player('youtube-player', {
+		            videoId: data.items[0].id.videoId
+		        });
+		    }
+		});
+}
+
+</script>
+
+
+<div style="width: 950px; min-height: 2000px; margin: 0px auto;">
 	
 	
 	
-	<div style="width: 900px; height: 400px; margin: 0px auto; margin-top: 30px;">
+	<div style="width: 890px; height: 380px; margin: 0px auto; margin-top: 40px;">
 		
-			<div style="width:250px; height: 350px;">
+			<div style="width:240px; height: 350px; margin-left: 10px;">
 				<img src="${movie.thumbNail}" style="width: 230px; height: 336px;">
 			</div>
 		
 		
-		<div style="width: 630px; height: 330px;">
+		<div style="width: 630px; height: 330px; margin-left: 10px;">
 
-			<div style="width:100%; height: 69px; border-bottom: 2px; border-bottom-style: dotted;">
-				<h3>
+			<div style="width:100%; height: 60px; border-bottom: 2px; border-bottom-style: dotted;">
+				<h2 style="height: 100%; margin: 0px auto;">
 					<c:choose>
 					      <c:when test="${movie.audits == '전체'}">
-					      		<p class="ddd" style="margin-left: 5px; margin-right: 5px; font-size: 10pt; color: white; height:25px; width: 14%; float: left;
-					      						 border-style: solid; border-width: 1px; border-color: green; border-radius: 5px; background: green; ">${movie.audits}</p>
+					      		<p style="margin-left: 5px; margin-right: 10px; font-size: 12pt; color: white; height:32px; width: 33px; float: left;
+					      						 border-style: solid; border-width: 3px; border-color: green; border-radius: 5px; background: green; ">${movie.audits}</p>
 					      </c:when>
 					      <c:when test="${movie.audits == '12'}">
-					      	<p class="ddd" style="margin-left: 5px; margin-right: 5px; font-size: 10pt; color: white; height:25px; width: 14%; float: left;
-					      						 border-style: solid; border-width: 1px; border-color: green; border-radius: 5px; background-color: #3DB7CC; ">${movie.audits}</p>
+					      	<p style="margin-left: 5px; margin-right: 10px; font-size: 12pt; color: white; height:32px; width: 33px; float: left;
+					      						 border-style: solid; border-width: 3px; border-color: #3DB7CC; border-radius: 5px; background-color: #3DB7CC; ">${movie.audits}</p>
 					      </c:when>
 					      <c:when test="${movie.audits == '15'}">
-					      		<p class="ddd" style="margin-left: 5px; margin-right: 5px; font-size: 10pt; color: white; height:25px; width: 14%; float: left;
-					      						 border-style: solid; border-width: 1px; border-color: green; border-radius: 5px; background: orange;">${movie.audits}</p>
+					      		<p  style="margin-left: 5px; margin-right: 10px; font-size: 12pt; color: white; height:32px; width: 33px; float: left;
+					      						 border-style: solid; border-width: 3px; border-color: orange; border-radius: 5px; background: orange;">${movie.audits}</p>
 					      </c:when>
 					      <c:otherwise>
-					      	<p class="ddd" style="margin-left: 5px; margin-right: 5px; font-size: 10pt; color: white; height:25px; width: 14%; float: left; border-style: solid; border-width: 1px; border-color: green; border-radius: 5px; background: red; ">${movie.audits}</p>
+					      	<p style="margin-left: 5px; margin-right: 10px; font-size: 12pt; color: white; height:32px; width: 33px; float: left;
+					      						 border-style: solid; border-width: 3px; border-color: red; border-radius: 5px; background: red; ">${movie.audits}</p>
 					      </c:otherwise>
 				     </c:choose>
-					<span>${movie.movieNm}</span>
-				</h3>
+					<span style="font-weight: bold;">${movie.movieNm}</span>
+				</h2>
 			</div>
 		
 		
 		
 		
 			<div style="width: 623px; height: 206px;">
-				<span>별 몇개</span>
-				<p>3353명 참여 7.1점(총점)</p>
-				<p>예매율 1위 19.6퍼센트</p>
-				<button>예매하기</button>
+				
+				<div style="width:100%; height: 45px;">
+					<span style="height: 15px; width: 90px; display: block;">별 몇개</span>
+					<p style="height: 42px; float: left;">
+						<span style="float: left; width: 80px; height: 42px; margin-top: 15px;">3353명 참여</span>
+						<strong style="float:left; font-weight: 700; font-family: '나눔고딕'; font-size: 30px; margin-left: 35px;">7.1점</strong>
+						<span style="width: 1px; height: 80%; background-color: #e1e1e1; float: left; margin-left: 10px;"></span>
+					</p>
+					
+					<p style="margin-left: 25px;width: 181px; height: 42px; float: left; font-size: 18px;">
+						예매율 
+						<strong style="font-size: 30px;">1위</strong>
+						<span>19.6%</span> 
+					</p>
+					<button class="btn" style="margin-top: 5px; margin-right: 10px; float:right;">예매하기</button>
+				</div>
+				
+				<ul style="margin-top: 70px; ">
+					<li class="type">
+						<strong>
+						타입 : <span class="showing"></span>
+						</strong>
+					</li>
+					
+					<li class="type">
+						<strong>
+						개봉일 : <span>${movie.startDate}</span>
+						</strong>
+					</li>
+					
+					<li class="type">
+						<strong>
+						감독 : <span class="moviedirector"></span>
+						</strong>
+					</li>
+					
+					<li class="type">
+						<strong>
+						출연진 : <span class="actor"></span>
+						</strong>
+					</li>
+					
+					<li class="type">
+						<strong>
+						장르 : <span class="genre"></span>/ <span class="mtime"></span>
+						</strong>
+					</li>
+					
+					<li class="type">
+						<strong>
+							누적관객 : <span class="audience" style="width: 300px; margin-right: 10px;"></span>| <strong>전일관객 : <span class="dailyAudience" style="width: 300px; margin-left: 10px;"></span></strong>
+						</strong>
+					</li>
+				</ul>
 			</div>
 			
-			
-			<ul>
-				<li>
-					<strong>타입 :</strong>
-				</li>
-				
-				<li>
-					<strong>개봉일 :</strong>
-				</li>
-				
-				<li>
-					<strong>감독 : </strong>
-				</li>
-				
-				<li>
-					<strong>출연진 :</strong>
-				</li>
-				
-				<li>
-					<strong>장르 :</strong>
-				</li>
-				
-				<li>
-					<strong>누적관객 :</strong>
-				</li>
-			</ul>
 		</div>
 
 
 	</div>
 
 
-	
-
-
-	<div style="width: 888px; height: 274px;">
+	<div style="width: 888px; min-height: 270px;">
 		<h3>줄거리</h3>
-		<div>줄거리내용 블라블라</div>
+		<div class="movieStory" style="width:700px; font-size: 20px;">${movie.movieStory}</div>
+	</div>
+
+	
+	<div class="youtube" style="width: 888px; height: 625px;">
+		<h3>예고편</h3>
+	  	<div class="youtube-selected">
+	   		<div id="youtube-player" style="width:888px; height: 500px;"></div>
+	  	</div>
 	</div>
 
 
-
-	
-
-
-	<div style="width: 888px; height: 625px;">
-		<h3>동영상</h3>
-		<div>동영상 재생</div>
-	</div>
-	
-
-
-	<div style="888px; height: 1070px;">
+	<div style="width: 888px; height: 1070px;">
 		<h3>한줄평(개수)</h3>
 		
 
@@ -122,7 +194,7 @@
 					<div>
 						<div>별몇개</div>
 						<div>
-							<textarea name="comment" rows="10" cols="30" maxlength="100" readonly onkeyup="로그인 후 댓글 작성 가능합니다." ></textarea>
+							<textarea name="comment" rows="10" cols="30" maxlength="100" readonly onkeyup="로그인 후 댓글 작성 가능합니다."></textarea>
 						</div>
 						<div>
 							<button type="submit">등록</button>

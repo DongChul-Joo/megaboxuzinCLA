@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
+-<%@ page contentType="text/html; charset=UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -19,6 +19,45 @@ function ajaxHTML(url, type, query, selector) {
 	});
 }
 
+function getAudience(movieCode){
+	var url ="<%=cp%>/movie/getAudience";
+	
+	jQuery.ajax({
+        type:"get"
+        ,url:url
+        ,data:""
+        ,dataType:"json"
+        ,success:function(data){
+        	console.log(data);
+        	
+        	var item = data.boxOfficeResult.dailyBoxOfficeList;
+        	if(item.length > 0){
+        		for(i=0; i<item.length; i++){
+	        		var code = item[i].movieCd;
+	        		
+	        		if(movieCode == code){
+	        			var dailyAudi = item[i].audiCnt;
+	        			var audience = item[i].audiAcc;
+	        		}
+        		}
+        	}
+        	
+       	
+       		if(dailyAudi > 0){
+       			jQuery("span[class=dailyAudience]").html(dailyAudi+"명");
+            }
+
+       		if(audience > 0){
+       			jQuery("span[class=audience]").html(audience+"명");
+            }
+            
+        }
+		,error:function(e){
+            console.log(e.responseText);
+	        
+        }
+	});
+}
 
 
 function showMovieDetail(movieCode){
@@ -26,25 +65,25 @@ function showMovieDetail(movieCode){
 	var query ="movieCode="+movieCode; 
 	var selector = "#showDetail";
 	var type="get";
-	
+
 	$("#showDetail").empty();
 	ajaxHTML(url, type, query, selector);
 	detailMovie(movieCode);
-    			
+	getAudience(movieCode);
+	
     			$("#showDetail").dialog({
 					modal: true,
 					height:2000,
 					width:1000,
-					title: "영화 상세", 				
+					title: "영화 상세", 
 					close: function(event, ui) {
 					}
-				});
+	});
 }
 
 function detailMovie(movieCd){
 	var url="<%=cp%>/movie/showDetail";
 	var query="movieCode="+movieCd;
-	    
 	
 	      jQuery.ajax({
 	         type:"get"
@@ -52,109 +91,60 @@ function detailMovie(movieCd){
 	         ,data:query
 	         ,dataType:"json"
 	         ,success:function(data){
-	            console.log(data);
 	            
-	            showTime="";
-				movieOpen="";
-				country="";
-				prdtYear="";
-	            movieNm="";
-			
-	            movieNm= data.movieInfoResult.movieInfo.movieNm;
-				country = data.movieInfoResult.movieInfo.nations[0].nationNm
+	        	 console.log(data);
 	        	
 	        	var director="";
 	        	if(data.movieInfoResult.movieInfo.directors.length > 0){
 		        	for(var i=0; i<data.movieInfoResult.movieInfo.directors.length; i++){
-		            	director +=data.movieInfoResult.movieInfo.directors[i].peopleNm+"/";
+		            	director +=data.movieInfoResult.movieInfo.directors[i].peopleNm+"&nbsp&nbsp&nbsp";
 		        	}
 		            	
-		        	jQuery("input[name=moviedirector]").val(director);
+		        	jQuery("span[class=moviedirector]").html(director);
 	        	} else {
-	        		jQuery("input[name=moviedirector]").val("unknown");
+	        		jQuery("span[class=moviedirector]").html("unknown");
 	        	}
 	        	
 	        	var showType="";
 	        	if(data.movieInfoResult.movieInfo.showTypes.length> 0){
 		            for(var i=0; i<data.movieInfoResult.movieInfo.showTypes.length; i++){
 		            	showType += data.movieInfoResult.movieInfo.showTypes[i].showTypeGroupNm+"("
-		        	  		+data.movieInfoResult.movieInfo.showTypes[i].showTypeNm+")/\n";
+		        	  		+data.movieInfoResult.movieInfo.showTypes[i].showTypeNm+")&nbsp&nbsp&nbsp";
 		            }
-		           		 jQuery("textarea[name=showing]").val(showType);
+		           		 jQuery("span[class=showing]").html(showType);
 		            
 	        	} else {
-	        		jQuery("textarea[name=showing]").val("unknown");
+	        		jQuery("span[class=showing]").html("unknown");
 	        	}
-	        	
-	            var limit="";
-	            if(data.movieInfoResult.movieInfo.audits.length > 0){
-		            for(var i=0; i<data.movieInfoResult.movieInfo.audits.length; i++){
-		        		limit =data.movieInfoResult.movieInfo.audits[0].watchGradeNm;
-		            }
-		            jQuery("input[name=audits]").val(limit);
-	            } else {
-	            	jQuery("input[name=movieLimit]").val("unknown");
-	            }
-		            
 	        	
 	            var actors="";
-	        	for(var i=0; i<data.movieInfoResult.movieInfo.actors.length; i++){
-	        	  	actors += data.movieInfoResult.movieInfo.actors[i].peopleNm+"/";
-	        	  
+	        	for(var i=0; i<6; i++){
+	        	  	actors += data.movieInfoResult.movieInfo.actors[i].peopleNm+"&nbsp&nbsp&nbsp";
 	            }
-	            
-	        	var production="";
-	        	if(data.movieInfoResult.movieInfo.companys.length >0 ){
-		        	for(var i=0; i<data.movieInfoResult.movieInfo.companys.length; i++){
-		        		production += data.movieInfoResult.movieInfo.companys[0].companyNm+"/";
-		            }
-		        	 
-		        	jQuery("input[name=production]").val(production);
-	        	} else {
-		        	jQuery("input[name=production]").val("unknown");
-
-	        	}
-				
-	        	var prdtYear="";
 	        	
-	        	prdtYear = data.movieInfoResult.movieInfo.prdtYear;
-	        	 	
-			    jQuery("input[name=mcreated]").val(prdtYear);
-	           
+	        	jQuery("span[class=actor]").html(actors);
 	            
 	            var genre="";
 	            if(data.movieInfoResult.movieInfo.genres.length > 0){
 		            for(var i=0; i<data.movieInfoResult.movieInfo.genres.length; i++){
-		            	genre +=data.movieInfoResult.movieInfo.genres[i].genreNm+"/" ;
+		            	genre +=data.movieInfoResult.movieInfo.genres[i].genreNm+"&nbsp&nbsp&nbsp" ;
 		            }
-		            jQuery("input[name=genre]").val(genre);
+		            jQuery("span[class=genre]").html(genre);
 	            } else {
-	            	jQuery("input[name=genre]").val("unknown");
+	            	jQuery("span[class=genre]").html("unknown");
 	            }
 	            
+	            showTime="";
 	            if(data.movieInfoResult.movieInfo.showTm > 0){
 		            showTime= data.movieInfoResult.movieInfo.showTm+"분";
 	            	
-		            jQuery("input[name=mtime]").val(showTime);
+		            jQuery("span[class=mtime]").html(showTime);
 	            } else {
-	            	jQuery("input[name=mtime]").val("unknown");
+	            	jQuery("span[class=mtime]").html("unknown");
 	            }
-	          	
-	            
-	            
-	            if(data.movieInfoResult.movieInfo.openDt >0){
-	            	movieOpen = data.movieInfoResult.movieInfo.openDt   
-	            	
-	            	jQuery("input[name=openDate]").val(movieOpen);
-	            } else {
-	            	jQuery("input[name=openDate]").val("unknown");
-	            }
-				
-		        jQuery("input[name=movieCode]").val(movieCd);
-		        jQuery("input[name=movieNm]").val(movieNm);
-		        jQuery("textarea[name=actor]").val(actors);
-		        jQuery("input[name=country]").val(country);
 		       
+	            
+	            
 	         }
 	         ,error:function(e){
 	            console.log(e.responseText);

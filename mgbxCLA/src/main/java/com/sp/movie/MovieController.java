@@ -1,5 +1,7 @@
 package com.sp.movie;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +28,8 @@ public class MovieController {
 	@Autowired
 	private APISerializer apiSerializer;
 	
+	
+	
 	@RequestMapping(value="/movie/newmovie")
 	public String showingList(
 			@RequestParam(value="page", defaultValue="1") int current_page,
@@ -38,6 +42,7 @@ public class MovieController {
 		int rows = 18; // 한 화면에 보여주는 게시물 수
 		int total_page = 0;
 		int dataCount = 0;
+		
 		
 		Map<String, Object> map = new HashMap<>();
 		
@@ -57,7 +62,6 @@ public class MovieController {
 		
        
         List<Movie> list = service.readMovie(map);
-		
 		
         int listNum, n = 0;
         for(Movie dto : list) {
@@ -85,6 +89,7 @@ public class MovieController {
 			@RequestParam(defaultValue="") String movieCode
 			) throws Exception{
 		
+		
 		String result = "";
 		
 		String url="http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=dcc1f12995a2b19c3bc5f4f8c32ff84c&movieCd";
@@ -93,10 +98,38 @@ public class MovieController {
 			url="http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=dcc1f12995a2b19c3bc5f4f8c32ff84c&movieCd="+movieCode;
 		}
 		
+		
+		
+		result = apiSerializer.jsonToString(url);
+		
+		
+		return result;
+	}
+	
+	
+	@RequestMapping(value="/movie/getAudience", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String getAudience() throws Exception{
+		
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+		cal.add(Calendar.DATE, -1);
+		String date = dateFormat.format(cal.getTime());
+		System.out.println("---------------------------------------------------"+date);
+
+		String result = "";
+		
+		String url = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=dcc1f12995a2b19c3bc5f4f8c32ff84c&targetDt";
+		
+		if(date != "") {
+			url = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=dcc1f12995a2b19c3bc5f4f8c32ff84c&targetDt="+date;
+		}
+		
 		result = apiSerializer.jsonToString(url);
 		
 		return result;
 	}
+	
 	
 	@RequestMapping(value="/movie/movieDetail")
 	public String movieDetail(
@@ -115,4 +148,6 @@ public class MovieController {
 		
 		return "/movie/movieDetail";
 	}
+	
+	
 }
