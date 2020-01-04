@@ -77,6 +77,7 @@ function showMovieDetail(movieCode){
 					width:1000,
 					title: "영화 상세", 
 					close: function(event, ui) {
+						window.location.reload();
 					}
 	});
 }
@@ -102,7 +103,7 @@ function detailMovie(movieCd){
 		            	
 		        	jQuery("span[class=moviedirector]").html(director);
 	        	} else {
-	        		jQuery("span[class=moviedirector]").html("unknown");
+	        		jQuery("span[class=moviedirector]").html("");
 	        	}
 	        	
 	        	var showType="";
@@ -114,15 +115,18 @@ function detailMovie(movieCd){
 		           		 jQuery("span[class=showing]").html(showType);
 		            
 	        	} else {
-	        		jQuery("span[class=showing]").html("unknown");
+	        		jQuery("span[class=showing]").html("");
 	        	}
 	        	
 	            var actors="";
-	        	for(var i=0; i<6; i++){
-	        	  	actors += data.movieInfoResult.movieInfo.actors[i].peopleNm+"&nbsp&nbsp&nbsp";
+	            if(data.movieInfoResult.movieInfo.actors.length >0){
+		        	for(var i=0; i<6; i++){
+		        	  	actors += data.movieInfoResult.movieInfo.actors[i].peopleNm+"&nbsp&nbsp&nbsp";
+		            }
+		        	jQuery("span[class=actor]").html(actors);
+	            } else {
+	            	jQuery("span[class=actor]").html("");
 	            }
-	        	
-	        	jQuery("span[class=actor]").html(actors);
 	            
 	            var genre="";
 	            if(data.movieInfoResult.movieInfo.genres.length > 0){
@@ -131,7 +135,7 @@ function detailMovie(movieCd){
 		            }
 		            jQuery("span[class=genre]").html(genre);
 	            } else {
-	            	jQuery("span[class=genre]").html("unknown");
+	            	jQuery("span[class=genre]").html("");
 	            }
 	            
 	            showTime="";
@@ -140,10 +144,8 @@ function detailMovie(movieCd){
 	            	
 		            jQuery("span[class=mtime]").html(showTime);
 	            } else {
-	            	jQuery("span[class=mtime]").html("unknown");
+	            	jQuery("span[class=mtime]").html("");
 	            }
-		       
-	            
 	            
 	         }
 	         ,error:function(e){
