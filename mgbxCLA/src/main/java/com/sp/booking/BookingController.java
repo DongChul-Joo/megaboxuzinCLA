@@ -38,7 +38,6 @@ public class BookingController {
        
         List<Movie> movieList = null;   
         List<BranchCla> areaList=null;
-        List<BranchCla> branchList=null;
         try {
            areaList=branchService.listArea();
      
