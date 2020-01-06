@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mypage">
+
+	<select id="listReservation" parameterType="map" resultType="com.sp.mypage.MyPage">
+		SELECT userId, userName, b.bookCode, TO_CHAR(b.bookdate, 'YYYY-MM-DD') bookdate , TO_CHAR(s.showingdate, 'YYYY-MM-DD') showingdate, cn.cmName, m.movienm 
+    	FROM customer c 
+        JOIN member m ON c.customerCode = m.customerCode
+    	JOIN BOOKING b ON c.customerCode = b.memberCode 
+    	JOIN showingSchedule s ON b.scheduleCode = s.scheduleCode 
+    	JOIN SHOWINGMOVIE s1 ON s.showingcode = s1.showingcode 
+    	JOIN cinema cn ON s1.cmCode = cn.cmcode 
+    	JOIN movie m ON s1.movieCode = m.moviecode 
+    	WHERE userId = #{userId}
+	</select>
+	
+	<select id="listStore" parameterType="map" resultType="com.sp.mypage.MyPage">
+	 	SELECT userId, itemName , itemPart , TO_CHAR(b1.buydate, 'YYYY-MM-DD')buydate , b1.buyAmount , pdSudan
+		FROM ITEM i 
+		JOIN BUYDETAIL b ON i.itemCode = b.itemCode
+		JOIN BUYITEM b1 ON b.buyCode = b1.buyCode
+		JOIN PAYDETAIL p ON b1.buyCode = p.buyCode
+		WHERE userId = #{userId}
+	</select>
+	
+	
+	<select id="listMyMovieStory" parameterType="map" resultType="com.sp.mypage.MyPage">
+		SELECT userId, userName, b.bookCode, TO_CHAR(b.bookdate, 'YYYY-MM-DD') bookdate , b.bookCount,
+        TO_CHAR(s.showingdate, 'YYYY-MM-DD') showingdate, cn.cmName, m.movienm , m.thumbNail
+    	FROM customer c 
+        JOIN member m ON c.customerCode = m.customerCode
+    	JOIN BOOKING b ON c.customerCode = b.memberCode 
+    	JOIN showingSchedule s ON b.scheduleCode = s.scheduleCode 
+    	JOIN SHOWINGMOVIE s1 ON s.showingcode = s1.showingcode 
+    	JOIN cinema cn ON s1.cmCode = cn.cmcode 
+    	JOIN movie m ON s1.movieCode = m.moviecode
+    	WHERE userId = #{userId}
+	</select>
+	
+	
+	<select id="listPoint" parameterType="String" resultType="com.sp.mypage.MyPage">
+		SELECT mileage
+        FROM MILEAGEINFO m
+        JOIN MILEAGE m1 ON m.mileageCode = m1.mileageCode
+        WHERE userId =  #{userId}
+	</select>
+
+</mapper>

@@ -5,7 +5,6 @@
 <%
 	String cp=request.getContextPath();
 %>
-
 <style>
 
 .nomemberR {
@@ -18,7 +17,7 @@ padding-bottom: 30px;
 </style>
 
 <div class="body-container">
-	<div class="nomemberR">예매 확인/취소</div>
+	<div class="nomemberR">스토어 구매내역</div>
 	
 	
 
@@ -27,25 +26,25 @@ padding-bottom: 30px;
 				
 			<table style="width: 100%; margin: 0px auto; border-spacing: 0px; border-collapse: collapse;">		
 				<tr align="center" bgcolor="#f8f8f8" height="50" style="border-top: 2px solid #731070; border-bottom: 1px solid #cccccc;">
-					<td width="35">NO</td>
-					<td width="70">예매번호</td>
-					<td width="70">영화명</td>
-					<td width="70">영화관</td>
-					<td width="70">상영일시</td>
-					<td width="70">예매일</td>
+					<td width="35">구분</td>
+					<td width="70">구매일</td>
+					<td width="70">상품명</td>
+					<td width="70">구매수량</td>
+					<td width="70">결제내역</td>
 				</tr>		
+				
 				
 				
 				<c:forEach var="dto" items="${list}">
 				  <tr align="center" bgcolor="#ffffff" height="35" style="border-bottom: 1px solid #cccccc;"> 
-				      <td>${dto.listNum}</td>
-				      <td>${dto.bookCode}</td>
-				      <td>${dto.movienm}</td>
-				      <td>${dto.cmName}</td>
-				      <td>${dto.showingdate}</td>
-				      <td>${dto.bookdate}</td>
+				      <td>${dto.itemPart}</td>
+				      <td>${dto.buyDate}</td>
+				      <td>${dto.itemName}</td>
+				      <td>${dto.buyAmount}</td>
+				      <td>${dto.pdSudan}</td>
 				  </tr>
-		  		</c:forEach>		  		  			
+		  		</c:forEach>
+		  		  			
 			</table>
 			
 			</div>
