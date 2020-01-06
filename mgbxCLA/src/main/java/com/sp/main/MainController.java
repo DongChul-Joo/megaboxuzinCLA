@@ -87,7 +87,7 @@ public class MainController {
 		
 		return result;
 	}
-	
+	 
 	
 	@RequestMapping(value="/main/movieDetail")
 	public String movieDetail(
@@ -104,7 +104,7 @@ public class MainController {
 		
 		model.addAttribute("movie", dto);
 		
-		return "/main/movieDetail";
+		return "/main/detailMovie";
 	}
 	
 }
