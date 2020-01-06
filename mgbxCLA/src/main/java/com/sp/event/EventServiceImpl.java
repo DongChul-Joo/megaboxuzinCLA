@@ -6,12 +6,16 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.sp.common.dao.CommonDAO;
+
 
 @Service("event.eventService")
 public class EventServiceImpl implements EventService{
 	@Autowired
 	private CommonDAO dao;
+
+	
 	@Override
 	public List<Event> listEvent(Map<String, Object> map) {
 		List<Event> list=null;
@@ -168,4 +172,16 @@ public class EventServiceImpl implements EventService{
 		return result;
 	}
 	
+	@Override
+	public void eventRequest(Event dto) throws Exception {
+		try {
+			dao.insertData("event.eventRequest", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+
 }

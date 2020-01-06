@@ -321,5 +321,21 @@ public class EventController {
 		model.put("state", state);
 		return model;
 	}
+	//응모 등록
+		@RequestMapping(value="/event/rquest", method=RequestMethod.GET)
+		public String requestcreated(
+				Event dto,
+				HttpSession session
+				) throws Exception {
+			try {
+
+				service.eventRequest(dto);
+			} catch (Exception e) {
+			}
+			
+			return "redirect:/event/rquest";
+			}
+	
+	
 	
 }

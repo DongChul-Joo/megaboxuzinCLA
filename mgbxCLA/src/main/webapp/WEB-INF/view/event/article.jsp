@@ -56,6 +56,14 @@ height :100px;
 
 <script type="text/javascript">
 
+function eventRequest(){
+	var q = "ecode=${dto.ecode}&page=${page}";
+	var url = "<%=cp%>/event/rquest?" +q;
+	
+	if(confirm("이벤트를 응모 하시겠습니까?"))
+		location.href=url;
+ }
+
 function login() {
 	location.href="<%=cp%>/member/login";
 }
@@ -384,6 +392,7 @@ $(function(){
 		<tr>
 			<td align='right'>
 				<button type='button' class='btn btnSendReply' data-num='10' style='padding:10px 20px;'>댓글 등록</button>
+				<button type="button" class="btn" onclick="eventRequest'${dto.ecode}')">응모하기!</button>
 			</td>
 		</tr>
 	</table>

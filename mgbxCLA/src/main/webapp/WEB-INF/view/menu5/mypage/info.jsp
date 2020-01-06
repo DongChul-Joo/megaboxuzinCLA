@@ -33,13 +33,10 @@ padding-right: 165px;
 
 
 .row3 {
-padding-right: 184px;
-}
-
-
-.row4 {
 padding-right: 206px;
 }
+
+
 
 </style>
 
@@ -47,34 +44,33 @@ padding-right: 206px;
 	<div class="nomemberR">멤버십정보</div>
 
 			<div>
-			<h3 style="float: right;">박수진님은 VIP회원입니다.</h3>
+			<h3 style="float: right;">${dto.userName}님은 VIP회원입니다.</h3>
 			</div>
 		
 		<div>
 			
 				<div style="margin-top: 56px; width: 100%; border-top: 2px solid #731070;">				
 					
+					
 					<div style="width: 40%; background-color: #f7f4f4; height: 400px; float: left;">
-						<h2 style="margin: 50px 30px auto;">포인트 현황</h2>
+					
+						<h2 style="margin: 75px 30px auto;">포인트 현황</h2>
 						<ul style="padding-top: 20px;">
 							<li>
 							<strong class="row1">현재 보유 포인트</strong>
-							<strong>0P</strong>
+							<strong>${dto.mileage}P</strong>
 							</li>
 							<li>
 							<strong class="row2">티켓구매 누적 포인트</strong>
 							<strong>0P</strong>
 							</li>
 							<li>
-							<strong class="row3">이벤트 누적 포인트</strong>
-							<strong>0P</strong>
-							</li>
-							<li>
-							<strong class="row4">소멸예정 포인트</strong>
+							<strong class="row3">소멸예정 포인트</strong>
 							<strong>0P</strong>
 							</li>						
 						</ul>						
 					</div>	
+					
 					
 					
 					<div style="width: 60%; height: 400px; float: left;">

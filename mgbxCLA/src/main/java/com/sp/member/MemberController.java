@@ -324,8 +324,7 @@ public class MemberController {
 		try {
 			
 		list = service.listNonMember(paramMap);
-			
-			if(list==null) {
+			if(list.size()==0) {
 				return ".member.nonmembers"; 
 			} 
 			

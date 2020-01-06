@@ -40,12 +40,12 @@ $(function(){
        <img src="<%=cp%>/resource/images/ticket.png" width="50px;" height="50px;" style="margin-bottom: 10px;"> 
        	<br>예매확인/취소      
        </a>
-       <a href="#" class="list-group-item">
+       <a href="<%=cp%>/mypage/store" class="list-group-item">
        <img src="<%=cp%>/resource/images/pcon.png" width="50px;" height="50px;" style="margin-bottom: 10px;"> 
       	 <br>
        	스토어 구매내역
        	</a>
-       <a href="#" class="list-group-item">
+       <a href="<%=cp%>/mypage/mymoviestory" class="list-group-item">
        <img src="<%=cp%>/resource/images/movie.png" width="50px;" height="50px;" style="margin-bottom: 10px;"> 
        	<br>
        	나의 무비스토리</a>
