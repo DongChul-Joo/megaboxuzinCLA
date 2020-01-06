@@ -15,129 +15,6 @@ margin: 0px auto;
 margin-top: 15px;
 }
 
-.movieCommentForm{
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-.input {
-    overflow: hidden;
-    height: 86px;
-    border: 1px solid #e1e1e1;
-}
-
-
-.comment{
-    height: 84px;
-    width: 519px;
-    font-size: 14px;
-    border: none;
-    border-left: 1px solid #e1e1e1;
-    border-right: 1px solid #e1e1e1;
-    background-color: #fff;
-}
-
-.starwrap {
-    cursor: pointer;
-    width: 145px;
-    text-align: center;
-    padding-top: 15px;
-}
-
-.btn movie{
-    width: 100%;
-    height: 100%;
-    vertical-align: middle;
-    background-position: -600px -100px;
-}
-
-
-.writewrap{
-    overflow: hidden;
-    margin-bottom: 30px;
-}
-
-.rate{
-	width :158px;
-}
-
-.reply {
-    clear: both;
-    overflow: hidden;
-    width: 100%;
-    display: table;
-    border-top: 1px solid #f0f0f0;
-    border-bottom: 1px solid #f0f0f0;
-}
-
-.row{
-	display: table-row;
-    height: 100%;
-    margin-right: -15px;
-    margin-left: -15px;
-}
-
-.cell{
-	display: table-cell;
-    vertical-align: top;
-    width: 45%;
-    height: 100%;
-    border-bottom: 1px solid #f0f0f0;
-    overflow: hidden;
-    padding: 20px 20px;
-    position: relative;
-    float: left;
-    margin: 0px auto;
-    border-right: 2px solid #f0f0f0;
-}
-
-.small_star{
-	display: block;
-    position: relative;
-    width: 73px;
-    height: 12px;
-    background: url(http://image2.megabox.co.kr/mop/home/star_s.png) 0 -12px no-repeat;
-    margin-top: 2px;
-}
-
-.small_fill{
-	position: absolute;
-    width: 73px;
-    height: 12px;
-    background: url(http://image2.megabox.co.kr/mop/home/star_s.png) 0 0 no-repeat;
-}
-
-.blind{
-	font-size: 12px;
-    color: #666;
-    display: inline-block;
-    margin-right: 6px;
-    float: left;
-}
-
-.p{
-	color: #333;
-    font-size: 14px;
-    line-height: 20px;
-    margin: 4px 0 35px;
-
-}
-
-.text{
-	width: 78%;
-    position: relative;
-    float: left;
-}
-
-.name{
-	font-size: 18px;
-    line-height: 18px;
-    color: #503396;
-    display: inline-block;
-	font-weight: 700;
-	font-family: '나눔고딕';
-}
 </style>
 
 
@@ -176,6 +53,39 @@ function showTrailer(){
 		    }
 		});
 }
+
+function ajaxHTML(url, type, query, selector) {
+	$.ajax({
+		type:type
+		,url:url
+		,data:query
+		,success:function(data) {
+			$(selector).html(data);
+		} 
+		,beforeSend:function(jqXHR) {
+	        jqXHR.setRequestHeader("AJAX", true);
+	    }
+	
+	
+	});
+}
+
+$(function(){
+	listPage(1);
+});
+
+function listPage(page) {
+	var url = "<%=cp%>/movie/listReply";
+	var query = "moviecode=${movie.movieCode}&pageNo="+page;
+	var selector = "#listReply";
+	
+	console.log("${movie.movieCode}");
+	console.log(page);
+	
+	ajaxHTML(url, "get", query, selector);
+}
+
+
 
 </script>
 
@@ -289,180 +199,16 @@ function showTrailer(){
 	</div>
 
 	
-	<div class="youtube" style="width: 888px; height: 625px;">
+	<div class="youtube" style="width: 930px; height: 625px;">
 		<h3>예고편</h3>
 	  	<div class="youtube-selected">
-	   		<div id="youtube-player" style="width:888px; height: 500px;"></div>
+	   		<div id="youtube-player" style="width:920px; height: 500px;"></div>
 	  	</div>
 	</div>
 
-
-	<div class="writewrap" style="width: 888px; height: 1070px;">
-		<h3>한줄평(개수)</h3>
-		
-
-
-		<div style="height: 123px;">
-
-			<div style="width: 56px; float: left; padding-top: 33px; margin-right: 24px;">
-				<img src="http://image2.megabox.co.kr/mop/home/user/profile_m.png" width="56px;" height="56px;">
-			</div>
-			
-			
-			<div style="width: 780px; height: 90px; float: right; padding-top: 20px; margin-left: 10px;">
-				<form class="movieCommentForm" action="">
-					<div class="input">
-						<div class="rate">
-							<div class="starwrap">
-								<input type="image" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점1 괜히봤어요" title="별점1 괜히봤어요">
-								<input type="image" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점2 기대하진 말아요" title="별점2 기대하진 말아요">
-								<input type="image" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점3 무난했어요" title="별점3 무난했어요">
-								<input type="image" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점4 기대해도 좋아요!" title="별점4 기대해도 좋아요!">
-								<input type="image" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점5 너무 멋진 영화였어요!" title="별점5 너무 멋진 영화였어요!">
-								<input type="hidden" name="starScore">
-							</div>
-							
-							<p class="text-center" style="font-size: 13px; margin-top:46px; color: #666; text-align: center;">평점을 입력해주세요</p>
-						</div>
-							<div style="width: 520px;">
-								<textarea class="comment" rows="10" cols="30" maxlength="100" readonly onkeyup="로그인 후 댓글 작성 가능합니다."></textarea>
-							</div>
-							<div>
-								<button type="submit" style="height: 86px; width: 86px;"   class="btn movie" onclick="return false;">등록</button>
-							</div>
-						
-					</div>
-				</form>
-			</div>
-		</div>
-		
-
-		<div style="box-sizing: border-box;">
-			<div class="reply">
-				<div class="row">
-					
-					<div style="float: left;" class="cell">
-						<div style="width: 80px;"><img src="http://image2.megabox.co.kr/mop/home/user/profile_m.png" width="56px;" height="56px;"></div>
-						
-						<div style="margin-bottom: 1px; overflow: hidden; margin-top: 13px;"> 
-							<div class="name"><strong>아이디</strong></div>
-							<div class="text">
-								<span style="margin-left: 15px;">20.01.06</span>
-								<div>
-									<span style="margin-left: 15px;" class="small_star">
-										<span class="small_fill">
-											<span class="blind"></span>
-										</span>
-									</span>
-								</div>
-							</div>
-							<div>
-								<p class="p">
-									<span class="comment">너무 노잼이에요 ㅎ;</span>
-								</p>
-							</div>
-						</div>
-						
-						<div class="btn_wrap">
-							
-							<div class="recommend" onclick="MovieComment.like('7D2A4834-8C26-4965-8348-E48BE5137F07', 'N')">
-								<i class="i_recommend" aria-hidden="true"></i>추천<strong>1</strong>
-							</div>
-							
-							<div class="report" onclick="MovieComment.showReportSpoiler(this);">
-								<i class="i_report" aria-hidden="true"></i>신고하기
-							</div>
-							
-							<div class="btn_edit_wrap" style="display: none;">
-								<ul>
-									<!-- //TODO 코멘트ID? -->
-									<li><a href="javascript:void(0);" onclick="MovieComment.checkReportSpoiler(this, '10', '016599', '7D2A4834-8C26-4965-8348-E48BE5137F07');" title="스포일러 신고">스포일러 신고</a></li>
-									<li><a href="javascript:void(0);" onclick="MovieComment.checkReportSpoiler(this, '20', '016599', '7D2A4834-8C26-4965-8348-E48BE5137F07');" title="욕설/비방/광고 신고">욕설/비방/광고 신고</a></li>
-								</ul>
-							</div>
-							
-						</div>
-						
-					</div>
-					
-					
-					<div class="cell">
-						<div style="width: 80px;"><img src="http://image2.megabox.co.kr/mop/home/user/profile_m.png" width="56px;" height="56px;"></div>
-						
-						<div style="margin-bottom: 1px; overflow: hidden; margin-top: 13px;"> 
-							<div class="name"><strong>아이디</strong></div>
-							<div class="text">
-								<span style="margin-left: 15px;">20.01.06</span>
-								<div>
-									<span style="margin-left: 15px;" class="small_star">
-										<span class="small_fill">
-											<span class="blind"></span>
-										</span>
-									</span>
-								</div>
-							</div>
-							<div>
-								<p class="p">
-									<span class="comment">너무 노잼이에요 ㅎ;</span>
-								</p>
-							</div>
-						</div>
-						
-						<div class="btn_wrap">
-							
-							<div class="recommend" onclick="MovieComment.like('7D2A4834-8C26-4965-8348-E48BE5137F07', 'N')">
-								<i class="i_recommend" aria-hidden="true"></i>추천<strong>1</strong>
-							</div>
-							
-							<div class="report" onclick="MovieComment.showReportSpoiler(this);">
-								<i class="i_report" aria-hidden="true"></i>신고하기
-							</div>
-							
-							<div class="btn_edit_wrap" style="display: none;">
-								<ul>
-									<!-- //TODO 코멘트ID? -->
-									<li><a href="javascript:void(0);" onclick="MovieComment.checkReportSpoiler(this, '10', '016599', '7D2A4834-8C26-4965-8348-E48BE5137F07');" title="스포일러 신고">스포일러 신고</a></li>
-									<li><a href="javascript:void(0);" onclick="MovieComment.checkReportSpoiler(this, '20', '016599', '7D2A4834-8C26-4965-8348-E48BE5137F07');" title="욕설/비방/광고 신고">욕설/비방/광고 신고</a></li>
-								</ul>
-							</div>
-							
-						</div>
-						
-					</div>
-					
-					
-					
-					
-					
-					
-					
-				
-				</div>
-				
-				
-				<div class="row"></div>
-				<div class="row"></div>
-				<div class="row"></div>
-				<div class="row"></div>
-			</div>
-			
-			<ul>
-				<li style="list-style: none;">page</li>
-			</ul>
-		</div>
-		
-	</div>
 	
+	<div id="listReply"></div>
 				
-				
-				<table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
-			     	<tr height="45"> 
-			      		<td align="center" >
-			        		<button type="button" onclick="submitMovie();">${mode=='update'?'수정완료':'등록하기'}</button>
-			        		<button type="reset" name="resetMovie">다시입력</button>
-				 		</td>
-			    	</tr>
-			  </table>
 	
 </div>
 

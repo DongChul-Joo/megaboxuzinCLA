@@ -20,17 +20,35 @@ public class Movie {
 	private String actorName;
 	
 	//영화 상세게시판 댓글
+	private String userId;
 	private String content;
 	private String created;
 	
 	//영화 상세게시판 댓글 좋아요
+	private int likeCount;
 	private String likeUserId;
 	
 	//댓글 신고
 	private String reportUserId;
 
+	
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	public String getStartDate() {
 		return startDate;
+	}
+
+	public int getLikeCount() {
+		return likeCount;
+	}
+
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
 	}
 
 	public void setStartDate(String startDate) {

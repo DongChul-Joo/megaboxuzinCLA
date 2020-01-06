@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -148,6 +149,57 @@ public class MovieController {
 		
 		return "/movie/movieDetail";
 	}
+	
+	
+	@RequestMapping(value="/movie/listReply")
+	public String listReply(
+			@RequestParam(defaultValue="0") int movieCode, 
+			@RequestParam(value="pageNo", defaultValue="1") int current_page,
+			Model model
+			) {
+		
+		int rows = 10; 
+		int total_page = 0;
+		int dataCount = 0;
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		dataCount= service.replyCount(map);
+		if(dataCount!=0) {
+			total_page = myUtil.pageCount(rows, dataCount);
+		}
+		
+		if(total_page< current_page) {
+			current_page = total_page; 
+		}
+		
+		int offset = (current_page-1) * rows;
+		if(offset < 0) offset = 0;
+		map.put("movieCode", movieCode);
+        map.put("offset", offset);
+        map.put("rows", rows);
+       
+        List<Movie> list = service.readMovieReply(map);
+        
+        String query="movieCode="+movieCode+"&page="+current_page;
+		
+       for(Movie dto : list) {
+    	   dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
+       }
+       
+        String paging = myUtil.pagingMethod(current_page, total_page, "listPage");
+		
+        model.addAttribute("query", query);
+		model.addAttribute("list", list);
+		model.addAttribute("pageNo", current_page);
+        model.addAttribute("dataCount", dataCount);
+        model.addAttribute("total_page", total_page);
+        model.addAttribute("paging", paging);
+		
+		return "movie/listReply";
+	}
+	
+	
 	
 	
 }

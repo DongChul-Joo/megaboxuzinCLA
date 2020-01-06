@@ -9,5 +9,9 @@ public interface MovieService {
 	public int dataCount(Map<String, Object> map);
 	
 	public Movie readDetail(int movieCode);
+	
+	public List<Movie> readMovieReply(Map<String, Object> map);
+	
+	public int replyCount(Map<String, Object> map);
 }
  
