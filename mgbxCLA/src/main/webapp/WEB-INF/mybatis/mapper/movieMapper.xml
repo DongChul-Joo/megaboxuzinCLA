@@ -3,7 +3,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="movie">
 	<select id="listShowingMovie" resultType="com.sp.movie.Movie">
-		SELECT movieCode, movieNm, audits, thumbNail, movieStory, startDate, endDate
+		SELECT movieCode, movieNm, audits, thumbNail, movieStory, TO_CHAR(startDate,'YYYY-MM-dd') startDate, TO_CHAR(endDate, 'YYYY-MM-dd') endDate
 			FROM movie
 			WHERE endDate > SYSDATE
 	</select>
