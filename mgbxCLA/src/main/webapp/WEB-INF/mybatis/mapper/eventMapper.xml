@@ -165,6 +165,14 @@
 		INSERT INTO eventReplyReport(rcode, userId)
 			VALUES (#{rcode}, #{userId})
 	</insert>
+	
+	<!-- 이벤트 응모자 -->
+	<insert id="eventRequest" parameterType="com.sp.event.Event">
+		INSERT INTO eventrequest(ecode, userId)
+		VALUES (#{ecode}, #{userId})
+	</insert>
+	
+
 
 
 </mapper>

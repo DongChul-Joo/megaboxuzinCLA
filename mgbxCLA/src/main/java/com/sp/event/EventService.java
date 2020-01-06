@@ -22,4 +22,6 @@ public interface EventService {
 
 	public List<Event> listDott(Map<String, Object> map);
 	public int DottCount(Map<String, Object> map);
+	
+	public void eventRequest(Event dto) throws Exception;
 }
