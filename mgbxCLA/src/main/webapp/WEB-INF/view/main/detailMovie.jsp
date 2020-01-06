@@ -64,9 +64,9 @@ function showTrailer(){
 	
 	
 	
-	<div style="width: 890px; height: 380px; margin: 0px auto; margin-top: 40px;">
+	<div style="width: 890px; height: 380px; margin: 0px auto; margin-top: 40px; float: left;">
 		
-			<div style="width:240px; height: 350px; margin-left: 10px;">
+			<div style="width:240px; height: 350px; margin-left: 10px; float: left;">
 				<img src="${movie.thumbNail}" style="width: 230px; height: 336px;">
 			</div>
 		
@@ -177,183 +177,162 @@ function showTrailer(){
 	</div>
 
 
-	<div style="width: 888px; height: 1070px;">
+	<div class="writewrap" style="width: 888px; height: 1070px;">
 		<h3>한줄평(개수)</h3>
 		
 
 
 		<div style="height: 123px;">
 
-			<div style="width: 56px;">
-				<img src="">
+			<div style="width: 56px; float: left; padding-top: 33px; margin-right: 24px;">
+				<img src="http://image2.megabox.co.kr/mop/home/user/profile_m.png" width="56px;" height="56px;">
 			</div>
 			
 			
-			<div style="width: 807px; height: 86px;">
-				<form action="">
-					<div>
-						<div>별몇개</div>
-						<div>
-							<textarea name="comment" rows="10" cols="30" maxlength="100" readonly onkeyup="로그인 후 댓글 작성 가능합니다."></textarea>
+			<div style="width: 780px; height: 90px; float: right; padding-top: 20px; margin-left: 10px;">
+				<form class="movieCommentForm" action="">
+					<div class="input">
+						<div class="rate">
+							<div class="starwrap">
+								<input type="image" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점1 괜히봤어요" title="별점1 괜히봤어요">
+								<input type="image" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점2 기대하진 말아요" title="별점2 기대하진 말아요">
+								<input type="image" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점3 무난했어요" title="별점3 무난했어요">
+								<input type="image" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점4 기대해도 좋아요!" title="별점4 기대해도 좋아요!">
+								<input type="image" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점5 너무 멋진 영화였어요!" title="별점5 너무 멋진 영화였어요!">
+								<input type="hidden" name="starScore">
+							</div>
+							
+							<p class="text-center" style="font-size: 13px; margin-top:46px; color: #666; text-align: center;">평점을 입력해주세요</p>
 						</div>
-						<div>
-							<button type="submit">등록</button>
-						</div>
+							<div style="width: 520px;">
+								<textarea class="comment" rows="10" cols="30" maxlength="100" readonly onkeyup="로그인 후 댓글 작성 가능합니다."></textarea>
+							</div>
+							<div>
+								<button type="submit" style="height: 86px; width: 86px;"   class="btn movie" onclick="return false;">등록</button>
+							</div>
+						
 					</div>
 				</form>
 			</div>
 		</div>
 		
 
-		<div style="width: 888px; height: 884px;">
-			게시판
+		<div style="box-sizing: border-box;">
+			<div class="reply">
+				<div class="row">
+					
+					<div style="float: left;" class="cell">
+						<div style="width: 80px;"><img src="http://image2.megabox.co.kr/mop/home/user/profile_m.png" width="56px;" height="56px;"></div>
+						
+						<div style="margin-bottom: 1px; overflow: hidden; margin-top: 13px;"> 
+							<div class="name"><strong>아이디</strong></div>
+							<div class="text">
+								<span style="margin-left: 15px;">20.01.06</span>
+								<div>
+									<span style="margin-left: 15px;" class="small_star">
+										<span class="small_fill">
+											<span class="blind"></span>
+										</span>
+									</span>
+								</div>
+							</div>
+							<div>
+								<p class="p">
+									<span class="comment">너무 노잼이에요 ㅎ;</span>
+								</p>
+							</div>
+						</div>
+						
+						<div class="btn_wrap">
+							
+							<div class="recommend" onclick="MovieComment.like('7D2A4834-8C26-4965-8348-E48BE5137F07', 'N')">
+								<i class="i_recommend" aria-hidden="true"></i>추천<strong>1</strong>
+							</div>
+							
+							<div class="report" onclick="MovieComment.showReportSpoiler(this);">
+								<i class="i_report" aria-hidden="true"></i>신고하기
+							</div>
+							
+							<div class="btn_edit_wrap" style="display: none;">
+								<ul>
+									<!-- //TODO 코멘트ID? -->
+									<li><a href="javascript:void(0);" onclick="MovieComment.checkReportSpoiler(this, '10', '016599', '7D2A4834-8C26-4965-8348-E48BE5137F07');" title="스포일러 신고">스포일러 신고</a></li>
+									<li><a href="javascript:void(0);" onclick="MovieComment.checkReportSpoiler(this, '20', '016599', '7D2A4834-8C26-4965-8348-E48BE5137F07');" title="욕설/비방/광고 신고">욕설/비방/광고 신고</a></li>
+								</ul>
+							</div>
+							
+						</div>
+						
+					</div>
+					
+					
+					<div class="cell">
+						<div style="width: 80px;"><img src="http://image2.megabox.co.kr/mop/home/user/profile_m.png" width="56px;" height="56px;"></div>
+						
+						<div style="margin-bottom: 1px; overflow: hidden; margin-top: 13px;"> 
+							<div class="name"><strong>아이디</strong></div>
+							<div class="text">
+								<span style="margin-left: 15px;">20.01.06</span>
+								<div>
+									<span style="margin-left: 15px;" class="small_star">
+										<span class="small_fill">
+											<span class="blind"></span>
+										</span>
+									</span>
+								</div>
+							</div>
+							<div>
+								<p class="p">
+									<span class="comment">너무 노잼이에요 ㅎ;</span>
+								</p>
+							</div>
+						</div>
+						
+						<div class="btn_wrap">
+							
+							<div class="recommend" onclick="MovieComment.like('7D2A4834-8C26-4965-8348-E48BE5137F07', 'N')">
+								<i class="i_recommend" aria-hidden="true"></i>추천<strong>1</strong>
+							</div>
+							
+							<div class="report" onclick="MovieComment.showReportSpoiler(this);">
+								<i class="i_report" aria-hidden="true"></i>신고하기
+							</div>
+							
+							<div class="btn_edit_wrap" style="display: none;">
+								<ul>
+									<!-- //TODO 코멘트ID? -->
+									<li><a href="javascript:void(0);" onclick="MovieComment.checkReportSpoiler(this, '10', '016599', '7D2A4834-8C26-4965-8348-E48BE5137F07');" title="스포일러 신고">스포일러 신고</a></li>
+									<li><a href="javascript:void(0);" onclick="MovieComment.checkReportSpoiler(this, '20', '016599', '7D2A4834-8C26-4965-8348-E48BE5137F07');" title="욕설/비방/광고 신고">욕설/비방/광고 신고</a></li>
+								</ul>
+							</div>
+							
+						</div>
+						
+					</div>
+					
+					
+					
+					
+					
+					
+					
+				
+				</div>
+				
+				
+				<div class="row"></div>
+				<div class="row"></div>
+				<div class="row"></div>
+				<div class="row"></div>
+			</div>
+			
+			<ul>
+				<li style="list-style: none;">page</li>
+			</ul>
 		</div>
 		
 	</div>
-	<table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
-				 <tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
-				 	
-				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">영&nbsp;&nbsp;화&nbsp;&nbsp;명</td>
-				     
-				 	 <td style="padding-left:10px;"> 
-						<input id="movieTitle" type="text" placeholder="영화 제목"/><button type="button" id="btnMovie">영화 검색</button>
-					 </td> 
-					 
-				</tr>
-				
-				<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
-				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">감&nbsp;&nbsp;독&nbsp;&nbsp;명</td>
-				 	 <td style="padding-left:10px;"> 
-						<input id="director" type="text" placeholder="영화 감독"/>
-					 </td> 
-				</tr>
-			</table>
-			<br>
-			
-			<div style="width: 100%; min-height: 10px;">
-				<h3>영화 선택</h3>
-				<table id="movieList" style="width: 100%; height: 100%'">
-				
-				</table>
-			</div>
-			<br>
-			
-			<table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
-				<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
-				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">영&nbsp;화&nbsp;코&nbsp;&nbsp;드</td>
-				 	 <td style="padding-left:10px;"> 
-						<input name="movieCode" type="text" style="width: 200px;">
-					 </td> 
-				</tr>
-				
-				<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
-				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">영&nbsp;&nbsp;화&nbsp;&nbsp;명</td>
-				 	 <td style="padding-left:10px;"> 
-						<input name="movieNm" type="text" style="width: 200px;">
-					 </td> 
-				</tr>
-				
-				<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
-				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">감&nbsp;&nbsp;독&nbsp;&nbsp;명</td>
-				 	 <td style="padding-left:10px;"> 
-						<input name="moviedirector" type="text" style="width: 200px;">
-					 </td> 
-				</tr>
-				
-				<tr align="left" height="110" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
-				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">출&nbsp;연&nbsp;진&nbsp;&nbsp;</td>
-				 	 <td style="padding-left:10px;"> 
-						<textarea name="actor" style="width: 250px; height: 95px;"/></textarea>
-					 </td> 
-				</tr>
-				
-				<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
-				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">장&nbsp;&nbsp;&nbsp;&nbsp;르</td>
-				 	 <td style="padding-left:10px;"> 
-						<input name="genre" type="text" style="width: 200px;">
-					 </td> 
-				</tr>
-				
-				<tr align="left" height="110" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
-				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">상&nbsp;영&nbsp;분&nbsp;&nbsp;류</td>
-				 	 <td style="padding-left:10px;"> 
-						<textarea name="showing" style="width: 250px; height: 95px;"/></textarea>
-					 </td> 
-				</tr>
-				
-				<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
-				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">영&nbsp;화&nbsp;등&nbsp;&nbsp;급</td>
-				 	 <td style="padding-left:10px;"> 
-						<input name="audits" type="text" style="width: 200px;">
-					 </td> 
-				</tr>
-				
-				<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
-				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">제&nbsp;&nbsp;작&nbsp;&nbsp;사</td>
-				 	 <td style="padding-left:10px;"> 
-						<input name="production" type="text" style="width: 200px;">
-					 </td> 
-				</tr>
-				
-				<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
-				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">제&nbsp;작&nbsp;년&nbsp;&nbsp;도</td>
-				 	 <td style="padding-left:10px;"> 
-						<input name="mcreated" type="text" style="width: 200px;">
-					 </td> 
-				</tr>
-				
-				<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
-				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">상&nbsp;영&nbsp;시&nbsp;&nbsp;간</td>
-				 	 <td style="padding-left:10px;"> 
-						<input name="mtime" type="text" style="width: 200px;">
-					 </td> 
-				</tr>
-				
-				
-				
-				<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
-				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">제&nbsp;작&nbsp;국&nbsp;&nbsp;가</td>
-				 	 <td style="padding-left:10px;"> 
-						<input name="country" type="text" style="width: 200px;">
-					 </td> 
-				</tr>
-				
-				<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
-				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">썸&nbsp;네&nbsp;일&nbsp;&nbsp;</td>
-				 	 <td style="padding-left:10px;"> 
-						<input name="thumbNail" type="text" style="width: 200px;">
-					 </td> 
-				</tr>
-				
-				<tr align="left" height="110" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
-				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">줄&nbsp;&nbsp;거&nbsp;&nbsp;리</td>
-				 	 <td style="padding-left:10px;"> 
-						<textarea name="movieStory" style="width: 500px; height: 95px;"></textarea>
-					 </td> 
-				</tr>
-				
-				<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
-				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">개&nbsp;봉&nbsp;날&nbsp;&nbsp;짜</td>
-				 	 <td style="padding-left:10px;"> 
-						<input name="openDate" type="text" style="width: 200px;">
-					 </td> 
-				</tr>
-				
-				<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
-				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">상&nbsp;영&nbsp;시&nbsp;작&nbsp;일(ex:20191227)</td>
-				 	 <td style="padding-left:10px;"> 
-						<input name="startDate" type="text"  style="width: 200px;">
-					 </td> 
-				</tr>
-				
-				
-				<tr align="left" height="40" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;"> 
-				     <td width="100" bgcolor="#eeeeee" style="text-align: center;">상&nbsp;영&nbsp;종&nbsp;료&nbsp;일(ex:20200127)</td>
-				 	 <td style="padding-left:10px;"> 
-						<input name="endDate" type="text"  style="width: 200px;">
-					 </td> 
-				</tr>
-				</table>
+	
 				
 				
 				<table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
@@ -366,3 +345,4 @@ function showTrailer(){
 			  </table>
 	
 </div>
+
