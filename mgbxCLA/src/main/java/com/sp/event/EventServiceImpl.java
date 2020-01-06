@@ -146,5 +146,26 @@ public class EventServiceImpl implements EventService{
 		}
 		
 	}
+	@Override
+	public List<Event> listDott(Map<String, Object> map) {
+		List<Event> list=null;
+		try {
+			list=dao.selectList("event.eventDott");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	@Override
+	public int DottCount(Map<String, Object> map) {
+		int result=0;
+		
+		try {
+			result=dao.selectOne("event.dottCount", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 	
 }

@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
+-<%@ page contentType="text/html; charset=UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -7,51 +7,153 @@
 %>
 <script type="text/javascript">
 
-jQuery(function(){
-	   jQuery(".movieDetail").click(function(){
-		  var url="<%=cp%>/movie/showingList";
-	      var query=
-	      
+
+function ajaxHTML(url, type, query, selector) {
+	$.ajax({
+		type:type
+		,url:url
+		,data:query
+		,success:function(data) {
+			$(selector).html(data);
+		}
+	});
+}
+
+function getAudience(movieCode){
+	var url ="<%=cp%>/movie/getAudience";
+	
+	jQuery.ajax({
+        type:"get"
+        ,url:url
+        ,data:""
+        ,dataType:"json"
+        ,success:function(data){
+        	console.log(data);
+        	
+        	var item = data.boxOfficeResult.dailyBoxOfficeList;
+        	if(item.length > 0){
+        		for(i=0; i<item.length; i++){
+	        		var code = item[i].movieCd;
+	        		
+	        		if(movieCode == code){
+	        			var dailyAudi = item[i].audiCnt;
+	        			var audience = item[i].audiAcc;
+	        		}
+        		}
+        	}
+        	
+       	
+       		if(dailyAudi > 0){
+       			jQuery("span[class=dailyAudience]").html(dailyAudi+"명");
+            }
+
+       		if(audience > 0){
+       			jQuery("span[class=audience]").html(audience+"명");
+            }
+            
+        }
+		,error:function(e){
+            console.log(e.responseText);
+	        
+        }
+	});
+}
+
+
+function showMovieDetail(movieCode){
+	var url ="<%=cp%>/movie/movieDetail";
+	var query ="movieCode="+movieCode; 
+	var selector = "#showDetail";
+	var type="get";
+
+	$("#showDetail").empty();
+	ajaxHTML(url, type, query, selector);
+	detailMovie(movieCode);
+	getAudience(movieCode);
+	
+    			$("#showDetail").dialog({
+					modal: true,
+					height:2000,
+					width:1000,
+					title: "영화 상세", 
+					close: function(event, ui) {
+						window.location.reload();
+					}
+	});
+}
+
+function detailMovie(movieCd){
+	var url="<%=cp%>/movie/showDetail";
+	var query="movieCode="+movieCd;
+	
 	      jQuery.ajax({
-	         type:"post"
+	         type:"get"
 	         ,url:url
 	         ,data:query
 	         ,dataType:"json"
 	         ,success:function(data){
-	            console.log(data);
-	         // console.log(data.movieListResult.movieList[0].movieNm);
-	         	jQuery("#movieList").empty(); 
-	         	
-	         	for(var i=0; i<data.movieListResult.movieList.length; i++){
-	         		var tag;
-	         		var movieTitle= data.movieListResult.movieList[i].movieNm;
-	         		var movieCd= data.movieListResult.movieList[i].movieCd;
-	         		tag="<tr style='height:35px;'><td><a href='javascript:detailMovie(\""+movieCd+"\");'>"+"영화제목 :"+movieTitle;
-	         		
-				for(var j=0; j<data.movieListResult.movieList[i].directors.length; j++){
-	        	  		
-		        	  	var director = data.movieListResult.movieList[i].directors[j].peopleNm;
-		        	  	
-		        	  	tag+="&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"+"| 감독 명 :"+director+"</a></td>";
-	        	  	}
-	        	  	
-	        	  	tag+="</tr>">
-	        	  		
-	        	  	jQuery("#movieList").append(tag);
-	          }
-	         
-	          
+	            
+	        	 console.log(data);
+	        	
+	        	var director="";
+	        	if(data.movieInfoResult.movieInfo.directors.length > 0){
+		        	for(var i=0; i<data.movieInfoResult.movieInfo.directors.length; i++){
+		            	director +=data.movieInfoResult.movieInfo.directors[i].peopleNm+"&nbsp&nbsp&nbsp";
+		        	}
+		            	
+		        	jQuery("span[class=moviedirector]").html(director);
+	        	} else {
+	        		jQuery("span[class=moviedirector]").html("");
+	        	}
+	        	
+	        	var showType="";
+	        	if(data.movieInfoResult.movieInfo.showTypes.length> 0){
+		            for(var i=0; i<data.movieInfoResult.movieInfo.showTypes.length; i++){
+		            	showType += data.movieInfoResult.movieInfo.showTypes[i].showTypeGroupNm+"("
+		        	  		+data.movieInfoResult.movieInfo.showTypes[i].showTypeNm+")&nbsp&nbsp&nbsp";
+		            }
+		           		 jQuery("span[class=showing]").html(showType);
+		            
+	        	} else {
+	        		jQuery("span[class=showing]").html("");
+	        	}
+	        	
+	            var actors="";
+	            if(data.movieInfoResult.movieInfo.actors.length >0){
+		        	for(var i=0; i<6; i++){
+		        	  	actors += data.movieInfoResult.movieInfo.actors[i].peopleNm+"&nbsp&nbsp&nbsp";
+		            }
+		        	jQuery("span[class=actor]").html(actors);
+	            } else {
+	            	jQuery("span[class=actor]").html("");
+	            }
+	            
+	            var genre="";
+	            if(data.movieInfoResult.movieInfo.genres.length > 0){
+		            for(var i=0; i<data.movieInfoResult.movieInfo.genres.length; i++){
+		            	genre +=data.movieInfoResult.movieInfo.genres[i].genreNm+"&nbsp&nbsp&nbsp" ;
+		            }
+		            jQuery("span[class=genre]").html(genre);
+	            } else {
+	            	jQuery("span[class=genre]").html("");
+	            }
+	            
+	            showTime="";
+	            if(data.movieInfoResult.movieInfo.showTm > 0){
+		            showTime= data.movieInfoResult.movieInfo.showTm+"분";
+	            	
+		            jQuery("span[class=mtime]").html(showTime);
+	            } else {
+	            	jQuery("span[class=mtime]").html("");
+	            }
+	            
 	         }
 	         ,error:function(e){
 	            console.log(e.responseText);
+	        
 	         }
-	      });
-	      
 	   });
-	   
-});  
-
-
+}
 </script>
 
 
@@ -130,6 +232,7 @@ list-style: none;}
 
 	
 	<div style="width: 90%;margin: 0 auto; min-height: 1800px;">
+		
 		<ul>
 			<li style="margin-left: 50px;">
 			
@@ -173,8 +276,8 @@ list-style: none;}
 				      				</c:otherwise>
 				      			</c:choose>
 				      			<p class="ddd" style="margin-left: 5px; font-weight: bold; font-size: 15pt; width: 70%; float: left; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: inline-block;">${vo.movieNm}</p>
-				      			<button type="button" name ="movieDetail" class="btn btn-outline-primary1">상세정보</button>
-				      			<button class="btn btn-outline-primary1">예매하기</button>
+				      			<button type="button" name ="movieDetail" class="btn btn-outline-primary1" onclick="showMovieDetail('${vo.movieCode}')">상세정보</button>
+				      			<button type="button" class="btn btn-outline-primary1">예매하기</button>
 				      		</div>
 				      </div>
 			      </div>
@@ -182,5 +285,9 @@ list-style: none;}
 			    
 			</li>
 		</ul>
+		
 	</div>	
 
+	<div id="showDetail" style="display: none;width: 1000px;"></div>
+	
+	

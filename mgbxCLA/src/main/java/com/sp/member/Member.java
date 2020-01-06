@@ -8,6 +8,12 @@ public class Member {
 	private String birth;
 	private int enabled;
 	
+	private int bookCode;
+	private String bookdate;
+	private String showingdate;
+	private String cmName;
+	private String movienm;
+	
 	private String authority;
 
 	public long getCustomerCode() {
@@ -161,5 +167,47 @@ public class Member {
 				+ ", getEnabled()=" + getEnabled() + ", getAuthority()=" + getAuthority() + ", getClass()=" + getClass()
 				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
+
+	public int getBookCode() {
+		return bookCode;
+	}
+
+	public void setBookCode(int bookCode) {
+		this.bookCode = bookCode;
+	}
+
+	public String getBookdate() {
+		return bookdate;
+	}
+
+	public void setBookdate(String bookdate) {
+		this.bookdate = bookdate;
+	}
+
+	public String getShowingdate() {
+		return showingdate;
+	}
+
+	public void setShowingdate(String showingdate) {
+		this.showingdate = showingdate;
+	}
+
+	public String getCmName() {
+		return cmName;
+	}
+
+	public void setCmName(String cmName) {
+		this.cmName = cmName;
+	}
+
+	public String getMovienm() {
+		return movienm;
+	}
+
+	public void setMovienm(String movienm) {
+		this.movienm = movienm;
+	}
+	
+	
 	
 }

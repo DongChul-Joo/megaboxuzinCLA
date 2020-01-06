@@ -17,6 +17,7 @@ public class MovieServiceImpl implements MovieService{
 	@Override
 	public List<Movie> readMovie(Map<String, Object> map) {
 		List<Movie> list = new ArrayList<>();
+		
 		try {
 			list = dao.selectList("movie.listShowingMovie", map);
 		} catch (Exception e) {
@@ -38,6 +39,19 @@ public class MovieServiceImpl implements MovieService{
 		}
 		
 		return result;
+	}
+
+	@Override
+	public Movie readDetail(int movieCode) {
+		Movie dto = null;
+		
+		try {
+			dto=dao.selectOne("movie.movieDetail", movieCode);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
 	}
 
 

@@ -27,27 +27,29 @@ float: left;
 <div class="body-container">
 	<div class="nomemberR">${dto.userName}예매내역</div>
 	
-	
-
 	<div>
 		<div>
 				
 			<table style="width: 100%; margin: 0px auto; border-spacing: 0px; border-collapse: collapse;">		
 				<tr align="center" bgcolor="#f8f8f8" height="50" style="border-top: 2px solid #731070; border-bottom: 1px solid #cccccc;">
-					<td width="35">번호</td>
-					<td width="70">영화제목</td>
-					<td width="70">영화일자</td>
-					<td width="70">영화상영관</td>
+					<td width="35">NO</td>
+					<td width="70">예매번호</td>
+					<td width="70">영화명</td>
+					<td width="70">영화관</td>
+					<td width="70">상영일시</td>
+					<td width="70">예매일</td>
 				</tr>		
 				
 				
 				
-				<c:forEach var="dto" items="">
+				<c:forEach var="dto" items="${list}">
 				  <tr align="center" bgcolor="#ffffff" height="35" style="border-bottom: 1px solid #cccccc;"> 
 				      <td></td>
-				      <td></td>
-				      <td></td>
-				      <td></td>
+				      <td>${dto.bookCode}</td>
+				      <td>${dto.movienm}</td>				      
+				      <td>${dto.cmName}</td>
+				      <td>${dto.showingdate}</td>
+				      <td>${dto.bookdate}</td>			     
 				  </tr>
 		  		</c:forEach>
 		  		  			

@@ -7,5 +7,7 @@ public interface MovieService {
 	public List<Movie> readMovie(Map<String, Object> map); 
 	
 	public int dataCount(Map<String, Object> map);
+	
+	public Movie readDetail(int movieCode);
 }
  

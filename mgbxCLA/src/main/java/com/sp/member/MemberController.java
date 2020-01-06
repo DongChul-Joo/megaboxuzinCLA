@@ -1,6 +1,7 @@
 package com.sp.member;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -317,19 +318,21 @@ public class MemberController {
 	public String nonmemberReservationSubmit(
 			@RequestParam Map<String, Object> paramMap,
 			Model model
-			) {
-		
+			) { 
+		 
+		List<Member> list = null;
 		try {
-			Member dto = service.readNonMember(paramMap);
 			
-			model.addAttribute("dto", dto);
+		list = service.listNonMember(paramMap);
+			
+			if(list==null) {
+				return ".member.nonmembers"; 
+			} 
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+		model.addAttribute("list", list);
 		return ".member.nonmembersCheck";
-	}
-	
-	
+	} 
 }

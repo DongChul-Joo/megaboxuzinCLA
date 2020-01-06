@@ -6,17 +6,20 @@
 	String cp=request.getContextPath();
 %>
 <style>
-.ll {
-list-style:none;
-margin:0px auto; width: 1000px;
-}
+
 
 .title{
 font-size: X-large;
 }
 
+.ll {
+list-style:none;
+font-family: center;
+}
+
+
 .ll li{
-display:block; width:140px; height:40px; background:#D5D5D5; color:#fff; border:1px black; font-size:12px; font-family:"돋움";
+display:block; width:140px; height:40px; color:#fff; border:1px black; font-size:12px; font-family:"돋움";
  text-align:center; padding-top:10px; text-decoration:none; float:left; list-style:none; margin: 1; font-size: large;
  }
  
@@ -38,6 +41,10 @@ font-family: 'Sunflower', sans-serif;
 
 .center {
 text-align: center;
+height :100px;
+ background-color: white; 
+ width:100%;
+ border-top: 3px solid #503396;
 }
 
 .a1{
@@ -53,20 +60,22 @@ function article(ecode) {
 }
 </script>
 
-<div class="body-container" style="width: 1000px;">
-
-<div style="width: 1000px; height:100px; background-color: white; ">
+<div class="center">
+	<div style="width: 60%;margin: 10px auto;">
     <ul class="ll" > 
         <li><a href="<%=cp%>/event/list?ecategoryCode=0">전체</a></li>
         <li><a href="<%=cp%>/event/list?ecategoryCode=1">메가박수진이벤트</a></li>
         <li><a href="<%=cp%>/event/list?ecategoryCode=2">영화 이벤트</a></li>   
         <li><a href="<%=cp%>/event/list?ecategoryCode=3">제휴 이벤트</a></li>
         <li><a href="<%=cp%>/event/list?ecategoryCode=4">영화관이벤트</a></li>
-        <li><a href="<%=cp%>">당첨자발표</a></li>
+        <li><a href="<%=cp%>/event/eventDott">당첨자발표</a></li>
         <li><a href="<%=cp%>">현황 통계</a></li>
     </ul>
+    </div>
 </div>
 
+
+<div class="body-container" style="width: 1000px; margin: 0px auto;">
 <div style="width: 100%; height: 5%;">
 	<ul class="lo">
 		<li><a href="<%=cp%>/event/list?state=1&ecategoryCode=${ecategoryCode}">진행중 이벤트 | </a></li>
@@ -84,7 +93,7 @@ function article(ecode) {
     </c:if>
 	<td width="20px" align="center" style="padding-bottom: 30px">
 		<div>
-			<img src="<%=cp%>/uploads/event/${dto.imageFilename}" width="200"
+			<img src="http://localhost:9090/mgbxAD/uploads/event/${dto.imageFilename}" width="200"
 				height="180" border="0" onclick="article('${dto.ecode}');">
 		</div>
 		

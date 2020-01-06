@@ -7,15 +7,20 @@
 %>
 
 <style>
+
+
+.title{
+font-size: X-large;
+}
+
 .ll {
 list-style:none;
-margin:0px auto; width: 1000px;
+font-family: center;
 }
 
 
-
 .ll li{
-display:block; width:140px; height:40px; background:#D5D5D5; color:#fff; border:1px black; font-size:12px; font-family:"돋움";
+display:block; width:140px; height:40px; color:#fff; border:1px black; font-size:12px; font-family:"돋움";
  text-align:center; padding-top:10px; text-decoration:none; float:left; list-style:none; margin: 1; font-size: large;
  }
  
@@ -37,12 +42,17 @@ font-family: 'Sunflower', sans-serif;
 
 .center {
 text-align: center;
+height :100px;
+ background-color: white; 
+ width:100%;
+ border-top: 3px solid #503396 ;
 }
 
 .a1{
 
 }
- </style>
+
+</style>
 
 <script type="text/javascript">
 
@@ -179,7 +189,7 @@ $(function(){
 			var state=data.state;
 			if(state=="true") {
 				listReplyAnswer(rcode);
-				// countReplyAnswer(rcode);
+				countReplyAnswer(rcode);
 			}
 		};
 		
@@ -214,7 +224,7 @@ $(function(){
 function countReplyAnswer(answer) {
 	var url = "<%=cp%>/event/countReplyAnswer";
 	var query = {answer:answer};
-	
+
 	var fn = function(data){
 		var count=data.count;
 		var vid="#answerCount"+answer;
@@ -316,10 +326,8 @@ $(function(){
 
 </script>
 
- 
- <div class="body-container" style="width: 1000px;">
-
-<div style="width: 1000px; height:100px; background-color: white; ">
+<div class="center">
+	<div style="width: 60%;margin: 10px auto;">
     <ul class="ll" > 
         <li><a href="<%=cp%>/event/list?ecategoryCode=0">전체</a></li>
         <li><a href="<%=cp%>/event/list?ecategoryCode=1">메가박수진이벤트</a></li>
@@ -329,7 +337,10 @@ $(function(){
         <li><a href="<%=cp%>">당첨자발표</a></li>
         <li><a href="<%=cp%>">현황 통계</a></li>
     </ul>
+    </div>
 </div>
+ 
+ <div class="body-container" style="width: 1000px;">
 
 <div class="body-container" style="width: 800px;">
     <div class="body-title">
@@ -354,7 +365,7 @@ $(function(){
     </div>
     <div style="width: 80%; margin: 10px auto 0px; text-align: center;">
     	<a href="${dto.elink}">
-    		<img src="/mgbxCLA/uploads/event/${dto.imageFilename}" width="70%" style="margin: 0px 10px;">
+    		<img src="http://localhost:9090/mgbxAD/uploads/event/${dto.imageFilename}" width="70%" style="margin: 0px 10px;">
     	</a>
     </div>
 	</div>
