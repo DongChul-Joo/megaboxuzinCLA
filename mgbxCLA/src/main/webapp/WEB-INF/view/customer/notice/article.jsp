@@ -6,17 +6,32 @@
 	String cp=request.getContextPath();
 %>
 
+<style type="text/css">
+  .subject1{
+    padding:7px 10px;
+	font-weight: bold;
+	color: #ffffff;
+	background: #731070;
+	text-align: left;
+  }
+</style>
+
+<div class="alert-info">
+    <i class="fas fa-info-circle"></i>
+    	영화관 공지사항입니다
+</div>
+
     <div>
 			<table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
-			<tr height="35" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">
-			    <td colspan="2" align="center">
+			<tr class="subject1" height="35" style="border-top: 1px solid #cccccc; border-bottom: 1px solid #cccccc;">
+			    <td colspan="2" style="padding-left:20px;">
 				   ${dto.subject}
 			    </td>
 			</tr>
 			
 			<tr height="35" style="border-bottom: 1px solid #cccccc;">
 			    <td width="50%" align="left" style="padding-left: 5px;">
-			       아이디 : ${dto.userId}
+			      작성자 : ${dto.userId}
 			    </td>
 			    <td width="50%" align="right" style="padding-right: 5px;">
 			        ${dto.created}
@@ -29,6 +44,8 @@
 			   </td>
 			</tr>
 			
+			<tr></tr>
+			
 			<c:forEach var="vo" items="${listFile}">
 				<tr height="35" style="border-bottom: 1px solid #cccccc;">
 				    <td colspan="2" align="left" style="padding-left: 5px;">
@@ -37,6 +54,8 @@
 				    </td>
 				</tr>
 			</c:forEach>
+			
+			<tr></tr>
 			
 			<tr height="35" style="border-bottom: 1px solid #cccccc;">
 			    <td colspan="2" align="left" style="padding-left: 5px;">

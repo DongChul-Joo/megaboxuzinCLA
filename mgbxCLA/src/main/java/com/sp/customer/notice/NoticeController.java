@@ -84,7 +84,9 @@ public class NoticeController {
 		model.addAttribute("pageNo", current_page);
 		model.addAttribute("total_page", total_page);
 		model.addAttribute("paging", paging);
-
+		
+		model.addAttribute("dataCount", dataCount);
+		
 		model.addAttribute("condition", condition);
 		model.addAttribute("keyword", keyword);
 		
@@ -287,27 +289,28 @@ public class NoticeController {
 	@ResponseBody
 	public Map<String, Object> deleteFile(
 			@RequestParam int fileNum,
-			HttpServletResponse resp,
 			HttpSession session) throws Exception {
 		String root = session.getServletContext().getRealPath("/");
 		String pathname = root + "uploads" + File.separator + "notice";
 		
+		String state="false";
 		Notice dto = service.readFile(fileNum);
 		if(dto!=null) {
 			fileManager.doFileDelete(dto.getSaveFilename(), pathname);
-		}
 		
-		Map<String, Object> model = new HashMap<>();
-		try {
-			Map<String, Object> map = new HashMap<String, Object>();
+			Map<String, Object> map = new HashMap<>();
 			map.put("field", "fileNum");
 			map.put("code", fileNum);
-			service.deleteFile(map);
-			model.put("state", "true");
-		} catch (Exception e) {
-			model.put("state", "false");
+			
+			try {
+				service.deleteFile(map);
+				state="true";
+			} catch (Exception e) {
+			}
 		}
-		
+		Map<String, Object> model = new HashMap<>();
+		model.put("state", state);
+			
 		return model;
 	}
 	

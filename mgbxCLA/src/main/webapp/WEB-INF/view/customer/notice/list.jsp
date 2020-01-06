@@ -9,7 +9,7 @@
     <div>
 		<table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px;">
 		   <tr height="35">
-		      <td align="left" width="50%">
+		      <td align="left" width="50%" style="padding-left: 20px;">
 		          ${dataCount}개(${pageNo}/${total_page} 페이지)
 		      </td>
 		      <td align="right">
@@ -38,7 +38,7 @@
 		      <td>
                    <c:if test="${dto.fileCount != 0}">
                         <a href="<%=cp%>/customer/notice/zipdownload?code=${dto.code}">
-						<img style="width: 30px;" src="<%=cp%>/resource/images/zip.png"></a>
+						<img style="width: 25px;" src="<%=cp%>/resource/images/zip.png"></a>
                    </c:if>
 		      </td>
 		  </tr>

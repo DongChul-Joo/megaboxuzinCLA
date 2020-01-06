@@ -48,6 +48,15 @@
     	});
     });
 	
+	<c:if test="${mode=='update'}">
+		function deleteFile(fileNum) {
+			var url="<%=cp%>/customer/notice/deleteFile";
+			$.post(url, {fileNum:fileNum}, function(data){
+				$("#fileTr"+fileNum).remove();
+			}, "json");
+		}
+	</c:if>
+	
 </script>
 
 
@@ -91,9 +100,9 @@
 		<c:if test="${mode=='update'}">
 			<c:forEach var="vo" items="${listFile}">
 				<tr id="fileTr${vo.fileNum}" align="left" height="40" style="border-bottom: 1px solid #cccccc;"> 
-					<td width="100" bgcolor="#eeeeee" style="text-align: center;">첨부된파일</td>
+					<td width="100" bgcolor="#eeeeee" style="text-align: center;">첨부파일</td>
 					<td style="padding-left:10px;">
-						<a href="javascript:deleteFile('${vo.saveFilename}');">
+						<a href="javascript:deleteFile('${vo.fileNum}');">
 						<img style="width: 30px;" src="<%=cp%>/resource/images/delete.png"></a>
 						${vo.originalFilename}
 					</td>
