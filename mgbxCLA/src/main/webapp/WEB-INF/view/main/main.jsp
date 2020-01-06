@@ -193,6 +193,158 @@
 </style>
 
 
+<script type="text/javascript">
+
+
+function ajaxHTML(url, type, query, selector) {
+	$.ajax({
+		type:type
+		,url:url
+		,data:query
+		,success:function(data) {
+			$(selector).html(data);
+		}
+	});
+}
+
+function getAudience(movieCode){
+	var url ="<%=cp%>/main/getAudience";
+	
+	jQuery.ajax({
+        type:"get"
+        ,url:url
+        ,data:""
+        ,dataType:"json"
+        ,success:function(data){
+        	console.log(data);
+        	
+        	var item = data.boxOfficeResult.dailyBoxOfficeList;
+        	if(item.length > 0){
+        		for(i=0; i<item.length; i++){
+	        		var code = item[i].movieCd;
+	        		
+	        		if(movieCode == code){
+	        			var dailyAudi = item[i].audiCnt;
+	        			var audience = item[i].audiAcc;
+	        		}
+        		}
+        	}
+        	
+       	
+       		if(dailyAudi > 0){
+       			jQuery("span[class=dailyAudience]").html(dailyAudi+"명");
+            }
+
+       		if(audience > 0){
+       			jQuery("span[class=audience]").html(audience+"명");
+            }
+            
+        }
+		,error:function(e){
+            console.log(e.responseText);
+	        
+        }
+	});
+}
+
+
+function showMovieDetail(movieCode){
+	var url ="<%=cp%>/main/movieDetail";
+	var query ="movieCode="+movieCode; 
+	var selector = "#detailInfo";
+	var type="get";
+
+	$("#showDetail").empty();
+	ajaxHTML(url, type, query, selector);
+	detailMovie(movieCode);
+	getAudience(movieCode);
+	
+    			$("#detailInfo").dialog({
+					modal: true,
+					height:2000,
+					width:1000,
+					title: "상세 정보",
+					close: function(event, ui) {
+						window.location.reload();
+					}
+	});
+}
+
+function detailMovie(movieCd){
+	var url="<%=cp%>/main/showDetail";
+	var query="movieCode="+movieCd;
+	
+	      jQuery.ajax({
+	         type:"get"
+	         ,url:url
+	         ,data:query
+	         ,dataType:"json"
+	         ,success:function(data){
+	            
+	        	 console.log(data);
+	        	
+	        	var director="";
+	        	if(data.movieInfoResult.movieInfo.directors.length > 0){
+		        	for(var i=0; i<data.movieInfoResult.movieInfo.directors.length; i++){
+		            	director +=data.movieInfoResult.movieInfo.directors[i].peopleNm+"&nbsp&nbsp&nbsp";
+		        	}
+		            	
+		        	jQuery("span[class=moviedirector]").html(director);
+	        	} else {
+	        		jQuery("span[class=moviedirector]").html("");
+	        	}
+	        	
+	        	var showType="";
+	        	if(data.movieInfoResult.movieInfo.showTypes.length> 0){
+		            for(var i=0; i<data.movieInfoResult.movieInfo.showTypes.length; i++){
+		            	showType += data.movieInfoResult.movieInfo.showTypes[i].showTypeGroupNm+"("
+		        	  		+data.movieInfoResult.movieInfo.showTypes[i].showTypeNm+")&nbsp&nbsp&nbsp";
+		            }
+		           		 jQuery("span[class=showing]").html(showType);
+		            
+	        	} else {
+	        		jQuery("span[class=showing]").html("");
+	        	}
+	        	
+	            var actors="";
+	            if(data.movieInfoResult.movieInfo.actors.length >0){
+		        	for(var i=0; i<6; i++){
+		        	  	actors += data.movieInfoResult.movieInfo.actors[i].peopleNm+"&nbsp&nbsp&nbsp";
+		            }
+		        	jQuery("span[class=actor]").html(actors);
+	            } else {
+	            	jQuery("span[class=actor]").html("");
+	            }
+	            
+	            var genre="";
+	            if(data.movieInfoResult.movieInfo.genres.length > 0){
+		            for(var i=0; i<data.movieInfoResult.movieInfo.genres.length; i++){
+		            	genre +=data.movieInfoResult.movieInfo.genres[i].genreNm+"&nbsp&nbsp&nbsp" ;
+		            }
+		            jQuery("span[class=genre]").html(genre);
+	            } else {
+	            	jQuery("span[class=genre]").html("");
+	            }
+	            
+	            showTime="";
+	            if(data.movieInfoResult.movieInfo.showTm > 0){
+		            showTime= data.movieInfoResult.movieInfo.showTm+"분";
+	            	
+		            jQuery("span[class=mtime]").html(showTime);
+	            } else {
+	            	jQuery("span[class=mtime]").html("");
+	            }
+	            
+	         }
+	         ,error:function(e){
+	            console.log(e.responseText);
+	        
+	         }
+	   });
+}
+</script>
+
+
 
 
 		<div class="body-container" style="width: 100%; height: 300px; min-height: 670px;">
@@ -264,7 +416,7 @@
 
 			      <!-- <li class="lin">최신개봉작</li> -->
 	
-			      	<button class="btn btn-outline-primary" style="height: 50px; width: 100%;">최신개봉작
+			      	<button class="btn btn-outline-primary" onclick="javascript:location.href='<%=cp%>/movie/newmovie';" style="height: 50px; width: 100%;">최신개봉작
 			      	<!-- <p style="color: white; text-align: center; margin-top: 12px;">최신개봉작</p> -->
 			      	</button>
 
@@ -360,23 +512,57 @@
 		  	
 		  		<div style="padding-left: 10%; padding-right: 20%;">
 		  			
+		  			
 		  			<div class="swiper-container">
 						    <div class="swiper-wrapper">
+						    
+						    <c:forEach var="vo" items="${list}">
 						      <div class="swiper-slide">
 						      	<div>
-				      				<img src="<%=cp%>/resource/images/eee1.jpg" height="330px;" width="300px;">
-					      			<div style="border: 1px solid #e4e4e4; height: 100px;">
-										<p style="margin-top: 10px;">MoonLight</p>
-										<button id="modal_opne_btn" class="btn btn-outline-primary1" type="button">상세정보</button>
-							      		<button class="btn btn-outline-primary1">예매하기</button>
-							      		
-							      		
-							      		
-							      		
+				      				<c:choose>
+								      	<c:when test="${vo.thumbNail != 'No images'}">
+								      		<img src="${vo.thumbNail}" width="295px;" height="280px;">
+								      	</c:when>
+							      		<c:otherwise>
+							      			<div style="width: 295px; height: 280px; text-align: center;">
+							      				<p style="height: 150px; font-size: 30px; padding-top: 130px;">이미지가 없습니다.</p>
+							      			</div>
+							      		</c:otherwise>
+				      				</c:choose>
+					      			
+					      			 <div style="height: 51px; width: 300px; border: 1px solid #e4e4e4; background-color: white; ">
+					   	 				<span style="float:left; font-size: 15pt;">평점 : 9.5</span>
+					   	 				<span style="float:right; margin-right:5px; font-size: 15pt;">★★★★☆</span>
+				   	  				</div>
+				   	  				
+					      			<div style="border: 1px solid #e4e4e4; width: 300px; height: 100px;">
+										<c:choose>
+				      						<c:when test="${vo.audits == '전체'}">
+				      							<p class="ddd" style="margin-left: 5px; margin-right: 5px; font-size: 10pt; color: white; height:25px; width: 14%; float: left;
+				      								 border-style: solid; border-width: 1px; border-color: green; border-radius: 5px; background: green; ">${vo.audits}</p>
+				      						</c:when>
+						      				<c:when test="${vo.audits == '12'}">
+						      					<p class="ddd" style="margin-left: 5px; margin-right: 5px; font-size: 10pt; color: white; height:25px; width: 14%; float: left;
+						      						 border-style: solid; border-width: 1px; border-color: green; border-radius: 5px; background-color: #3DB7CC; ">${vo.audits}</p>
+						      				</c:when>
+						      				<c:when test="${vo.audits == '15'}">
+						      					<p class="ddd" style="margin-left: 5px; margin-right: 5px; font-size: 10pt; color: white; height:25px; width: 14%; float: left;
+						      						 border-style: solid; border-width: 1px; border-color: green; border-radius: 5px; background: orange;">${vo.audits}</p>
+						      				</c:when>
+						      				<c:otherwise>
+						      					<p class="ddd" style="margin-left: 5px; margin-right: 5px; font-size: 10pt; color: white; height:25px; width: 14%; float: left; border-style: solid; border-width: 1px; border-color: green; border-radius: 5px; background: red; ">${vo.audits}</p>
+						      				</c:otherwise>
+				      					</c:choose>
+				      					
+					      				<p class="ddd" style="margin-left: 5px; font-weight: bold; font-size: 15pt; width: 70%; float: left; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: inline-block;">${vo.movieNm}</p>
+					      				<button type="button" name ="movieDetail" class="btn btn-outline-primary1" onclick="showMovieDetail('${vo.movieCode}')">상세정보</button>
+					      				<button type="button" class="btn btn-outline-primary1">예매하기</button>
 									</div>
 								</div>
 						   </div>
+						   </c:forEach>
 						      
+						      <div id="detailInfo" style="display: none;width: 1000px;"></div>
 						      
 						      <div class="swiper-slide">
 						      	<div>

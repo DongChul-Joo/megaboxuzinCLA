@@ -146,7 +146,7 @@ public class MovieController {
 		
 		model.addAttribute("movie", dto);
 		
-		return "/movie/movieDetail";
+		return "/movie/detailMovie";
 	}
 	
 	

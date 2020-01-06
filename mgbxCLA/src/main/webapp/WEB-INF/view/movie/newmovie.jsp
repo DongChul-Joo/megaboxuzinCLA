@@ -75,7 +75,7 @@ function showMovieDetail(movieCode){
 					modal: true,
 					height:2000,
 					width:1000,
-					title: "영화 상세", 
+					title: "상세 정보", 
 					close: function(event, ui) {
 						window.location.reload();
 					}
