@@ -107,6 +107,17 @@ list-style: none;
 float: left;
 }
 
+.addSelectsM{  
+width: 23%;
+height: 120px;
+margin-left: 5px;
+background: white;
+border: 1px solid #198591;
+list-style: none;
+float: left;
+margin-top: 25px;
+}
+
 .addSelectsbutton{
 width: 17px;
 height: 18px;  
@@ -120,13 +131,13 @@ float: right;
 
 }
 
-.addSelects button :focus { 
+.addSelects button:focus ,.addSelectsM button:focus { 
 outline:none; 
 }
 .addSelectsbuttonM{
 width: 17px;
 height: 18px;  
-background: none;
+background: white;
 border-left: 1px solid #198591;
 border-bottom: 1px solid #198591;
 border-top:none;
@@ -144,7 +155,58 @@ overflow: hidden;
 white-space: nowrap; 
 display: inline-block;
 text-align: center;
-}  
+}
+
+.selMovieAdd {
+width:100%;
+height: 30px;
+text-overflow: ellipsis; 
+overflow: hidden; 
+white-space: nowrap; 
+display: inline-block;
+text-align: center;
+margin-top: 20px;
+}
+
+#areaListUL{
+width: 20%;
+height: 87%;
+
+
+}
+#areaListUL li{
+width: 100%;
+height: 12%;
+text-align: center;
+padding-top: 18px;
+border: 1px solid #cccccc;
+border-spacing: 0;
+border-collapse: collapse;
+border-top: none;
+cursor: pointer;
+font-weight: bold;
+}
+
+#branListUL{
+width: 20%;
+height: 87%;
+overflow: scroll;
+overflow-x:hidden
+}
+#branListUL li{
+width: 100%;
+height: 8%;
+text-align: center;
+cursor: pointer;
+border-bottom:0.5px solid white;
+padding-top: 5px;
+
+}
+#bookingMap{
+width: 59%;
+height:87%; 
+float: left;
+}
 </style>
 
 <script type="text/javascript">
@@ -189,18 +251,19 @@ function movieSerach(){
             	var inMovie=$(".addSelectsM");
             	var movieSelectList=$("span[name=selectMovies]");
             	var movieLi=$(".movieLi");
+            
             	for(var z=0;z<4;z++){
            
                 	if(z<selMovieCount){
                 		var movieSelectList=$("span[name=selectMovies]");
                 		inMovie[z].setAttribute("data-movieCode",movieSelectList[z].getAttribute("data-movieCode"));
                 		inMovie[z].setAttribute("data-movieNm",movieSelectList[z].getAttribute("data-movieNm"));
-                		
+                		inMovie[z].setAttribute("data-thumNail",movieSelectList[z].getAttribute("data-thumNail"));
                 		if(movieSelectList[z].getAttribute("data-thumNail")=="No images"){
                 			$(inMovie[z]).find("span").html(movieSelectList[z].getAttribute("data-movieNm"));
                 		}else{
-                			$(inMovie[z]).css("bacground-image","url('"+movieSelectList[z].getAttribute("data-movieNm")+"')");
-                			$(inMovie[z]).css("bacground-size","cover");
+                			$(inMovie[z]).css("background-image","url('"+movieSelectList[z].getAttribute("data-thumNail")+"')");
+                			$(inMovie[z]).css("background-size","cover");
                 		}
                 		
                 		inMovie[z].style.display="";
@@ -217,7 +280,25 @@ function movieSerach(){
             	
             	 $(this).dialog("close");
              },
-             " 취소 " : function() {                	 
+             " 취소 " : function() {
+            	 var inMovie=$(".addSelectsM");
+	             
+                 
+            	 $("#movieSelectList").find("span").remove();
+            	 $(".listOfMovie").attr("data-select","");
+            	 $(".listOfMovie").css("background","");
+            	 for(var z=0;z<selMovieCountEnd;z++){
+           					 
+	                var movieCode=inMovie[z].getAttribute("data-movieCode");
+	                var movieNm=inMovie[z].getAttribute("data-movieNm");
+	  				var thumNail=inMovie[z].getAttribute("data-thumNail");
+	  				$(".listOfMovie[data-movieCode="+movieCode+"]").css("background","#198591");
+	  				$(".listOfMovie[data-movieCode="+movieCode+"]").attr("data-select","select");
+	                var selMovie="<span name='selectMovies' name='selectmovies' data-thumNail='"+thumNail+"' data-movieCode='"+movieCode+"' data-movieNm='"+movieNm+"'>"+movieNm+"<a>X</a></span>";
+	            	
+	            	$("#movieSelectList").append(selMovie);
+                	}
+            	 selMovieCount=selMovieCountEnd;
             	 $(this).dialog("close");
        		},
         },
@@ -234,7 +315,7 @@ $(function(){
 	         modal: true,
 	         height:600,
 	         width:900,
-	         title: "영화관 선택",
+	         title: "",
 	         open:function(){
 	        	 $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
 	        	 listAreas("${areaList[0].parent}");
@@ -304,7 +385,16 @@ function ajaxJSON(url, type, query, fn) {
 	   });
 	}
 
-
+$(document).on("click", "#areaListUL li",function(){
+	listAreas(this.getAttribute("data-parent"));
+	
+	$("#areaListUL li").css("background","white");
+	
+	$(this).css("background","#e5e5e5");
+	
+	maps(this.getAttribute("data-Addr"),this.getAttribute("data-branName"));
+	
+});
 function listAreas(parent){
 	   var type="get";
 	   var query="parent="+parent;
@@ -314,7 +404,7 @@ function listAreas(parent){
 	       
 	      if(data.length>0){
 	         for(var i=0;i<data.length;i++){
-	            var lb="<li data-branCode='"+data[i].branCode+"' data-branName='"+data[i].branName+"' class=''>"+data[i].branName+"</li>";
+	            var lb="<li data-Addr='"+data[i].branAddr1+"' data-branCode='"+data[i].branCode+"' data-branName='"+data[i].branName+"' class=''>"+data[i].branName+"</li>";
 	            
 	              $("#branListUL").append(lb);  
 	         }
@@ -396,10 +486,54 @@ $(document).on("click",".addSelectsbutton",function(){
     		inCinema[z].setAttribute("data-branName","");
     	}
 	}
-	
-	
-	
 });
+
+$(document).on("click",".addSelectsbuttonM",function(){
+	var idx=this.getAttribute("data-idx");
+	var inMovie=$(".addSelectsM");
+	var movieLi=$(".movieLi");
+
+	
+	$("#movieSelectList span[data-movieCode="+inMovie[idx].getAttribute("data-movieCode")+"]").remove();
+	$(".listOfMovie[data-movieCode="+inMovie[idx].getAttribute("data-movieCode")+"]").css("background","");
+	$(".listOfMovie[data-movieCode="+inMovie[idx].getAttribute("data-movieCode")+"]").attr("data-select","");
+    
+ 
+	selMovieCount--;
+	
+	for(var z=0;z<4;z++){
+        
+    	if(z<selMovieCount){
+    		$(inMovie[z]).css("background-image","none");
+    		$(inMovie[z]).css("background-size","none");
+    		$(inMovie[z]).find("span").html("");
+    		var movieSelectList=$("span[name=selectMovies]");
+    		inMovie[z].setAttribute("data-movieCode",movieSelectList[z].getAttribute("data-movieCode"));
+    		inMovie[z].setAttribute("data-movieNm",movieSelectList[z].getAttribute("data-movieNm"));
+
+    		if(movieSelectList[z].getAttribute("data-thumNail")=="No images"){
+    			$(inMovie[z]).find("span").html(movieSelectList[z].getAttribute("data-movieNm"));
+    		}else{
+    			$(inMovie[z]).css("background-image","url('"+movieSelectList[z].getAttribute("data-thumNail")+"')");
+    			$(inMovie[z]).css("background-size","cover");
+    		}
+    		
+    		inMovie[z].style.display="";
+    		
+    		movieLi[z].style.display="none";
+    	}else{
+    		$(inMovie[z]).find("span").html("");
+    		$(inMovie[z]).css("background-image","none");
+    		$(inMovie[z]).css("background-size","none");
+    		inMovie[z].style.display="none";
+    		movieLi[z].style.display="";
+    		inMovie[z].setAttribute("data-movieCode","");
+    		inMovie[z].setAttribute("data-movieName","");
+    	}
+	}
+	selMovieCountEnd=selMovieCount;
+});
+
 $(document).on("click",".listOfMovie",function(){
 	var movieCode=this.getAttribute("data-movieCode");
 	
@@ -458,19 +592,19 @@ $(document).on("click",".listOfMovie",function(){
 			<ul >
 				 <li class="movieLi"><button class="movieButton" type="button" onclick="movieSerach();">+</button></li>
 				 <li class="addSelectsM" style="display: none;"><p><button class="addSelectsbuttonM" data-idx="0" type="button">x</button>
-				 		</p><span class="selMovieAdd">1</span></li>
+				 		</p><span class="selMovieAdd"></span></li>
 				 
             	 <li class="movieLi"><button class="movieButton" type="button" onclick="movieSerach();">+</button></li>
             	 <li class="addSelectsM" style="display: none;"><p><button class="addSelectsbuttonM" data-idx="1" type="button">x</button>
-            			 </p><span class="selMovieAdd">2</span></li>
+            			 </p><span class="selMovieAdd"></span></li>
             	 
            		 <li class="movieLi"><button class="movieButton" type="button" onclick="movieSerach();">+</button></li>
            		 <li class="addSelectsM" style="display: none;"><p><button class="addSelectsbuttonM" data-idx="2" type="button">x</button>
-           		 		</p><span class="selMovieAdd">3</span></li>
+           		 		</p><span class="selMovieAdd"></span></li>
            		 
             	 <li class="movieLi"><button class="movieButton" type="button" onclick="movieSerach();">+</button></li>
 				 <li class="addSelectsM" style="display: none;"><p><button class="addSelectsbuttonM" data-idx="3" type="button">x</button>
-				 		</p><span class="selMovieAdd">4</span></li>
+				 		</p><span class="selMovieAdd"></span></li>
 			</ul>
 		</div> 
 	</div>    
@@ -495,8 +629,9 @@ $(document).on("click",".listOfMovie",function(){
 		<div style="width: 100%; height: 85%;">상영목록</div>
 	</div>
 	
-	<div id="movieSelecter" style="display: none;width: 900px;height: 800px;">
+	<div id="movieSelecter" style="display: none;width: 900px;height: 800px;overflow:none;">
 		<div id="movieSelectList" style="width: 100%; height: 8%;border-bottom: 1px solid #cccccc;border-top: 1px solid #cccccc"></div>
+		 <div style="width: 100%;height: 90%;overflow: scroll;overflow-x:hidden">
 		 <c:forEach var="vo" items="${movieList}">
 			      <div class="listOfMovie" data-select="" data-movieCode="${vo.movieCode}" data-movieNm="${vo.movieNm}" data-thumNail="${vo.thumbNail}" style="height: 300px; width: 180px; float: left; 
 			      cursor: pointer;margin-left: 2px;margin-top: 2px;">
@@ -545,19 +680,70 @@ $(document).on("click",".listOfMovie",function(){
 			      </div>
 			      </div>
 			    </c:forEach>
+			    </div>
 	</div>
 	
 </div>
-
+  
 <div id="branchCinemas" style="display: none;width: 900px;height: 600px;">
    <div id="branchSelectList" style="width: 100%;height: 12%;border-bottom: 1px solid #cccccc;border-top: 1px solid #cccccc"></div>
    <ul id="areaListUL">
       <c:forEach var="vo" items="${areaList}">
-         <li><a href="javascript:listAreas('${vo.parent}')">${vo.areaName}</a></li>
+         <li data-parent="${vo.parent}"><span>${vo.areaName}</span></li>
       </c:forEach>
    </ul>
    <ul id="branListUL">
    </ul>
+   <div id="bookingMap"></div>
 </div>
 <div id="bookingSeat">
 </div>
+
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=04e4431a8f42ef7f22f5a23dfe0e8324&libraries=servicesappkey=APIKEY&libraries=services"></script>
+	<script>
+function maps(addr,bn){
+		
+	var addr1=addr;
+	var branName=bn;
+	alert("zz");
+		var mapContainer = document.getElementById('bookingMap'), // 지도를 표시할 div 
+	    mapOption = {
+	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	        level: 3 // 지도의 확대 레벨
+	    };  
+
+	// 지도를 생성합니다    
+	var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+	// 주소-좌표 변환 객체를 생성합니다
+	var geocoder = new kakao.maps.services.Geocoder();
+
+	// 주소로 좌표를 검색합니다
+	geocoder.addressSearch(addr1, function(result, status) {
+
+	    // 정상적으로 검색이 완료됐으면 
+	     if (status === kakao.maps.services.Status.OK) {
+
+	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+	        // 결과값으로 받은 위치를 마커로 표시합니다
+	        var marker = new kakao.maps.Marker({
+	            map: map,
+	            position: coords
+	        });
+
+	        // 인포윈도우로 장소에 대한 설명을 표시합니다
+	        var infowindow = new kakao.maps.InfoWindow({
+	            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+branName+'</div>'
+	        });
+	        infowindow.open(map, marker);
+
+	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	        map.setCenter(coords);
+	    } 
+	    
+	    
+	});    
+	}
+	</script>
