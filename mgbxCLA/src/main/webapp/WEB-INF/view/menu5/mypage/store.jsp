@@ -36,7 +36,7 @@ padding-bottom: 30px;
 				
 				
 				<c:forEach var="dto" items="${list}">
-				  <tr align="center" bgcolor="#ffffff" height="35" style="border-bottom: 1px solid #cccccc;"> 
+				  <tr align="center" bgcolor="#ffffff" height="50" style="border-bottom: 1px solid #cccccc;"> 
 				      <td>${dto.itemPart}</td>
 				      <td>${dto.buyDate}</td>
 				      <td>${dto.itemName}</td>

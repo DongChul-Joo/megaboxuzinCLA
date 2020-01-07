@@ -44,7 +44,7 @@ padding-right: 206px;
 	<div class="nomemberR">멤버십정보</div>
 
 			<div>
-			<h3 style="float: right;">${dto.userName}님은 VIP회원입니다.</h3>
+			<h3 style="float: right;">${dto1.userName}님은 ${dto1.membershipName}회원입니다.</h3>
 			</div>
 		
 		<div>
@@ -74,52 +74,28 @@ padding-right: 206px;
 					
 					
 					<div style="width: 60%; height: 400px; float: left;">
-						<h2 style="margin: 50px 30px auto; margin-bottom: 10px;">멤버십 카드 정보</h2>		
+						<h2 style="margin: 50px 30px auto; margin-bottom: 10px;">포인트 내역 조회</h2>		
 	<div>
 		<div>
-				<p style="margin-left: 15px;">일반 카드</p>
 			<table style="width: 95%; margin: 10px auto; border-spacing: 0px; border-collapse: collapse;">	
 				
 				<tr align="center" bgcolor="#f8f8f8" height="40" style="border-top: 2px solid #731070; border-bottom: 1px solid #cccccc;">
-					<td width="35">NO</td>
-					<td width="70">카드번호</td>
-					<td width="70">카드명</td>
-					<td width="70">등록일</td>
+					<td width="35">일자</td>
+					<td width="70">지점</td>
+					<td width="70">이용내역</td>
+					<td width="70">이용금액</td>
+					<td width="70">적립포인트</td>
+					<td width="70">사용포인트</td>
+					<td width="70">구분</td>
 				</tr>		
 				
 				
 				
 				<c:forEach var="dto" items="">
-				  <tr align="center" bgcolor="#ffffff" height="35" style="border-bottom: 1px solid #cccccc;"> 
+				  <tr align="center" bgcolor="#ffffff" height="50" style="border-bottom: 1px solid #cccccc;"> 
 				      <td></td>
 				      <td></td>
 				      <td></td>
-				      <td></td>
-				  </tr>
-		  		</c:forEach>
-		  		  			
-			</table>
-			
-			</div>
-		</div>		
-		
-		
-		<div>
-		<div style="padding-top: 60px;">
-				<p style="margin-left: 15px;">모바일 카드</p>
-			<table style="width: 95%; margin: 10px auto; border-spacing: 0px; border-collapse: collapse;">	
-				
-				<tr align="center" bgcolor="#f8f8f8" height="40" style="border-top: 2px solid #731070; border-bottom: 1px solid #cccccc;">
-					<td width="35">NO</td>
-					<td width="70">카드번호</td>
-					<td width="70">발급처</td>
-					<td width="70">등록일</td>
-				</tr>		
-				
-				
-				
-				<c:forEach var="dto" items="">
-				  <tr align="center" bgcolor="#ffffff" height="35" style="border-bottom: 1px solid #cccccc;"> 
 				      <td></td>
 				      <td></td>
 				      <td></td>

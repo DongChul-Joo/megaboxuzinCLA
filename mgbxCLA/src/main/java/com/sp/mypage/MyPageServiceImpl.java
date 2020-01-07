@@ -61,4 +61,15 @@ public class MyPageServiceImpl implements MyPageService {
 		return dto;
 	}
 
+	@Override
+	public MyPage listMembership(String userId) throws Exception {
+		MyPage dto = null;
+		try {
+			dto = dao.selectOne("mypage.listMembership", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+
 }

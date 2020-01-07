@@ -44,5 +44,14 @@
         JOIN MILEAGE m1 ON m.mileageCode = m1.mileageCode
         WHERE userId =  #{userId}
 	</select>
+	
+	
+	<select id="listMembership" parameterType="String" resultType="com.sp.mypage.MyPage">
+		SELECT userName, m.membershipCode , m1.membershipName
+        FROM membershipinfo m1
+        JOIN member m ON m1.membershipCode = m.membershipCode
+        JOIN customer c ON m.customerCode = c.customerCode
+        where userId =  #{userId}
+	</select>
 
 </mapper>

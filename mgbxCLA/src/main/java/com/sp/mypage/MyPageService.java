@@ -8,4 +8,5 @@ public interface MyPageService {
 	public List<MyPage> listStore(Map<String, Object> map);
 	public List<MyPage> listMyMovieStory(Map<String, Object> map);
 	public MyPage listPoint(String userId) throws Exception;
+	public MyPage listMembership(String userId) throws Exception;
 }

@@ -1,7 +1,7 @@
 package com.sp.branchCla;
 
 public class BranchCla {
-	private long branCode;
+	private int branCode;
 	private String branName;
 	private int branZip;
 	private String branAddr1;
@@ -14,6 +14,16 @@ public class BranchCla {
 	private String imageFilename ;
 
 	
+	
+	
+	public int getBranCode() {
+		return branCode;
+	}
+
+	public void setBranCode(int branCode) {
+		this.branCode = branCode;
+	}
+
 	public int getParent() {
 		return parent;
 	}
@@ -22,13 +32,8 @@ public class BranchCla {
 		this.parent = parent;
 	}
 
-	public long getBranCode() {
-		return branCode;
-	}
 
-	public void setBranCode(long branCode) {
-		this.branCode = branCode;
-	}
+
 
 	public String getBranName() {
 		return branName;

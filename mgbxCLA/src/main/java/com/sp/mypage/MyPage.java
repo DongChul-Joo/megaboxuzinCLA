@@ -19,6 +19,9 @@ public class MyPage {
 	private String thumbNail;
 	private int msavePoint;
 	private int mileage;
+	private int membershipCode;
+	private String membershipName;
+	
 	
 	public int getBookCode() {
 		return bookCode;
@@ -122,6 +125,17 @@ public class MyPage {
 	public void setMileage(int mileage) {
 		this.mileage = mileage;
 	}
-	
-	
+	public int getMembershipCode() {
+		return membershipCode;
+	}
+	public void setMembershipCode(int membershipCode) {
+		this.membershipCode = membershipCode;
+	}
+	public String getMembershipName() {
+		return membershipName;
+	}
+	public void setMembershipName(String membershipName) {
+		this.membershipName = membershipName;
+	}
+		
 }

@@ -30,9 +30,11 @@ public class MyPageController {
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		
 		MyPage dto=null;
+		MyPage dto1=null;
 		try {
 			
 			dto=service.listPoint(info.getUserId());
+			dto1=service.listMembership(info.getUserId());
 			
 			
 		} catch (Exception e) {
@@ -41,6 +43,7 @@ public class MyPageController {
 					
 		model.addAttribute("subMenu", "1");
 		model.addAttribute("dto", dto);
+		model.addAttribute("dto1", dto1);
 		return ".four.menu5.mypage.info";
 	}
 	
