@@ -283,7 +283,7 @@ function leftTime(){
 }  
   
 function rightTime(){
-	if(timePosition==-680){   
+	if(timePosition==-660){   
 		return;
 	}
 	timePosition=timePosition-33;
