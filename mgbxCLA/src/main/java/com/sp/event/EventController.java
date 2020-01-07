@@ -29,7 +29,7 @@ public class EventController {
 	@Autowired
 	private MyUtil myUtil;
 	
-	// 리스트 만들기
+	// 이벤트 리스트
 	@RequestMapping(value="/event/list")
 	public String list(
 			@RequestParam(value="page", defaultValue="1") int current_page,
@@ -98,7 +98,7 @@ public class EventController {
 		return ".event.list";
 	}
 	
-	// 분류 등록
+	// 이벤트 등록
 	@RequestMapping(value="/event/created", method=RequestMethod.GET)
 	public String createdForm(
 			Model model
@@ -111,6 +111,7 @@ public class EventController {
 		return ".event.created";
 	}
 	
+	// 이벤트 보기
 	@RequestMapping(value="/event/article", method=RequestMethod.GET)
 	public String article(
 			@RequestParam int ecode,
@@ -252,6 +253,7 @@ public class EventController {
 		model.addAttribute("listReplyAnswer", listReplyAnswer);
 		return "event/listReplyAnswer";
 	}
+	
 	// 댓글의 좋아요/싫어요 추가 : AJAX-JSON
 	@RequestMapping(value="/event/insertReplyLike", method=RequestMethod.POST)
 	@ResponseBody
@@ -298,7 +300,8 @@ public class EventController {
 		model.put("disLikeCount", disLikeCount);
 			
 		return model;
-		}
+	}
+	
 	// 댓글에 신고 추가
 	@RequestMapping(value="/event/insertReplyReport", method=RequestMethod.POST)
 	@ResponseBody
@@ -321,21 +324,28 @@ public class EventController {
 		model.put("state", state);
 		return model;
 	}
-	//응모 등록
-		@RequestMapping(value="/event/rquest", method=RequestMethod.GET)
-		public String requestcreated(
-				Event dto,
-				HttpSession session
-				) throws Exception {
-			try {
-
-				service.eventRequest(dto);
-			} catch (Exception e) {
-			}
-			
-			return "redirect:/event/rquest";
-			}
 	
+	// 이벤트 응모 등록
+	@RequestMapping(value="/event/eventRequest", method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> eventRequest(
+			@RequestParam Map<String, Object> paramMap,
+				HttpSession session
+				) {
+			String state="true";
+			
+			SessionInfo info=(SessionInfo)session.getAttribute("member");
+			Map<String, Object> model=new HashMap<>();
+			
+			try {  
+				paramMap.put("userId", info.getUserId());
+				service.eventRequest(paramMap);
+			} catch (Exception e) {
+				state="false";
+			}
+			model.put("state", state);
+			return model;
+	}
 	
 	
 }

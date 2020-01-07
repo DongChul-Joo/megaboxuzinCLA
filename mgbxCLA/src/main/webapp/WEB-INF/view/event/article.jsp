@@ -331,6 +331,32 @@ $(function(){
 	});
 });
 
+// 이벤트 응모
+$(function(){
+	$("body").on("click", ".btnSendRequest", function(){
+		var ecode="${dto.ecode}";
+		var $btn = $(this);
+		
+		var msg="이벤트 응모하시겠습니까?";
+		if(! confirm(msg)) {
+			return false;
+		}
+		
+		var url="<%=cp%>/event/eventRequest";
+		var query="ecode="+ecode;
+		
+		var fn = function(data){
+			var state=data.state;
+			if(state=="true") {
+				alert("감사합니다 응모되셨습니다.");
+			} else if(state=="false") {
+				alert("이벤트는 한번만 응모 가능합니다.");
+			}
+		};
+		ajaxJSON(url, "post", query, fn);
+	});
+});
+
 
 </script>
 
@@ -375,6 +401,9 @@ $(function(){
     	<a href="${dto.elink}">
     		<img src="http://localhost:9090/mgbxAD/uploads/event/${dto.imageFilename}" width="70%" style="margin: 0px 10px;">
     	</a>
+    	<div>
+    		<button type="button" class="btn btnSendRequest" style="margin-top: 150px;">응모하기!</button>
+    	</div>
     </div>
 	</div>
 
@@ -391,8 +420,7 @@ $(function(){
 		</tr>
 		<tr>
 			<td align='right'>
-				<button type='button' class='btn btnSendReply' data-num='10' style='padding:10px 20px;'>댓글 등록</button>
-				<button type="button" class="btn" onclick="eventRequest'${dto.ecode}')">응모하기!</button>
+				<button type='button' class='btn btnSendReply' style='padding:10px 20px;'>댓글 등록</button>
 			</td>
 		</tr>
 	</table>

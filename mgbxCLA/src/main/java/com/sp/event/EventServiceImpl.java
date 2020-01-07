@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import com.sp.common.dao.CommonDAO;
 
 
@@ -148,40 +147,17 @@ public class EventServiceImpl implements EventService{
 			e.printStackTrace();
 			throw e;
 		}
-		
-	}
-	@Override
-	public List<Event> listDott(Map<String, Object> map) {
-		List<Event> list=null;
-		try {
-			list=dao.selectList("event.eventDott");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
-	@Override
-	public int DottCount(Map<String, Object> map) {
-		int result=0;
-		
-		try {
-			result=dao.selectOne("event.dottCount", map);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
 	}
 	
+	// 이벤트 응모 저장
 	@Override
-	public void eventRequest(Event dto) throws Exception {
+	public void eventRequest(Map<String, Object> map) throws Exception {
 		try {
-			dao.insertData("event.eventRequest", dto);
+			dao.insertData("event.eventRequest", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
-		
 	}
-
 
 }
