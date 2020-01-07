@@ -450,6 +450,36 @@ function mark(star){
 
 
 
+$(function(){
+	$(".btn_movie").click(function(){
+		var movieCode="${vo.movieCode}";
+		var $tb = $(this).closest("div");
+		var content=$tb.find("textarea").val().trim();
+		if(! content) {
+			$tb.find("textarea").focus();
+			return false;
+		}
+		
+		content = encodeURIComponent(content);
+		
+		var url="<%=cp%>/movie/insertReply";
+		var query="movieCode="+movieCode+"&content="+content+"&answer=0";
+		
+		var fn = function(data){
+			$tb.find("textarea").val("");
+			
+			var state=data.state;
+			if(state=="true") {
+				listPage(1);
+			} else if(state=="false") {
+				alert("댓글을 추가 하지 못했습니다.");
+			}
+		};
+		
+		ajaxJSON(url, "post", query, fn);
+	});
+});
+
 
 
 </script>

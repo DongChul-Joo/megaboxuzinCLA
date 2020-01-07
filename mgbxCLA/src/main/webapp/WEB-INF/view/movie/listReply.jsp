@@ -42,7 +42,7 @@
 								
 							</div>
 							<div style="width: 84px; height: 100%; float: left;">
-								<button type="button" style="height: 86px; width: 86px; float: right; border: 1px solid #e1e1e1;"   class="btn movie" onclick="return false;">등록</button>
+								<button type="button" class="btn_movie('${vo.movieCode}')" style="height: 86px; width: 86px; float: right; border: 1px solid #e1e1e1;">등록</button>
 							</div>
 						
 					</div>

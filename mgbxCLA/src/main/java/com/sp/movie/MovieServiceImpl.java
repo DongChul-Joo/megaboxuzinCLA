@@ -81,5 +81,15 @@ public class MovieServiceImpl implements MovieService{
 		return result;
 	}
 
+	@Override
+	public void insertReply(Movie dto) throws Exception {
+		try {
+			dao.insertData("movie.insertReply", dto);
+		} catch (Exception e) {
+			throw e;
+		}
+		
+	}
+
 
 }

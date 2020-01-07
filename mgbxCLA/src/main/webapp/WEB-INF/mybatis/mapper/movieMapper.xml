@@ -37,7 +37,10 @@
 	</select>
 	
 	<insert id="insertReply" parameterType="com.sp.movie.Movie">
-		INSERT INTO eventReply
+		INSERT ALL
+		INTO movieReply(movieCode, userId, content, created) values(moviecode, userId, content, created)
+		INTO movieScore(movieCode, userId, movieScores) values(moviecode, userId, movieScores)
+		select * from dual
 	</insert>
 	
 	
