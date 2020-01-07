@@ -6,93 +6,34 @@
 	String cp=request.getContextPath();
 %>
 <style>
-div{
-float: left;
-margin: 0px auto;
+#movieDetail{
+
+	float: left;
+	margin: 0px auto;
 }
 
 .type{
 margin-top: 15px;
+list-style: none;
 }
 
 </style>
 
 
 <script>
-var movieNm ="${movie.movieNm}"+' 예고편';
-
+movieCode="${movie.movieCode}";
 $(document).ready(function () {
-	showTrailer();
+	var movieNm ="${movie.movieNm}"+' 예고편';
+	showTrailer(movieNm);
 });
-
-function showTrailer(){
-	
-	$.ajax({
-		  dataType: "json",
-		  url: 
-		    'https://www.googleapis.com/youtube/v3/search'+
-		    '?part=snippet'+
-		    '&maxResults=1'+
-		    '&order=relevance'+
-		    '&q='+encodeURI(movieNm)+
-		    '&type=video'+
-		    '&videoDefinition=high'+
-		    '&key=AIzaSyChPQ7wyJdU2QcGXf3DJqeqAy4uHhdRdLA'
-		    
-		}).done(function(data){
-		    /* Initial */
-		    var tag = document.createElement('script');
-		    tag.src = "https://www.youtube.com/iframe_api";
-		    var firstScriptTag = document.getElementsByTagName('script')[0];
-		    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-	
-		    onYouTubeIframeAPIReady = function(event){
-		        player = new YT.Player('youtube-player', {
-		            videoId: data.items[0].id.videoId
-		        });
-		    }
-		});
-}
-
-function ajaxHTML(url, type, query, selector) {
-	$.ajax({
-		type:type
-		,url:url
-		,data:query
-		,success:function(data) {
-			$(selector).html(data);
-		} 
-		,beforeSend:function(jqXHR) {
-	        jqXHR.setRequestHeader("AJAX", true);
-	    }
-	
-	
-	});
-}
 
 $(function(){
 	listPage(1);
 });
-
-function listPage(page) {
-	var url = "<%=cp%>/movie/listReply";
-	var query = "moviecode=${movie.movieCode}&pageNo="+page;
-	var selector = "#listReply";
-	
-	console.log("${movie.movieCode}");
-	console.log(page);
-	
-	ajaxHTML(url, "get", query, selector);
-}
-
-
-
 </script>
 
-
-<div style="width: 950px; min-height: 2000px; margin: 0px auto;">
-	
-	
+<div id="movieDetail" style="width: 950px; min-height: 2000px; float: left;">
+	<button class="btn" id="detailExit" onclick="modalExit()" style="float: right; width: 50px; height: 50px;">X</button>
 	
 	<div style="width: 890px; height: 380px; margin: 0px auto; margin-top: 40px; float: left;">
 		
@@ -101,7 +42,7 @@ function listPage(page) {
 			</div>
 		
 		
-		<div style="width: 630px; height: 330px; margin-left: 10px;">
+		<div style="width: 630px; height: 330px; margin-left: 10px; float: left;">
 
 			<div style="width:100%; height: 60px; border-bottom: 2px; border-bottom-style: dotted;">
 				<h2 style="height: 100%; margin: 0px auto;">
@@ -133,7 +74,14 @@ function listPage(page) {
 			<div style="width: 623px; height: 206px;">
 				
 				<div style="width:100%; height: 45px;">
-					<span style="height: 15px; width: 90px; display: block;">별 몇개</span>
+					<span class="starwrap">
+						<input type="image" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점1 괜히봤어요" title="별점1 괜히봤어요">
+						<input type="image" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점2 기대하진 말아요" title="별점2 기대하진 말아요">
+						<input type="image" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점3 무난했어요" title="별점3 무난했어요">
+						<input type="image" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점4 기대해도 좋아요!" title="별점4 기대해도 좋아요!">
+						<input type="image" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점5 너무 멋진 영화였어요!" title="별점5 너무 멋진 영화였어요!">
+						<input type="hidden" name="starScore">
+					</span>
 					<p style="height: 42px; float: left;">
 						<span style="float: left; width: 80px; height: 42px; margin-top: 15px;">3353명 참여</span>
 						<strong style="float:left; font-weight: 700; font-family: '나눔고딕'; font-size: 30px; margin-left: 35px;">7.1점</strong>
@@ -148,7 +96,7 @@ function listPage(page) {
 					<button class="btn" style="margin-top: 5px; margin-right: 10px; float:right;">예매하기</button>
 				</div>
 				
-				<ul style="margin-top: 70px; ">
+				<ul style="margin-top: 25px; ">
 					<li class="type">
 						<strong>
 						타입 : <span class="showing"></span>

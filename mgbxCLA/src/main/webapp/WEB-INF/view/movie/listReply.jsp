@@ -5,176 +5,6 @@
 <%
 	String cp=request.getContextPath();
 %>
-
-
-<style type="text/css">
-
-.movieCommentForm{
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-.input {
-    overflow: hidden;
-    height: 86px;
-    border: 1px solid #e1e1e1;
-}
-
-
-.comment{
-    height: 84px;
-    width: 570px;
-    font-size: 16px;
-    border: none;
-    border-left: 1px solid #e1e1e1;
-    border-right: 1px solid #e1e1e1;
-    background-color: #fff;
-}
-
-.starwrap {
-    cursor: pointer;
-    width: 145px;
-    text-align: center;
-    padding-top: 15px;
-}
-
-.btn movie{
-    width: 100%;
-    height: 100%;
-    vertical-align: middle;
-    background-position: -600px -100px;
-}
-
-
-.writewrap{
-    overflow: hidden;
-    margin-bottom: 30px;
-    width: 930px;
-}
-
-.rate{
-	width :158px;
-}
-
-.reply {
-    clear: both;
-    overflow: hidden;
-    width: 100%;
-    display: table;
-    border : 1px solid #f0f0f0;
-    margin-left: 25px;
-}
-
-.row{
-	display: table-row;
-    height: 100%;
-    margin-left: 0px;
-}
-
-.cell{
-	display: table-cell;
-    vertical-align: top;
-    width: 450px;
-    height: 100%;
-    border-bottom: 1px solid #f0f0f0;
-    overflow: hidden;
-    padding: 20px 20px;
-    position: relative;
-    float: left;
-    margin: 0px auto;
-    border-right: 2px solid #f0f0f0;
-}
-
-.small_star{
-	display: block;
-    position: relative;
-    width: 73px;
-    height: 12px;
-    background: url(http://image2.megabox.co.kr/mop/home/star_s.png) 0 -12px no-repeat;
-    margin-top: 2px;
-}
-
-.small_fill{
-	position: absolute;
-    width: 73px;
-    height: 12px;
-    background: url(http://image2.megabox.co.kr/mop/home/star_s.png) 0 0 no-repeat;
-}
-
-.blind{
-	font-size: 12px;
-    color: #666;
-    display: inline-block;
-    margin-right: 6px;
-    float: left;
-}
-
-.p{
-	color: #333;
-    font-size: 14px;
-    line-height: 20px;
-    margin: 4px 0 35px;
-
-}
-
-.text{
-	width: 78%;
-    position: relative;
-    float: left;
-}
-
-.name{
-	font-size: 18px;
-    line-height: 18px;
-    color: #503396;
-    display: inline-block;
-	font-weight: 700;
-	font-family: '나눔고딕';
-}
-
-.recommend{
-	float: left;
-    cursor: pointer;
-    font-size: 12px;
-    margin-right: 15px;
-}
-
-.i_recommend{
-	background-image: url(http://image2.megabox.co.kr/mop/home/moviePost/moviePost_icon.png) !important;
-    background-position: -242px -50px;
-    background-repeat: no-repeat;
-    overflow: hidden;
-    display: inline-block;
-    width: 16px;
-    height: 15px;
-    vertical-align: middle;
-    margin: -1px 4px 0 0;
-}
-
-.report{
-	float: left;
-    font-size: 12px;
-    color: #999;
-    cursor: pointer;
-}
-
-.i_report{
-	background-image: url(http://image2.megabox.co.kr/mop/home/moviePost/moviePost_icon.png) !important;
-    background-position: -210px -50px;
-    background-repeat: no-repeat;
-    overflow: hidden;
-    display: inline-block;
-    width: 15px;
-    height: 15px;
-    vertical-align: middle;
-    margin: -1px 5px 0 8px;
-}
-
-
-</style>    
-    
-    
     
     
 <div class="writewrap">
@@ -190,25 +20,29 @@
 			
 			
 			<div style="width: 820px; height: 90px; float: right; padding-top: 20px; margin-left: 10px;">
-				<form class="movieCommentForm" action="">
+				<form name="movieCommentForm" style="box-sizing: border-box; float: left;" action="">
 					<div class="input">
 						<div class="rate">
-							<div class="starwrap">
-								<input type="image" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점1 괜히봤어요" title="별점1 괜히봤어요">
-								<input type="image" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점2 기대하진 말아요" title="별점2 기대하진 말아요">
-								<input type="image" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점3 무난했어요" title="별점3 무난했어요">
-								<input type="image" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점4 기대해도 좋아요!" title="별점4 기대해도 좋아요!">
-								<input type="image" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점5 너무 멋진 영화였어요!" title="별점5 너무 멋진 영화였어요!">
-								<input type="hidden" name="starScore">
-							</div>
-							
-							<p class="text-center" style="font-size: 13px; margin-top:46px; color: #666; text-align: center;">평점을 입력해주세요</p>
+							<span class="starwrap">
+								<img id=image1 onmouseover="show(1)" onclick="mark(1)" onmouseout="noshow(1)" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점1 괜히봤어요" title="별점1 괜히봤어요"> 
+								<img id=image2 onmouseover="show(2)" onclick="mark(2)" onmouseout="noshow(2)" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점2 기대하진 말아요" title="별점2 기대하진 말아요">
+								<img id=image3 onmouseover="show(3)" onclick="mark(3)" onmouseout="noshow(3)" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점3 무난했어요" title="별점3 무난했어요">
+								<img id=image4 onmouseover="show(4)" onclick="mark(4)" onmouseout="noshow(4)" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점4 기대해도 좋아요!" title="별점4 기대해도 좋아요!">
+								<img id=image5 onmouseover="show(5)" onclick="mark(5)" onmouseout="noshow(5)" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점5 너무 멋진 영화였어요!" title="별점5 너무 멋진 영화였어요!">
+							</span>
+							<br/><span id="startext" style="font-size: 14px; margin-top:46px; color: #666; text-align: center; margin-left: 23px;">평점을 입력해주세요</span>
 						</div>
-							<div style="width: 570px;">
-								<textarea class="comment" rows="10" cols="30" maxlength="100" readonly onkeyup="로그인 후 댓글 작성 가능합니다."></textarea>
+							<input type="hidden" name="star">
+							
+							<div style="width: 570px; min-height: 97px; float: left;">
+								 
+									<textarea class="writeReply" title="댓글쓰기" rows="10" cols="30" maxlength="100" 
+									${not empty movie.userId ? "placeholder='댓글을 남겨이씨'" : "readonly='readonly' placeholder='로그인 후 이용가능한 서비스입니다.'"}
+									></textarea>
+								
 							</div>
-							<div>
-								<button type="submit" style="height: 86px; width: 86px;"   class="btn movie" onclick="return false;">등록</button>
+							<div style="width: 84px; height: 100%; float: left;">
+								<button type="button" style="height: 86px; width: 86px; float: right; border: 1px solid #e1e1e1;"   class="btn movie" onclick="return false;">등록</button>
 							</div>
 						
 					</div>
@@ -224,14 +58,14 @@
 				<div class="row">
 					
 					<div style="float: left;" class="cell">
-						<div style="width: 56px;"><img src="http://image2.megabox.co.kr/mop/home/user/profile_m.png" width="56px;" height="56px;"></div>
+						<div style="width: 60px; float: left;"><img src="http://image2.megabox.co.kr/mop/home/user/profile_m.png" width="60px;" height="60px;"></div>
 						
-						<div style="margin-bottom: 1px; overflow: hidden; margin-top: 7px; width: 300px; margin-left: 10px"> 
+						<div class="textarea"> 
 							<div class="name"><strong>${vo.userId}</strong></div>
 							<div class="text">
-								<span style="margin-left: 15px;">${vo.created}</span>
+								<span style="float: left;">${vo.created}</span>
 								<div>
-									<span style="margin-left: 15px;" class="small_star">
+									<span style="margin-left: 15px; float: left;"  class="small_star">
 										<span class="small_fill">
 											<span class="blind"></span>
 										</span>

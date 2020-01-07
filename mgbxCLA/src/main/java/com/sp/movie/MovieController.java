@@ -7,16 +7,17 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.common.MyUtil;
+import com.sp.member.SessionInfo;
 
 @Controller(".movieController.movieController")
 public class MovieController {
@@ -135,16 +136,18 @@ public class MovieController {
 	@RequestMapping(value="/movie/movieDetail")
 	public String movieDetail(
 			@RequestParam(defaultValue="0") int movieCode, 
-			Model model
-			) {
+			Model model,
+			HttpSession session
+			) throws Exception{
 		
-		Movie dto = null;
+		Movie dto = new Movie();
+		
+		
 		try {
 			dto=service.readDetail(movieCode);
+			
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
-		
 		model.addAttribute("movie", dto);
 		
 		return "/movie/movieDetail";
@@ -153,10 +156,13 @@ public class MovieController {
 	
 	@RequestMapping(value="/movie/listReply")
 	public String listReply(
-			@RequestParam(defaultValue="0") int movieCode, 
+			@RequestParam int movieCode, 
 			@RequestParam(value="pageNo", defaultValue="1") int current_page,
 			Model model
+			,HttpSession session
 			) {
+		
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
 		
 		int rows = 10; 
 		int total_page = 0;
@@ -181,7 +187,6 @@ public class MovieController {
        
         List<Movie> list = service.readMovieReply(map);
         
-        String query="movieCode="+movieCode+"&page="+current_page;
 		
        for(Movie dto : list) {
     	   dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
@@ -189,12 +194,12 @@ public class MovieController {
        
         String paging = myUtil.pagingMethod(current_page, total_page, "listPage");
 		
-        model.addAttribute("query", query);
 		model.addAttribute("list", list);
 		model.addAttribute("pageNo", current_page);
         model.addAttribute("dataCount", dataCount);
         model.addAttribute("total_page", total_page);
         model.addAttribute("paging", paging);
+        model.addAttribute("movie", info);
 		
 		return "movie/listReply";
 	}

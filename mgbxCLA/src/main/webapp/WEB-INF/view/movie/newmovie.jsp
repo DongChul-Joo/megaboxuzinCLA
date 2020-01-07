@@ -5,9 +5,184 @@
 <%
 	String cp=request.getContextPath();
 %>
+<style type="text/css">
+
+.input {
+    overflow: hidden;
+    height: 86px;
+    border: 1px solid #e1e1e1;
+    float: left;
+}
+
+
+.writeReply{
+    height: 84px;
+    font-size: 14px;
+    border: none;
+    border-left: 1px solid #e1e1e1;
+    border-right: 1px solid #e1e1e1;
+    background-color: #fff;
+}
+
+textarea{
+	display: block;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d9d9d9;
+    background-color: #f8f8f8;
+    font-size: 12px;
+    line-height: 21px;
+    color: #333;
+    overflow: auto;
+    vertical-align: top;
+}
+
+.starwrap {
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    padding-top: 15px;
+    float: left;
+    display: block;
+}
+
+.btn movie{
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+    background-position: -600px -100px;
+}
+
+
+.writewrap{
+    overflow: hidden;
+    margin-bottom: 30px;
+    width: 930px;
+}
+
+.rate{
+	width :158px;
+	float: left;
+}
+
+.reply {
+    clear: both;
+    overflow: hidden;
+    width: 100%;
+    display: table;
+    border : 1px solid #f0f0f0;
+    margin-left: 25px;
+    float: left;
+}
+
+.row{
+	display: table-row;
+    height: 100%;
+    margin-left: 0px;
+}
+
+.cell{
+	display: table-cell;
+    vertical-align: top;
+    width: 450px;
+    height: 100%;
+    border-bottom: 1px solid #f0f0f0;
+    overflow: hidden;
+    padding: 20px 20px;
+    position: relative;
+    float: left;
+    margin: 0px auto;
+    border-right: 2px solid #f0f0f0;
+}
+
+.small_star{
+	display: block;
+    position: relative;
+    width: 73px;
+    height: 12px;
+    background: url(http://image2.megabox.co.kr/mop/home/star_s.png) 0 -12px no-repeat;
+    margin-top: 2px;
+}
+
+.small_fill{
+	position: absolute;
+    width: 73px;
+    height: 12px;
+    background: url(http://image2.megabox.co.kr/mop/home/star_s.png) 0 0 no-repeat;
+}
+
+.blind{
+	font-size: 12px;
+    color: #666;
+    display: inline-block;
+    margin-right: 6px;
+    float: left;
+}
+
+.p{
+	color: #333;
+    font-size: 14px;
+    line-height: 20px;
+    margin: 4px 0 35px;
+
+}
+
+.text{
+	width: 100%;
+    position: relative;
+    float: left;
+}
+
+.name{
+	font-size: 18px;
+    line-height: 18px;
+    color: #503396;
+    display: inline-block;
+	font-weight: 700;
+	font-family: '나눔고딕';
+	float: left;
+}
+
+.recommend{
+	float: left;
+    cursor: pointer;
+    font-size: 12px;
+    margin-right: 15px;
+}
+
+.i_recommend{
+	background-image: url(http://image2.megabox.co.kr/mop/home/moviePost/moviePost_icon.png) !important;
+    background-position: -242px -50px;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    display: inline-block;
+    width: 16px;
+    height: 15px;
+    vertical-align: middle;
+    margin: -1px 4px 0 0;
+}
+
+.report{
+	float: left;
+    font-size: 12px;
+    color: #999;
+    cursor: pointer;
+}
+
+.i_report{
+	background-image: url(http://image2.megabox.co.kr/mop/home/moviePost/moviePost_icon.png) !important;
+    background-position: -210px -50px;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    vertical-align: middle;
+    margin: -1px 5px 0 8px;
+}
+</style>
+
 <script type="text/javascript">
-
-
 function ajaxHTML(url, type, query, selector) {
 	$.ajax({
 		type:type
@@ -59,6 +234,10 @@ function getAudience(movieCode){
 	});
 }
 
+function modalExit() {
+	$("#showDetail").dialog("close");
+}
+
 
 function showMovieDetail(movieCode){
 	var url ="<%=cp%>/movie/movieDetail";
@@ -76,6 +255,9 @@ function showMovieDetail(movieCode){
 					height:2000,
 					width:1000,
 					title: "상세 정보", 
+					open:function(){
+			               $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
+		            },
 					close: function(event, ui) {
 						window.location.reload();
 					}
@@ -154,6 +336,122 @@ function detailMovie(movieCd){
 	         }
 	   });
 }
+
+function showTrailer(movieNm){
+	$.ajax({
+		  dataType: "json",
+		  url: 
+		    'https://www.googleapis.com/youtube/v3/search'+
+		    '?part=snippet'+
+		    '&maxResults=1'+
+		    '&order=relevance'+
+		    '&q='+encodeURI(movieNm)+
+		    '&type=video'+
+		    '&videoDefinition=high'+
+		    '&key=AIzaSyChPQ7wyJdU2QcGXf3DJqeqAy4uHhdRdLA'
+		    
+		}).done(function(data){
+		    /* Initial */
+		    var tag = document.createElement('script');
+		    tag.src = "https://www.youtube.com/iframe_api";
+		    var firstScriptTag = document.getElementsByTagName('script')[0];
+		    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+	
+		    onYouTubeIframeAPIReady = function(event){
+		        player = new YT.Player('youtube-player', {
+		            videoId: data.items[0].id.videoId
+		        });
+		    }
+		});
+}
+
+var movieCode="0";
+function listPage(page) {
+	var url = "<%=cp%>/movie/listReply";
+
+	var query = "movieCode="+movieCode+"&pageNo="+page;
+	var selector = "#listReply";
+	
+	ajaxHTML(url, "get", query, selector);
+}
+
+
+var locked=0;
+function show(star){
+	
+	if(locked) return;
+	
+	var i;
+	var image;
+	var el;
+	var e= document.getElementById('startext');
+	var stateMsg;
+	
+	for(i=1; i <= star; i++){
+		image = 'image' + i;
+		el = document.getElementById(image);
+		el.src = "http://image2.megabox.co.kr/mop/home/star_mid_on.png";
+	}
+	
+	switch(star){
+	case 1:
+		stateMsg = "괜히 봤어요";
+		break;
+	case 2:
+		stateMsg = "기대하진 말아요"
+		break;
+	case 3:
+		stateMsg = "무난했어요";
+		break;
+	case 4:
+		stateMsg = "기대해도 좋아요!";
+		break;
+	case 5:
+		stateMsg = "너무 멋진 영화였어요!";
+		break;
+	default:
+		stateMsg="평점을 입력해주세요";
+	}
+	e.innerHTML = stateMsg;
+}
+
+function noshow(star){
+	if(locked) return;
+	
+	var i;
+	var image;
+	var el;
+	
+	for(i=1; i<= star; i++){
+		image = "image" + i;
+		el = document.getElementById(image);
+		el.src = "http://image2.megabox.co.kr/mop/home/star_mid_off.png";
+	}
+}
+
+function lock(star){
+	show(star);
+	locked =1;
+}
+
+function mark(star){
+	locked=0;
+	for(var v=0;v<=5;v++){
+		if(v>star){
+			noshow(v);		
+		}
+	}
+	show(star);
+	lock(star);
+	
+	document.movieCommentForm.star.value=star;
+	
+}
+
+
+
+
+
 </script>
 
 
@@ -206,11 +504,24 @@ function detailMovie(movieCd){
 	.a1 {
 		display: inline-block;
 	}
-li{
-list-style: none;}
+.sub_navi li{
+	list-style: none;
+}
 
+#newMovie li{
+	list-style: none;
+}
 
+.textarea {
+	margin-bottom: 1px;
+    overflow: hidden;
+    margin-top: 7px;
+    width: 300px;
+    margin-left: 10px;
+    float: left;
+}
 </style>
+
 	<div class="sub_navi">
 			<div class="sub_navi_wrap">
 			 	<ul style="margin: 0px auto;">
@@ -231,7 +542,7 @@ list-style: none;}
 		</div>	
 
 	
-	<div style="width: 90%;margin: 0 auto; min-height: 1800px;">
+	<div id="newMovie" style="width: 90%;margin: 0 auto; min-height: 1800px;">
 		
 		<ul>
 			<li style="margin-left: 50px;">
@@ -288,6 +599,7 @@ list-style: none;}
 		
 	</div>	
 
-	<div id="showDetail" style="display: none;width: 1000px;"></div>
+	<div id="showDetail" style="display: none;width: 1000px;">
+	</div>
 	
 	
