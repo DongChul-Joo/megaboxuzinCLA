@@ -62,7 +62,17 @@ outline:none;
 }    
 
 .timeDiv{     
-width:376px;     
+width:89%;     
+height:30%;
+display: inline-block; 
+overflow: hidden;   
+cursor: pointer;
+position: relative;
+top: -28px;
+left: 20px;
+}  
+.dateDiv{     
+width:90%;     
 height:30%;
 display: inline-block; 
 overflow: hidden;   
@@ -70,16 +80,26 @@ cursor: pointer;
 position: relative;
 top: -28px;
 left: 17px;
-}  
-
+} 
 
 .timeDiv li{
-width: 34px;
+width: 33px;
+display: inline-block;
+height: 100%;
+text-align: center;
+padding: 0px 0px 0px 0px;
+list-style: none;
+float: left;
+}
+
+.dateDiv li{
+width: 59px;
 display: inline-block;
 height: 100%;  
 text-align: center;
 padding: 0px 0px 0px 0px;
 list-style: none;
+float: left;
 }
 
 #branchCinemas ul{
@@ -207,11 +227,45 @@ width: 59%;
 height:87%; 
 float: left;
 }
+
+#branchSelectList span{
+
+border: 1px solid #cccccc;
+margin-left: 5px;
+margin-top: 15px;
+font-size: 16px;
+font-weight: bold;
+height: 45%;
+width:20%;
+text-overflow: ellipsis; 
+overflow: hidden; 
+white-space: nowrap; 
+display: inline-block;
+text-align: center;
+
+}
+
+#movieSelectList span{
+
+border: 1px solid #cccccc;
+margin-left: 5px;
+margin-top: 15px;
+font-size: 16px;
+font-weight: bold;
+height: 45%;
+width:20%;
+text-overflow: ellipsis; 
+overflow: hidden; 
+white-space: nowrap; 
+display: inline-block;
+text-align: center;
+
+}
 </style>
 
 <script type="text/javascript">
 var timePosition=0;
-
+var datePosition=0;
 
 var selBranchCount=0;
 var selBranchCountEnd=0;
@@ -223,7 +277,7 @@ function leftTime(){
 	if(timePosition==0){
 		return;
 	}
-	timePosition=timePosition+34;
+	timePosition=timePosition+33;
 	$(".timeDiv").find("ol").css("margin-left",timePosition+"px");
 	
 }  
@@ -232,8 +286,26 @@ function rightTime(){
 	if(timePosition==-680){   
 		return;
 	}
-	timePosition=timePosition-34;
+	timePosition=timePosition-33;
 	$(".timeDiv").find("ol").css("margin-left",timePosition+"px");
+	
+}
+
+function leftDate(){
+	if(datePosition==0){
+		return;
+	}
+	datePosition=datePosition+59;
+	$(".dateDiv").find("ul").css("margin-left",datePosition+"px");
+	
+}  
+  
+function rightDate(){
+	if(datePosition==-531){   
+		return;
+	}
+	datePosition=datePosition-59;
+	$(".dateDiv").find("ul").css("margin-left",datePosition+"px");
 	
 }
 
@@ -367,10 +439,27 @@ $(function(){
 	         close: function(event, ui) {
 	  
 	         }
-	         
+	          
 	      });
 	   });
 	   
+	   var today = new Date();
+	   today.setDate(today.getDate()-1);
+	   
+	   for(var i=0;i<14;i++){
+	  		today.setDate(today.getDate()+1);
+			var mm = today.getMonth()+1; 
+	   		var yyyy = today.getFullYear();
+	   		var dateDay=yyyy+"-"+mm+"-"+today.getDate();
+	   		if(i==0){
+	   			var dateLi="<li date-day='"+dateDay+"' >오늘</li>"; 
+	   		}else{
+	   			var dateLi="<li date-day='"+dateDay+"' >"+mm+"월 "+today.getDate()+"일</li>"; 
+	   		}
+			
+			$(".dateDiv").find("ul").append(dateLi);
+		   }
+	  	
 	});
 
 function ajaxJSON(url, type, query, fn) {
@@ -392,7 +481,6 @@ $(document).on("click", "#areaListUL li",function(){
 	
 	$(this).css("background","#e5e5e5");
 	
-	maps(this.getAttribute("data-Addr"),this.getAttribute("data-branName"));
 	
 });
 function listAreas(parent){
@@ -451,12 +539,12 @@ $(document).on("click", "#branListUL li", function() {
 	   }
 
 	   
-	    var selectBranchs="<span name='selectbranchs' data-branCode='"+branCode+"' data-branName='"+branName+"'>"+branName+"<a>X</a></span>";
+	    var selectBranchs="<span name='selectbranchs' data-branCode='"+branCode+"' data-branName='"+branName+"'>"+branName+"</span>";
 	   
 	    $("#branchSelectList").append(selectBranchs);
 	    
 	    this.setAttribute("class","selectBranchActive");
-	    
+	    maps(this.getAttribute("data-Addr"),this.getAttribute("data-branName"));
 	    selBranchCount++;
 	});
 
@@ -557,7 +645,7 @@ $(document).on("click",".listOfMovie",function(){
 	var movieNm=this.getAttribute("data-movieNm");
 	var thumNail=this.getAttribute("data-thumNail");
 	
-	var selMovie="<span name='selectMovies' name='selectmovies' data-thumNail='"+thumNail+"' data-movieCode='"+movieCode+"' data-movieNm='"+movieNm+"'>"+movieNm+"<a>X</a></span>";
+	var selMovie="<span name='selectMovies' name='selectmovies' data-thumNail='"+thumNail+"' data-movieCode='"+movieCode+"' data-movieNm='"+movieNm+"'>"+movieNm+"</span>";
 	
 	$("#movieSelectList").append(selMovie);
 	
@@ -570,7 +658,21 @@ $(document).on("click",".listOfMovie",function(){
 </script>
 <div class="bookingForm">
 	<div style="width: 45%; height: 100%;float: left;">
-		<div style="width: 100%; height: 15%;">날짜</div>
+		<div style="width: 100%; height: 15%;"><p>날짜</p> 
+			 <div style="width:100%;border: none;display: inline-block;height: 30%">
+				<span style="width: 5%;float:left;text-align: center">
+					<a href="javascript:leftDate();">&lt;</a></span>
+				
+				<span style="width: 5%;float: right;text-align: center">
+					<a href="javascript:rightDate();">&gt;</a></span>
+			</div>
+			<div class="dateDiv">
+						<ul style="width:1054px;height: 100%;overflow: hidden;">
+							
+							
+						</ul>    
+				</div> 
+		</div>
 		<div style="width: 100%; height: 35%;">
 			<p>극장</p>    
 			<ul>
@@ -621,7 +723,7 @@ $(document).on("click",".listOfMovie",function(){
 			<div class="timeDiv">
 						<ol style="width:1054px;height: 100%;overflow: hidden;">
 							<c:forEach var="vv" begin="0" end="30">
-								<li style="float: left">${vv}</li> 
+								<li>${vv}</li> 
 							</c:forEach>
 						</ol>    
 			</div> 
@@ -682,10 +784,10 @@ $(document).on("click",".listOfMovie",function(){
 			    </c:forEach>
 			    </div>
 	</div>
-	
-</div>
-  
-<div id="branchCinemas" style="display: none;width: 900px;height: 600px;">
+	  
+</div>   
+ 
+<div id="branchCinemas" style="display: none;width: 900px;height: 600px;overflow:none;">
    <div id="branchSelectList" style="width: 100%;height: 12%;border-bottom: 1px solid #cccccc;border-top: 1px solid #cccccc"></div>
    <ul id="areaListUL">
       <c:forEach var="vo" items="${areaList}">
@@ -706,7 +808,6 @@ function maps(addr,bn){
 		
 	var addr1=addr;
 	var branName=bn;
-	alert("zz");
 		var mapContainer = document.getElementById('bookingMap'), // 지도를 표시할 div 
 	    mapOption = {
 	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
