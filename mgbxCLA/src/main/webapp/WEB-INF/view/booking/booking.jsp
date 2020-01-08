@@ -6,15 +6,61 @@
 	String cp=request.getContextPath();
 %>
 <style>
+
 .bookingForm{
 border: 1px solid black;
 width: 750px;
  height: 500px;
 }
 
-.bookingForm div{
-border: 1px solid black;
-}  
+
+.leftDiv{
+width: 45%; 
+height: 100%;
+float: left;
+border-right: 1px solid black;
+}
+
+.scheduleList{
+width: 100%;
+height: 100%;
+}
+.schClass{
+width: 100%;
+height: 20%;
+background: white;
+border-bottom: 1px solid #cccccc;
+} 
+.timeJone{
+width: 24%;
+height: 100%;
+float: left;
+font-size: 15px;
+padding-top:15px;
+border-right: 1px solid #cccccc;
+}
+.movieJone{
+width: 50%;
+height: 100%;
+float: left;
+font-size: 25px;
+font-weight: bold;
+border-right: 1px solid #cccccc;
+}
+.branJone{
+width: 26%;   
+height: 100%;
+float: left;
+font-size: 10px;
+text-align: right;
+color: black;
+}
+.nonScheduleMessage{
+width: 100%;
+height: 50px;
+text-align: center;
+margin-top: 50px;
+}
 .cinemaLi{  
 width: 41%;
 height: 55px; 
@@ -70,6 +116,7 @@ cursor: pointer;
 position: relative;
 top: -28px;
 left: 20px;
+border: 1px solid black;
 }  
 .dateDiv{     
 width:90%;     
@@ -80,6 +127,7 @@ cursor: pointer;
 position: relative;
 top: -28px;
 left: 17px;
+border: 1px solid black;
 } 
 
 .timeDiv li{
@@ -323,33 +371,35 @@ function movieSerach(){
             	var inMovie=$(".addSelectsM");
             	var movieSelectList=$("span[name=selectMovies]");
             	var movieLi=$(".movieLi");
-            
+            	
             	for(var z=0;z<4;z++){
            
                 	if(z<selMovieCount){
                 		var movieSelectList=$("span[name=selectMovies]");
+                		$(inMovie[z]).css("background-image","none").css("background-size","none").find("span").html("");
                 		inMovie[z].setAttribute("data-movieCode",movieSelectList[z].getAttribute("data-movieCode"));
                 		inMovie[z].setAttribute("data-movieNm",movieSelectList[z].getAttribute("data-movieNm"));
                 		inMovie[z].setAttribute("data-thumNail",movieSelectList[z].getAttribute("data-thumNail"));
+                		
                 		if(movieSelectList[z].getAttribute("data-thumNail")=="No images"){
                 			$(inMovie[z]).find("span").html(movieSelectList[z].getAttribute("data-movieNm"));
                 		}else{
-                			$(inMovie[z]).css("background-image","url('"+movieSelectList[z].getAttribute("data-thumNail")+"')");
-                			$(inMovie[z]).css("background-size","cover");
+                			$(inMovie[z]).css("background-image","url('"+movieSelectList[z].getAttribute("data-thumNail")+"')").css("background-size","cover");
                 		}
                 		
                 		inMovie[z].style.display="";
                 		
                 		movieLi[z].style.display="none";
                 	}else{
+                		$(inMovie[z]).css("background-image","none").css("background-size","none").find("span").html("");
                 		inMovie[z].style.display="none";
                 		movieLi[z].style.display="";
-                		inMovie[z].setAttribute("data-branCode","");
-                		inMovie[z].setAttribute("data-branName","");
+                		inMovie[z].setAttribute("data-movieCode","");
+                		inMovie[z].setAttribute("data-movieName","");
                 	}
             	}
             	selMovieCountEnd=selMovieCount;
-            	
+        
             	 $(this).dialog("close");
              },
              " 취소 " : function() {
@@ -357,16 +407,14 @@ function movieSerach(){
 	             
                  
             	 $("#movieSelectList").find("span").remove();
-            	 $(".listOfMovie").attr("data-select","");
-            	 $(".listOfMovie").css("background","");
+            	 $(".listOfMovie").css("background","").attr("data-select","");
             	 for(var z=0;z<selMovieCountEnd;z++){
            					 
 	                var movieCode=inMovie[z].getAttribute("data-movieCode");
 	                var movieNm=inMovie[z].getAttribute("data-movieNm");
 	  				var thumNail=inMovie[z].getAttribute("data-thumNail");
-	  				$(".listOfMovie[data-movieCode="+movieCode+"]").css("background","#198591");
-	  				$(".listOfMovie[data-movieCode="+movieCode+"]").attr("data-select","select");
-	                var selMovie="<span name='selectMovies' name='selectmovies' data-thumNail='"+thumNail+"' data-movieCode='"+movieCode+"' data-movieNm='"+movieNm+"'>"+movieNm+"<a>X</a></span>";
+	  				$(".listOfMovie[data-movieCode="+movieCode+"]").css("background","#198591").attr("data-select","select");
+	                var selMovie="<span name='selectMovies' name='selectmovies' data-thumNail='"+thumNail+"' data-movieCode='"+movieCode+"' data-movieNm='"+movieNm+"'>"+movieNm+"</span>";
 	            	
 	            	$("#movieSelectList").append(selMovie);
                 	}
@@ -375,92 +423,174 @@ function movieSerach(){
        		},
         },
 		close: function(event, ui) {
-			
+			scheduleList();
 		}
 	});
 }
 
 $(function(){
-	   
-	   $(".cinemaLi").on("click", function(){
-	      $("#branchCinemas").dialog({
-	         modal: true,
-	         height:600,
-	         width:900,
-	         title: "",
-	         open:function(){
-	        	 $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
-	        	 listAreas("${areaList[0].parent}");
-	         },
-	         buttons: {
-	                " 확인 " : function() {
-	                	
-	                	var inCinema=$(".addSelects");
-	                	var cibtn=$(".cinemaLi");
-	                	for(var z=0;z<4;z++){
-	                		
-		                	if(z<selBranchCount){
-		                		var selCinema=$("span[name=selectbranchs]");
-		                		inCinema[z].setAttribute("data-branCode",selCinema[z].getAttribute("data-branCode"));
-		                		inCinema[z].setAttribute("data-branName",selCinema[z].getAttribute("data-branName"));
-		                		inCinema[z].style.display="";
-		                		$(inCinema[z]).find("span").html(selCinema[z].getAttribute("data-branName"));
-		                		cibtn[z].style.display="none";
-		                	}else{
-		                		inCinema[z].style.display="none";
-		                		cibtn[z].style.display="";
-		                		inCinema[z].setAttribute("data-branCode","");
-		                		inCinema[z].setAttribute("data-branName","");
-		                	}
-	                	}
-	                	selBranchCountEnd=selBranchCount;
-	                	 $(this).dialog("close");
-	                 },
-	                 " 취소 " : function() {                	 
-	                	 var inCinema=$(".addSelects");
-		              
-		                 
-	                	 $("#branchSelectList").find("span").remove();
-	                	 $("#branListUL").find("li").attr("class",""); 
-	                	 for(var z=0;z<selBranchCountEnd;z++){
-		           					 
-			                var branCode=inCinema[z].getAttribute("data-branCode");
-			                var branName=inCinema[z].getAttribute("data-branName");
-			  
-							
-			                var selectBranchs="<span name='selectbranchs' data-branCode='"+branCode+"' data-branName='"+branName+"'>"+branName+"<a>X</a></span>";
-			                		   
-			                $("#branchSelectList").append(selectBranchs);
-		                	}
-	                	 selBranchCount=selBranchCountEnd;
-	                      $(this).dialog("close");
-	                 }     
-	           },
-	         close: function(event, ui) {
-	  
-	         }
-	          
-	      });
-	   });
-	   
 	   var today = new Date();
+	   var time=today.getHours();
+	   var mi
 	   today.setDate(today.getDate()-1);
 	   
 	   for(var i=0;i<14;i++){
 	  		today.setDate(today.getDate()+1);
 			var mm = today.getMonth()+1; 
 	   		var yyyy = today.getFullYear();
-	   		var dateDay=yyyy+"-"+mm+"-"+today.getDate();
+	   		var dateDay=dateToString(today);
 	   		if(i==0){
-	   			var dateLi="<li date-day='"+dateDay+"' >오늘</li>"; 
+	   			var dateLi="<li data-dSelect='select' data-dSelect='select' data-day='"+dateDay+"' >오늘</li>"; 
 	   		}else{
-	   			var dateLi="<li date-day='"+dateDay+"' >"+mm+"월 "+today.getDate()+"일</li>"; 
+	   			var dateLi="<li data-dSelect='' data-day='"+dateDay+"' >"+mm+"월 "+today.getDate()+"일</li>"; 
 	   		}
 			
 			$(".dateDiv").find("ul").append(dateLi);
+		   }  
+	   $(".dateDiv li[data-dSelect=select]").css("background","#198591").css("color","white");
+	   if((time-10)>0){
+		   if((time-10)>=15){
+			    timePosition=20*-33;
+		   }else{
+		   		timePosition=(time-5)*-33;
 		   }
-	  	
-	});
+	   		$(".timeDiv li[data-time='"+time+"']").attr("data-tSelect","select").css("background","#198591").css("color","white").closest("ol").css("margin-left",timePosition+"px");
+	   }
+	   
+	   scheduleList();
+});
+	
+$(document).on("click",".dateDiv li",function(){
+	$(".dateDiv li").css("background","").css("color","").attr("data-dSelect","");
+	$(this).css("background","#198591").css("color","white").attr("data-dSelect","select");
+	scheduleList();
+});
+
+$(document).on("click",".timeDiv li",function(){
+	$(".timeDiv li").css("background","").css("color","").attr("data-tSelect","");
+	$(this).css("background","#198591").css("color","white").attr("data-tSelect","select");
+	scheduleList();
+	
+});
+
+function timeToString(hour,min) {
+    var h = hour;
+    if(h < 10) h='0'+h;
+    var m = min;
+    if(m < 10) m='0'+m;
+    
+    return h + ':' + m;
+}
+
+function scheduleList(){
+	var query="";
+	var today = new Date();
+	var mi=today.getMinutes();
+	var time=timeToString($(".timeDiv li[data-tSelect=select]").attr("data-time"),mi);
+		query="time="+time;
+	var date=$(".dateDiv li[data-dSelect=select]").attr("data-day");
+		query+="&date="+date;
+	var inMovie=$("#movieSelectList").find("span");   
+		for(var im=0;im<inMovie.length;im++){
+			query+="&movieCode="+inMovie[im].getAttribute("data-movieCode");
+		}
+		
+	var inCinema=$("#branchSelectList").find("span");
+		for(var ic=0;ic<inCinema.length;ic++){
+			query+="&branCode="+inCinema[ic].getAttribute("data-branCode");
+		}
+	var type="get";
+	var url="<%=cp%>/booking/scheduleList";
+	
+	var fn=function(data){
+		$(".scheduleList").empty();
+		if(data.length!=0){
+			for(var i=0;i<data.length;i++){
+				var tag="<div class='schClass' data-select='' data-scheduleCode='"+data[i].scheduleCode+"'>";
+					tag+="<div class='timeJone'><strong>"+data[i].starttime+"</strong><span>~"+data[i].endTime+"</span></div>";
+					tag+="<div class='movieJone'><p><span class='"+data[i].audits+"'>"+data[i].audits+"</span><span>"+data[i].movieNm+"</span></p>";
+					if(data[i].showingKind==1){
+						tag+="<p><span>2D<span><p></div>";
+					}else{
+						tag+="<p><span>3D<span><p></div>";
+					}
+					tag+="<div class='branJone'><p>"+data[i].branName+"</p><p>"+data[i].cmName+"</p><p>"+data[i].cmSeatTot+"</p></div></div>";
+	
+				$(".scheduleList").append(tag);
+			}
+		}else{
+			
+			var tag="<p class='nonScheduleMessage'>현재 상영중인 영화가 없습니다.</p>";
+			
+			$(".scheduleList").append(tag);
+		}
+	};
+	
+	ajaxJSON(url, type, query, fn);
+    
+}
+
+$(document).on("click",".cinemaLi", function(){
+   $("#branchCinemas").dialog({
+      modal: true,
+      height:600,
+      width:900,
+      title: "",
+      open:function(){
+     	 $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
+     	 listAreas("${areaList[0].parent}");
+      },
+      buttons: {
+             " 확인 " : function() {
+             	
+             	var inCinema=$(".addSelects");
+             	var cibtn=$(".cinemaLi");
+             	for(var z=0;z<4;z++){
+             		
+	                	if(z<selBranchCount){
+	                		var selCinema=$("span[name=selectbranchs]");
+	                		inCinema[z].setAttribute("data-branCode",selCinema[z].getAttribute("data-branCode"));
+	                		inCinema[z].setAttribute("data-branName",selCinema[z].getAttribute("data-branName"));
+	                		inCinema[z].style.display="";
+	                		$(inCinema[z]).find("span").html(selCinema[z].getAttribute("data-branName"));
+	                		cibtn[z].style.display="none";
+	                	}else{
+	                		inCinema[z].style.display="none";
+	                		cibtn[z].style.display="";
+	                		inCinema[z].setAttribute("data-branCode","");
+	                		inCinema[z].setAttribute("data-branName","");
+	                	}
+             	}
+             	selBranchCountEnd=selBranchCount;
+             	 $(this).dialog("close");
+              },
+              " 취소 " : function() {                	 
+             	 var inCinema=$(".addSelects");
+	              
+	                 
+             	 $("#branchSelectList").find("span").remove();
+             	 $("#branListUL").find("li").attr("class",""); 
+             	 for(var z=0;z<selBranchCountEnd;z++){
+	           					 
+		                var branCode=inCinema[z].getAttribute("data-branCode");
+		                var branName=inCinema[z].getAttribute("data-branName");
+		  
+						
+		                var selectBranchs="<span name='selectbranchs' data-branCode='"+branCode+"' data-branName='"+branName+"'>"+branName+"</span>";
+		                		   
+		                $("#branchSelectList").append(selectBranchs);
+	                	}
+             	 selBranchCount=selBranchCountEnd;
+                   $(this).dialog("close");
+              }     
+        },
+      close: function(event, ui) {
+    	  scheduleList();
+      }
+       
+   });
+});
+
 
 function ajaxJSON(url, type, query, fn) {
 	   $.ajax({
@@ -574,6 +704,8 @@ $(document).on("click",".addSelectsbutton",function(){
     		inCinema[z].setAttribute("data-branName","");
     	}
 	}
+	selbranCountEnd=selbranCount;
+	scheduleList();
 });
 
 $(document).on("click",".addSelectsbuttonM",function(){
@@ -592,9 +724,7 @@ $(document).on("click",".addSelectsbuttonM",function(){
 	for(var z=0;z<4;z++){
         
     	if(z<selMovieCount){
-    		$(inMovie[z]).css("background-image","none");
-    		$(inMovie[z]).css("background-size","none");
-    		$(inMovie[z]).find("span").html("");
+    		$(inMovie[z]).css("background-image","none").css("background-size","none").find("span").html("");
     		var movieSelectList=$("span[name=selectMovies]");
     		inMovie[z].setAttribute("data-movieCode",movieSelectList[z].getAttribute("data-movieCode"));
     		inMovie[z].setAttribute("data-movieNm",movieSelectList[z].getAttribute("data-movieNm"));
@@ -602,17 +732,14 @@ $(document).on("click",".addSelectsbuttonM",function(){
     		if(movieSelectList[z].getAttribute("data-thumNail")=="No images"){
     			$(inMovie[z]).find("span").html(movieSelectList[z].getAttribute("data-movieNm"));
     		}else{
-    			$(inMovie[z]).css("background-image","url('"+movieSelectList[z].getAttribute("data-thumNail")+"')");
-    			$(inMovie[z]).css("background-size","cover");
+    			$(inMovie[z]).css("background-image","url('"+movieSelectList[z].getAttribute("data-thumNail")+"')").css("background-size","cover");
     		}
     		
     		inMovie[z].style.display="";
     		
     		movieLi[z].style.display="none";
     	}else{
-    		$(inMovie[z]).find("span").html("");
-    		$(inMovie[z]).css("background-image","none");
-    		$(inMovie[z]).css("background-size","none");
+    		$(inMovie[z]).css("background-image","none").css("background-size","none").find("span").html("");
     		inMovie[z].style.display="none";
     		movieLi[z].style.display="";
     		inMovie[z].setAttribute("data-movieCode","");
@@ -620,6 +747,7 @@ $(document).on("click",".addSelectsbuttonM",function(){
     	}
 	}
 	selMovieCountEnd=selMovieCount;
+	scheduleList();
 });
 
 $(document).on("click",".listOfMovie",function(){
@@ -657,8 +785,9 @@ $(document).on("click",".listOfMovie",function(){
 });
 </script>
 <div class="bookingForm">
-	<div style="width: 45%; height: 100%;float: left;">
-		<div style="width: 100%; height: 15%;"><p>날짜</p> 
+	<div class="leftDiv">
+		<div style="width: 100%; height: 15%;border-bottom: 1px solid black">
+			<p style="font-weight: bold;">날짜</p> 
 			 <div style="width:100%;border: none;display: inline-block;height: 30%">
 				<span style="width: 5%;float:left;text-align: center">
 					<a href="javascript:leftDate();">&lt;</a></span>
@@ -668,13 +797,13 @@ $(document).on("click",".listOfMovie",function(){
 			</div>
 			<div class="dateDiv">
 						<ul style="width:1054px;height: 100%;overflow: hidden;">
-							
+				
 							
 						</ul>    
 				</div> 
 		</div>
-		<div style="width: 100%; height: 35%;">
-			<p>극장</p>    
+		<div style="width: 100%; height: 35%;border-bottom: 1px solid black">
+			<p style="font-weight: bold;">극장</p>    
 			<ul>
 				 <li class="cinemaLi"><button type="button" >+</button></li>
 				 <li class="addSelects" style="display: none;"><p><button class="addSelectsbutton" data-idx="0" type="button">x</button></p><span class="selBranchAdd">1</span></li>
@@ -690,7 +819,7 @@ $(document).on("click",".listOfMovie",function(){
 			</ul>
 		</div>
 		<div style="width: 100%; height: 50%;">  
-			<p>영화</p>
+			<p style="font-weight: bold;">영화</p>
 			<ul >
 				 <li class="movieLi"><button class="movieButton" type="button" onclick="movieSerach();">+</button></li>
 				 <li class="addSelectsM" style="display: none;"><p><button class="addSelectsbuttonM" data-idx="0" type="button">x</button>
@@ -711,8 +840,8 @@ $(document).on("click",".listOfMovie",function(){
 		</div> 
 	</div>    
 	<div style="width: 55%;height: 100%;float: left">    
-		<div style="width: 100%; height: 15%; ">       
-			<p>시간</p> 
+		<div style="width: 100%; height: 15%; border-bottom: 1px solid black">       
+			<p style="font-weight: bold;">시간</p> 
 			 <div style="width:100%;border: none;display: inline-block;height: 30%">
 				<span style="width: 5%;float:left;text-align: center">
 					<a href="javascript:leftTime();">&lt;</a></span>
@@ -723,12 +852,15 @@ $(document).on("click",".listOfMovie",function(){
 			<div class="timeDiv">
 						<ol style="width:1054px;height: 100%;overflow: hidden;">
 							<c:forEach var="vv" begin="0" end="30">
-								<li>${vv}</li> 
+								<li data-tSelect="" data-time="${vv}">${vv}</li>
 							</c:forEach>
 						</ol>    
 			</div> 
 		</div>
-		<div style="width: 100%; height: 85%;">상영목록</div>
+		<div style="width: 100%; height: 85%;">
+			<p style="font-weight: bold;border-bottom: 1px solid black">상영목록<p>
+			<div class="scheduleList"></div>
+			</div>
 	</div>
 	
 	<div id="movieSelecter" style="display: none;width: 900px;height: 800px;overflow:none;">
