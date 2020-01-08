@@ -21,5 +21,7 @@ public interface EventService {
 	public void insertReplyReport(Map<String, Object> map) throws Exception;
 
 	public void eventRequest(Map<String, Object> map) throws Exception;
+	public List<Event> listDott(Map<String, Object> map);
+	public int DottCount(Map<String, Object> map);
 	
 }

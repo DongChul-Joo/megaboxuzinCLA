@@ -368,7 +368,7 @@ $(function(){
         <li><a href="<%=cp%>/event/list?ecategoryCode=2">영화 이벤트</a></li>   
         <li><a href="<%=cp%>/event/list?ecategoryCode=3">제휴 이벤트</a></li>
         <li><a href="<%=cp%>/event/list?ecategoryCode=4">영화관이벤트</a></li>
-        <li><a href="<%=cp%>">당첨자발표</a></li>
+        <li><a href="<%=cp%>/event/listDott">당첨자발표</a></li>
         <li><a href="<%=cp%>">현황 통계</a></li>
     </ul>
     </div>
@@ -401,9 +401,11 @@ $(function(){
     	<a href="${dto.elink}">
     		<img src="http://localhost:9090/mgbxAD/uploads/event/${dto.imageFilename}" width="70%" style="margin: 0px 10px;">
     	</a>
-    	<div>
-    		<button type="button" class="btn btnSendRequest" style="margin-top: 150px;">응모하기!</button>
-    	</div>
+    	<c:if test="${dto.lott==1}">
+	    	<div>
+	    		<button type="button" class="btn btnSendRequest" style="margin-top: 150px;">응모하기!</button>
+	    	</div>
+    	</c:if>
     </div>
 	</div>
 
