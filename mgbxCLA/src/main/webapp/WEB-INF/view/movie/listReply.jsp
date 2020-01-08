@@ -20,10 +20,10 @@
 			
 			
 			<div style="width: 820px; height: 90px; float: right; padding-top: 20px; margin-left: 10px;">
-				<form name="movieCommentForm" style="box-sizing: border-box; float: left;" action="">
+				<form name="movieCommentForm" style="box-sizing: border-box; float: left;" method="post" >
 					<div class="input">
 						<div class="rate">
-							<span class="starwrap">
+							<span class="starwrap" style="width: 100%">
 								<img id=image1 onmouseover="show(1)" onclick="mark(1)" onmouseout="noshow(1)" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점1 괜히봤어요" title="별점1 괜히봤어요"> 
 								<img id=image2 onmouseover="show(2)" onclick="mark(2)" onmouseout="noshow(2)" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점2 기대하진 말아요" title="별점2 기대하진 말아요">
 								<img id=image3 onmouseover="show(3)" onclick="mark(3)" onmouseout="noshow(3)" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점3 무난했어요" title="별점3 무난했어요">
@@ -32,15 +32,15 @@
 							</span>
 							<br/><span id="startext" style="font-size: 14px; margin-top:46px; color: #666; text-align: center; margin-left: 23px;">평점을 입력해주세요</span>
 						</div>
-							<input type="hidden" name="star">
+							<input type="hidden" class="getStar"  name="star">
 							
 							<div style="width: 570px; min-height: 97px; float: left;">
-									<textarea class="writeReply" title="댓글쓰기" rows="10" cols="30" maxlength="100" 
-										${not empty movie.userId ? "placeholder='댓글을 남겨이씨'" : "readonly='readonly' placeholder='로그인 후 이용가능한 서비스입니다.'"}>
-									</textarea>
+									<textarea class="writeReply" title="댓글쓰기" rows="10" cols="30" maxlength="100" ${not empty movie.userId ? "placeholder='댓글을 남겨이씨'" : "readonly='readonly' placeholder='로그인 후 이용가능한 서비스입니다.'"}></textarea>
 							</div>
 							<div style="width: 84px; height: 100%; float: left;">
-								<button type="button" class="btn_movie('${vo.movieCode}')" style="height: 86px; width: 86px; float: right; border: 1px solid #e1e1e1;">등록</button>
+								<c:forEach var="vo" items="${list}">
+									<button type="button" onclick="btnSendReply('${vo.movieCode}')" style="height: 86px; width: 86px; float: right; border: 1px solid #e1e1e1;">등록</button>
+								</c:forEach>
 							</div>
 						
 					</div>
@@ -64,7 +64,7 @@
 								<span style="float: left;">${vo.created}</span>
 								<div>
 									<span style="margin-left: 15px; float: left;"  class="small_star">
-										<span class="small_fill">
+										<span class="small_fill" style="width: 20%">
 											<span class="blind"></span>
 										</span>
 									</span>

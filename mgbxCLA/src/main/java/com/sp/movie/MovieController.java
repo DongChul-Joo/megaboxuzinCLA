@@ -143,7 +143,6 @@ public class MovieController {
 		
 		Movie dto = new Movie();
 		
-		
 		try {
 			dto=service.readDetail(movieCode);
 			
@@ -208,21 +207,33 @@ public class MovieController {
 	@RequestMapping(value="movie/insertReply", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> insertReply(
+			@RequestParam int movieScores,
+			@RequestParam int movieCode,
+			@RequestParam String content,
 			Movie dto,
 			HttpSession session
 			) {
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 		String state="true";
 		
+		
 		try {
+			dto.setMovieCode(movieCode);
+			dto.setContent(content);
 			dto.setUserId(info.getUserId());
+			System.out.println("======================================================================="+info.getUserId());
+			dto.setMovieScores(movieScores);
+			
 			service.insertReply(dto);
 		} catch (Exception e) {
+			e.printStackTrace();
 			state="false";
+			
 		}
 		
 		Map<String, Object> model = new HashMap<>();
 		model.put("state", state);
+		model.put("dto", dto);
 		
 		return model;
 	}

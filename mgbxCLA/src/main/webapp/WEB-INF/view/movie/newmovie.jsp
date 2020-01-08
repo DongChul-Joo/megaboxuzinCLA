@@ -39,7 +39,6 @@ textarea{
 
 .starwrap {
     cursor: pointer;
-    width: 100%;
     text-align: center;
     padding-top: 15px;
     float: left;
@@ -194,6 +193,29 @@ function ajaxHTML(url, type, query, selector) {
 	});
 }
 
+function ajaxJSON(url, type, query, fn) {
+	$.ajax({
+		type:type
+		,url:url
+		,data:query
+		,dataType:"json"
+		,success:function(data) {
+			console.log(data);
+			fn(data);
+		}
+		,beforeSend:function(jqXHR) {
+	        jqXHR.setRequestHeader("AJAX", true);
+	    }
+	    ,error:function(jqXHR) {
+	    	if(jqXHR.status==403) {
+	    		login();
+	    		return false;
+	    	}
+	    	console.log(jqXHR.responseText);
+	    }
+	});
+}
+
 function getAudience(movieCode){
 	var url ="<%=cp%>/movie/getAudience";
 	
@@ -328,6 +350,7 @@ function detailMovie(movieCd){
 	            } else {
 	            	jQuery("span[class=mtime]").html("");
 	            }
+	          
 	            
 	         }
 	         ,error:function(e){
@@ -445,28 +468,34 @@ function mark(star){
 	lock(star);
 	
 	document.movieCommentForm.star.value=star;
-	
 }
 
 
 
-$(function(){
-	$(".btn_movie").click(function(){
-		var movieCode="${vo.movieCode}";
-		var $tb = $(this).closest("div");
-		var content=$tb.find("textarea").val().trim();
+function btnSendReply(movieCode){ 
+		var star= $("input[class=getStar]").val();
+		
+		console.log(star);
+		if(! star){
+			alert("별점을 입력 해주세요!")
+			return false;
+		}
+		
+		var content=$("textarea[class=writeReply]").val();
+		
+		console.log(content);
 		if(! content) {
 			$tb.find("textarea").focus();
 			return false;
 		}
 		
 		content = encodeURIComponent(content);
-		
 		var url="<%=cp%>/movie/insertReply";
-		var query="movieCode="+movieCode+"&content="+content+"&answer=0";
+		var query="movieCode="+movieCode+"&content="+content+"&movieScores="+star;
 		
 		var fn = function(data){
-			$tb.find("textarea").val("");
+			$("textarea[class=writeReply]").empty();
+			$("input[class=getStar]").empty();
 			
 			var state=data.state;
 			if(state=="true") {
@@ -477,8 +506,9 @@ $(function(){
 		};
 		
 		ajaxJSON(url, "post", query, fn);
-	});
-});
+	
+};
+
 
 
 
