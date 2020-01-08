@@ -187,7 +187,10 @@
   background:rgba(0, 0, 0, 0.5);
   z-index:-1;
 }
-    
+#detailInfo .ui-dialog .ui-dialog-titlebar {
+    background-image: none;
+    background: none;
+}  
     
  
 </style>
@@ -263,9 +266,8 @@ function showMovieDetail(movieCode){
 					modal: true,
 					height:2000,
 					width:1000,
-					title: "상세 정보",
 					close: function(event, ui) {
-						window.location.reload();
+						window.location.href='<%=cp%>';
 					}
 	});
 }

@@ -39,6 +39,7 @@ public class MemberServiceImpl implements MemberService {
 			
 			dto.setCustomerCode(memberSeq);
 			dto.setEnabled(1);
+			dto.setMembershipCode(1);
 
 			// 회원정보 저장
 			dao.insertData("member.insertMember1", dto); // CUSTOMER 저장

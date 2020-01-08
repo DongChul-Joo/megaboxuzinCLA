@@ -20,13 +20,32 @@ function nonmemberOk() {
 	}
 	f.userName.value = str;
 	
-	console.log(f.userName.value);
-	console.log(f.birth.value);
-	console.log(f.tel.value);
-	console.log(f.email.value);
-	f.action = "<%=cp%>/member/nonmembers";
-	f.submit();
+	str = f.birth.value;
+	str = str.trim();
+	if(!str || !isValidDateFormat(str)) {
+		alert("생년월일을 입력하세요[YYYY-MM-DD].");
+		f.birth.focus();
+		return;
+	}
 	
+	str = f.tel.value;
+	str = str.trim();
+	if(!str) {
+		alert("핸드폰 번호를 입력하세요.");
+		  f.tel.focus();
+		  return;
+	}
+	
+	str = f.email.value;
+	str = str.trim();
+	if(!str) {
+		alert("이메일을 입력하세요.");
+		f.email.focus();
+		return;
+	}
+
+	f.action = "<%=cp%>/member/nonmembers";
+	f.submit();	
 }
 </script>
 
@@ -103,7 +122,7 @@ text-align: right;
 			<li class="reservation">
 				<label class="reservationput">생년월일</label>
 				<div>
-					<input class="reservationput1" type="text" name="birth" id="birth">
+					<input class="reservationput1" type="text" name="birth" id="birth" placeholder="예시)YYYY-MM-DD 입력">
 				</div>
 			</li>
 		</ul>
@@ -112,7 +131,7 @@ text-align: right;
 			<li class="reservation">
 				<label class="reservationput">휴대폰번호</label>
 				<div>
-					<input class="reservationput1" type="text" name="tel" id="tel">					
+					<input class="reservationput1" type="text" name="tel" id="tel" placeholder="예시)000-0000-0000 입력">					
 				</div>
 			</li>
 		</ul>

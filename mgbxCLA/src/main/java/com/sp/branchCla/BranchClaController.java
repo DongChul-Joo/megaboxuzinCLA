@@ -20,16 +20,18 @@ public class BranchClaController {
 	public String branchForm(
 			Model model
 			) {
-		
+		BranchCla dto=null;
 		List<BranchCla> areaList=null;
 		List<BranchCla> branchList=null;
 		try {
+			
 			areaList=service.listArea();
 			branchList=service.listBranch(areaList.get(0).getParent());
+			dto=service.readBranch(areaList.get(0).getParent());
 		} catch (Exception e) {
 			return "redirect:/error/dataAccessFailure";
 		}
-		
+		model.addAttribute("dto",dto);
 		model.addAttribute("areaList",areaList);
 		model.addAttribute("branchList",branchList);
 		return ".branchCla.branchCla";

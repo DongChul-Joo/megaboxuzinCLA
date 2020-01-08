@@ -10,7 +10,7 @@
 </select>
 
 <select id="listBranch" parameterType="Integer" resultType="com.sp.branchCla.BranchCla">
-	select branCode,branName from branch b 
+	select branCode,branName,branAddr1 from branch b 
 	join area a on b.areaCode=a.areaCode where parent=#{parent}
 </select>
 

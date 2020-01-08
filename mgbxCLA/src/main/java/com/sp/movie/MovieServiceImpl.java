@@ -54,5 +54,42 @@ public class MovieServiceImpl implements MovieService{
 		return dto;
 	}
 
+	@Override
+	public List<Movie> readMovieReply(Map<String, Object> map) {
+		List<Movie> list = null;
+		
+		try {
+			list = dao.selectList("movie.listReply", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		
+		return list;
+	}
+
+	@Override
+	public int replyCount(Map<String, Object> map) {
+		int result = 0;
+		
+		try {
+			result = dao.selectOne("movie.replyCount", map);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	@Override
+	public void insertReply(Movie dto) throws Exception {
+		try {
+			dao.insertData("movie.insertReply", dto);
+		} catch (Exception e) {
+			throw e;
+		}
+		
+	}
+
 
 }
