@@ -10,5 +10,4 @@ public interface ItemService {
 	public void updateItem(Item dto, String pathname) throws Exception;
 	public void deleteItem(int itemCode, String pathname) throws Exception; 
 	public Item readItem(int itemCode);
-
 }

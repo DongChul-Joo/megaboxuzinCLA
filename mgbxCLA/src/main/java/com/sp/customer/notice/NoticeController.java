@@ -98,10 +98,10 @@ public class NoticeController {
 			HttpSession session,
 			Model model) throws Exception {
 		
-		/*SessionInfo info = (SessionInfo)session.getAttribute("member");
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		if(! info.getUserId().equals("admin")) {
 			return "redirect:/customer/notice/list";
-		}*/
+		}
 		
 		model.addAttribute("pageNo", "1");
 		model.addAttribute("mode", "created");
@@ -117,14 +117,17 @@ public class NoticeController {
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		String state="false";
 		
-		
-		String root = session.getServletContext().getRealPath("/");
-		String pathname = root + "uploads" + File.separator + "notice";
-		
-		dto.setUserId(info.getUserId());
-		service.insertNotice(dto, pathname);
-		state="true";
-		
+		if(info.getUserId().equals("admin")) {
+			try {
+				String root = session.getServletContext().getRealPath("/");
+				String pathname = root + "uploads" + File.separator + "notice";
+				
+				dto.setUserId(info.getUserId());
+				service.insertNotice(dto, pathname);
+				state="true";
+			} catch (Exception e) {
+			}
+		}
 		Map<String, Object> model=new HashMap<>();
 		model.put("state", state);
 		
@@ -319,9 +322,10 @@ public class NoticeController {
 	public Map<String, Object> delete(
 			@RequestParam int code,
 			HttpSession session) throws Exception {
-		/*SessionInfo info=(SessionInfo)session.getAttribute("member");*/
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
 		String state="false";
 		
+		if(info.getUserId().equals("admin")) {
 			try {
 				String root = session.getServletContext().getRealPath("/");
 				String pathname = root + "uploads" + File.separator + "notice";
@@ -329,7 +333,7 @@ public class NoticeController {
 				state="true";
 			} catch (Exception e) {
 			}
-		
+		}
 		Map<String, Object> model = new HashMap<>();
 		model.put("state", state);
 	

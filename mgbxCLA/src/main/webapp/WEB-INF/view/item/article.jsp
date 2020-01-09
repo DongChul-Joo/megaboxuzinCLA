@@ -14,14 +14,22 @@
   float:left;  width:400px; height:100px;
 }
 .count {
-	width: 30px; height: 20px;
+	width: 30px; height: 25px;
 }
 .btn_sub {
-	width: 30px; height: 25px;
+	width: 26px; height: 25px;
 }
 .btn_plus {
-	width: 30px; height: 25px;
+	width: 26px; height: 25px;
 }
+#modal {
+  display:none;
+  position:relative;
+  width:100%;
+  height:100%;
+  z-index:1;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -41,13 +49,6 @@ function updateItem() {
 		var url = "<%=cp%>/item/update?" + q;
 		location.href=url;
 
-}
-
-function sendOk() {
-	if(! $('input:checkbox[id="ok"]').is(":checked")) {
-	    alert ( "체크이후에 다시 눌러주세요.");
-	    return;
-	}
 }
 
 $(function(){
@@ -131,9 +132,8 @@ $(function(){
 							스토어 판매가
 						</strong>
 						<span>
-
 							${dto.itemPrice}
-						</span>
+						</span>원
 					</p>
 				</li>
 				<li>	
@@ -154,11 +154,10 @@ $(function(){
 					</p>
 					<form name="okForm" method="post">
 					
-						<h3 style="margin-bottom: 30px;">
-							<input type="checkbox" id="ok">
-							* 구매 전 상품과 수량을 확인했습니다.*
-						</h3>		
-					<button type="button" class="btn" onclick="sendOk();">구매하기</button>
+						<h4 style="margin-bottom: 30px;">
+							* 구매 전 상품과 수량을 확인해주세요! *
+						</h4>		
+					<button type="button" class="btn" onclick="buy()">구매하기</button>
 					<button type="button" class="btn" onclick="javascript:location.href='<%=cp%>/item/list';">뒤로가기</button>
 					
 					</form>
@@ -169,4 +168,45 @@ $(function(){
   	</div>	
 
 	</div>
+</div>
+
+<div id="modal">
+
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
+<script type="text/javascript">
+function buy(){
+	var IMP = window.IMP; // 생략가능
+	IMP.init('imp36876789');  // 가맹점 식별 코드z
+	
+	var amount = $("#payAmt").text();
+	
+	
+
+	IMP.request_pay({
+	   	pg : 'html5_inicis', // 결제방식
+	    pay_method : 'card',	// 결제 수단
+	    merchant_uid : 'merchant_' + new Date().getTime(),
+	   	name : '${dto.itemName}',	// order 테이블에 들어갈 주문명 혹은 주문 번호
+	    amount : amount,	// 결제 금액 amount
+	    buyer_email : '',	// 구매자 email
+	   	buyer_name :  '',	// 구매자 이름
+	    buyer_tel :  '',	// 구매자 전화번호
+	    m_redirect_url : '/khx/payEnd.action'	// 결제 완료 후 보낼 컨트롤러의 메소드명
+	}, function(rsp) {
+		if ( rsp.success ) { // 성공시
+			var msg = '결제가 완료되었습니다.';
+			msg += '고유ID : ' + rsp.imp_uid;
+			msg += '상점 거래ID : ' + rsp.merchant_uid;
+			msg += '결제 금액 : ' + rsp.paid_amount;
+			msg += '카드 승인번호 : ' + rsp.apply_num;
+		} else { // 실패시
+			var msg = '결제에 실패하였습니다.';
+			msg += '에러내용 : ' + rsp.error_msg;
+		}
+	});
+}
+ 	 
+</script>
+
 </div>
