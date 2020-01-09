@@ -15,5 +15,7 @@ public interface MovieService {
 	public int replyCount(Map<String, Object> map);
 	
 	public void insertReply(Movie dto) throws Exception;
+	
+	public void deleteReply(Map<String, Object> map) throws Exception;
 }
  

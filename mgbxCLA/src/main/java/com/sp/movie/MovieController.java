@@ -158,6 +158,7 @@ public class MovieController {
 	public String listReply(
 			@RequestParam int movieCode, 
 			@RequestParam(value="pageNo", defaultValue="1") int current_page,
+			Movie dto,
 			Model model
 			,HttpSession session
 			) {
@@ -188,18 +189,20 @@ public class MovieController {
         List<Movie> list = service.readMovieReply(map);
         
 		
-       for(Movie dto : list) {
-    	   dto.setContent(dto.getContent().replaceAll("\n", "<br>"));
+       for(Movie dto2 : list) {
+    	   dto2.setContent(dto2.getContent().replaceAll("\n", "<br>"));
        }
-       
+       	
+       	dto.setMovieCode(movieCode);
         String paging = myUtil.pagingMethod(current_page, total_page, "listPage");
 		
+        model.addAttribute("dto", dto);
 		model.addAttribute("list", list);
 		model.addAttribute("pageNo", current_page);
         model.addAttribute("dataCount", dataCount);
         model.addAttribute("total_page", total_page);
         model.addAttribute("paging", paging);
-        model.addAttribute("movie", info);
+        model.addAttribute("info", info);
 		
 		return "movie/listReply";
 	}
@@ -221,7 +224,6 @@ public class MovieController {
 			dto.setMovieCode(movieCode);
 			dto.setContent(content);
 			dto.setUserId(info.getUserId());
-			System.out.println("======================================================================="+info.getUserId());
 			dto.setMovieScores(movieScores);
 			
 			service.insertReply(dto);
@@ -238,5 +240,22 @@ public class MovieController {
 		return model;
 	}
 	
+	@RequestMapping(value="movie/deleteReply")
+	@ResponseBody
+	public Map<String, Object> deleteReply(
+			@RequestParam Map<String, Object> paramMap
+			){
+		String state="true";
+		try {
+			service.deleteReply(paramMap);
+		} catch (Exception e) {
+			state="false";
+			e.printStackTrace();
+		}
+		Map<String, Object> map = new HashMap<>();
+		map.put("state", state);
+		
+		return map;
+	}
 	
 }

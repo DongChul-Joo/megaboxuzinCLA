@@ -18,9 +18,7 @@
 .writeReply{
     height: 84px;
     font-size: 14px;
-    border: none;
-    border-left: 1px solid #e1e1e1;
-    border-right: 1px solid #e1e1e1;
+    border: 1px solid #e1e1e1;
     background-color: #fff;
 }
 
@@ -178,7 +176,30 @@ textarea{
     height: 15px;
     vertical-align: middle;
     margin: -1px 5px 0 8px;
+ }
+ 
+ 
+.btn_modify{
+	display: inline-block;
+    width: 40px;
+    height: 25px;
+    border: none;
+    vertical-align: middle;
+    margin-top: -5px;
+    float: right;
 }
+
+
+.btn_delete{
+	display: inline-block;
+  	width: 40px;
+    height: 25px;
+    border: none;
+    vertical-align: middle;
+    margin-top: -5px;
+    float: right;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -471,8 +492,9 @@ function mark(star){
 }
 
 
-
+	
 function btnSendReply(movieCode){ 
+		var userId= $("strong[class=getUserId]").val();
 		var star= $("input[class=getStar]").val();
 		
 		console.log(star);
@@ -485,7 +507,7 @@ function btnSendReply(movieCode){
 		
 		console.log(content);
 		if(! content) {
-			$tb.find("textarea").focus();
+			content.focus();
 			return false;
 		}
 		
@@ -510,6 +532,23 @@ function btnSendReply(movieCode){
 };
 
 
+function replyRemove(movieCode){
+	if(! confirm("게시물을 삭제하시겠습니까?")) {
+		return false;
+	}
+	
+	var page=$("span[class=curBox]").val();
+	
+	var url="<%=cp%>/movie/deleteReply";
+	var query="movieCode="+movieCode;
+	
+	var fn = function(data){
+		listPage(page);
+	};
+	
+	ajaxJSON(url, "post", query, fn);	
+
+}
 
 
 </script>
@@ -602,7 +641,7 @@ function btnSendReply(movieCode){
 		</div>	
 
 	
-	<div id="newMovie" style="width: 90%;margin: 0 auto; min-height: 1800px;">
+	<div id="newMovie" style="width: 100%;margin: 0 auto; min-height: 1800px;">
 		
 		<ul>
 			<li style="margin-left: 50px;">
@@ -623,7 +662,7 @@ function btnSendReply(movieCode){
 				   	  </div>
 				   	  
 				   	  <div style="height: 51px; width: 230px; border: 1px solid #e4e4e4; background-color: white; ">
-					   	 <span style="float:left; font-size: 15pt;">평점 : 9.5</span>
+					   	 <span style="float:left; font-size: 15pt;">평점 : ${vo.movieScores}</span>
 					   	 <span style="float:right; margin-right:5px; font-size: 15pt;">★★★★☆</span>
 				   	  </div>
 				   	  
