@@ -25,4 +25,28 @@ public class BookingServiceImpl implements BookingService{
 		return list;
 	}
 
+	@Override
+	public List<Booking> bookingSeatList(int scheduleCode) throws Exception {
+		List<Booking> list=null;
+		
+		try {
+			list=dao.selectList("bookingSeatList",scheduleCode);
+		} catch (Exception e) {
+			throw e;
+		}
+		return list;
+	}
+
+	@Override
+	public Booking readSeat(int scheduleCode) throws Exception {
+		Booking dto=null;
+		
+		try {
+			dto=dao.selectOne("readSeat",scheduleCode);
+		} catch (Exception e) {
+			throw e;
+		}
+		return dto;
+	}
+
 }

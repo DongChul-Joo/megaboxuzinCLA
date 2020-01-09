@@ -1,5 +1,7 @@
 package com.sp.booking;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +34,6 @@ public class BookingController {
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		dataCount= movieService.dataCount(map);
 
 		int offset = 0;
         map.put("offset", offset);
@@ -55,7 +56,7 @@ public class BookingController {
         
         
 	
-		return ".booking.booking";
+		return "booking/booking";
 	}
 	
 	@RequestMapping(value="/booking/scheduleList",method=RequestMethod.GET)
@@ -63,7 +64,6 @@ public class BookingController {
 	public List<Booking> scheduleList(
 			String movieCode[],
 			int branCode[],
-			@RequestParam String time,
 			@RequestParam String date
 			) {
 		List<Booking> list=null;
@@ -71,10 +71,23 @@ public class BookingController {
 
 
 		map.put("date", date);
-		map.put("time", time);
+
 		map.put("branCode", branCode);
 		map.put("movieCode", movieCode);
-
+		
+		String selDay=null;
+		
+		SimpleDateFormat format = new SimpleDateFormat ( "yyyy-MM-dd");
+		Date day = new Date();
+		String toDay = format.format(day);
+		if(date.equals(toDay)) {
+			selDay="today";
+			SimpleDateFormat format2 = new SimpleDateFormat ( "HH:mm");
+			String time = format2.format(day);
+			map.put("time", time);
+		}
+		
+		map.put("today", selDay);
 		
 		try {
 			list=bookingService.scheduleList(map);
@@ -83,5 +96,29 @@ public class BookingController {
 		}
 		
 		return list;
+	}
+	
+	@RequestMapping(value="/booking/readSeat",method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String,Object> readSeat(
+			int scheduleCode
+			) {
+		
+		Map<String,Object> map=new HashMap<>();
+		
+		Booking dto=null;
+		List<Booking> list=null;
+		
+		try {
+			dto=bookingService.readSeat(scheduleCode);
+			list=bookingService.bookingSeatList(scheduleCode);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		map.put("dto", dto);
+		map.put("seatList", list);
+		
+		return map;
 	}
 }
