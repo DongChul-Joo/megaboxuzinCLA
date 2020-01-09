@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.branchCla.BranchCla;
 import com.sp.branchCla.BranchClaService;
@@ -19,6 +21,7 @@ import com.sp.movie.MovieService;
 public class BookingController {
 	@Autowired private MovieService movieService;
 	@Autowired private BranchClaService branchService;
+	@Autowired private BookingService bookingService;
 
 	@RequestMapping(value="/booking/booking",method=RequestMethod.GET)
 	public String bookingForm(
@@ -53,5 +56,32 @@ public class BookingController {
         
 	
 		return ".booking.booking";
+	}
+	
+	@RequestMapping(value="/booking/scheduleList",method=RequestMethod.GET)
+	@ResponseBody
+	public List<Booking> scheduleList(
+			String movieCode[],
+			int branCode[],
+			@RequestParam String time,
+			@RequestParam String date
+			) {
+		List<Booking> list=null;
+		Map<String,Object> map=new HashMap<>();
+
+
+		map.put("date", date);
+		map.put("time", time);
+		map.put("branCode", branCode);
+		map.put("movieCode", movieCode);
+
+		
+		try {
+			list=bookingService.scheduleList(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 }

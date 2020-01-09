@@ -12,13 +12,13 @@
     padding:7px 10px;
 	font-weight: bold;
 	color: #ffffff;
-	background: #027d87;
+	background: #731070;
 	text-align: center;
   }
   .questionSubject{
     display: inline-block;
     position:absolute;
-    width:1091px;
+    width:1000px;
     overflow:hidden;
     text-overflow:ellipsis;
     word-spacing:nowrap;
@@ -27,7 +27,7 @@
     margin-left:1px;
 	font-weight: bold;
 	color: #ffffff;
-	background: #027d87;
+	background: #731070;
   }
   .answerA{
     display: inline-block;
@@ -40,7 +40,7 @@
   .answerSubject{
     display: inline-block;
     position:absolute;
-     width:1091px;
+     width:1000px;
     overflow:hidden;
     text-overflow:ellipsis;
     word-spacing:nowrap;
@@ -53,12 +53,9 @@
   }
 </style>
 
-<div class="alert-info">
-    <i class="fas fa-info-circle"></i>
-    1:1 문의 공간 입니다.
-</div>
 
-<table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
+
+<table style="width: 100%; margin: 50px auto 0px; border-spacing: 0px; border-collapse: collapse;">
 
 
 	<tr height="35">

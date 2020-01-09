@@ -9,7 +9,9 @@
 	</select>
 	 
 	<select id="movieDetail" parameterType="Integer" resultType="com.sp.movie.Movie">
-		SELECT movieCode, movieNm, audits, thumbNail, movieStory, TO_CHAR(startDate,'YYYY.MM.DD') startDate, TO_CHAR(endDate, 'YYYY.MM.DD') endDate
+		SELECT movieCode, movieNm, audits, thumbNail, movieStory, TO_CHAR(startDate,'YYYY.MM.DD') startDate,
+			 TO_CHAR(endDate, 'YYYY.MM.DD') endDate,
+			 (select TRUNC(NVL(AVG(movieScores)*2,0),1) from movieScore where movieCode=#{movieCode}) movieScores
 			FROM movie
 			WHERE movieCode=#{movieCode}
 	</select>
@@ -22,10 +24,11 @@
 	
 	
 	<select id="listReply" parameterType="map" resultType="com.sp.movie.Movie">
-		SELECT r.movieCode, r.userId, r.content, TO_CHAR(r.created, 'YY.MM.DD') created
+		SELECT r.movieCode, r.userId, r.content, TO_CHAR(r.created, 'YY.MM.DD') created, s.movieScores
 		FROM moviereply r
 		JOIN member m on m.userId = r.userId
 		JOIN movie e on e.movieCode = r.movieCode
+		JOIN movieScore s on s.movieCode = e.movieCode
 		WHERE r.movieCode=#{movieCode}
 		ORDER BY r.created DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
@@ -36,12 +39,19 @@
 		FROM movieReply
 	</select>
 	
-	<insert id="insertReply" parameterType="com.sp.movie.Movie">
+	<select id="insertReply" parameterType="com.sp.movie.Movie">
 		INSERT ALL
-		INTO movieReply(movieCode, userId, content, created) values(moviecode, userId, content, created)
-		INTO movieScore(movieCode, userId, movieScores) values(moviecode, userId, movieScores)
+		INTO movieReply(movieCode, userId, content, created) values(#{movieCode}, #{userId}, #{content}, sysdate)
+		INTO movieScore(movieCode, userId, movieScores) values(#{movieCode}, #{userId}, #{movieScores})
 		select * from dual
-	</insert>
+	</select>
 	
+	<delete id="deleteMovieReply" parameterType="map">
+		delete FROM movieReply where movieCode=#{movieCode} and userId=#{userId}
+	</delete>
+	
+	<delete id="deleteMovieScore" parameterType="map">
+		delete FROM movieScore where movieCode=#{movieCode}
+	</delete>
 	
 </mapper>

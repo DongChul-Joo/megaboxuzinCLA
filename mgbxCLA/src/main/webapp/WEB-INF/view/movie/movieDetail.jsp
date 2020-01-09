@@ -84,7 +84,7 @@ $(function(){
 					</span>
 					<p style="height: 42px; float: left;">
 						<span style="float: left; width: 80px; height: 42px; margin-top: 15px;">3353명 참여</span>
-						<strong style="float:left; font-weight: 700; font-family: '나눔고딕'; font-size: 30px; margin-left: 35px;">7.1점</strong>
+						<strong style="float:left; font-weight: 700; font-family: '나눔고딕'; font-size: 30px; margin-left: 35px;">${movie.movieScores}</strong>
 						<span style="width: 1px; height: 80%; background-color: #e1e1e1; float: left; margin-left: 10px;"></span>
 					</p>
 					

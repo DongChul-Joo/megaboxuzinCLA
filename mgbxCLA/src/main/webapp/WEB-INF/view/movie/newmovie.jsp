@@ -18,9 +18,7 @@
 .writeReply{
     height: 84px;
     font-size: 14px;
-    border: none;
-    border-left: 1px solid #e1e1e1;
-    border-right: 1px solid #e1e1e1;
+    border: 1px solid #e1e1e1;
     background-color: #fff;
 }
 
@@ -39,7 +37,6 @@ textarea{
 
 .starwrap {
     cursor: pointer;
-    width: 100%;
     text-align: center;
     padding-top: 15px;
     float: left;
@@ -179,7 +176,30 @@ textarea{
     height: 15px;
     vertical-align: middle;
     margin: -1px 5px 0 8px;
+ }
+ 
+ 
+.btn_modify{
+	display: inline-block;
+    width: 40px;
+    height: 25px;
+    border: none;
+    vertical-align: middle;
+    margin-top: -5px;
+    float: right;
 }
+
+
+.btn_delete{
+	display: inline-block;
+  	width: 40px;
+    height: 25px;
+    border: none;
+    vertical-align: middle;
+    margin-top: -5px;
+    float: right;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -191,6 +211,29 @@ function ajaxHTML(url, type, query, selector) {
 		,success:function(data) {
 			$(selector).html(data);
 		}
+	});
+}
+
+function ajaxJSON(url, type, query, fn) {
+	$.ajax({
+		type:type
+		,url:url
+		,data:query
+		,dataType:"json"
+		,success:function(data) {
+			console.log(data);
+			fn(data);
+		}
+		,beforeSend:function(jqXHR) {
+	        jqXHR.setRequestHeader("AJAX", true);
+	    }
+	    ,error:function(jqXHR) {
+	    	if(jqXHR.status==403) {
+	    		login();
+	    		return false;
+	    	}
+	    	console.log(jqXHR.responseText);
+	    }
 	});
 }
 
@@ -328,6 +371,7 @@ function detailMovie(movieCd){
 	            } else {
 	            	jQuery("span[class=mtime]").html("");
 	            }
+	          
 	            
 	         }
 	         ,error:function(e){
@@ -445,28 +489,35 @@ function mark(star){
 	lock(star);
 	
 	document.movieCommentForm.star.value=star;
-	
 }
 
 
-
-$(function(){
-	$(".btn_movie").click(function(){
-		var movieCode="${vo.movieCode}";
-		var $tb = $(this).closest("div");
-		var content=$tb.find("textarea").val().trim();
+	
+function btnSendReply(movieCode){ 
+		var userId= $("strong[class=getUserId]").val();
+		var star= $("input[class=getStar]").val();
+		
+		console.log(star);
+		if(! star){
+			alert("별점을 입력 해주세요!")
+			return false;
+		}
+		
+		var content=$("textarea[class=writeReply]").val();
+		
+		console.log(content);
 		if(! content) {
-			$tb.find("textarea").focus();
+			content.focus();
 			return false;
 		}
 		
 		content = encodeURIComponent(content);
-		
 		var url="<%=cp%>/movie/insertReply";
-		var query="movieCode="+movieCode+"&content="+content+"&answer=0";
+		var query="movieCode="+movieCode+"&content="+content+"&movieScores="+star;
 		
 		var fn = function(data){
-			$tb.find("textarea").val("");
+			$("textarea[class=writeReply]").empty();
+			$("input[class=getStar]").empty();
 			
 			var state=data.state;
 			if(state=="true") {
@@ -477,9 +528,27 @@ $(function(){
 		};
 		
 		ajaxJSON(url, "post", query, fn);
-	});
-});
+	
+};
 
+
+function replyRemove(movieCode){
+	if(! confirm("게시물을 삭제하시겠습니까?")) {
+		return false;
+	}
+	
+	var page=$("span[class=curBox]").val();
+	
+	var url="<%=cp%>/movie/deleteReply";
+	var query="movieCode="+movieCode;
+	
+	var fn = function(data){
+		listPage(page);
+	};
+	
+	ajaxJSON(url, "post", query, fn);	
+
+}
 
 
 </script>
@@ -572,7 +641,7 @@ $(function(){
 		</div>	
 
 	
-	<div id="newMovie" style="width: 90%;margin: 0 auto; min-height: 1800px;">
+	<div id="newMovie" style="width: 100%;margin: 0 auto; min-height: 1800px;">
 		
 		<ul>
 			<li style="margin-left: 50px;">
@@ -593,7 +662,7 @@ $(function(){
 				   	  </div>
 				   	  
 				   	  <div style="height: 51px; width: 230px; border: 1px solid #e4e4e4; background-color: white; ">
-					   	 <span style="float:left; font-size: 15pt;">평점 : 9.5</span>
+					   	 <span style="float:left; font-size: 15pt;">평점 : ${vo.movieScores}</span>
 					   	 <span style="float:right; margin-right:5px; font-size: 15pt;">★★★★☆</span>
 				   	  </div>
 				   	  

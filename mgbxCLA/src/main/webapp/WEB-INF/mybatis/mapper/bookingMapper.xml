@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="booking">
+
+<select id="scheduleList" parameterType="map" resultType="com.sp.booking.Booking">
+	select scheduleCode,showingNum,showingDate,showingKind,starttime,endTime,cmName,cmSeatTot,branName,movieNm,audits from SHOWINGSCHEDULE shc 
+		join showingmovie shm on shc.showingcode=shm.showingcode 
+			join cinema cm on shm.cmcode=cm.cmcode 
+				join branch br on cm.brancode=br.brancode 
+					join movie mv on shm.moviecode=mv.movieCode
+		
+		<where>
+				to_char(showingdate,'yyyy-mm-dd')=#{date} 
+				and to_number(replace(startTime,':',''))>to_number(replace(#{time},':','')) 
+			<if test="branCode!=null">
+				and cm.brancode in
+				<foreach collection="branCode" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+  			</foreach>
+			</if>
+			
+			<if test="movieCode!=null">
+				and shm.movieCode in
+			<foreach collection="movieCode" item="item" index="index" separator="," open="(" close=")">
+				#{item}
+  			</foreach>
+  			</if>
+		</where>
+		order by showingDate,showingNum
+</select>
+
+</mapper>
