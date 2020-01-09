@@ -550,7 +550,29 @@ function replyRemove(movieCode){
 
 }
 
+function replyEdit(movieCode){
+	var content=$("span[class=comment]");
+	content.html("<textarea style='width: 290px; height: 85px;' rows='10' cols='30' maxlength='100'></textarea>");
+	$("button[class=btn_delete]").remove();
+	
+	var button = $("button[class=btn_modify]");
+	button.empty().html("<button type='button' class='btn_modify' style='width: 70px; height: 30px;' onclick='replyEditDone('movieCode, content')'>수정완료</button>");	
+	
+}
 
+function replyEditDone(movieCode, content){
+	var page=$("span[class=curBox]").val();
+	
+	var url="<%=cp%>/movie/updateDone";
+	var query="movieCode="+movieCode+"&content="+content;
+	
+	var fn= function(data){
+		listPage(page);
+		window.location.reload();
+	};
+	
+	ajaxJSON(url, "post", query, fn);
+};
 </script>
 
 

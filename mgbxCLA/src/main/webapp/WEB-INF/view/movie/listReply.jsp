@@ -35,7 +35,7 @@
 							<input type="hidden" class="getStar"  name="star">
 							
 							<div style="width: 570px; min-height: 97px; float: left;">
-									<textarea class="writeReply" title="댓글쓰기" rows="10" cols="30" maxlength="100" ${not empty info.userId ? "placeholder='댓글을 남겨주세요'" : "readonly='readonly' placeholder='로그인 후 이용가능한 서비스입니다.'"}></textarea>
+									<textarea  class="writeReply" title="댓글쓰기" rows="10" cols="30" maxlength="100" ${not empty info.userId ? "placeholder='댓글을 남겨주세요'" : "readonly='readonly' placeholder='로그인 후 이용가능한 서비스입니다.'"}></textarea>
 							</div>
 							<div style="width: 84px; height: 100%; float: left;">
 									<button type="button" onclick="btnSendReply('${dto.movieCode}')" style="height: 86px; width: 86px; float: right; border: 1px solid #e1e1e1;">등록</button>
@@ -112,7 +112,7 @@
 						</div>
 							<c:if test="${sessionScope.member.userId==vo.userId || sessionScope.member.userId=='admin'}">
 								<button type="button" class="btn_delete" onclick="replyRemove('${vo.movieCode}')">삭제</button>
-								<button type="button" class="btn_modify" onclick="replyEdit()">수정</button>
+								<button type="button" class="btn_modify" onclick="replyEdit('${vo.movieCode}')">수정</button>
 							</c:if>
 						</div>
 					</c:forEach>

@@ -240,22 +240,43 @@ public class MovieController {
 		return model;
 	}
 	
-	@RequestMapping(value="movie/deleteReply")
+	@RequestMapping(value="movie/updateReply")
 	@ResponseBody
 	public Map<String, Object> deleteReply(
-			@RequestParam Map<String, Object> paramMap
+			@RequestParam Map<String, Object> paramMap,
+			HttpSession session,
+			Movie dto
 			){
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		
 		String state="true";
 		try {
+			dto.setUserId(info.getUserId());
+			System.out.println("============================================================================결과:"+dto.getUserId());
+			paramMap.put("userId", dto.getUserId());
 			service.deleteReply(paramMap);
+			
 		} catch (Exception e) {
 			state="false";
 			e.printStackTrace();
 		}
 		Map<String, Object> map = new HashMap<>();
 		map.put("state", state);
-		
+		map.put("info", info);
 		return map;
+	}
+	
+	@RequestMapping(value="movie/updateDone")
+	public void updateForm(
+			@RequestParam Map<String, Object> paramMap
+			) {
+		
+		try {
+			service.updateReply(paramMap);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 }

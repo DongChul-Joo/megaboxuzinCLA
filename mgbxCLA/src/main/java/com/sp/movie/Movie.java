@@ -1,6 +1,7 @@
 package com.sp.movie;
 
 public class Movie {
+	private String state;
 	private int listNum;
 	private int movieCode;
 	private String movieNm;
@@ -173,6 +174,14 @@ public class Movie {
 
 	public void setReportUserId(String reportUserId) {
 		this.reportUserId = reportUserId;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
 	}
 	
 	

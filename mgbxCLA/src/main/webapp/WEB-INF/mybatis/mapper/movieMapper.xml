@@ -54,4 +54,8 @@
 		delete FROM movieScore where movieCode=#{movieCode}
 	</delete>
 	
+	<update id="updateReply" parameterType="map">
+		update movieReply set content = #{content} where movieCode=#{movieCode}
+	</update> 
+	
 </mapper>
