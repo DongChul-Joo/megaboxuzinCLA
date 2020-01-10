@@ -17,6 +17,9 @@ public class Item {
 	private int buyCode, buyAmount, totalAmount, realAmount;
 	private String buyDate, userId;
 	
+	private int pdCode, pdPrice;
+	private String pdSudan;
+	
 	public int getItemCode() {
 		return itemCode;
 	}
@@ -139,4 +142,24 @@ public class Item {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	
+	public int getPdCode() {
+		return pdCode;
+	}
+	public void setPdCode(int pdCode) {
+		this.pdCode = pdCode;
+	}
+	public int getPdPrice() {
+		return pdPrice;
+	}
+	public void setPdPrice(int pdPrice) {
+		this.pdPrice = pdPrice;
+	}
+	public String getPdSudan() {
+		return pdSudan;
+	}
+	public void setPdSudan(String pdSudan) {
+		this.pdSudan = pdSudan;
+	}
+	
 }
