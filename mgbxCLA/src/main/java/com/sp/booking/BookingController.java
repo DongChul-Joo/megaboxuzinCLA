@@ -107,18 +107,20 @@ public class BookingController {
 		Map<String,Object> map=new HashMap<>();
 		
 		Booking dto=null;
-		List<Booking> list=null;
-		
+		List<String> bookingSeatList=null;
+		List<SchedulePrice> priceList=null;
 		try {
 			dto=bookingService.readSeat(scheduleCode);
-			list=bookingService.bookingSeatList(scheduleCode);
+			bookingSeatList=bookingService.bookingSeatList(scheduleCode);
+			priceList=bookingService.bookingPrice(scheduleCode);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		map.put("dto", dto);
-		map.put("seatList", list);
-		
+		map.put("bookingSeatList", bookingSeatList);
+		map.put("priceList", priceList);
 		return map;
 	}
 }

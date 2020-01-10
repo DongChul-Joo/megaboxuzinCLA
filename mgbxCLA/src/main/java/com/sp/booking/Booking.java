@@ -13,6 +13,42 @@ public class Booking {
 	private String movieNm;
 	private String audits;
 	
+	//seat(예약좌석)
+	private String seatNumber;
+	private int seatCount;
+	// 좌석배치도
+	private String cmSeatMap;
+	private int bookingSeatTot;
+	
+	
+	
+	
+	
+	
+	public int getBookingSeatTot() {
+		return bookingSeatTot;
+	}
+	public void setBookingSeatTot(int bookingSeatTot) {
+		this.bookingSeatTot = bookingSeatTot;
+	}
+	public String getCmSeatMap() {
+		return cmSeatMap;
+	}
+	public void setCmSeatMap(String cmSeatMap) {
+		this.cmSeatMap = cmSeatMap;
+	}
+	public String getSeatNumber() {
+		return seatNumber;
+	}
+	public void setSeatNumber(String seatNumber) {
+		this.seatNumber = seatNumber;
+	}
+	public int getSeatCount() {
+		return seatCount;
+	}
+	public void setSeatCount(int seatCount) {
+		this.seatCount = seatCount;
+	}
 	public int getScheduleCode() {
 		return scheduleCode;
 	}

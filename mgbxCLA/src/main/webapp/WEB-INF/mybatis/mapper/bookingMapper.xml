@@ -4,12 +4,15 @@
 <mapper namespace="booking">
 
 <select id="scheduleList" parameterType="map" resultType="com.sp.booking.Booking">
-	select scheduleCode,showingNum,showingDate,showingKind,starttime,endTime,cmName,areaCode,cmSeatTot,branName,movieNm,audits 
+	select shc.scheduleCode,showingNum,showingDate,showingKind,starttime,endTime,cmName,areaCode,cmSeatTot,branName,movieNm,audits,NVL(seatcode,0) seatCount 
 	from SHOWINGSCHEDULE shc 
 		join showingmovie shm on shc.showingcode=shm.showingcode 
 			join cinema cm on shm.cmcode=cm.cmcode 
 				join branch br on cm.brancode=br.brancode 
 					join movie mv on shm.moviecode=mv.movieCode
+					left outer join (select scheduleCode,NVL(count(seatcode),0) seatcode from seat st left outer 
+                 				  join booking bk on st.bookcode=bk.bookcode group by scheduleCode) 
+                 				  sc on shc.scheduleCode=sc.scheduleCode
 		
 		<where>
 				to_char(showingdate,'yyyy-mm-dd')=#{date} 
@@ -33,10 +36,30 @@
 		</where>
 		order by showingDate,areaCode,showingNum
 </select>
-<select id="readSeat" parameterType="Integer">
-	select * from SHOWINGSCHEDULE
+
+<select id="readSeat" parameterType="Integer" resultType="com.sp.booking.Booking">
+	select scheduleCode,showingDate,showingKind,starttime,cmSeatMap,cmName,branName,movieNm,audits from SHOWINGSCHEDULE shc 
+join showingmovie shm on shc.showingcode=shm.showingcode 
+	join cinema cm on shm.cmcode=cm.cmcode 
+		join branch br on cm.brancode=br.brancode 
+			join movie mv on shm.moviecode=mv.movieCode
+where scheduleCode=#{scheduleCode}
 </select>
-<select id="bookingSeatList" parameterType="Integer">
-	select * from SHOWINGSCHEDULE
+
+<select id="bookingSeatList" parameterType="Integer" resultType="List">
+	select seatNumber from seat st left outer 
+	join booking bk on st.bookcode=bk.bookcode 
+	where schedulecode=#{schedulecode}
+</select>
+
+<select id="seatCount" parameterType="Integer" resultType="Integer">
+	select NVL(count(seatcode),0) seatcode from seat st left outer 
+	join booking bk on st.bookcode=bk.bookcode 
+	where schedulecode=#{schedulecode}
+</select>
+
+
+<select id="bookingPrice" parameterType="Integer" resultType="com.sp.booking.SchedulePrice">
+	select moviekind,price from moviepricedetail where scheduleCode=#{schedulecode}
 </select>
 </mapper>

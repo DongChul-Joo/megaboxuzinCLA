@@ -8,6 +8,63 @@
 
 
 <style>
+
+
+#bookingSeat div{
+padding: 0;
+margin: 0;
+}
+.infoSeat{  
+width: 20px;
+height: 20px;
+border: 1px solid black;
+float: left; 
+}
+.infoSeatDiv{
+margin:5px auto;
+width: 90%;
+height: 10%;
+}
+.clickSeat{
+width: 24px;
+height: 24px;  
+font-weight:bold; 
+background: purple;
+border: 1px solid black;
+color: white
+}
+.deleteSeat{
+width: 24px;
+height: 24px;  
+pointer-events:none;
+background: white;
+border: none;
+color: white;
+}
+.seatRows{
+width: 24px;
+height: 24px;  
+padding: 0;
+text-align: center;
+font-size: 10px;
+font-weight:bold;   
+background: white;
+border: 1px solid black;  
+} 
+.seatSelect{
+width: 24px;
+height: 24px;  
+padding: 0;
+text-align: center;
+font-weight:bold;   
+background: white;
+border: 1px solid black;  
+}
+.seatTableMap table{
+margin: 0px auto;
+margin-top: 30px;
+}
+
 p{
 margin: 0px;
 padding: 0px;
@@ -183,7 +240,7 @@ display: inline-block;
 overflow: hidden;   
 cursor: pointer;
 position: relative;
-top: -28px;
+top: -29px;
 left: 20px;
 border: 1px solid black;
 }  
@@ -200,7 +257,7 @@ border: 1px solid black;
 } 
 
 .timeDiv li{
-width: 33px;
+width: 35px;
 display: inline-block;
 height: 100%;
 text-align: center;
@@ -210,7 +267,7 @@ float: left;
 }
 
 .dateDiv li{
-width: 60px;
+width: 64px;
 display: inline-block;
 height: 100%;  
 text-align: center;
@@ -464,11 +521,13 @@ $(document).on("click",".btnsBooking",function(){
 	var query="scheduleCode="+scheduleCode;
 	var type="get";
 	var fn=function(data){
+		console.log(data);
+		$(".seatTableMap").html(data.dto.cmSeatMap);
 		
 		$("#bookingSeat").dialog({
 			modal: true,
 			height:680, 
-			width:850,
+			width:1050,
 			title: "",
 			open:function(){
 	       	 $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
@@ -524,15 +583,15 @@ function ajaxHTMLs(url, type, query, selector) {
 			   var mi
 			   today.setDate(today.getDate()-1);
 			   
-			   for(var i=0;i<14;i++){
+			   for(var i=0;i<15;i++){
 			  		today.setDate(today.getDate()+1);
 					var mm = today.getMonth()+1; 
 			   		var yyyy = today.getFullYear();
 			   		var dateDay=dateToString(today);
 			   		if(i==0){
-			   			var dateLi="<li data-dSelect='select' data-dSelect='select' data-day='"+dateDay+"' >오늘</li>"; 
+			   			var dateLi="<li data-idx='"+(i+1)+"' data-dSelect='select' data-dSelect='select' data-day='"+dateDay+"' >오늘</li>"; 
 			   		}else{
-			   			var dateLi="<li data-dSelect='' data-day='"+dateDay+"' >"+mm+"월 "+today.getDate()+"일</li>"; 
+			   			var dateLi="<li data-idx='"+(i+1)+"' data-dSelect='' data-day='"+dateDay+"' >"+mm+"월 "+today.getDate()+"일</li>"; 
 			   		}
 					
 					$(".dateDiv").find("ul").append(dateLi);
@@ -540,9 +599,9 @@ function ajaxHTMLs(url, type, query, selector) {
 			   $(".dateDiv li[data-dSelect=select]").css("background","#198591").css("color","white");
 			   if((time-10)>0){
 				   if((time-10)>=15){
-					    timePosition=20*-33;
+					    timePosition=20*-35;
 				   }else{
-				   		timePosition=(time-5)*-33;
+				   		timePosition=(time-5)*-35;
 				   }
 				   if(time<10){
 					   time="0"+time;
@@ -560,16 +619,16 @@ function leftTime(){
 	if(timePosition==0){
 		return;
 	}
-	timePosition=timePosition+33;
+	timePosition=timePosition+35;
 	$(".timeDiv").find("ol").css("margin-left",timePosition+"px");
 	
 }  
   
 function rightTime(){
-	if(timePosition==-660){   
+	if(timePosition==-700){   
 		return;
 	}
-	timePosition=timePosition-33;
+	timePosition=timePosition-35;
 	$(".timeDiv").find("ol").css("margin-left",timePosition+"px");
 	
 }
@@ -578,16 +637,16 @@ function leftDate(){
 	if(datePosition==0){
 		return;
 	}
-	datePosition=datePosition+60;
+	datePosition=datePosition+64;
 	$(".dateDiv").find("ul").css("margin-left",datePosition+"px");
 	
 }  
   
 function rightDate(){
-	if(datePosition==-540){   
+	if(datePosition==-640){   
 		return;
 	}
-	datePosition=datePosition-60;
+	datePosition=datePosition-64;
 	$(".dateDiv").find("ul").css("margin-left",datePosition+"px");
 	
 }
@@ -664,14 +723,29 @@ function movieSerach(){
 
 $(document).on("click",".dateDiv li",function(){
 	$(".dateDiv li").css("background","").css("color","").attr("data-dSelect","");
-	$(this).css("background","#198591").css("color","white").attr("data-dSelect","select");
+	var idx=$(this).attr("data-idx");
+	if((idx-3)<0){
+		datePosition=0;
+	}else if((idx-3)>10){
+		datePosition=-640;
+	}else{
+		datePosition=(idx-3)*-64; 
+	}
+	$(this).css("background","#198591").css("color","white").attr("data-dSelect","select").closest("ul").css("margin-left",datePosition+"px");
 	scheduleList();
 });
 
 $(document).on("click",".timeDiv li",function(){
 	$(".timeDiv li").css("background","").css("color","").attr("data-tSelect","");
-	$(this).css("background","#198591").css("color","white").attr("data-tSelect","select");
 	var hour=$(this).attr("data-time");
+	if((hour-5)<0){
+		timePosition=0;
+	}else if((hour-5)>20){
+		timePosition=-700;
+	}else{
+		timePosition=(hour-5)*-35;
+	}
+	$(this).css("background","#198591").css("color","white").attr("data-tSelect","select").closest("ol").css("margin-left",timePosition+"px");
 	
 	$(".schClass[data-hour="+hour+"]").focus();
 });
@@ -718,7 +792,7 @@ function scheduleList(){
 					}else{
 						tag+="<p><a>3D</a></p></div>";
 					}
-					tag+="<div class='branJone'><p>"+data[i].branName+"</p><p>"+data[i].cmName+"</p><p>"+data[i].cmSeatTot+"</p></div></div>";
+					tag+="<div class='branJone'><p>"+data[i].branName+"</p><p>"+data[i].cmName+"</p><p>"+data[i].seatCount+"/"+data[i].cmSeatTot+"</p></div></div>";
 	
 				$(".scheduleList").append(tag);
 				if(i==0){
