@@ -68,7 +68,9 @@ function article(itemCode) {
 				<c:if test="${status.index==0 || itemPart != dto.itemPart}">
 					<c:set var="cnt" value="0"/>
 					<c:set var="itemPart" value="${dto.itemPart}"/>
-					
+					<!-- <tr height="5">
+					  <td colspan="4" align="left">&nbsp;</td>
+					</tr> -->
 					
 					<tr height="35">
 					  <td colspan="4" align="left" style="padding: 30px 10px 10px 10px;"><h3 style="margin-top: 30px;">${dto.itemPart}</h3></td>
