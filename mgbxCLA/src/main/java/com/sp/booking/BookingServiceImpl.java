@@ -18,7 +18,7 @@ public class BookingServiceImpl implements BookingService{
 		List<Booking> list=null;
 		
 		try {
-			list=dao.selectList("scheduleList",map);
+			list=dao.selectList("booking.scheduleList",map);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -26,11 +26,11 @@ public class BookingServiceImpl implements BookingService{
 	}
 
 	@Override
-	public List<Booking> bookingSeatList(int scheduleCode) throws Exception {
-		List<Booking> list=null;
+	public List<String> bookingSeatList(int scheduleCode) throws Exception {
+		List<String> list=null;
 		
 		try {
-			list=dao.selectList("bookingSeatList",scheduleCode);
+			list=dao.selectList("booking.bookingSeatList",scheduleCode);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -42,11 +42,33 @@ public class BookingServiceImpl implements BookingService{
 		Booking dto=null;
 		
 		try {
-			dto=dao.selectOne("readSeat",scheduleCode);
+			dto=dao.selectOne("booking.readSeat",scheduleCode);
 		} catch (Exception e) {
 			throw e;
 		}
 		return dto;
+	}
+
+	@Override
+	public int seatCount(int scheduleCode) throws Exception {
+		int result=0;
+		try {
+			result=dao.selectOne("booking.seatCount",scheduleCode);
+		} catch (Exception e) {
+			throw e;
+		}
+		return result;
+	}
+
+	@Override
+	public List<SchedulePrice> bookingPrice(int scheduleCode) throws Exception {
+		List<SchedulePrice> list=null;
+		try {
+			list=dao.selectList("booking.seatCount",scheduleCode);
+		} catch (Exception e) {
+			throw e;
+		}
+		return list;
 	}
 
 }
