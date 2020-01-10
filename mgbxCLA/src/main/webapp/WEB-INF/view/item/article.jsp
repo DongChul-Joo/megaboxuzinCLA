@@ -107,7 +107,7 @@ $(function(){
 		<h4 style="margin:border-bottom-width: 10px;margin-bottom: 10px;">판매기간 : 2019-12-19~</h4>
 			
 		 <p>
-			<img src="<%=cp%>/uploads/item/${dto.itemImg}" width="380">
+			<img src="/mgbxAD/uploads/item/${dto.itemImg}" width="380">
 		 </p>	
 		 <div>
 		 	<span>${dto.itemOrigin}</span>
