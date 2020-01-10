@@ -15,7 +15,7 @@
 	</select>
 	
 	<select id="listStore" parameterType="map" resultType="com.sp.mypage.MyPage">
-	 	SELECT userId, itemName , itemPart , TO_CHAR(b1.buydate, 'YYYY-MM-DD')buydate , b1.buyAmount , pdSudan
+	 	SELECT userId, itemName , itemPart , TO_CHAR(b1.buydate, 'YYYY-MM-DD')buydate , b1.buyAmount , pdSudan , itemImg
 		FROM ITEM i 
 		JOIN BUYDETAIL b ON i.itemCode = b.itemCode
 		JOIN BUYITEM b1 ON b.buyCode = b1.buyCode

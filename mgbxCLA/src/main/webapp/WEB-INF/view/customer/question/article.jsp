@@ -18,7 +18,7 @@
   .questionSubject{
     display: inline-block;
     position:absolute;
-    width:1000px;
+    width:1093px;
     overflow:hidden;
     text-overflow:ellipsis;
     word-spacing:nowrap;
@@ -34,13 +34,13 @@
     padding:7px 10px;
 	font-weight: bold;
 	color: #ffffff;
-	background: #cc4901;
+	background: #442e58;
 	text-align: center;
   }
   .answerSubject{
     display: inline-block;
     position:absolute;
-     width:1000px;
+     width:1093px;
     overflow:hidden;
     text-overflow:ellipsis;
     word-spacing:nowrap;
@@ -49,7 +49,7 @@
     margin-left:1px;
 	font-weight: bold;
 	color: #ffffff;
-	background: #cc4901;
+	background: #442e58;
   }
 </style>
 
@@ -111,7 +111,7 @@
 
 <tr height="45" style="border-top: 1px solid #cccccc;">
     <td align="left">
-       <button onclick="javascript:deleteBoard('${dto.code}', '${pageNo}');" class="btn">문의삭제</button>
+       
 	</td>
 	<td align="right">
 	   <button type="button" class="btn" onclick="listPage('${pageNo}')">리스트</button>

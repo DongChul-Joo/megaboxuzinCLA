@@ -21,6 +21,7 @@ public class MyPage {
 	private int mileage;
 	private int membershipCode;
 	private String membershipName;
+	private String itemImg;
 	
 	
 	public int getBookCode() {
@@ -137,5 +138,13 @@ public class MyPage {
 	public void setMembershipName(String membershipName) {
 		this.membershipName = membershipName;
 	}
+	public String getItemImg() {
+		return itemImg;
+	}
+	public void setItemImg(String itemImg) {
+		this.itemImg = itemImg;
+	}
+	
+	
 		
 }
