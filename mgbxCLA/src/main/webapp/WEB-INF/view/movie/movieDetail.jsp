@@ -5,20 +5,6 @@
 <%
 	String cp=request.getContextPath();
 %>
-<style>
-#movieDetail{
-
-	float: left;
-	margin: 0px auto;
-}
-
-.type{
-margin-top: 15px;
-list-style: none;
-}
-
-</style>
-
 
 <script>
 movieCode="${movie.movieCode}";
@@ -27,9 +13,8 @@ $(document).ready(function () {
 	showTrailer(movieNm);
 });
 
-$(function(){
-	listPage(1);
-});
+listPage(1);
+
 </script>
 
 <div id="movieDetail" style="width: 950px; min-height: 2000px; float: left;">
@@ -74,17 +59,12 @@ $(function(){
 			<div style="width: 623px; height: 206px;">
 				
 				<div style="width:100%; height: 45px;">
-					<span class="starwrap">
-						<input type="image" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점1 괜히봤어요" title="별점1 괜히봤어요">
-						<input type="image" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점2 기대하진 말아요" title="별점2 기대하진 말아요">
-						<input type="image" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점3 무난했어요" title="별점3 무난했어요">
-						<input type="image" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점4 기대해도 좋아요!" title="별점4 기대해도 좋아요!">
-						<input type="image" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점5 너무 멋진 영화였어요!" title="별점5 너무 멋진 영화였어요!">
-						<input type="hidden" name="starScore">
-					</span>
+					<span class="fullStar" style="float: left;">
+					   	 	<span class="fill" style="width: ${movie.totalScores}%;"></span>
+					 </span>
 					<p style="height: 42px; float: left;">
-						<span style="float: left; width: 80px; height: 42px; margin-top: 15px;">3353명 참여</span>
-						<strong style="float:left; font-weight: 700; font-family: '나눔고딕'; font-size: 30px; margin-left: 35px;">${movie.movieScores}</strong>
+						<span style="float: left; width: 80px; height: 42px; margin-top: 15px;">${movie.countUserId}명</span>
+						<strong style="float:left; font-weight: 700; font-family: '나눔고딕'; font-size: 30px; margin-left: 35px;">${movie.movieScores}점</strong>
 						<span style="width: 1px; height: 80%; background-color: #e1e1e1; float: left; margin-left: 10px;"></span>
 					</p>
 					

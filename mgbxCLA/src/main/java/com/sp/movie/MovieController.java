@@ -46,7 +46,6 @@ public class MovieController {
 		int total_page = 0;
 		int dataCount = 0;
 		
-		
 		Map<String, Object> map = new HashMap<>();
 		
 		dataCount= service.dataCount(map);
@@ -62,17 +61,17 @@ public class MovieController {
 		if(offset < 0) offset = 0;
         map.put("offset", offset);
         map.put("rows", rows);
-		
        
         List<Movie> list = service.readMovie(map);
 		
         int listNum, n = 0;
-        for(Movie dto : list) {
+        for(Movie dto2 : list) {
         	listNum = dataCount - (offset + n);
-            dto.setListNum(listNum);
+            dto2.setListNum(listNum);
+            dto2.setTotalScores(dto2.getMovieScores()*10);
             n++;
+            System.out.println("결과==========================================" + dto2.getTotalScores());
         }
-       
         String listUrl = cp+"/movie/newmovie";
         
         String paging = myUtil.paging(current_page, total_page, listUrl);
@@ -145,8 +144,13 @@ public class MovieController {
 		
 		try {
 			dto=service.readDetail(movieCode);
+			dto.setCountUserId(service.idCount(movieCode));
 			
+			
+			dto.setTotalScores(dto.getMovieScores()*10);
+			System.out.println("결과:====================================================="+dto.getTotalScores());
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		model.addAttribute("movie", dto);
 		
@@ -240,7 +244,7 @@ public class MovieController {
 		return model;
 	}
 	
-	@RequestMapping(value="movie/updateReply")
+	@RequestMapping(value="/movie/deleteReply")
 	@ResponseBody
 	public Map<String, Object> deleteReply(
 			@RequestParam Map<String, Object> paramMap,
@@ -266,7 +270,7 @@ public class MovieController {
 		return map;
 	}
 	
-	@RequestMapping(value="movie/updateDone")
+	@RequestMapping(value="/movie/updateDone", method=RequestMethod.POST)
 	public void updateForm(
 			@RequestParam Map<String, Object> paramMap
 			) {

@@ -15,12 +15,13 @@ public class Movie {
 	
 	//영화 평점 테이블
 	private long movieScores; 
-	
+	private long totalScores;
 	//출연진 테이블
 	private String director;
 	private String actorName;
 	
 	//영화 상세게시판 댓글
+	private int countUserId;
 	private String userId;
 	private String content;
 	private String created;
@@ -124,6 +125,15 @@ public class Movie {
 		return movieScores;
 	}
 
+
+	public int getCountUserId() {
+		return countUserId;
+	}
+
+	public void setCountUserId(int countUserId) {
+		this.countUserId = countUserId;
+	}
+
 	public void setMovieScores(long movieScores) {
 		this.movieScores = movieScores;
 	}
@@ -183,6 +193,16 @@ public class Movie {
 	public void setState(String state) {
 		this.state = state;
 	}
+
+	public long getTotalScores() {
+		return totalScores;
+	}
+
+	public void setTotalScores(long totalScores) {
+		this.totalScores = totalScores;
+	}
+
+	
 	
 	
 }

@@ -2,20 +2,23 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="movie">
-	<select id="listShowingMovie" resultType="com.sp.movie.Movie">
-		SELECT movieCode, movieNm, audits, thumbNail
-			FROM movie
-			WHERE endDate > SYSDATE
+	
+	<select id="listShowingMovie" parameterType="map" resultType="com.sp.movie.Movie">
+		SELECT m.movieCode, movieNm, audits, thumbNail,movieScores
+		FROM movie m LEFT OUTER JOIN (select movieCode, NVL(AVG(movieScores)*2,0) movieScores from movieScore  group by movieCode) s on m.movieCode= s.movieCode
+		WHERE endDate > SYSDATE
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
 	</select>
 	 
 	<select id="movieDetail" parameterType="Integer" resultType="com.sp.movie.Movie">
-		SELECT movieCode, movieNm, audits, thumbNail, movieStory, TO_CHAR(startDate,'YYYY.MM.DD') startDate,
-			 TO_CHAR(endDate, 'YYYY.MM.DD') endDate,
-			 (select TRUNC(NVL(AVG(movieScores)*2,0),1) from movieScore where movieCode=#{movieCode}) movieScores
-			FROM movie
-			WHERE movieCode=#{movieCode}
+		SELECT m.movieCode, m.movieNm, audits, thumbNail, movieStory, TO_CHAR(startDate,'YYYY.MM.DD') startDate, TO_CHAR(endDate, 'YYYY.MM.DD') endDate, movieScores
+			FROM movie m left outer join (select movieCode, NVL(AVG(movieScores)*2,0) movieScores from movieScore group by movieCode) s on m.movieCode= s.movieCode
+			WHERE m.movieCode=#{movieCode}
 	</select>
 	 
+	<select id="idCount" parameterType="Integer" resultType="Integer">
+		select NVL(count(*),0) countUserId from moviereply where moviecode =#{movieCode}
+	</select>
 	 
 	<select id="dataCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(*), 0)
