@@ -68,9 +68,7 @@ function article(itemCode) {
 				<c:if test="${status.index==0 || itemPart != dto.itemPart}">
 					<c:set var="cnt" value="0"/>
 					<c:set var="itemPart" value="${dto.itemPart}"/>
-					<!-- <tr height="5">
-					  <td colspan="4" align="left">&nbsp;</td>
-					</tr> -->
+					
 					
 					<tr height="35">
 					  <td colspan="4" align="left" style="padding: 30px 10px 10px 10px;"><h3 style="margin-top: 30px;">${dto.itemPart}</h3></td>
@@ -81,7 +79,7 @@ function article(itemCode) {
 				<c:set var="cnt" value="${cnt+1}"/>
 				<td width="210" height="210" align="center">
 					<div class="imgLayout">
-						<img src="<%=cp%>/uploads/item/${dto.itemImg}" width="180" 
+						<img src="/mgbxAD/uploads/item/${dto.itemImg}" width="180" 
 							height="180" border="0" onclick="javascript:article('${dto.itemCode}');">
 						<div class="itemName" onclick="javascript:article('${dto.itemCode}')">	
 							<div style="display:block; width: 150px; height: 20px; word-wrap:break-word;">${dto.itemName}</div>

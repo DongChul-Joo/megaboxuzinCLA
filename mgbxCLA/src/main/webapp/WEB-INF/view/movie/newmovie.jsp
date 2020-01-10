@@ -7,6 +7,17 @@
 %>
 <style type="text/css">
 
+#movieDetail{
+
+	float: left;
+	margin: 0px auto;
+}
+
+.type{
+margin-top: 15px;
+list-style: none;
+}
+
 .input {
     overflow: hidden;
     height: 86px;
@@ -107,6 +118,23 @@ textarea{
     height: 12px;
     background: url(http://image2.megabox.co.kr/mop/home/star_s.png) 0 0 no-repeat;
 }
+
+.fullStar{
+	float: right;
+    position: relative;
+    width: 119px;
+    height: 20px;
+    background: url(http://image2.megabox.co.kr/mop/home/bg_star.png) 0 0 no-repeat;
+}
+
+.fill{
+	position: absolute;
+    width: 119px;
+    height: 20px;
+    float: right;
+    background: url(http://image2.megabox.co.kr/mop/home/bg_star.png) 0 -20px no-repeat;
+}
+
 
 .blind{
 	font-size: 12px;
@@ -280,6 +308,7 @@ function getAudience(movieCode){
 function modalExit() {
 	$("#showDetail").dialog("close");
 }
+
 
 
 function showMovieDetail(movieCode){
@@ -552,23 +581,25 @@ function replyRemove(movieCode){
 
 function replyEdit(movieCode){
 	var content=$("span[class=comment]");
-	content.html("<textarea style='width: 290px; height: 85px;' rows='10' cols='30' maxlength='100'></textarea>");
+	content.html("<textarea id='commentContent' style='width: 290px; height: 85px;' rows='10' cols='30' maxlength='100'></textarea>");
 	$("button[class=btn_delete]").remove();
 	
 	var button = $("button[class=btn_modify]");
-	button.empty().html("<button type='button' class='btn_modify' style='width: 70px; height: 30px;' onclick='replyEditDone('movieCode, content')'>수정완료</button>");	
+	button.empty().html("<button type='button' class='btn_modify' style='width: 70px; height: 30px;' onclick='replyEditDone(\""+movieCode+"\")'>수정완료</button>");	
 	
 }
 
-function replyEditDone(movieCode, content){
-	var page=$("span[class=curBox]").val();
+function replyEditDone(movieCode){
+	var content=$("#commentContent").val();
+	content = encodeURIComponent(content);
 	
 	var url="<%=cp%>/movie/updateDone";
 	var query="movieCode="+movieCode+"&content="+content;
 	
 	var fn= function(data){
-		listPage(page);
 		window.location.reload();
+		listPage(1);
+		
 	};
 	
 	ajaxJSON(url, "post", query, fn);
@@ -684,8 +715,10 @@ function replyEditDone(movieCode, content){
 				   	  </div>
 				   	  
 				   	  <div style="height: 51px; width: 230px; border: 1px solid #e4e4e4; background-color: white; ">
-					   	 <span style="float:left; font-size: 15pt;">평점 : ${vo.movieScores}</span>
-					   	 <span style="float:right; margin-right:5px; font-size: 15pt;">★★★★☆</span>
+					   	 <span style="float:left; font-size: 15pt;">평점 : ${vo.movieScores}</span> 
+					   	 <span class="fullStar">
+					   	 	<span class="fill" style="width: ${vo.totalScores}%;"></span>
+					   	 </span>
 				   	  </div>
 				   	  
 				      	<div style=" height: 110px; border: 1px solid #e4e4e4; width: 230px; background-color: white;">

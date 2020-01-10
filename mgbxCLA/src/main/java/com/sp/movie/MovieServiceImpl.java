@@ -19,6 +19,7 @@ public class MovieServiceImpl implements MovieService{
 		List<Movie> list = new ArrayList<>();
 		
 		try {
+			
 			list = dao.selectList("movie.listShowingMovie", map);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -26,7 +27,7 @@ public class MovieServiceImpl implements MovieService{
 		
 		return list;
 	}
-
+	
 	@Override
 	public int dataCount(Map<String, Object> map) {
 		int result = 0;
@@ -47,11 +48,24 @@ public class MovieServiceImpl implements MovieService{
 		
 		try {
 			dto=dao.selectOne("movie.movieDetail", movieCode);
+			dao.selectOne("movie.idCount", movieCode);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		return dto;
+	}
+	
+	@Override
+	public int idCount(int movieCode) {
+		int result = 0;
+		try {
+			result =dao.selectOne("movie.idCount", movieCode);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 
 	@Override
@@ -113,8 +127,8 @@ public class MovieServiceImpl implements MovieService{
 			throw(e);
 		}
 		
+		
+	
 	}
-	
-	
 
 }

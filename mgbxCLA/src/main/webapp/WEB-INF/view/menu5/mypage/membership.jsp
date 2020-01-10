@@ -33,6 +33,7 @@ padding-bottom: 30px;
 					<td width="70">영화관</td>
 					<td width="70">상영일시</td>
 					<td width="70">예매일</td>
+					<td width="70">취소</td>
 				</tr>		
 				
 				
@@ -44,6 +45,7 @@ padding-bottom: 30px;
 				      <td>${dto.cmName}</td>
 				      <td>${dto.showingdate}</td>
 				      <td>${dto.bookdate}</td>
+				      <td></td>
 				  </tr>
 		  		</c:forEach>		  		  			
 			</table>

@@ -19,5 +19,8 @@ public interface MovieService {
 	public void deleteReply(Map<String, Object> map) throws Exception;
 	
 	public void updateReply(Map<String, Object> map) throws Exception;
+	
+	public int idCount(int movieCode);
+	
 }
  

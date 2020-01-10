@@ -54,6 +54,7 @@
 				<div class="row">
 				<c:forEach var="vo" items="${list}">
 					<div style="float: left;" class="cell">
+						
 						<div style="width: 60px; float: left;"><img src="http://image2.megabox.co.kr/mop/home/user/profile_m.png" width="60px;" height="60px;"></div>
 						
 						<div class="textarea"> 
@@ -98,22 +99,24 @@
 								<i class="i_recommend" aria-hidden="true"></i>추천<strong>1</strong>
 							</div>
 							
-							<div class="report" onclick="MovieComment.showReportSpoiler(this);">
+							<div class="report" onclick="">
 								<i class="i_report" aria-hidden="true"></i>신고하기
 							</div>
 							
 							<div style="width:315px; height:17px; margin-left: 85px;  display: none;">
 								<ul>
 									<!-- //TODO 코멘트ID? -->
-									<li><a href="javascript:void(0);" onclick="MovieComment.checkReportSpoiler();" title="스포일러 신고">스포일러 신고</a></li>
-									<li><a href="javascript:void(0);" onclick="MovieComment.checkReportSpoiler();" title="욕설/비방/광고 신고">욕설/비방/광고 신고</a></li>
+									<li><a href="javascript:void(0);" onclick="" title="스포일러 신고">스포일러 신고</a></li>
+									<li><a href="javascript:void(0);" onclick="" title="욕설/비방/광고 신고">욕설/비방/광고 신고</a></li>
 								</ul>
 							</div>
 						</div>
+						
 							<c:if test="${sessionScope.member.userId==vo.userId || sessionScope.member.userId=='admin'}">
 								<button type="button" class="btn_delete" onclick="replyRemove('${vo.movieCode}')">삭제</button>
 								<button type="button" class="btn_modify" onclick="replyEdit('${vo.movieCode}')">수정</button>
 							</c:if>
+							
 						</div>
 					</c:forEach>
 						
