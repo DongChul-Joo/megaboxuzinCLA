@@ -156,7 +156,6 @@ function ajaxHTML(url, type, query, selector) {
 
 function imgChange(){
 	var imgId=document.getElementById("branImgArea");
-	alert(imgId);
 	var imgUrl=imgId.getAttribute("data-img");
 	$(".main_top").css("background-image",imgUrl);
 }
@@ -344,5 +343,5 @@ function readBranch(branCode){
 		
 		
 	</div>
-	<button type="button" onclick="javascript:location.href='<%=cp%>/booking/booking'">예매</button>
+	<button type="button" onclick="bookingForm()">예매</button>
 </div>

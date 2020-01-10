@@ -59,4 +59,5 @@
 	<delete id="deleteItem" parameterType="Integer">
 		DELETE FROM item WHERE itemCode = #{itemCode}
 	</delete>
+	
 </mapper>

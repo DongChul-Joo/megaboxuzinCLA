@@ -9,9 +9,9 @@
 <style type="text/css">
 .imgLayout{
 	width: 190px;
-	height: 205px;
-	padding: 10px 5px 10px;
-	margin: 40px 5px 5px 5px;
+	height: 190px;
+
+	margin-bottom: 80px;
 	cursor: pointer;
 }
 .itemName {
@@ -35,11 +35,12 @@ function article(itemCode) {
 	var url="${articleUrl}&itemCode="+itemCode;
 	location.href=url;
 }
+
 </script>
 
-<div class="body-container" style="width: 840px;">
-	<div class="body-title">
-		<h3>| 상품</h3>
+<div class="body-container" style="width: 840px; height: 2100px;">
+	<div class="body-title" style="margin-top: 30px;">
+		<h3>|<img style="width: 40px;" src="<%=cp%>/resource/images/movietk.png"> 상품</h3>
 
 	</div>
 	
@@ -72,19 +73,19 @@ function article(itemCode) {
 					</tr> -->
 					
 					<tr height="35">
-					  <td colspan="4" align="left" style="padding: 50px 10px 10px 10px;"><h3 style="">${dto.itemPart}</h3></td>
+					  <td colspan="4" align="left" style="padding: 30px 10px 10px 10px;"><h3 style="margin-top: 30px;">${dto.itemPart}</h3></td>
 					</tr>
 					<tr>
 				</c:if>
 				
 				<c:set var="cnt" value="${cnt+1}"/>
-				<td width="210" align="center">
+				<td width="210" height="210" align="center">
 					<div class="imgLayout">
 						<img src="<%=cp%>/uploads/item/${dto.itemImg}" width="180" 
 							height="180" border="0" onclick="javascript:article('${dto.itemCode}');">
 						<div class="itemName" onclick="javascript:article('${dto.itemCode}')">	
 							<div style="display:block; width: 150px; height: 20px; word-wrap:break-word;">${dto.itemName}</div>
-							<div style="text-align: right;margin-right: 5px;padding-top: 25px;">${dto.itemPrice}원</div>
+							<div style="text-align: right; margin-right: 5px;padding-top: 25px;">${dto.itemPrice}원</div>
 						</div>
 					</div>
 				</td>	

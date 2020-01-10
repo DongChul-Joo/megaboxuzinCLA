@@ -94,10 +94,23 @@ public class MovieServiceImpl implements MovieService{
 	@Override
 	public void deleteReply(Map<String, Object> map) throws Exception {
 		try {
-			dao.deleteData("movie.deleteReply", map);
+			dao.deleteData("movie.deleteMovieReply", map);
+			dao.deleteData("movie.deleteMovieScore", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
+		}
+		
+	
+	}
+
+	@Override
+	public void updateReply(Map<String, Object> map) throws Exception {
+		try {
+			dao.updateData("movie.updateReply", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw(e);
 		}
 		
 	}
