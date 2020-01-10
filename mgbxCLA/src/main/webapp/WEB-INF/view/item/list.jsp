@@ -81,7 +81,7 @@ function article(itemCode) {
 				<c:set var="cnt" value="${cnt+1}"/>
 				<td width="210" height="210" align="center">
 					<div class="imgLayout">
-						<img src="<%=cp%>/uploads/item/${dto.itemImg}" width="180" 
+						<img src="/mgbxAD/uploads/item/${dto.itemImg}" width="180" 
 							height="180" border="0" onclick="javascript:article('${dto.itemCode}');">
 						<div class="itemName" onclick="javascript:article('${dto.itemCode}')">	
 							<div style="display:block; width: 150px; height: 20px; word-wrap:break-word;">${dto.itemName}</div>
