@@ -250,11 +250,10 @@ function getAudience(movieCode){
 	});
 }
 
-
 function showMovieDetail(movieCode){
-	var url ="<%=cp%>/main/movieDetail";
+	var url ="<%=cp%>/movie/movieDetail";
 	var query ="movieCode="+movieCode; 
-	var selector = "#detailInfo";
+	var selector = "#showDetail";
 	var type="get";
 
 	$("#showDetail").empty();
@@ -262,12 +261,16 @@ function showMovieDetail(movieCode){
 	detailMovie(movieCode);
 	getAudience(movieCode);
 	
-    			$("#detailInfo").dialog({
+    			$("#showDetail").dialog({
 					modal: true,
 					height:2000,
 					width:1000,
+					title: "상세 정보", 
+					open:function(){
+			               $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
+		            },
 					close: function(event, ui) {
-						window.location.href='<%=cp%>';
+						window.location.reload();
 					}
 	});
 }
@@ -564,7 +567,7 @@ function detailMovie(movieCd){
 						   </div>
 						   </c:forEach>
 						      
-						      <div id="detailInfo" style="display: none;width: 1000px;"></div>
+						      <div id="showDetail" style="display: none;width: 1000px;"></div>
 						      
 						      <div class="swiper-slide">
 						      	<div>

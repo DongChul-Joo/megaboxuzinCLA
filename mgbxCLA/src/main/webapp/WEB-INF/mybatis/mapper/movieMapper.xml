@@ -4,10 +4,14 @@
 <mapper namespace="movie">
 	
 	<select id="listShowingMovie" parameterType="map" resultType="com.sp.movie.Movie">
-		SELECT m.movieCode, movieNm, audits, thumbNail,movieScores
-		FROM movie m LEFT OUTER JOIN (select movieCode, NVL(AVG(movieScores)*2,0) movieScores from movieScore  group by movieCode) s on m.movieCode= s.movieCode
+		SELECT m.movieCode, movieNm, audits, thumbNail, NVL(movieScores,0) movieScores
+		FROM movie m 
+		LEFT OUTER JOIN (select movieCode, NVL(AVG(movieScores)*2,0) movieScores from movieScore  group by movieCode) s 
+		ON m.movieCode= s.movieCode
 		WHERE endDate > SYSDATE
-		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+		<if test="offset != '' and offset != null">
+			OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+		</if>
 	</select>
 	 
 	<select id="movieDetail" parameterType="Integer" resultType="com.sp.movie.Movie">
@@ -27,19 +31,18 @@
 	
 	
 	<select id="listReply" parameterType="map" resultType="com.sp.movie.Movie">
-		SELECT r.movieCode, r.userId, r.content, TO_CHAR(r.created, 'YY.MM.DD') created, s.movieScores
+		SELECT r.movieCode, r.userId, r.content, TO_CHAR(r.created, 'YY.MM.DD') created, s.movieScores,
+				(select count(*) from moviereplyLike MRL where r.movieCode = MRL.movieCode and r.userId = MRL.userId) likeCount
 		FROM moviereply r
-		JOIN member m on m.userId = r.userId
-		JOIN movie e on e.movieCode = r.movieCode
-		JOIN movieScore s on s.movieCode = e.movieCode
-		WHERE r.movieCode=#{movieCode}
+		JOIN movieScore s on s.movieCode = r.movieCode AND r.userid = s.userid
+		WHERE r.movieCode= #{movieCode}
 		ORDER BY r.created DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
 	</select>
 	
 	<select id="replyCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(*), 0)
-		FROM movieReply
+		FROM movieReply where movieCode=#{movieCode}
 	</select>
 	
 	<select id="insertReply" parameterType="com.sp.movie.Movie">
@@ -54,11 +57,37 @@
 	</delete>
 	
 	<delete id="deleteMovieScore" parameterType="map">
-		delete FROM movieScore where movieCode=#{movieCode}
+		delete FROM movieScore where movieCode=#{movieCode} and userId=#{userId}
 	</delete>
 	
 	<update id="updateReply" parameterType="map">
-		update movieReply set content = #{content} where movieCode=#{movieCode}
+		update movieReply set content = #{content} where movieCode=#{movieCode} and userId=#{userId}
 	</update> 
+	
+	<insert id="ReplyLike" parameterType="map">
+		INSERT INTO movieReplyLike(movieCode, userId, likeUserId)
+			VALUES(#{movieCode}, #{userId}, #{likeUserId})
+	</insert>
+	
+	<!-- 좋아요 개수 -->
+	<select id="replyLikeCount" parameterType="map" resultType="Integer">
+		select COUNT(likeuserId) likeUserId From movieReplyLike
+		 WHERE movieCode = #{movieCode}
+		 AND userId= #{userId}
+	</select>
+	
+	<delete id="deleteLikeCount" parameterType="map">
+		delete from movieReplyLike 
+		WHERE movieCode=#{movieCode}
+		AND userId= #{userId}
+	</delete>
+	
+	<select id="checkData" parameterType="map" resultType="Integer">
+		select count(*) cnt from movieReplyLike
+		WHERE movieCode=#{movieCode}
+		AND userId= #{userId}
+		AND likeUserId = #{likeUserId}
+	</select>
+	
 	
 </mapper>

@@ -53,6 +53,7 @@
 			<div class="reply">
 				<div class="row">
 				<c:forEach var="vo" items="${list}">
+					
 					<div style="float: left;" class="cell">
 						
 						<div style="width: 60px; float: left;"><img src="http://image2.megabox.co.kr/mop/home/user/profile_m.png" width="60px;" height="60px;"></div>
@@ -93,10 +94,12 @@
 							</div>
 						</div>
 						
-						<div style="margin-left: 71px;">
+						<div style="margin-left: 71px; margin-top: 138px;">
 							
-							<div class="recommend" onclick="MovieComment.like()">
-								<i class="i_recommend" aria-hidden="true"></i>추천<strong>1</strong>
+							<div class="recommend" onclick="commentLike(this)">
+								<i class="i_recommend" aria-hidden="true"></i>추천
+								<strong class="replyLikeCount">${vo.likeCount}</strong>
+								<input type="hidden" class="rpUserId" value="${vo.userId}"/>
 							</div>
 							
 							<div class="report" onclick="">
@@ -114,10 +117,11 @@
 						
 							<c:if test="${sessionScope.member.userId==vo.userId || sessionScope.member.userId=='admin'}">
 								<button type="button" class="btn_delete" onclick="replyRemove('${vo.movieCode}')">삭제</button>
-								<button type="button" class="btn_modify" onclick="replyEdit('${vo.movieCode}')">수정</button>
+								<button type="button" class="btn_modify" onclick="replyEdit(this)">수정</button>
 							</c:if>
 							
 						</div>
+						
 					</c:forEach>
 						
 					</div>

@@ -93,7 +93,7 @@ textarea{
 	display: table-cell;
     vertical-align: top;
     width: 450px;
-    height: 100%;
+    height: 200px;
     border-bottom: 1px solid #f0f0f0;
     overflow: hidden;
     padding: 20px 20px;
@@ -249,7 +249,6 @@ function ajaxJSON(url, type, query, fn) {
 		,data:query
 		,dataType:"json"
 		,success:function(data) {
-			console.log(data);
 			fn(data);
 		}
 		,beforeSend:function(jqXHR) {
@@ -572,6 +571,7 @@ function replyRemove(movieCode){
 	var query="movieCode="+movieCode;
 	
 	var fn = function(data){
+		location
 		listPage(page);
 	};
 	
@@ -579,9 +579,12 @@ function replyRemove(movieCode){
 
 }
 
-function replyEdit(movieCode){
-	var content=$("span[class=comment]");
-	content.html("<textarea id='commentContent' style='width: 290px; height: 85px;' rows='10' cols='30' maxlength='100'></textarea>");
+function replyEdit(obj){
+	var movieCode = $("#movieCode").val();
+	var content=$(obj).parent().children('div.textarea').find('span.comment');
+	console.log($(obj).parent().children('div.textarea').find('.comment'));
+	
+	content.html("<textarea id='commentContent' style='height:54px;' rows='10' cols='30' maxlength='100'></textarea>");
 	$("button[class=btn_delete]").remove();
 	
 	var button = $("button[class=btn_modify]");
@@ -597,13 +600,47 @@ function replyEditDone(movieCode){
 	var query="movieCode="+movieCode+"&content="+content;
 	
 	var fn= function(data){
-		window.location.reload();
+		console.log(data);
 		listPage(1);
 		
 	};
 	
 	ajaxJSON(url, "post", query, fn);
 };
+
+//댓글 좋아요
+function commentLike(obj){
+		var moviecode=$("#movieCode").val();
+		var userId = $(obj).find(".rpUserId").val();
+		console.log(userId);
+		
+		var url="<%=cp%>/movie/replyLike";
+		var query="movieCode="+movieCode+"&userId="+userId;
+		
+		var fn = function(data){
+			var state=data.state;
+			var html = $(obj).find('strong.replyLikeCount');
+			
+			var count=0;
+			if(data.loginState=="false"){
+				alert("로그인이 필요합니다.");
+				return;
+			}
+			
+			if(state=="true"){
+				count = data.count;
+				alert("좋아요를 누르셨습니다.");
+				
+			} else if(state=="false") {
+				count = data.count;
+				alert("좋아요가 취소 되었습니다.");
+			}
+			console.log(count);
+			jQuery(html).html(count);
+		}
+		ajaxJSON(url, "post", query, fn);
+	};
+
 </script>
 
 
