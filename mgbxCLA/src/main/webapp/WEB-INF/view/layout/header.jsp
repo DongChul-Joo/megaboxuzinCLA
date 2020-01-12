@@ -517,6 +517,17 @@ $(document).on('change',".peopleSelectjone select", function() {
 	  for(var i=0;i<sels.length;i++){
 		  tot+=parseInt(sels[i].value);
 	  }
+	  if(tot>8){
+		  alert("인원 선택은 최대 8명까지 가능합니다.\n단체관람 문의:02-2455-4568");
+		  $(this).val("0");
+		  return;
+	  }
+	  if(tot<selectSeatCount){
+		  alert("선택하신 좌석수가 인원수 보다 많습니다.\n좌석 선택을 전부 취소하시겠습니까?");
+		  $(".clickSeat").attr("class","seatSelect");
+		  selectSeatCount=0;
+	  }
+	  
 	  totBookingCount=tot;
 	});
 
@@ -541,12 +552,28 @@ $(document).on('click',".seatSelect", function() {
 			} 
 		  }
 	  }
-	  alert(totprice);
+	  $(".totMoney").html(totprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
 });
 
 $(document).on('click',".clickSeat", function() {
 	selectSeatCount--;
 	$(this).attr("class","seatSelect");
+	
+	  var totprice=0;
+	  go:for(var i=selectSeatCount;0<i;i--){
+			  var sels=$(".peopleSelectjone select");
+			  for(var z=0;z<sels.length;z++){
+				  var price=parseInt(sels[z].getAttribute("data-price"));
+				for(var j=0;j<parseInt(sels[z].value);j++){
+					if(i==0){
+					 	break go;
+					  }
+					totprice+=price;
+					i--;
+				} 
+			  }
+		  }
+		  $(".totMoney").html(totprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
 });
 
 

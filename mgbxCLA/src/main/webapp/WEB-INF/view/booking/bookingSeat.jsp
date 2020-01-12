@@ -63,7 +63,7 @@
 						<p style="margin-top: 10px;">▷제목 : ${dto.movieNm}</p>
 						<p style="margin-top: 10px;">▷상영관 :<br>${dto.branName}<br>${dto.cmName}</p>
 					</div>
-					<div class="totMoney" style="width: 100%;height: 15%;font-weight: bold;font-size: 20px;color:white;text-align: right;padding-right: 10px;">0원</div>
+					<div class="totMoney" style="width: 100%;height: 15%;font-weight: bold;font-size: 20px;color:white;text-align: right;padding-right: 10px;"></div>
 					<button class="btnss"  type="button">취소</button><button class="btns" style="margin-right: 1px;" type="button">예매</button>
 				</div>
 			</div>
