@@ -38,7 +38,7 @@
 </select>
 
 <select id="readSeat" parameterType="Integer" resultType="com.sp.booking.Booking">
-	select scheduleCode,showingDate,showingKind,starttime,cmSeatMap,cmName,branName,movieNm,audits from SHOWINGSCHEDULE shc 
+	select scheduleCode,showingDate,showingKind,starttime,thumbnail,cmSeatMap,cmName,branName,movieNm,audits from SHOWINGSCHEDULE shc 
 join showingmovie shm on shc.showingcode=shm.showingcode 
 	join cinema cm on shm.cmcode=cm.cmcode 
 		join branch br on cm.brancode=br.brancode 

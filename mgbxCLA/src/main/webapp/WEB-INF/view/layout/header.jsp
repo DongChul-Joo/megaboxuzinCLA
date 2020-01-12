@@ -509,6 +509,48 @@ var selBranchCountEnd=0;
 var selMovieCount=0;
 var selMovieCountEnd=0;
 
+var totBookingCount=0;
+var selectSeatCount=0;
+$(document).on('change',".peopleSelectjone select", function() {
+	  var sels=$(".peopleSelectjone select");
+	  var tot=0;
+	  for(var i=0;i<sels.length;i++){
+		  tot+=parseInt(sels[i].value);
+	  }
+	  totBookingCount=tot;
+	});
+
+$(document).on('click',".seatSelect", function() {
+	if(selectSeatCount>=totBookingCount){
+		alert("선택하신 인원수보다 예매하실 좌석수가 많습니다.");
+		return;
+	}
+	selectSeatCount++;
+	$(this).attr("class","clickSeat");
+	  var totprice=0;
+  go:for(var i=selectSeatCount;0<i;i--){
+		  var sels=$(".peopleSelectjone select");
+		  for(var z=0;z<sels.length;z++){
+			  var price=parseInt(sels[z].getAttribute("data-price"));
+			for(var j=0;j<parseInt(sels[z].value);j++){
+				if(i==0){
+				 	break go;
+				  }
+				totprice+=price;
+				i--;
+			} 
+		  }
+	  }
+	  alert(totprice);
+});
+
+$(document).on('click',".clickSeat", function() {
+	selectSeatCount--;
+	$(this).attr("class","seatSelect");
+});
+
+
+
 function closeBooking(){
 	
 	$("#bookingForm").dialog("close");
@@ -520,9 +562,15 @@ $(document).on("click",".btnsBooking",function(){
 	var url="<%=cp%>/booking/readSeat";
 	var query="scheduleCode="+scheduleCode;
 	var type="get";
-	var fn=function(data){
-		console.log(data);
-		$(".seatTableMap").html(data.dto.cmSeatMap);
+	$.ajax({
+		type:type
+		,url:url
+		,data:query
+		,success:function(data) {
+			$("#bookingSeat").html(data);
+			console.log(data);
+		}
+	});
 		
 		$("#bookingSeat").dialog({
 			modal: true,
@@ -535,8 +583,7 @@ $(document).on("click",".btnsBooking",function(){
 			close: function(event, ui) {
 			}
 		});
-	};
-	ajaxJSONs(url, type, query, fn);
+
 });
 
 
