@@ -18,6 +18,7 @@ listPage(1);
 </script>
 
 <div id="movieDetail" style="width: 950px; min-height: 2000px; float: left;">
+	<input type="hidden" id="movieCode" value="${movie.movieCode}">
 	<button class="btn" id="detailExit" onclick="modalExit()" style="float: right; width: 50px; height: 50px;">X</button>
 	
 	<div style="width: 890px; height: 380px; margin: 0px auto; margin-top: 40px; float: left;">
@@ -63,8 +64,8 @@ listPage(1);
 					   	 	<span class="fill" style="width: ${movie.totalScores}%;"></span>
 					 </span>
 					<p style="height: 42px; float: left;">
-						<span style="float: left; width: 80px; height: 42px; margin-top: 15px;">${movie.countUserId}명</span>
-						<strong style="float:left; font-weight: 700; font-family: '나눔고딕'; font-size: 30px; margin-left: 35px;">${movie.movieScores}점</strong>
+						<span style="float: left; width: 80px; height: 42px; margin-top: 15px;">총 ${movie.countUserId}명 참여</span>
+						<strong style="float:left; font-weight: 700; font-family: '나눔고딕'; font-size: 30px; margin-left: 35px;">평점 : ${movie.movieScores}점</strong>
 						<span style="width: 1px; height: 80%; background-color: #e1e1e1; float: left; margin-left: 10px;"></span>
 					</p>
 					

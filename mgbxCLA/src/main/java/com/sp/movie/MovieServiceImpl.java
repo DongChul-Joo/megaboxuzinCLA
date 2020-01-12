@@ -126,9 +126,53 @@ public class MovieServiceImpl implements MovieService{
 			e.printStackTrace();
 			throw(e);
 		}
-		
-		
 	
 	}
+
+	@Override
+	public void replyLike(Map<String, Object> map) throws Exception {
+		try {
+			dao.insertData("movie.ReplyLike", map);
+		} catch (Exception e) {
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public int replyLikeCount(Map<String, Object> map) throws Exception {
+		int result = 0;
+		try {
+			result=dao.selectOne("movie.replyLikeCount", map);
+		} catch (Exception e) {
+			throw e;
+		}
+		
+		return result;
+	}
+
+	@Override
+	public void deleteReplyCount(Map<String, Object> map) throws Exception {
+		try {
+			dao.deleteData("movie.deleteLikeCount", map);
+		} catch (Exception e) {
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public int checkData(Map<String, Object> map) throws Exception {
+		int result= 0;
+		try {
+			result = dao.selectOne("movie.checkData", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	
 
 }

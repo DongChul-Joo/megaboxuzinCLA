@@ -70,7 +70,6 @@ public class MovieController {
             dto2.setListNum(listNum);
             dto2.setTotalScores(dto2.getMovieScores()*10);
             n++;
-            System.out.println("결과==========================================" + dto2.getTotalScores());
         }
         String listUrl = cp+"/movie/newmovie";
         
@@ -117,7 +116,6 @@ public class MovieController {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 		cal.add(Calendar.DATE, -1);
 		String date = dateFormat.format(cal.getTime());
-		System.out.println("---------------------------------------------------"+date);
 
 		String result = "";
 		
@@ -148,7 +146,6 @@ public class MovieController {
 			
 			
 			dto.setTotalScores(dto.getMovieScores()*10);
-			System.out.println("결과:====================================================="+dto.getTotalScores());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -174,11 +171,13 @@ public class MovieController {
 		int dataCount = 0;
 		
 		Map<String, Object> map = new HashMap<>();
-		
+		map.put("movieCode", movieCode);
 		dataCount= service.replyCount(map);
+	    
+		
 		if(dataCount!=0) {
-			total_page = myUtil.pageCount(rows, dataCount);
-		}
+	    		total_page = myUtil.pageCount(rows, dataCount);
+	    	}
 		
 		if(total_page< current_page) {
 			current_page = total_page; 
@@ -186,9 +185,10 @@ public class MovieController {
 		
 		int offset = (current_page-1) * rows;
 		if(offset < 0) offset = 0;
-		map.put("movieCode", movieCode);
+		
         map.put("offset", offset);
         map.put("rows", rows);
+        
        
         List<Movie> list = service.readMovieReply(map);
         
@@ -256,7 +256,6 @@ public class MovieController {
 		String state="true";
 		try {
 			dto.setUserId(info.getUserId());
-			System.out.println("============================================================================결과:"+dto.getUserId());
 			paramMap.put("userId", dto.getUserId());
 			service.deleteReply(paramMap);
 			
@@ -271,16 +270,71 @@ public class MovieController {
 	}
 	
 	@RequestMapping(value="/movie/updateDone", method=RequestMethod.POST)
+	@ResponseBody
 	public void updateForm(
-			@RequestParam Map<String, Object> paramMap
+			@RequestParam Map<String, Object> paramMap,
+			HttpSession session,
+			Movie dto
 			) {
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
+		
 		
 		try {
+			dto.setUserId(info.getUserId());
+			paramMap.put("userId", dto.getUserId());
 			service.updateReply(paramMap);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@RequestMapping(value="/movie/replyLike")
+	@ResponseBody
+	public Map<String, Object> replyLike(
+			@RequestParam Map<String, Object> paramMap,
+			@RequestParam int movieCode,
+			@RequestParam String userId,
+			HttpSession session,
+			Movie dto
+			){
+		String state="true";
+		String loginState= "";
+		SessionInfo info = (SessionInfo) session.getAttribute("member");
 		
+		Map<String, Object> model=new HashMap<>();
+		
+		int count = 0;
+		
+		try {
+			paramMap.put("movieCode", movieCode);
+			paramMap.put("userId", userId);
+			paramMap.put("likeUserId", info.getUserId());
+			System.out.println("결과 userId====================================="+userId);
+			
+			if(service.checkData(paramMap) >0) {
+				state ="false";
+				service.deleteReplyCount(paramMap);
+			} else {
+				service.replyLike(paramMap);
+			}
+			count = service.replyLikeCount(paramMap);
+			
+			dto.setLikeCount(count);
+		}catch (NullPointerException e1) {
+			loginState= "false";
+			
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		} 
+		
+		model.put("dto", dto);
+		model.put("count", count);
+		model.put("state", state);
+		model.put("loginState", loginState);
+		
+		return model;
 	}
 	
 }

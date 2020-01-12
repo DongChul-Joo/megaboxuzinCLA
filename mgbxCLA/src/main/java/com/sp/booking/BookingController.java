@@ -99,12 +99,11 @@ public class BookingController {
 	}
 	
 	@RequestMapping(value="/booking/readSeat",method=RequestMethod.GET)
-	@ResponseBody
-	public Map<String,Object> readSeat(
+	public String readSeat(
 			int scheduleCode
+			,Model model
 			) {
-		
-		Map<String,Object> map=new HashMap<>();
+
 		
 		Booking dto=null;
 		List<String> bookingSeatList=null;
@@ -118,9 +117,10 @@ public class BookingController {
 			e.printStackTrace();
 		}
 		
-		map.put("dto", dto);
-		map.put("bookingSeatList", bookingSeatList);
-		map.put("priceList", priceList);
-		return map;
+		model.addAttribute("dto", dto);
+		model.addAttribute("bookingSeatList", bookingSeatList);
+		model.addAttribute("priceList", priceList);
+		
+		return "booking/bookingSeat";
 	}
 }

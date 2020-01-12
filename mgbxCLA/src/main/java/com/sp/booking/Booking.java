@@ -12,7 +12,7 @@ public class Booking {
 	private String branName;
 	private String movieNm;
 	private String audits;
-	
+	private String thumbNail;
 	//seat(예약좌석)
 	private String seatNumber;
 	private int seatCount;
@@ -25,6 +25,12 @@ public class Booking {
 	
 	
 	
+	public String getThumbNail() {
+		return thumbNail;
+	}
+	public void setThumbNail(String thumbNail) {
+		this.thumbNail = thumbNail;
+	}
 	public int getBookingSeatTot() {
 		return bookingSeatTot;
 	}

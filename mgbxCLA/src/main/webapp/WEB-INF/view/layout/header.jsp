@@ -509,6 +509,75 @@ var selBranchCountEnd=0;
 var selMovieCount=0;
 var selMovieCountEnd=0;
 
+var totBookingCount=0;
+var selectSeatCount=0;
+$(document).on('change',".peopleSelectjone select", function() {
+	  var sels=$(".peopleSelectjone select");
+	  var tot=0;
+	  for(var i=0;i<sels.length;i++){
+		  tot+=parseInt(sels[i].value);
+	  }
+	  if(tot>8){
+		  alert("인원 선택은 최대 8명까지 가능합니다.\n단체관람 문의:02-2455-4568");
+		  $(this).val("0");
+		  return;
+	  }
+	  if(tot<selectSeatCount){
+		  alert("선택하신 좌석수가 인원수 보다 많습니다.\n좌석 선택을 전부 취소하시겠습니까?");
+		  $(".clickSeat").attr("class","seatSelect");
+		  selectSeatCount=0;
+	  }
+	  
+	  totBookingCount=tot;
+	});
+
+$(document).on('click',".seatSelect", function() {
+	if(selectSeatCount>=totBookingCount){
+		alert("선택하신 인원수보다 예매하실 좌석수가 많습니다.");
+		return;
+	}
+	selectSeatCount++;
+	$(this).attr("class","clickSeat");
+	  var totprice=0;
+  go:for(var i=selectSeatCount;0<i;i--){
+		  var sels=$(".peopleSelectjone select");
+		  for(var z=0;z<sels.length;z++){
+			  var price=parseInt(sels[z].getAttribute("data-price"));
+			for(var j=0;j<parseInt(sels[z].value);j++){
+				if(i==0){
+				 	break go;
+				  }
+				totprice+=price;
+				i--;
+			} 
+		  }
+	  }
+	  $(".totMoney").html(totprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
+});
+
+$(document).on('click',".clickSeat", function() {
+	selectSeatCount--;
+	$(this).attr("class","seatSelect");
+	
+	  var totprice=0;
+	  go:for(var i=selectSeatCount;0<i;i--){
+			  var sels=$(".peopleSelectjone select");
+			  for(var z=0;z<sels.length;z++){
+				  var price=parseInt(sels[z].getAttribute("data-price"));
+				for(var j=0;j<parseInt(sels[z].value);j++){
+					if(i==0){
+					 	break go;
+					  }
+					totprice+=price;
+					i--;
+				} 
+			  }
+		  }
+		  $(".totMoney").html(totprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
+});
+
+
+
 function closeBooking(){
 	
 	$("#bookingForm").dialog("close");
@@ -520,9 +589,15 @@ $(document).on("click",".btnsBooking",function(){
 	var url="<%=cp%>/booking/readSeat";
 	var query="scheduleCode="+scheduleCode;
 	var type="get";
-	var fn=function(data){
-		console.log(data);
-		$(".seatTableMap").html(data.dto.cmSeatMap);
+	$.ajax({
+		type:type
+		,url:url
+		,data:query
+		,success:function(data) {
+			$("#bookingSeat").html(data);
+			console.log(data);
+		}
+	});
 		
 		$("#bookingSeat").dialog({
 			modal: true,
@@ -535,8 +610,7 @@ $(document).on("click",".btnsBooking",function(){
 			close: function(event, ui) {
 			}
 		});
-	};
-	ajaxJSONs(url, type, query, fn);
+
 });
 
 
