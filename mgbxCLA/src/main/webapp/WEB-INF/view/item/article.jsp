@@ -104,7 +104,7 @@ $(function(){
 
   <div style="clear: both;">
 	<div class="box1">
-		<h4 style="margin:border-bottom-width: 10px;margin-bottom: 10px;">판매기간 : 2019-12-19~</h4>
+		<h4 style="margin:border-bottom-width: 10px;margin-bottom: 10px;">판매기간 : 2020-01-09~</h4>
 			
 		 <p>
 			<img src="/mgbxAD/uploads/item/${dto.itemImg}" width="380">
@@ -174,39 +174,80 @@ $(function(){
 
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
+
 <script type="text/javascript">
 function buy(){
+	var uid="${sessionScope.member.userId}";
+	if(!uid){
+		alert("로그인이 필요합니다!");
+		location.href="<%=cp%>/member/login";
+		return;
+	} else {
+		
 	var IMP = window.IMP; // 생략가능
-	IMP.init('imp36876789');  // 가맹점 식별 코드z
+	IMP.init('imp36876789');  // 가맹점 식별 코드
 	
 	var amount = $("#payAmt").text();
-	
-	
-
+	var uemail = "${sessionScope.customer.email}";
+	var uname = "${sessionScope.customer.userName}";
+	var utel = "${sessionScope.customer.tel}";
+    var itemCount = $("#itemCount").val();
+    var itemPart =  $("#itemPart").val();
+    var itemName = $("#itemName").val();
+    
 	IMP.request_pay({
 	   	pg : 'html5_inicis', // 결제방식
 	    pay_method : 'card',	// 결제 수단
 	    merchant_uid : 'merchant_' + new Date().getTime(),
 	   	name : '${dto.itemName}',	// order 테이블에 들어갈 주문명 혹은 주문 번호
 	    amount : amount,	// 결제 금액 amount
-	    buyer_email : '',	// 구매자 email
-	   	buyer_name :  '',	// 구매자 이름
-	    buyer_tel :  '',	// 구매자 전화번호
+	    buyer_email : uemail,	// 구매자 email
+	   	buyer_name :  uname,	// 구매자 이름
+	    buyer_tel :  utel,	// 구매자 전화번호
 	    m_redirect_url : '/khx/payEnd.action'	// 결제 완료 후 보낼 컨트롤러의 메소드명
 	}, function(rsp) {
 		if ( rsp.success ) { // 성공시
+			alert("결제가 완료되었습니다.");
+		    
+		    var f=document.storeForm;
+		    f.itemCount.value = itemCount;
+		    f.amount.value = amount;
+		    f.itemPart.value = itemPart;
+		    f.itemName.value = itemName;
+		    
+		    f.paid_amount.value = rsp.paid_amount;
+		    f.apply_num.value = rsp.apply_num;
+		    
+			f.action="<%=cp%>/mypage/store";
+			f.submit();
+		
+			/*
 			var msg = '결제가 완료되었습니다.';
 			msg += '고유ID : ' + rsp.imp_uid;
 			msg += '상점 거래ID : ' + rsp.merchant_uid;
 			msg += '결제 금액 : ' + rsp.paid_amount;
 			msg += '카드 승인번호 : ' + rsp.apply_num;
+			*/
 		} else { // 실패시
 			var msg = '결제에 실패하였습니다.';
 			msg += '에러내용 : ' + rsp.error_msg;
 		}
 	});
+	}
 }
  	 
 </script>
+
+<form name="storeForm" method="post">
+  <input type="hidden" name="itemCode" value="${dto.itemCode}"/>
+  <input type="hidden" name="itemPrice" value="${dto.itemPrice}"/>
+  <input type="hidden" name="itemCount"/>
+  <input type="hidden" name="amount"/>
+  <input type="hidden" name="itemPart" value="${dto.itemPart}"/>
+  <input type="hidden" name="itemName" value="${dto.itemName}"/>
+
+  <input type="hidden" name="paid_amount"/>
+  <input type="hidden" name="apply_num"/>
+</form>
 
 </div>

@@ -72,7 +72,7 @@
 		        </form>
 		      </td>
 		      <td align="right" width="100">
-				 <button type="button" class="btn" onclick="insertForm();">글올리기</button>
+				 <!-- <button type="button" class="btn" onclick="insertForm();">글올리기</button> -->
 		      </td>
 		   </tr>
 		</table>
