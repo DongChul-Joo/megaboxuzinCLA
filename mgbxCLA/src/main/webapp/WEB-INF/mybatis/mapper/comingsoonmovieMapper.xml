@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="movie">
+<mapper namespace="soonmovie">
 	
-	<select id="listShowingMovie" parameterType="map" resultType="com.sp.movie.Movie">
-		SELECT m.movieCode, movieNm, audits, thumbNail, NVL(movieScores,0) movieScores
+	<select id="listShowingMovie" parameterType="map" resultType="com.sp.movie.comingsoon.Movie">
+		SELECT m.movieCode, movieNm, audits, thumbNail, TO_CHAR(startDate, 'YYYY.MM.DD') startDate, ROUND(startDate-sysdate) dDay
 		FROM movie m 
-		LEFT OUTER JOIN (select movieCode, ROUND(NVL(AVG(movieScores)*2,0),2) moviescores from movieScore  group by movieCode) s 
-		ON m.movieCode= s.movieCode
-		WHERE endDate > SYSDATE
+		WHERE startDate > SYSDATE
 		<if test="offset != '' and offset != null">
 			OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
 		</if>
 	</select>
 	 
-	<select id="movieDetail" parameterType="Integer" resultType="com.sp.movie.Movie">
+	<select id="movieDetail" parameterType="Integer" resultType="com.sp.movie.comingsoon.Movie">
 		SELECT m.movieCode, m.movieNm, audits, thumbNail, movieStory,
-			 TO_CHAR(startDate,'YYYY.MM.DD') startDate, TO_CHAR(endDate, 'YYYY.MM.DD') endDate, NVL(movieScores,0) movieScores
+			 TO_CHAR(startDate,'YYYY.MM.DD') startDate, TO_CHAR(endDate, 'YYYY.MM.DD') endDate,
 		FROM movie m
-		left outer join (select movieCode, ROUND(NVL(AVG(movieScores)*2,0),2) moviescores from movieScore  group by movieCode) s
-		on m.movieCode= s.movieCode
 		WHERE m.movieCode=#{movieCode}
 	</select>
 	 
@@ -33,7 +29,7 @@
 	</select>
 	
 	
-	<select id="listReply" parameterType="map" resultType="com.sp.movie.Movie">
+	<select id="listReply" parameterType="map" resultType="com.sp.movie.comingsoon.Movie">
 		SELECT r.movieCode, r.userId, r.content, TO_CHAR(r.created, 'YY.MM.DD') created, s.movieScores,
 				(select count(*) from moviereplyLike MRL where r.movieCode = MRL.movieCode and r.userId = MRL.userId) likeCount
 		FROM moviereply r
@@ -48,12 +44,9 @@
 		FROM movieReply where movieCode=#{movieCode}
 	</select>
 	
-	<select id="insertReply" parameterType="com.sp.movie.Movie">
-		INSERT ALL
-		INTO movieReply(movieCode, userId, content, created) values(#{movieCode}, #{userId}, #{content}, sysdate)
-		INTO movieScore(movieCode, userId, movieScores) values(#{movieCode}, #{userId}, #{movieScores})
-		select * from dual
-	</select>
+	<insert id="insertReply" parameterType="com.sp.movie.comingsoon.Movie">
+		INSERT INTO movieReply(movieCode, userId, content, created) values(#{movieCode}, #{userId}, #{content}, sysdate)
+	</insert>
 	
 	<delete id="deleteMovieReply" parameterType="map">
 		delete FROM movieReply where movieCode=#{movieCode} and userId=#{userId}

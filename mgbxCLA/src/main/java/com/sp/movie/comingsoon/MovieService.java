@@ -1,4 +1,4 @@
-package com.sp.movie;
+package com.sp.movie.comingsoon;
 
 import java.util.List;
 import java.util.Map;

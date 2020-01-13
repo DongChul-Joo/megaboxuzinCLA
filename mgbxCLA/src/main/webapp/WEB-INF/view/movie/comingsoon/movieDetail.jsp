@@ -60,14 +60,6 @@ listPage(1);
 			<div style="width: 623px; height: 206px;">
 				
 				<div style="width:100%; height: 45px;">
-					<span class="fullStar" style="float: left;">
-					   	 	<span class="fill" style="width: ${movie.totalScores}%;"></span>
-					 </span>
-					<p style="height: 42px; float: left;">
-						<span style="float: left; width: 80px; height: 42px; margin-top: 15px;">총 ${movie.countUserId}명 참여</span>
-						<strong style="float:left; font-weight: 700; font-family: '나눔고딕'; font-size: 30px; margin-left: 35px;">평점 : ${movie.movieScores}점</strong>
-						<span style="width: 1px; height: 80%; background-color: #e1e1e1; float: left; margin-left: 10px;"></span>
-					</p>
 					
 					<p style="margin-left: 25px;width: 181px; height: 42px; float: left; font-size: 18px;">
 						예매율 
@@ -108,16 +100,6 @@ listPage(1);
 						</strong>
 					</li>
 					
-					<li class="type">
-						<strong>
-							누적관객 : <span class="audience" style="width: 300px; margin-right: 10px;"></span>|
-							
-							<strong>전일관객 : 
-								<span class="dailyAudience" style="width: 300px; margin-left: 10px;">
-								</span>
-							</strong>
-						</strong>
-					</li>
 				</ul>
 			</div>
 			

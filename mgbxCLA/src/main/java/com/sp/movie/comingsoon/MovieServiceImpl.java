@@ -1,4 +1,4 @@
-package com.sp.movie;
+package com.sp.movie.comingsoon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.sp.common.dao.CommonDAO;
 
-@Service("movie.movieService")
+@Service("movie.comingsoon.movieService")
 public class MovieServiceImpl implements MovieService{
 	@Autowired
 	private CommonDAO dao;
@@ -20,7 +20,7 @@ public class MovieServiceImpl implements MovieService{
 		
 		try {
 			
-			list = dao.selectList("movie.listShowingMovie", map);
+			list = dao.selectList("soonmovie.listShowingMovie", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -33,7 +33,7 @@ public class MovieServiceImpl implements MovieService{
 		int result = 0;
 		
 		try {
-			result = dao.selectOne("movie.dataCount", map);
+			result = dao.selectOne("soonmovie.dataCount", map);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -47,8 +47,8 @@ public class MovieServiceImpl implements MovieService{
 		Movie dto = null;
 		
 		try {
-			dto=dao.selectOne("movie.movieDetail", movieCode);
-			dao.selectOne("movie.idCount", movieCode);
+			dto=dao.selectOne("soonmovie.movieDetail", movieCode);
+			dao.selectOne("soonmovie.idCount", movieCode);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -60,7 +60,7 @@ public class MovieServiceImpl implements MovieService{
 	public int idCount(int movieCode) {
 		int result = 0;
 		try {
-			result =dao.selectOne("movie.idCount", movieCode);
+			result =dao.selectOne("soonmovie.idCount", movieCode);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -73,7 +73,7 @@ public class MovieServiceImpl implements MovieService{
 		List<Movie> list = null;
 		
 		try {
-			list = dao.selectList("movie.listReply", map);
+			list = dao.selectList("soonmovie.listReply", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
@@ -86,7 +86,7 @@ public class MovieServiceImpl implements MovieService{
 		int result = 0;
 		
 		try {
-			result = dao.selectOne("movie.replyCount", map);
+			result = dao.selectOne("soonmovie.replyCount", map);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -98,7 +98,7 @@ public class MovieServiceImpl implements MovieService{
 	@Override
 	public void insertReply(Movie dto) throws Exception {
 		try {
-			dao.insertData("movie.insertReply", dto);
+			dao.insertData("soonmovie.insertReply", dto);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -108,10 +108,10 @@ public class MovieServiceImpl implements MovieService{
 	@Override
 	public void deleteReply(Map<String, Object> map) throws Exception {
 		try {
-			dao.deleteData("movie.deleteReportUserId", map);
-			dao.deleteData("movie.deleteLikeCount", map);
-			dao.deleteData("movie.deleteMovieScore", map);
-			dao.deleteData("movie.deleteMovieReply", map);
+			dao.deleteData("soonmovie.deleteReportUserId", map);
+			dao.deleteData("soonmovie.deleteLikeCount", map);
+			dao.deleteData("soonmovie.deleteMovieScore", map);
+			dao.deleteData("soonmovie.deleteMovieReply", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -123,7 +123,7 @@ public class MovieServiceImpl implements MovieService{
 	@Override
 	public void updateReply(Map<String, Object> map) throws Exception {
 		try {
-			dao.updateData("movie.updateReply", map);
+			dao.updateData("soonmovie.updateReply", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw(e);
@@ -134,7 +134,7 @@ public class MovieServiceImpl implements MovieService{
 	@Override
 	public void replyLike(Map<String, Object> map) throws Exception {
 		try {
-			dao.insertData("movie.ReplyLike", map);
+			dao.insertData("soonmovie.ReplyLike", map);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -145,7 +145,7 @@ public class MovieServiceImpl implements MovieService{
 	public int replyLikeCount(Map<String, Object> map) throws Exception {
 		int result = 0;
 		try {
-			result=dao.selectOne("movie.replyLikeCount", map);
+			result=dao.selectOne("soonmovie.replyLikeCount", map);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -156,7 +156,7 @@ public class MovieServiceImpl implements MovieService{
 	@Override
 	public void deleteReplyCount(Map<String, Object> map) throws Exception {
 		try {
-			dao.deleteData("movie.deleteLikeCount", map);
+			dao.deleteData("soonmovie.deleteLikeCount", map);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -167,7 +167,7 @@ public class MovieServiceImpl implements MovieService{
 	public int checkData(Map<String, Object> map) throws Exception {
 		int result= 0;
 		try {
-			result = dao.selectOne("movie.checkData", map);
+			result = dao.selectOne("soonmovie.checkData", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -180,7 +180,7 @@ public class MovieServiceImpl implements MovieService{
 		
 		
 		try {
-			dao.insertData("movie.insertReport", map);
+			dao.insertData("soonmovie.insertReport", map);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -192,7 +192,7 @@ public class MovieServiceImpl implements MovieService{
 		int result=0;
 		
 		try {
-			result = dao.selectOne("movie.countReportUserId", map);
+			result = dao.selectOne("soonmovie.countReportUserId", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

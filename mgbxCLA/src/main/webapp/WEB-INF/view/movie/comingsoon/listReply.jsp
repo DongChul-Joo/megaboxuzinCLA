@@ -23,16 +23,10 @@
 				<form name="movieCommentForm" style="box-sizing: border-box; float: left;" method="post" >
 					<div class="input">
 						<div class="rate">
-							<span class="starwrap" style="width: 100%">
-								<img id=image1 onmouseover="show(1)" onclick="mark(1)" onmouseout="noshow(1)" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점1 괜히봤어요" title="별점1 괜히봤어요"> 
-								<img id=image2 onmouseover="show(2)" onclick="mark(2)" onmouseout="noshow(2)" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점2 기대하진 말아요" title="별점2 기대하진 말아요">
-								<img id=image3 onmouseover="show(3)" onclick="mark(3)" onmouseout="noshow(3)" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점3 무난했어요" title="별점3 무난했어요">
-								<img id=image4 onmouseover="show(4)" onclick="mark(4)" onmouseout="noshow(4)" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점4 기대해도 좋아요!" title="별점4 기대해도 좋아요!">
-								<img id=image5 onmouseover="show(5)" onclick="mark(5)" onmouseout="noshow(5)" src="http://image2.megabox.co.kr/mop/home/star_mid_off.png" alt="별점5 너무 멋진 영화였어요!" title="별점5 너무 멋진 영화였어요!">
+							<span class="expect">
+							기대평 
 							</span>
-							<br/><span id="startext" style="font-size: 14px; margin-top:46px; color: #666; text-align: center; margin-left: 23px;">평점을 입력해주세요</span>
 						</div>
-							<input type="hidden" class="getStar"  name="star">
 							
 							<div style="width: 570px; min-height: 97px; float: left;">
 									<textarea  class="writeReply" title="댓글쓰기" rows="10" cols="30" maxlength="100" ${not empty info.userId ? "placeholder='댓글을 남겨주세요'" : "readonly='readonly' placeholder='로그인 후 이용가능한 서비스입니다.'"}></textarea>
@@ -62,30 +56,6 @@
 							<div class="name"><strong class="getUserId">${vo.userId}</strong></div>
 							<div class="text">
 								<span style="float: left;">${vo.created}</span>
-								<div>
-									<span style="margin-left: 15px; float: left;"  class="small_star">
-										<c:if test="${vo.movieScores==1}">
-											<span class="small_fill" style="width: 20%"></span>
-										</c:if>
-										
-										<c:if test="${vo.movieScores==2}">
-											<span class="small_fill" style="width: 40%"></span>
-										</c:if>
-										
-										<c:if test="${vo.movieScores==3}">
-											<span class="small_fill" style="width: 60%"></span>
-										</c:if>
-										
-										<c:if test="${vo.movieScores==4}">
-											<span class="small_fill" style="width: 80%"></span>
-										</c:if>
-										
-										<c:if test="${vo.movieScores==5}">
-											<span class="small_fill" style="width: 100%"></span>
-										</c:if>
-										
-									</span>
-								</div>
 							</div>
 							<div>
 								<p class="p">
