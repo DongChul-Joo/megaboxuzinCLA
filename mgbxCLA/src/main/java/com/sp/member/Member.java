@@ -20,6 +20,8 @@ public class Member {
 	private String membershipName;
 	private String membershipDate;
 	
+	private int listNum;
+	
 	public long getCustomerCode() {
 		return customerCode;
 	}
@@ -176,4 +178,12 @@ public class Member {
 	public void setMembershipDate(String membershipDate) {
 		this.membershipDate = membershipDate;
 	}
+	public int getListNum() {
+		return listNum;
+	}
+	public void setListNum(int listNum) {
+		this.listNum = listNum;
+	}
+	
+	
 }

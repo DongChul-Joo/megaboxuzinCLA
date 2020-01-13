@@ -497,6 +497,13 @@ outline: none;
 outline: none;
 }
 
+.btn-outline-primary{
+border: none; 
+font-size: 18px; 
+padding:3px; 
+padding-top: 14px;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -1152,14 +1159,14 @@ $(document).on("click",".listOfMovie",function(){
             <a href="<%=cp%>"><img src="<%=cp%>/resource/images/logo2.jpg" style="float: left; height: 100%; width:180px; margin-right: 100px;"></a>
             
             
-            <a class="btn btn-outline-primary" style="border: none; font-size: 18px; padding:3px; padding-top: 14px;" href="<%=cp%>/movie/newmovie">영화</a>
-            <a class="btn btn-outline-primary" style="border: none; font-size: 18px; padding:3px; padding-top: 14px;"  href="<%=cp%>/branchCla/branchCla">영화관</a>
-            <a class="btn btn-outline-primary" style="border: none; font-size: 18px; padding:3px; padding-top: 14px;" href="<%=cp%>/event/list">이벤트</a>
-            <a class="btn btn-outline-primary" style="border: none; font-size: 18px; padding:3px; padding-top: 14px;" href="<%=cp%>/item/list">스토어</a>
+            <a class="btn btn-outline-primary" href="<%=cp%>/movie/newmovie">영화</a>
+            <a class="btn btn-outline-primary" href="<%=cp%>/branchCla/branchCla">영화관</a>
+            <a class="btn btn-outline-primary" href="<%=cp%>/event/list">이벤트</a>
+            <a class="btn btn-outline-primary" href="<%=cp%>/item/list">스토어</a>
             <c:if test="${not empty sessionScope.member}">
-            <a class="btn btn-outline-primary" style="border: none; font-size: 18px; padding:3px; padding-top: 14px;" href="<%=cp%>/mypage/info">마이페이지</a>
+            <a class="btn btn-outline-primary" href="<%=cp%>/mypage/info">마이페이지</a>
         	</c:if>
-            <a class="btn btn-outline-primary" style="border: none; font-size: 18px; padding:3px; padding-top: 14px;"  href="<%=cp%>/customer/main">고객센터</a>
+            <a class="btn btn-outline-primary" href="<%=cp%>/customer/main">고객센터</a>
             
         </p>
     </div>

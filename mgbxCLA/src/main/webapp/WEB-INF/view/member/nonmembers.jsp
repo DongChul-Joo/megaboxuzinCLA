@@ -43,7 +43,7 @@ function nonmemberOk() {
 		f.email.focus();
 		return;
 	}
-
+	
 	f.action = "<%=cp%>/member/nonmembers";
 	f.submit();	
 }
