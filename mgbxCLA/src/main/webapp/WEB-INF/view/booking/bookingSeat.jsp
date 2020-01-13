@@ -5,9 +5,22 @@
 <%
 	String cp=request.getContextPath();
 %>
-
+<script type="text/javascript">
+$(document).ready(function () {
+	var seatList="${bookingSeatList}";
+	var seat1=seatList.replace("[","");
+	var seat2=seat1.replace("]","");
+	if(seat2!=""){
+		var seatIds=seat2.split(",");
+		for(var i=0;i<seatIds.length;i++){
+			$("button[id="+seatIds[i]+"]").css("background","#cccccc").attr("disabled",true);
+		}
+	}
+	
+});
+</script>
 <div class="SeatSelectForm" style="width: 100%;height: 100%;border-bottom: 1px solid #cccccc">
-		<div class="ssTitleBar" style="border-bottom:1px solid #cccccc;width: 100%;height:10%;background: #c5c5c5;font-size: 20px;font-weight: bold;color: purple;padding-left: 15px;"><strong>인원/좌석선택</strong></div>
+		<div class="ssTitleBar" style="padding-top:13px;;border-bottom:1px solid #cccccc;width: 100%;height:10%;background: #00000008;font-size: 25px;font-weight:1000;color: purple;padding-left: 15px;">인원/좌석선택</div>
 		<div class="ssBodyBar" style="width: 100%;height: 90%">
 			<div class="ssBodyLeft" style="width: 80%;height: 100%;float: left">
 				<div class="peopleJone" style="width: 100%;height: 6%;border-bottom:1px solid #cccccc">
@@ -33,7 +46,7 @@
 				<div class="seatMapBody" style="width: 100%;height: 87%;border-bottom:1px solid #cccccc;overflow: scroll;overflow-x:hidden;">
 					<div class="seatMapBodyLeft" style="float: left;width: 82%;height: 100%">
 						<div class="screenBar" style="width: 100%;height:10%;">
-							<p style="width: 80%;height:90%;font-size:27px;margin: 0px auto;margin-top: 5px;background: #cccccc;text-align: center;text-decoration: bold">SCREEN<p>
+							<p style="width: 80%;height:85%;font-size:27px;margin: 0px auto;margin-top: 10px;background: #cccccc;text-align: center;font-weight: bold;padding-top: 3px;">SCREEN<p>
 						</div>
 						<div class="seatTableMap" style="width: 100%;height: 90%">
 							${dto.cmSeatMap}
@@ -59,12 +72,12 @@
 				</div>
 				<div class="bookingMovieInfo" style="width: 100%;height: 50%;background-color: #404040">
 					<div style="width: 100%;height: 70%;padding-top: 10px;padding-left: 20px;color: white;font-size: 15px;">
-						<p style="margin-top: 10px;">▷상영 분류 : ${dto.audits}</p>
+						<p style="margin-top: 10px;">▷연령 제한 : ${dto.audits}</p>
 						<p style="margin-top: 10px;">▷제목 : ${dto.movieNm}</p>
 						<p style="margin-top: 10px;">▷상영관 :<br>${dto.branName}<br>${dto.cmName}</p>
 					</div>
 					<div class="totMoney" style="width: 100%;height: 15%;font-weight: bold;font-size: 20px;color:white;text-align: right;padding-right: 10px;"></div>
-					<button class="btnss"  type="button">취소</button><button class="btns" style="margin-right: 1px;" type="button">예매</button>
+					<button class="seatBtns" style="margin-left:40px;;background: purple;color: white;" type="button">예매</button><button class="seatBtns" onclick="closedSeat();" style="margin-left:5px;background: white;" type="button">취소</button>
 				</div>
 			</div>
 		</div>

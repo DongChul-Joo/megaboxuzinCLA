@@ -9,7 +9,18 @@
 
 <style>
 
+.seatBtns{
+width: 60px;
+height: 35px;
+outline: none;
+border: 1px solid black;
+font-weight: bold;
+border-radius: 5px;
+}
 
+.seatBtns:hover{
+font-size: 17px;
+}
 #bookingSeat div{
 padding: 0;
 margin: 0;
@@ -140,11 +151,14 @@ border-right: 1px solid black;
 }
 
 .scheduleList{
-width: 100%;
-height: 100%;
+width: 99%;
+height: 95%;
+overflow: scroll;
+overflow-x:hidden;
+display: inline-block;
 }
 .schClass{
-width: 100%;
+width: 99%;
 height: 20%;
 background: white;
 border-bottom: 1px solid #cccccc;
@@ -472,25 +486,21 @@ text-align: center;
     font-size: 13px;
     background-color: white;
     font-family: 'Sunflower', sans-serif;
-    border: 1px solid;
+    border: 1px solid black;
     font-size: 13px;
     float: right; 
     border-radius: 0;
     width: 55px;
     height: 35px;
 }
-.btnsBooking:hover {
+.btnsBooking:hover,.btnss:hover {
 	color: white;
 	background-color: purple;
+	border: 1px solid black;
 
 }
 .btnsBooking:focus{
 outline: none;
-}
-.btnss:hover {
-	color: white;
-	background-color: purple;
-
 }
 
 .btnss:focus{
@@ -503,7 +513,13 @@ font-size: 18px;
 padding:3px; 
 padding-top: 14px;
 }
-
+.fill{
+	margin-right:5px;
+    width: 119px;
+    height: 20px;
+    float:left;
+    background: url(http://image2.megabox.co.kr/mop/home/bg_star.png) 0 -20px no-repeat;
+}
 </style>
 
 <script type="text/javascript">
@@ -518,6 +534,26 @@ var selMovieCountEnd=0;
 
 var totBookingCount=0;
 var selectSeatCount=0;
+
+$(document).on("click",".btnss",function(){
+	timePosition=0;
+	datePosition=0;
+	selBranchCount=0;
+	selBranchCountEnd=0;
+	selMovieCount=0;
+	selMovieCountEnd=0;
+	totBookingCount=0; 
+	selectSeatCount=0;
+	$("#bookingForm").dialog("close");
+});
+
+function closedSeat(){
+	totBookingCount=0; 
+	selectSeatCount=0;
+	$("#bookingSeat").dialog("close");
+	
+}
+
 $(document).on('change',".peopleSelectjone select", function() {
 	  var sels=$(".peopleSelectjone select");
 	  var tot=0;
@@ -546,9 +582,9 @@ $(document).on('click',".seatSelect", function() {
 	selectSeatCount++;
 	$(this).attr("class","clickSeat");
 	  var totprice=0;
-  go:for(var i=selectSeatCount;0<i;i--){
-		  var sels=$(".peopleSelectjone select");
-		  for(var z=0;z<sels.length;z++){
+  	  var i=selectSeatCount
+      var sels=$(".peopleSelectjone select");
+	go:  for(var z=0;z<sels.length;z++){
 			  var price=parseInt(sels[z].getAttribute("data-price"));
 			for(var j=0;j<parseInt(sels[z].value);j++){
 				if(i==0){
@@ -558,8 +594,8 @@ $(document).on('click',".seatSelect", function() {
 				i--;
 			} 
 		  }
-	  }
-	  $(".totMoney").html(totprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
+	  
+	  $(".totMoney").attr("data-price",totprice).html(totprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
 });
 
 $(document).on('click',".clickSeat", function() {
@@ -584,12 +620,6 @@ $(document).on('click',".clickSeat", function() {
 });
 
 
-
-function closeBooking(){
-	
-	$("#bookingForm").dialog("close");
-}
-
 $(document).on("click",".btnsBooking",function(){
 	var scheduleCode=$(".schClass[data-select=select]").attr("data-schedulecode");
 	
@@ -603,6 +633,7 @@ $(document).on("click",".btnsBooking",function(){
 		,success:function(data) {
 			$("#bookingSeat").html(data);
 			console.log(data);
+			
 		}
 	});
 		
@@ -622,8 +653,8 @@ $(document).on("click",".btnsBooking",function(){
 
 
 $(document).on("click",".schClass",function(){
-	$(".schClass").css("outline","none").attr("data-select","");
-	$(this).css("outline","#198591 solid 2px").attr("data-select","select");
+	$(".schClass").css("border","none").attr("data-select","");
+	$(this).css("border","#198591 solid 2px").attr("data-select","select");
 	$(".btns").attr("class","btnsBooking");
 	$(".btnsBooking").attr("disabled",false);
 });
@@ -678,17 +709,29 @@ function ajaxHTMLs(url, type, query, selector) {
 					$(".dateDiv").find("ul").append(dateLi);
 				   }  
 			   $(".dateDiv li[data-dSelect=select]").css("background","#198591").css("color","white");
-			   if((time-10)>0){
-				   if((time-10)>=15){
-					    timePosition=20*-35;
-				   }else{
-				   		timePosition=(time-5)*-35;
+			   
+			   for(var z=0;z<31;z++){
+				   if(z<10){
+					   var timeLi="<li data-tSelect='' data-time='0"+z+"'>"+z+"</li>";
 				   }
-				   if(time<10){
-					   time="0"+time;
-					}
-			   		$(".timeDiv li[data-time='"+time+"']").attr("data-tSelect","select").css("background","#198591").css("color","white").closest("ol").css("margin-left",timePosition+"px");
+				   else{
+					   var timeLi="<li data-tSelect='' data-time='"+z+"'>"+z+"</li>";
+				   }
+				   $(".timeDiv").find("ol").append(timeLi);
 			   }
+			   
+			   if((time-5)<0){
+					timePosition=0;
+				}else if((time-5)>20){
+					timePosition=-700;
+				}else{
+					timePosition=(time-5)*-35;
+				}
+			   if(time<10){
+				    time="0"+time;
+				}
+			  $(".timeDiv li[data-time='"+time+"']").attr("data-tSelect","select").css("background","#198591").css("color","white").closest("ol").css("margin-left",timePosition+"px");
+			  
 			   
 			   scheduleList();
 		}
@@ -817,8 +860,9 @@ $(document).on("click",".dateDiv li",function(){
 });
 
 $(document).on("click",".timeDiv li",function(){
-	$(".timeDiv li").css("background","").css("color","").attr("data-tSelect","");
 	var hour=$(this).attr("data-time");
+	var position = $(".schClass[data-hour="+hour+"]").position();
+	
 	if((hour-5)<0){
 		timePosition=0;
 	}else if((hour-5)>20){
@@ -826,9 +870,15 @@ $(document).on("click",".timeDiv li",function(){
 	}else{
 		timePosition=(hour-5)*-35;
 	}
-	$(this).css("background","#198591").css("color","white").attr("data-tSelect","select").closest("ol").css("margin-left",timePosition+"px");
 	
-	$(".schClass[data-hour="+hour+"]").focus();
+	
+	$(".timeDiv li").css("background","").css("color","").attr("data-tSelect","");
+	$(this).css("background","#198591").css("color","white").attr("data-tSelect","select").closest("ol").css("margin-left",timePosition+"px");
+	if(typeof position === "undefined"){
+		return;
+	}
+
+	$(".scheduleList").animate({scrollTop:position.top},500);
 });
 
 function timeToString(hour,min) {
@@ -873,10 +923,19 @@ function scheduleList(){
 					}else{
 						tag+="<p><a>3D</a></p></div>";
 					}
-					tag+="<div class='branJone'><p>"+data[i].branName+"</p><p>"+data[i].cmName+"</p><p>"+data[i].seatCount+"/"+data[i].cmSeatTot+"</p></div></div>";
+					tag+="<div class='branJone'><p>"+data[i].branName+"</p><p>"+data[i].cmName+"</p><p>"+(data[i].cmSeatTot-data[i].seatCount)+"/"+data[i].cmSeatTot+"</p></div></div>";
 	
 				$(".scheduleList").append(tag);
 				if(i==0){
+					var time=parseInt(data[i].starttime.substring(0,2));
+					 if((time-5)<0){
+							timePosition=0;
+						}else if((time-5)>20){
+							timePosition=-700;
+						}else{
+							timePosition=(time-5)*-35;
+						}
+					
 					$(".timeDiv li").css("background","").css("color","").attr("data-tSelect","");
 					$(".timeDiv li[data-time='"+startHour+"']").attr("data-tSelect","select").css("background","#198591").css("color","white").closest("ol").css("margin-left",timePosition+"px");
 					
