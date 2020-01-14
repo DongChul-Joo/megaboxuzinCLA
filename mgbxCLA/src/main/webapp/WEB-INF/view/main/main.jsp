@@ -48,16 +48,17 @@
     
       *{margin:0;padding:0;}
     ul,li{list-style:none;}
-    .slide3{height:230px;overflow:hidden;}
+    .slide3{height:300px;overflow:hidden;}
     .slide3 ul{position:relative;height:100%;}
     .slide3 li{position:absolute;left:0;right:0;top:0;bottom:0;opacity:0;animation:fade 8s infinite;}
     .slide3 li:nth-child(1){
     animation-delay:0s; 
-    background-image:url(<%=cp%>/resource/images/slide1.jpg);
+    background-image:url(<%=cp%>/resource/images/slii3.jpg);
+    background-size: cover;
     }
-    .slide3 li:nth-child(2){animation-delay:2s; background-image:url(<%=cp%>/resource/images/slide2.jpg);}
-    .slide3 li:nth-child(3){animation-delay:4s; background-image:url(<%=cp%>/resource/images/slide3.jpg);}
-    .slide3 li:nth-child(4){animation-delay:6s; background-image:url(<%=cp%>/resource/images/pic03.jpg);}
+    .slide3 li:nth-child(2){animation-delay:2s; background-image:url(<%=cp%>/resource/images/sli3.jpg); background-size: cover;}
+    .slide3 li:nth-child(3){animation-delay:4s; background-image:url(<%=cp%>/resource/images/sli4.jpg); background-size: cover;}
+    .slide3 li:nth-child(4){animation-delay:6s; background-image:url(<%=cp%>/resource/images/sli5.jpg); background-size: cover;}
      /* 100 / 8 = 12.5 */
     @keyframes fade {
       0% {opacity:0;}
@@ -123,7 +124,7 @@
 
     .swiper-container {
       width: 100%;
-      height:  500px;
+      height:  600px;
     }
     .swiper-slide {
       text-align: center;
@@ -191,6 +192,68 @@
     background-image: none;
     background: none;
 }  
+
+
+.eventCoff{
+width: 50%; 
+height: 50%; 
+float: left;
+}
+
+.eventCoff:nth-child(1) {
+background-image: url("<%=cp%>/resource/images/coffee1.png");	
+}
+.eventCoff:nth-child(2) {
+background-image: url("<%=cp%>/resource/images/coffee1.png");	
+}
+.eventCoff:nth-child(3) {
+background-image: url("<%=cp%>/resource/images/coffee2.png");	
+}
+.eventCoff:nth-child(4) {
+background-image: url("<%=cp%>/resource/images/coffee2.png");	
+}
+
+.eventCoffLayout{
+width: 700px; 
+height:700px; 
+background-color: black; 
+margin-right: auto; 
+margin-left: auto;
+}
+
+
+.wpgbEvent{
+width: 700px; 
+margin: 0 auto;
+font-size: 30px;
+
+}
+
+.customerll {
+height: 400px; 
+width: 100%; 
+margin: 0 auto; 
+}
+
+.customerllCenter{
+width: 200px; 
+height: 200px; 
+float: left;
+}
+
+.customerLayout{
+width: 800px; 
+height:200px; 
+margin-right: auto; 
+margin-left: auto;
+}
+
+.wpgbcustomer{
+width: 800px; 
+margin: 0 auto;
+font-size: 30px;
+
+}
     
  
 </style>
@@ -560,11 +623,12 @@ function detailMovie(movieCd){
 		  	<div style="background-color: white-space; width: 100%; padding-top: 50px;" >
 		  	
 		  	
-		  	<p style="color: black ; margin-left:435px; margin-top: 20px; font-size: 25px;">새로운 이벤트</p> 
+		  	<div style="width: 1029px; height: 50px; margin: 0 auto; text-align: left; font-size: 30px;">새로운이벤트</div>
 		  	
 		  	
-		  		<div style="margin-left:435px; height: 560px; width: 100%; margin-top: 10px;">		 		
-		  			<div style="background-color: blue; width: 35%; height: 450px; float: left; margin-left: 10px;">
+		  		<div style="height: 700px; width: 1029px; margin-top: 10px; margin: 0  auto;">		
+		  		 		
+		  			<div style="height: 450px; float: left;">
 		  			
 							   <div class="slide3">
 							    <ul>
@@ -575,32 +639,85 @@ function detailMovie(movieCd){
 							    </ul>
 							  </div>
 		
-		  				<div style="background-color: yellow; width: 50%; height: 300px; float: left;">
-		  					<a href="<%=cp%>">
-		  					<img src="<%=cp%>/resource/images/e2.JPG" width="100%;" height="300px">
-		  					</a>
-		  				</div>
-		  				
-		  				<div style="background-color: green ; width: 50%; height: 300px;float: left; ">
-		  					<a href="<%=cp%>">
-		  					<img src="<%=cp%>/resource/images/e3.JPG" width="100%;" height="300px">
-		  					</a>
-		  				</div>
+				  				<div style="width: 50%; height: 300px; float: left;">
+				  					<a href="<%=cp%>">
+				  					<img src="<%=cp%>/resource/images/e2.JPG" width="100%;" height="300px">
+				  					</a>
+				  				</div>
+			  				
+				  				<div style="background-color: green ; width: 50%; height: 300px;float: left; ">
+				  					<a href="<%=cp%>">
+				  					<img src="<%=cp%>/resource/images/e3.JPG" width="100%;" height="300px">
+				  					</a>
+				  				</div>
 		  			</div>
 		  			
 		  			
 		  			
-		  			<div style="background-color: red; width: 16%; height: 530px; float: left;">
-		  				
-		  				
-		  				<a href="<%=cp%>">
-		  					<img src="<%=cp%>/resource/images/event.jpg" width="100%;" height="530px">
-		  				</a>
-		  			
-		  			</div>
+					  			<div style="height: 530px; float: left;">
+					  								  				
+					  				<a href="<%=cp%>">
+					  					<img src="<%=cp%>/resource/images/event.jpg" width="400px;" height="600px">
+					  				</a>
+					  			
+					  			</div>
 		  			
 
 		  		</div>
+		  		
+		
+		
+		
+					<div style="height: 890px; width: 100%; margin: 0 auto; background-color: #f7f6f6;
+    padding-top: 50px;">
+				
+						<div class="wpgbEvent">제휴이벤트</div>
+				
+							<ul class="eventCoffLayout">
+								<li class="eventCoff"></li>
+								<li class="eventCoff"></li>
+								<li class="eventCoff"></li>
+								<li class="eventCoff"></li>																	
+							</ul>
+		  				</div>
+		  			
+		  			
+			  			<div class="customerll" style="margin-top: 100px; height: 252px;">
+			  				<div class="wpgbcustomer">고객센터</div>
+			  				
+			  					<ul class="customerLayout">
+			  						<li class="customerllCenter" style="border: 1px solid #e4e4e4; border-collapse: collapse; border-spacing: 0;">
+			  							<a>
+			  								<img src="<%=cp%>/resource/images/notice.png " style="display: block; margin: 33px auto; width: 80px; height: 70px;">
+			  							</a>
+			  							
+			  							<p style="text-align: center; font-size: 25px;">공지사항</p>	
+			  						</li>
+			  						<li class="customerllCenter" style="border: 1px solid #e4e4e4; border-collapse: collapse; border-spacing: 0;">
+			  							<a>
+			  								<img src="<%=cp%>/resource/images/answer.png " style="display: block; margin: 33px auto; width: 80px; height: 70px;">
+			  							</a>
+			  							<p style="text-align: center; font-size: 25px;">1:1문의</p>	
+			  						</li>
+			  						<li  class="customerllCenter" style="border: 1px solid #e4e4e4; border-collapse: collapse; border-spacing: 0;">
+			  							<a>
+			  								<img src="<%=cp%>/resource/images/answer.png " style="display: block; margin: 33px auto; width: 80px; height: 70px;">
+			  							</a>
+			  							<p style="text-align: center; font-size: 25px;">자주묻는질문</p>	
+			  						</li>
+			  						<li class="customerllCenter" style="border: 1px solid #e4e4e4; padding: 10px; border-collapse: collapse; border-spacing: 0;">
+			  							<a>
+			  								<img class="customerImage" >
+			  							</a>
+			  							<p style="text-align: center; font-size: 25px;">메가박스 <br>고객센터</p>	
+			  							<p style="text-align: center; font-size: 25px; color: #428bca; font-weight: 600;">DreamCenter</p>
+			  							<p style="text-align: center; font-size: 30px; border-top: 1px solid #e4e4e4; color: #503396; font-weight: 600;">7777-7777</p>
+			  						</li>	
+			  							
+			  						  					
+			  					</ul>
+			  			</div>
+		  		
 		  		
 		  		
 		  		
@@ -608,6 +725,9 @@ function detailMovie(movieCd){
 		  		<div style="margin-top: 150px; background-size: cover;">
 		  			<img src="<%=cp%>/resource/images/sli5.jpg" width="100%" height="600px;">
 		  		</div>
+		  		
+		  		
+		  		
 		  		
 	
 		  	</div>

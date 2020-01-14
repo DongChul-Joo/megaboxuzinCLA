@@ -120,17 +120,7 @@ function sendLogin() {
 
 
 
-	Kakao.init('e82edd74cbeb98477819c8975314c345');
-
-	Kakao.Auth.createLoginButton({
-	  container: '#kakao-login-btn',
-	  success: function(authObj) {
-	    alert(JSON.stringify(authObj));
-	  },
-	  fail: function(err) {
-	     alert(JSON.stringify(err));
-	  }
-	});
+	
 	
 
 

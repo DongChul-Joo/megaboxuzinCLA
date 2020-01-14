@@ -16,7 +16,7 @@ padding-top: 90px;
 
 }
 
-li {
+.ro1 {
 margin: 30px 30px auto;
 list-style: none;
 font-size: 20px;
@@ -56,15 +56,15 @@ padding-right: 206px;
 					
 						<h2 style="margin: 75px 30px auto;">포인트 현황</h2>
 						<ul style="padding-top: 20px;">
-							<li>
+							<li class="ro1">
 							<strong class="row1">현재 보유 포인트</strong>
 							<strong>${dto.mileage}P</strong>
 							</li>
-							<li>
+							<li class="ro1">
 							<strong class="row2">티켓구매 누적 포인트</strong>
 							<strong>0P</strong>
 							</li>
-							<li>
+							<li class="ro1">
 							<strong class="row3">소멸예정 포인트</strong>
 							<strong>0P</strong>
 							</li>						
