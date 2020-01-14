@@ -62,4 +62,8 @@ where scheduleCode=#{scheduleCode}
 <select id="bookingPrice" parameterType="Integer" resultType="com.sp.booking.SchedulePrice">
 	select moviekind,price from moviepricedetail where scheduleCode=#{schedulecode}
 </select>
+
+<select id="customerCheck" parameterType="com.sp.member.Member" resultType="com.sp.member.Member">
+	select customercode,tel,email,username,birth from customer where username=#{userName} and tel=#{tel}
+</select>
 </mapper>

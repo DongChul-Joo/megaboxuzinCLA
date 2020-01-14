@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.branchCla.BranchCla;
 import com.sp.branchCla.BranchClaService;
+import com.sp.member.Member;
+import com.sp.member.MemberService;
+import com.sp.member.SessionInfo;
 import com.sp.movie.Movie;
 import com.sp.movie.MovieService;
 
@@ -24,6 +29,7 @@ public class BookingController {
 	@Autowired private MovieService movieService;
 	@Autowired private BranchClaService branchService;
 	@Autowired private BookingService bookingService;
+	@Autowired private MemberService memberService;
 
 	@RequestMapping(value="/booking/booking",method=RequestMethod.GET)
 	public String bookingForm(
@@ -123,4 +129,61 @@ public class BookingController {
 		
 		return "booking/bookingSeat";
 	}
+	
+	@RequestMapping(value="/booking/logincheck",method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String,Object> loginCheck(
+			HttpSession session
+			) {
+		Map<String,Object> map=new HashMap<>();
+		
+		
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		if(info==null) {
+			map.put("data", info);
+		}else {
+			Member dto=null;
+			dto=memberService.readMember(info.getUserId());
+			map.put("data", dto);
+		}
+		
+		return map;
+	}
+	
+	@RequestMapping(value="/booking/nmemSelectForm",method=RequestMethod.GET)
+	public String nmemSelectForm() {
+		return "booking/bookingLoginSelect";
+	}
+	
+	@RequestMapping(value="/booking/nmemLoginForm",method=RequestMethod.GET)
+	public String nmemLoginForm() {
+		return "booking/noMemberLogin";
+	}
+	
+	@RequestMapping(value="/booking/noMemSubMit",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> noMemSubMit(Member dto) {
+		
+		dto.setTel(dto.getTel1()+"-"+dto.getTel2()+"-"+dto.getTel3());
+		dto.setEmail(dto.getEmail1()+"@"+dto.getEmail2());
+		Member dtt=null;
+		try {
+		
+			dtt=bookingService.customerCheck(dto);
+			
+			if(dtt!=null) {
+				
+			}else {
+				bookingService.customerInsert(dto);
+				dtt=bookingService.customerCheck(dto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		Map<String,Object> map=new HashMap<>();
+		map.put("data", dtt);
+		return map;
+	}
+	
+	
 }

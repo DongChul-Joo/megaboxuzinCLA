@@ -18,6 +18,7 @@ $(document).ready(function () {
 	}
 	
 });
+
 </script>
 <div class="SeatSelectForm" style="width: 100%;height: 100%;border-bottom: 1px solid #cccccc">
 		<div class="ssTitleBar" style="padding-top:13px;;border-bottom:1px solid #cccccc;width: 100%;height:10%;background: #00000008;font-size: 25px;font-weight:1000;color: purple;padding-left: 15px;">인원/좌석선택</div>
@@ -25,17 +26,17 @@ $(document).ready(function () {
 			<div class="ssBodyLeft" style="width: 80%;height: 100%;float: left">
 				<div class="peopleJone" style="width: 100%;height: 6%;border-bottom:1px solid #cccccc">
 					<div class="peopleSelectjone" style="float:left;width: 60%;height: 100% ;padding-top: 5px;padding-left: 10px;">
-					<strong>성인</strong><select data-price="12000">
+					<strong>성인</strong><select data-rainge="성인" data-price="12000">
 										<c:forEach var='people' begin="0" end="8">
 											<option value="${people}">${people}</option>
 										</c:forEach>
 									</select>
-					<strong>청소년</strong><select data-price="10000">
+					<strong>청소년</strong><select data-rainge="청소년" data-price="10000">
 										<c:forEach var='people' begin="0" end="8">
 											<option value="${people}">${people}</option>
 										</c:forEach>
 									 </select>
-					<strong>우대</strong><select data-price="6000">
+					<strong>우대</strong><select data-rainge="우대" data-price="6000">
 										<c:forEach var='people' begin="0" end="8">
 											<option value="${people}">${people}</option>
 										</c:forEach>
@@ -62,7 +63,9 @@ $(document).ready(function () {
 						</div>
 					</div>
 				</div>
-				<div class="bodyLeftBottom" style="width: 100%;height: 7%"></div>
+				<div class="bodyLeftBottom" style="width: 100%;height: 7%">
+					<div style="width: 120px;float: right;margin-right: 100px;height: 100%"><div class="returnImage"></div><div style="font-weight:bold;font-size:20px;margin-top: 7px;"><strong>다시입력</strong></div></div>
+				</div>
 			</div>
 			<div class="ssBodyRigth" style="width: 20%;height: 100%;float: left;border-left: 1px solid #c5c5c5;">
 				<div class="bookingMovieThum" style="width: 100%;height: 50%;background-size: cover;background-image: url('${dto.thumbNail}')">
@@ -76,9 +79,12 @@ $(document).ready(function () {
 						<p style="margin-top: 10px;">▷제목 : ${dto.movieNm}</p>
 						<p style="margin-top: 10px;">▷상영관 :<br>${dto.branName}<br>${dto.cmName}</p>
 					</div>
-					<div class="totMoney" style="width: 100%;height: 15%;font-weight: bold;font-size: 20px;color:white;text-align: right;padding-right: 10px;"></div>
-					<button class="seatBtns" style="margin-left:40px;;background: purple;color: white;" type="button">예매</button><button class="seatBtns" onclick="closedSeat();" style="margin-left:5px;background: white;" type="button">취소</button>
+					<div class="totMoney" style="width: 100%;height: 15%;font-weight: bold;font-size: 20px;color:white;text-align: right;padding-right: 10px;">0원</div>
+					<button class="seatBtns" style="margin-left:40px;;background: purple;color: white;" type="button" onclick="buyTiket();">예매</button><button class="seatBtns" onclick="closedSeat();" style="margin-left:5px;background: white;" type="button">취소</button>
+					<input name="scheduleCode" type="hidden" value="${dto.scheduleCode}">
 				</div>
 			</div>
 		</div>
+	</div>
+	<div id="bookingLoginForm" style="width:300px;height:200px;display: none;overflow: hidden;">
 	</div>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sp.common.dao.CommonDAO;
+import com.sp.member.Member;
 
 @Service("booking.bookingService")
 public class BookingServiceImpl implements BookingService{
@@ -69,6 +70,30 @@ public class BookingServiceImpl implements BookingService{
 			throw e;
 		}
 		return list;
+	}
+
+	@Override
+	public void customerInsert(Member dto) throws Exception {
+		
+		try {
+			dto.setCustomerCode(dao.selectOne("member.memberSeq"));
+			dao.insertData("member.insertMember1",dto);
+		} catch (Exception e) {
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public Member customerCheck(Member dto) throws Exception {
+		Member dtt=null;
+		
+		try {
+			dtt=dao.selectOne("booking.customerCheck",dto);
+		} catch (Exception e) {
+			throw e;
+		}
+		return dtt;
 	}
 
 }

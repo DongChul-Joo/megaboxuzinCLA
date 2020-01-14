@@ -9,6 +9,14 @@
 
 <style>
 
+.returnImage{
+background-image: url(<%=cp%>/resource/images/returnImage.png);
+background-size: 100% 100%;
+width: 40px;
+height: 90%;
+float: left;
+cursor: pointer;
+}
 .seatBtns{
 width: 60px;
 height: 35px;
@@ -158,6 +166,7 @@ overflow-x:hidden;
 display: inline-block;
 }
 .schClass{
+position:relative;
 width: 99%;
 height: 20%;
 background: white;
@@ -520,7 +529,71 @@ padding-top: 14px;
     float:left;
     background: url(http://image2.megabox.co.kr/mop/home/bg_star.png) 0 -20px no-repeat;
 }
+.bmemberLogin{
+cursor:pointer;
+padding-top: 15px;
+font-size: 25px;
+margin:0px auto;
+text-align:center;
+width: 80%;
+height: 40%;
+background: black;
+color: white;
+font-weight: bold;
+}
+.bnmemberLogin{
+cursor:pointer;
+border:1px solid black;
+padding-top: 15px;
+font-size: 25px;
+margin:0px auto;
+text-align:center;
+margin-top:10px;
+width: 80%;
+height: 40%;
+font-weight: bold;
+}
+.nonMemberIn{
+font-weight: bold;
+width: 100%;
+height: 90%;
+overflow: hidden;
+}
+
+.nonMemberIn table{
+width: 100%;
+height: 90%;
+}
+
+.nonMemberIn input{
+width: 50px;
+border-radius: 5px;
+outline: none;
+height: 23px;
+border: 1px solid #cccccc;
+}
+
+.nonMemberIn select{
+width: 70px;
+height: 23px;
+text-overflow: ellipsis;
+overflow: hidden;
+white-space: nowrap;
+display: inline-block;
+border: 1px solid #cccccc;
+border-radius: 5px;
+
+}
+.nonMemberIn tr{
+height: 20%;
+}
+
+.selLogin{
+width: 100%;height: 90%;padding-top: 40px;
+}
 </style>
+
+
 
 <script type="text/javascript">
 var timePosition=0;
@@ -535,23 +608,213 @@ var selMovieCountEnd=0;
 var totBookingCount=0;
 var selectSeatCount=0;
 
-$(document).on("click",".btnss",function(){
-	timePosition=0;
-	datePosition=0;
-	selBranchCount=0;
-	selBranchCountEnd=0;
-	selMovieCount=0;
-	selMovieCountEnd=0;
-	totBookingCount=0; 
+
+function buyForm(data){
+	console.log(data);
+}
+
+function nmemInsert(){
+	var str;
+	
+	var query="";
+	
+    str = $("input[name=name]").val();
+	str = str.trim();
+    if(!str) {
+        alert("이름을 입력하세요. ");
+        $("input[name=name]").focus();
+        return;
+    }
+	
+    query="userName="+str;
+    
+    str = $("select[name=tel1]").val();
+	str = str.trim();
+    if(!str) {
+        alert("전화번호를 입력하세요. ");
+        $("select[name=tel1]").focus();
+        return;
+    }
+	
+    query+="&tel1="+str;
+    
+    str = $("input[name=tel2]").val();
+	str = str.trim();
+    if(!str) {
+        alert("전화번호를 입력하세요. ");
+        $("input[name=tel2]").focus();
+        return;
+    }
+    if(!/^(\d+)$/.test(str)) {
+        alert("숫자만 가능합니다. ");
+        $("input[name=tel2]").focus();
+        return;
+    }
+    
+    query+="&tel2="+str;
+
+    str = $("input[name=tel3]").val();
+	str = str.trim();
+    if(!str) {
+        alert("전화번호를 입력하세요. ");
+        $("input[name=tel3]").focus();
+        return;
+    }
+    if(!/^(\d+)$/.test(str)) {
+        alert("숫자만 가능합니다. ");
+        $("input[name=tel3]").focus();
+        return;
+    }
+    
+    query+="&tel3="+str;
+    
+    str = $("input[name=email1]").val();
+	str = str.trim();
+    if(!str) {
+        alert("이메일을 입력하세요. ");
+        $("input[name=email1]").focus();
+        return;
+    }
+    
+    query+="&email1="+str;
+
+    str = $("input[name=email2]").val();
+	str = str.trim();
+    if(!str) {
+        alert("이메일을 입력하세요. ");
+        $("input[name=email2]").focus();
+        return;
+    }
+    
+    query+="&email2="+str;
+
+    
+    str = $("input[name=birth]").val();
+	str = str.trim();
+    if(!str || !isValidDateFormat(str)) {
+        alert("생년월일를 입력하세요[YYYY-MM-DD]. ");
+        $("input[name=birth]").focus();
+        return;
+    }
+    
+    query+="&birth="+str;
+
+    var url="<%=cp%>/booking/noMemSubMit";
+    var type="post";
+    var fn=function(data){
+    	$("#bookingLoginForm").dialog("close");
+    	if(!data.data){
+    		alert("잘못된 정보입니다.");	
+    		return;
+    	}
+    	console.log(data.data);
+    	buyForm(data);
+    }
+    ajaxJSONs(url, type, query, fn);
+}
+
+function ajaxHTMLBooking(url, type, query, selector) {
+	$.ajax({
+		type:type
+		,url:url
+		,data:query
+		,success:function(data) {
+			$(selector).html(data);
+		}
+	    ,error:function(jqXHR) {
+	    	
+	    }
+	});
+}
+$(document).on("change","select[name=selectEmailss]",function(){
+	    
+    var str = $(this).val();
+    if(str!="direct") {
+    	$("input[name=email2]").val(str).attr("readonly",true); 
+    }
+    else {
+    	$("input[name=email2]").val("").attr("readonly",false);
+
+    }
+    
+    $("input[name=email1]").focus();
+});
+
+$(document).on("click",".bmemberLogin",function(){
+	location.href="<%=cp%>/member/login";
+
+});
+$(document).on("click",".bnmemberLogin",function(){
+	var url = "<%=cp%>/booking/nmemLoginForm";
+	var type="get";
+	var query="";
+	var selector="#bookingLoginForm"
+	ajaxHTMLBooking(url, type, query, selector);
+});
+function blfReturn(){
+	var url = "<%=cp%>/booking/nmemSelectForm";
+	var type="get";
+	var query="";
+	var selector="#bookingLoginForm"
+	ajaxHTMLBooking(url, type, query, selector);
+}
+function blfClose(){
+	$("#bookingLoginForm").dialog("close");
+}
+function buyTiket(){
+	
+	var selectSeat=$(".clickSeat");
+	if(totBookingCount!=selectSeatCount||selectSeat.length==0){
+		alert("좌석을 선택해 주세요.");
+		return;
+	}
+	var scheduleCode=$("input[name=scheduleCode]").val();
+	
+	var url="<%=cp%>/booking/logincheck";
+	var type="get";
+	var query="";
+	var fn=function(data){
+		if(!data.data){
+			alert("로그인이 필요한 서비스입니다.");
+						
+						
+						$("#bookingLoginForm").dialog({
+							modal: true,
+							height:300, 
+							width:350,
+							title: "",
+							open:function(){
+					       	 $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
+					       		blfReturn();
+					        },
+							close: function(event, ui) {
+			
+							}
+						   
+						});
+		}else{
+			buyForm(data);
+			alert("로그인이 필요한 서비스입니다.");
+			
+		}
+	}
+	ajaxJSONs(url, type, query, fn);
+}
+
+$(document).on("click",".returnImage",function(){
+	totBookingCount=0;
 	selectSeatCount=0;
+	$(".clickSeat").attr("class","seatSelect");
+	$("select").val("0");
+	$(".totMoney").html("0원").attr("data-price","");
+});
+
+$(document).on("click",".btnss",function(){
 	$("#bookingForm").dialog("close");
 });
 
 function closedSeat(){
-	totBookingCount=0; 
-	selectSeatCount=0;
 	$("#bookingSeat").dialog("close");
-	
 }
 
 $(document).on('change',".peopleSelectjone select", function() {
@@ -632,7 +895,6 @@ $(document).on("click",".btnsBooking",function(){
 		,data:query
 		,success:function(data) {
 			$("#bookingSeat").html(data);
-			console.log(data);
 			
 		}
 	});
@@ -646,6 +908,8 @@ $(document).on("click",".btnsBooking",function(){
 	       	 $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
 	        },
 			close: function(event, ui) {
+				totBookingCount=0; 
+				selectSeatCount=0;
 			}
 		});
 
@@ -674,9 +938,20 @@ function bookingForm(){
 		title: "",
 		open:function(){
        	 $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
+         $('html').css('overflow','hidden');
         },
 		close: function(event, ui) {
+			timePosition=0;
+			datePosition=0;
+			selBranchCount=0;
+			selBranchCountEnd=0;
+			selMovieCount=0;
+			selMovieCountEnd=0;
+			totBookingCount=0; 
+			selectSeatCount=0;
+		 $('html').css('overflow','auto');
 		}
+	   
 	});
 }
 
@@ -861,7 +1136,10 @@ $(document).on("click",".dateDiv li",function(){
 
 $(document).on("click",".timeDiv li",function(){
 	var hour=$(this).attr("data-time");
-	var position = $(".schClass[data-hour="+hour+"]").position();
+	var position = $(".schClass[data-hour="+hour+"]").position().top;
+	if(typeof position === "undefined"){
+		return;
+	}
 	
 	if((hour-5)<0){
 		timePosition=0;
@@ -874,11 +1152,8 @@ $(document).on("click",".timeDiv li",function(){
 	
 	$(".timeDiv li").css("background","").css("color","").attr("data-tSelect","");
 	$(this).css("background","#198591").css("color","white").attr("data-tSelect","select").closest("ol").css("margin-left",timePosition+"px");
-	if(typeof position === "undefined"){
-		return;
-	}
 
-	$(".scheduleList").animate({scrollTop:position.top},500);
+	$(".scheduleList").animate({scrollTop:position},500);
 });
 
 function timeToString(hour,min) {
@@ -1207,6 +1482,7 @@ $(document).on("click",".listOfMovie",function(){
 	
 	selMovieCount++;
 });
+
 </script>
 
 <div class="header-top">
