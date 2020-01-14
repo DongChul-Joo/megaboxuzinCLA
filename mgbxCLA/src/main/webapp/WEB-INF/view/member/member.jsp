@@ -11,6 +11,16 @@
     padding-bottom: 5px;
     margin: 0 0 20px 0;
     border-bottom: 3px solid #1e0265;
+}
+
+.boxTF{
+height: 50px;
+width: 178px;
+}
+.selectField{
+height: 50px;
+width: 100px;
+}
 </style>
 
 <script type="text/javascript">
@@ -194,15 +204,15 @@ function userIdCheck() {
 				<c:if test="${mode=='update'}">
 					<input type="hidden" name="customerCode" value="${dto.customerCode}">
 				</c:if>
-			  <table style="width: 100%; margin: 20px auto 0px; border-spacing: 0px;">
+			  <table style="width: 100%; margin: 20px 60px 0px; border-spacing: 0px;">
 			  <tr>
-			      <td width="100" valign="top" style="text-align: right; padding-top: 5px;">
+			      <td width="100" valign="top" style="text-align: right; padding-top: 19px;">
 			            <label style="font-weight: 900;">아이디</label>
 			      </td>
 			      <td style="padding: 0 0 15px 15px;">
 			        <p style="margin-top: 1px; margin-bottom: 5px;">
 			            <input type="text" name="userId" id="userId" value="${dto.userId}"
-                         onchange="userIdCheck();" style="width: 95%;"
+                         onchange="userIdCheck();" style="width: 70%;"
                          ${mode=="update" ? "readonly='readonly' ":""}
                          maxlength="15" class="boxTF" placeholder="아이디">
 			        </p>
@@ -211,39 +221,39 @@ function userIdCheck() {
 			  </tr>
 			
 			  <tr>
-			      <td width="100" valign="top" style="text-align: right; padding-top: 5px;">
+			      <td width="100" valign="top" style="text-align: right; padding-top: 19px;">
 			            <label style="font-weight: 900;">패스워드</label>
 			      </td>
 			      <td style="padding: 0 0 15px 15px;">
 			        <p style="margin-top: 1px; margin-bottom: 5px;">
 			            <input type="password" name="userPwd" maxlength="15" class="boxTF"
-			                       style="width:95%;" placeholder="패스워드">
+			                       style="width:70%;" placeholder="패스워드">
 			        </p>
 			        <p class="help-block">패스워드는 5~10자 이내이며, 하나 이상의 숫자나 특수문자가 포함되어야 합니다.</p>
 			      </td>
 			  </tr>
 			
 			  <tr>
-			      <td width="100" valign="top" style="text-align: right; padding-top: 5px;">
+			      <td width="100" valign="top" style="text-align: right; padding-top: 19px;">
 			            <label style="font-weight: 900;">패스워드 확인</label>
 			      </td>
 			      <td style="padding: 0 0 15px 15px;">
 			        <p style="margin-top: 1px; margin-bottom: 5px;">
 			            <input type="password" name="userPwdCheck" maxlength="15" class="boxTF"
-			                       style="width: 95%;" placeholder="패스워드 확인">
+			                       style="width: 70%;" placeholder="패스워드 확인">
 			        </p>
 			        <p class="help-block">패스워드를 한번 더 입력해주세요.</p>
 			      </td>
 			  </tr>
 			
 			  <tr>
-			      <td width="100" valign="top" style="text-align: right; padding-top: 5px;">
+			      <td width="100" valign="top" style="text-align: right; padding-top: 19px;">
 			            <label style="font-weight: 900;">이름</label>
 			      </td>
 			      <td style="padding: 0 0 15px 15px;">
 			        <p style="margin-top: 1px; margin-bottom: 5px;">
 			            <input type="text" name="userName" value="${dto.userName}" maxlength="30" class="boxTF"
-		                      style="width: 95%;"
+		                      style="width: 70%;"
 		                      ${mode=="update" ? "readonly='readonly' ":""}
 		                      placeholder="이름">
 			        </p>
@@ -251,20 +261,20 @@ function userIdCheck() {
 			  </tr>
 			
 			  <tr>
-			      <td width="100" valign="top" style="text-align: right; padding-top: 5px;">
+			      <td width="100" valign="top" style="text-align: right; padding-top: 19px;">
 			            <label style="font-weight: 900;">생년월일</label>
 			      </td>
 			      <td style="padding: 0 0 15px 15px;">
 			        <p style="margin-top: 1px; margin-bottom: 5px;">
 			            <input type="text" name="birth" value="${dto.birth}" maxlength="10" 
-			                       class="boxTF" style="width: 95%;" placeholder="생년월일">
+			                       class="boxTF" style="width: 70%;" placeholder="생년월일">
 			        </p>
 			        <p class="help-block">생년월일은 2000-01-01 형식으로 입력 합니다.</p>
 			      </td>
 			  </tr>
 			  
 			  <tr>
-			      <td width="100" valign="top" style="text-align: right; padding-top: 5px;">
+			      <td width="100" valign="top" style="text-align: right; padding-top: 19px;">
 			            <label style="font-weight: 900;">이메일</label>
 			      </td>
 			      <td style="padding: 0 0 15px 15px;">
@@ -285,7 +295,7 @@ function userIdCheck() {
 			  </tr>
 			  
 			  <tr>
-			      <td width="100" valign="top" style="text-align: right; padding-top: 5px;">
+			      <td width="100" valign="top" style="text-align: right; padding-top: 19px;">
 			            <label style="font-weight: 900;">전화번호</label>
 			      </td>
 			      <td style="padding: 0 0 15px 15px;">

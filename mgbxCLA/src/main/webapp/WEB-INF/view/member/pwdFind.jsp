@@ -13,7 +13,7 @@
    color: #999999; font-size: 11pt;
 }
 .loginTF {
-  width: 360px; height: 35px;
+  width: 360px; height: 50px;
   padding: 5px;
   padding-left: 15px;
   border:1px solid #999999;
@@ -48,16 +48,17 @@
 </script>
 
 <div class="body-container">
-    <div style="width:420px; margin: 0px auto; padding-top:90px;">
+    <div style="width:500px; margin: 0px auto; padding-top:90px;">
 	
     	<div style="text-align: center;">
-        	<span style="font-weight: bold; font-size:27px; color: #424951;">패스워드 찾기</span>
+        	<span style="font-weight: bold; font-size:27px; color: #424951;"></span>
         </div>
 	
 		<form name="pwdFindForm" method="post" action="">
-		  <table style="width:100%; margin: 20px auto; padding:30px;  border-collapse: collapse; border: 1px solid #060606;">
+		  <table style="width:100%; margin: 20px auto; padding:30px;  border-collapse: collapse; background-color:#f9f9f9; height: 500px;">
 		  <tr style="height:50px;"> 
-		      <td style="text-align: center;">
+		      <td style="text-align: center; padding-top: 20px;">
+		       <p style="font-size: 30px; font-weight: 600;">비밀번호 찾기</p>
 		          회원 아이디를 입력 하세요.
 		      </td>
 		  </tr>
