@@ -176,6 +176,53 @@ $(function(){
 
 
 <script type="text/javascript">
+function ajaxJSON(url, type, query, fn) {
+	$.ajax({
+		type:type
+		,url:url
+		,data:query
+		,dataType:"json"
+		,success:function(data) {
+			fn(data);
+		}
+		,beforeSend:function(jqXHR) {
+			jqXHR.setRequestHeader("AJAX", true);
+		}
+		,error:function(jqXHR) {
+			if(jqXHR.status==403) {
+				login();
+				return false;
+			}
+			console.log(jqXHR.responseText);
+		}
+	});
+}
+
+function ajaxHTML(url, type, query, selector) {
+	$.ajax({
+		type:type
+		,url:url
+		,data:query
+		,success:function(data) {
+			if($.trim(data)=="error") {
+				listPage(1);
+				return false;
+			}
+			$(selector).html(data);
+		}
+		,beforeSend:function(jqXHR) {
+			jqXHR.setRequestHeader("AJAX", true);
+		}
+		,error:function(jqXHR) {
+			if(jqXHR.status==403) {
+				login();
+				return false;
+			}
+			console.log(jqXHR.responseText);
+		}
+	});
+}
+
 function buy(){
 	var uid="${sessionScope.member.userId}";
 	if(!uid){
@@ -187,13 +234,14 @@ function buy(){
 	var IMP = window.IMP; // 생략가능
 	IMP.init('imp36876789');  // 가맹점 식별 코드
 	
-	var amount = $("#payAmt").text();
 	var uemail = "${sessionScope.customer.email}";
 	var uname = "${sessionScope.customer.userName}";
 	var utel = "${sessionScope.customer.tel}";
+	var amount = $("#payAmt").text();
     var itemCount = $("#itemCount").val();
     var itemPart =  $("#itemPart").val();
     var itemName = $("#itemName").val();
+    var itemImg = $("#itemImg").val();
     
 	IMP.request_pay({
 	   	pg : 'html5_inicis', // 결제방식
@@ -211,12 +259,12 @@ function buy(){
 		    
 		    var f=document.storeForm;
 		    f.itemCount.value = itemCount;
+		    f.itemName.value = itemName;
 		    f.amount.value = amount;
 		    f.itemPart.value = itemPart;
-		    f.itemName.value = itemName;
+		    f.itemImg.value = itemImg;
 		    
-		    f.paid_amount.value = rsp.paid_amount;
-		    f.apply_num.value = rsp.apply_num;
+		    /* f.apply_num.value = rsp.apply_num; */
 		    
 			f.action="<%=cp%>/mypage/store";
 			f.submit();
@@ -240,14 +288,13 @@ function buy(){
 
 <form name="storeForm" method="post">
   <input type="hidden" name="itemCode" value="${dto.itemCode}"/>
+  <input type="hidden" name="itemName" value="${dto.itemName}"/>
   <input type="hidden" name="itemPrice" value="${dto.itemPrice}"/>
   <input type="hidden" name="itemCount"/>
   <input type="hidden" name="amount"/>
   <input type="hidden" name="itemPart" value="${dto.itemPart}"/>
-  <input type="hidden" name="itemName" value="${dto.itemName}"/>
-
-  <input type="hidden" name="paid_amount"/>
-  <input type="hidden" name="apply_num"/>
+  
+  
 </form>
 
 </div>

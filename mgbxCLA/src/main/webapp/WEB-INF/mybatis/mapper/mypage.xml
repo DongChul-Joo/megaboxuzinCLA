@@ -23,6 +23,10 @@
 		WHERE userId = #{userId}
 	</select>
 	
+	<!-- <insert id="insertStore" parameterType="com.sp.mypage.MyPage">
+		INSERT INTO buyItem(buyCode, buyDate, totalAmount, realAmount, userId) 
+			VALUES (buyItem_seq.NEXTVAL, #{TO_CHAR(buyDate, 'YYYY-MM-DD') buyDate}, #{totalAmount}, #{realAmount}, #{userId})
+	</insert> -->
 	
 	<select id="listMyMovieStory" parameterType="map" resultType="com.sp.mypage.MyPage">
 		SELECT userId, userName, b.bookCode, TO_CHAR(b.bookdate, 'YYYY-MM-DD') bookdate , b.bookCount,
@@ -60,5 +64,5 @@
         JOIN customer c ON m.customerCode = c.customerCode
         where userId =  #{userId}
 	</select>
-
+	
 </mapper>

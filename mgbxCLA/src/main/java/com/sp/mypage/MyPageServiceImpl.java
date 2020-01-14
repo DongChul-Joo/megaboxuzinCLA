@@ -83,4 +83,16 @@ public class MyPageServiceImpl implements MyPageService {
 		return list;
 	}
 
+	@Override
+	public void insertMyPage(MyPage dto, String pathname) throws Exception {
+		
+		try {
+			
+			dao.insertData("mypage.insertMyPage", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
 }

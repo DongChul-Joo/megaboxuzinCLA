@@ -1,5 +1,6 @@
 package com.sp.mypage;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sp.common.MyUtil;
@@ -80,7 +82,7 @@ public class MyPageController {
 		return ".four.menu5.mypage.membership";
 	}
 	
-	@RequestMapping(value="/mypage/store")
+	@RequestMapping(value="/mypage/store", method=RequestMethod.GET)
 	public String store(
 			HttpSession session,
 			Model model) throws Exception {
@@ -100,6 +102,23 @@ public class MyPageController {
 		model.addAttribute("subMenu", "3");
 		model.addAttribute("list", list);
 		return ".four.menu5.mypage.store";
+	}
+	
+	@RequestMapping(value="/mypage/store", method=RequestMethod.POST)
+	public String storeSubmit(
+			MyPage dto,
+			HttpSession session,
+			Model model) throws Exception {
+		
+		String root=session.getServletContext().getRealPath("/");
+		String path=root+"uploads"+File.separator+"myPage";
+		
+		try {
+			service.insertMyPage(dto, path);
+		} catch (Exception e) {
+		}
+		
+		return "redirect:/mypage/store";
 	}
 	
 	@RequestMapping(value="/mypage/mymoviestory")
@@ -124,5 +143,5 @@ public class MyPageController {
 		return ".four.menu5.mypage.mymoviestory";
 	}
 	
-	
+
 }

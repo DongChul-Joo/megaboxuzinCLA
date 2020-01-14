@@ -10,4 +10,5 @@ public interface MyPageService {
 	public MyPage listPoint(String userId) throws Exception;
 	public MyPage listMembership(String userId) throws Exception;
 	public List<MyPage> listPoint2(Map<String, Object> map);
+	public void insertMyPage(MyPage dto, String pathname) throws Exception;
 }
