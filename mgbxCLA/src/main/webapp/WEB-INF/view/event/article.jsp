@@ -397,13 +397,13 @@ $(function(){
     	</table>
     	
     </div>
-    <div style="width: 80%; margin: 10px auto 0px; text-align: center;">
+    <div style="width: 80%; margin: 10px auto 0px; text-align: center; margin-bottom: 50px">
     	<a href="${dto.elink}">
-    		<img src="http://localhost:9090/mgbxAD/uploads/event/${dto.imageFilename}" width="70%" style="margin: 0px 10px;">
+    		<img src="http://localhost:9090/mgbxAD/uploads/event/${dto.imageFilename}" width="100%" style="margin: 0px 10px;">
     	</a>
     	<c:if test="${dto.lott==1}">
 	    	<div>
-	    		<button type="button" class="btn btnSendRequest" style="margin-top: 150px;">응모하기!</button>
+	    		<button type="button" class="btn btnSendRequest" style="margin-top: 100px;">응모하기!</button>
 	    	</div>
     	</c:if>
     </div>

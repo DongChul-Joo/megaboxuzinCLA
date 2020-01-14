@@ -9,7 +9,17 @@
 
 
 .title{
-font-size: X-large;
+font-size: 20px;
+text-overflow: ellipsis;
+overflow: hidden;
+margin-left: 5px; 
+font-weight: bold;
+display: inline-block;
+white-space: nowrap;
+width: 200px;
+height: 40px;
+display: block;
+
 }
 
 .ll {
@@ -93,15 +103,15 @@ function article(ecode) {
     </c:if>
 	<td width="20px" align="center" style="padding-bottom: 30px">
 		<div>
-			<img src="http://localhost:9090/mgbxAD/uploads/event/${dto.imageFilename}" width="200"
+			<img src="http://localhost:9090/mgbxAD/uploads/event/${dto.imageName}" width="200"
 				height="180" border="0" onclick="article('${dto.ecode}');">
 		</div>
 		
 		<div style="height: 70px; width: 200px; border: 1px solid #BDBDBD; background-color: white;">
-			<span class="title" onclick="javascript:article('${dto.ecode}');" >
-				${dto.subject}<br>
-				</span>
-				<span>${dto.sdate} ~ ${dto.edate}</span>
+			<p class="title" onclick="javascript:article('${dto.ecode}');">
+				${dto.subject}
+				</p>
+				<p>${dto.sdate} ~ ${dto.edate}</p>
 		</div>
 	</td>     
 </c:forEach>

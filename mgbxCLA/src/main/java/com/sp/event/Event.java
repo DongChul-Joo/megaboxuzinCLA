@@ -12,6 +12,7 @@ public class Event {
 	private String content; // 내용
 	private String created; // 작성일자
 	private String imageFilename; // 이미지 파일 이름
+	private String imageName; // 리스트 이벤트 이미지 파일
 	private int lott; // 추첨여부
 	private String lottDate; // 추첨 날짜 
 	private String elink; // 이벤트 링크
@@ -129,6 +130,12 @@ public class Event {
 	}
 	public void setDott(int dott) {
 		this.dott = dott;
+	}
+	public String getImageName() {
+		return imageName;
+	}
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
 	}
 
 }
