@@ -45,7 +45,7 @@
     </div>        
 </div>
 
-<div class="footer"  style="background-color: #221f1f; height:150px; padding-top: 20px;">
+<div class="footer"  style="background-color: #221f1f; height:310px; padding-top: 20px; padding-top: 40px; margin: 0px auto;">
     <tiles:insertAttribute name="footer"/>
 </div>
 

@@ -19,6 +19,11 @@
 	height: 30px;
 }
 
+.layout4 {
+
+}
+
+
 </style>
 
 <script type="text/javascript">
@@ -33,24 +38,24 @@ $(function(){
 <div class="list-group">
        <div class="list-group-item lefthead" style="height: 50px; padding-top: 15px;"><i></i> MYPAGE</div>
        <a href="<%=cp%>/mypage/info" class="list-group-item">
-       <img src="<%=cp%>/resource/images/ple.png" width="50px;" height="50px;" style="margin-bottom: 10px;"> 
+       <img class="layout4" src="<%=cp%>/resource/images/ple.png" width="50px;" height="50px;" style="margin-bottom: 10px;"> 
        	<br>
        	멤버십정보</a>
        <a href="<%=cp%>/mypage/membership" class="list-group-item">
-       <img src="<%=cp%>/resource/images/ticket.png" width="50px;" height="50px;" style="margin-bottom: 10px;"> 
+       <img class="layout4" src="<%=cp%>/resource/images/ticket.png" width="50px;" height="50px;" style="margin-bottom: 10px;"> 
        	<br>예매확인/취소      
        </a>
        <a href="<%=cp%>/mypage/store" class="list-group-item">
-       <img src="<%=cp%>/resource/images/pcon.png" width="50px;" height="50px;" style="margin-bottom: 10px;"> 
+       <img class="layout4" src="<%=cp%>/resource/images/pcon.png" width="50px;" height="50px;" style="margin-bottom: 10px;"> 
       	 <br>
        	스토어 구매내역
        	</a>
        <a href="<%=cp%>/mypage/mymoviestory" class="list-group-item">
-       <img src="<%=cp%>/resource/images/movie.png" width="50px;" height="50px;" style="margin-bottom: 10px;"> 
+       <img class="layout4" src="<%=cp%>/resource/images/movie.png" width="50px;" height="50px;" style="margin-bottom: 10px;"> 
        	<br>
        	나의 무비스토리</a>
        <a href="<%=cp%>/member/pwd" class="list-group-item">
-       <img src="<%=cp%>/resource/images/myinfo.png" width="50px;" height="50px;" style="margin-bottom: 10px;"> 
+       <img class="layout4" src="<%=cp%>/resource/images/myinfo.png" width="50px;" height="50px;" style="margin-bottom: 10px;"> 
        <br>
        	정보수정</a>
     <c:if test="${sessionScope.member.userId!='admin' }">
