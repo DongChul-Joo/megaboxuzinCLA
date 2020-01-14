@@ -44,7 +44,7 @@ float: left;
 				
 				<c:forEach var="dto" items="${list}">
 				  <tr align="center" bgcolor="#ffffff" height="35" style="border-bottom: 1px solid #cccccc;"> 
-				      <td></td>
+				      <td>${dto.listNum}</td>
 				      <td>${dto.bookCode}</td>
 				      <td>${dto.movienm}</td>				      
 				      <td>${dto.cmName}</td>

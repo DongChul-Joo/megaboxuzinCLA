@@ -427,94 +427,7 @@ function detailMovie(movieCd){
 
 		  	</div>
 		  	
-		  	
-		  	
-		  	
-		  	<%-- <div class="slide7" style="width: 100%; height: 500px; margin-top:20px; background-color: #f2f2f2 ">
-			  	<div style="width: 835px;margin: 0 auto;">
-			  	
-			  	<ul>
-			      <li>
 
-			      	<div class="a1" style="height: 400px; width: 200px; float: left; margin-top: 50px;">
-				      	<div style="height: 300px; border: none; width: 200px;">
-				      		<img src="<%=cp%>/resource/images/eee1.jpg" width="200px;" height="300px;">
-				      	
-				      	</div>
-				      	
-				      	<div style=" height: 100px; border: 1px solid #e4e4e4; width: 200px; background-color: white;">
-				      		<div class="ccc">
-				      		<p class="ddd">MoonLight</p>
-				      		<button class="btn btn-outline-primary1">상세정보</button>
-				      		<button class="btn btn-outline-primary1">예매하기</button>
-				      		</div>
-				      	
-				      	</div>
-			      	
-			      	</div>
-			      	
-			      	
-			      	<div class="a1" style="height: 400px; width: 200px; float: left; margin-top: 50px;">
-				      	<div style=" height: 300px;border: none; width: 200px;">
-				      		<img src="<%=cp%>/resource/images/eee2.jpg" width="200px;" height="300px;">
-				      	
-				      	</div>
-				      	
-				      	<div style=" height: 100px; border: 1px solid #e4e4e4; width: 200px; background-color: white;">
-				      		<div class="ccc">
-				      		<p class="ddd">마센필라트2</p>
-				      		<button class="btn btn-outline-primary1">상세정보</button>
-				      		<button class="btn btn-outline-primary1">예매하기</button>
-				      		</div>
-				      	
-				      	</div>
-			      	
-			      	</div>
-			      	
-			      	<div class="a1" style="height: 400px; width: 200px; float: left; margin-top: 50px;">
-				      	<div style=" height: 300px; border: none; width: 200px; ">
-				      		<img src="<%=cp%>/resource/images/eee3.jpg" width="200px;" height="300px;">
-				      	
-				      	</div>
-				      	
-				      	<div style=" height: 100px; border: 1px solid #e4e4e4; width: 200px; background-color: white;">
-				      		<div class="ccc">
-				      		<p class="ddd">유리정원</p>
-				      		<button class="btn btn-outline-primary1">상세정보</button>
-				      		<button class="btn btn-outline-primary1">예매하기</button>
-				      		</div>
-				      	</div>
-			      	
-			      	</div>
-			      	
-			      	
-			      	<div class="a1" style="height: 400px; width: 200px; float: left; margin-top: 50px;">
-				      	<div style=" height: 300px; border: none; width: 200px; ">
-				      		<img src="<%=cp%>/resource/images/eee4.jpg" width="200px;" height="300px;">
-				      	
-				      	</div>
-				      	
-				      	<div style=" height: 100px; border: 1px solid #e4e4e4; width: 200px; background-color: white;">
-				      		<div class="ccc">
-				      		<p class="ddd">BlackSwan</p>
-				      		<button class="btn btn-outline-primary1">상세정보</button>
-				      		<button class="btn btn-outline-primary1">예매하기</button>
-				      		</div>
-				      		
-				      	
-				      	</div>
-			      	
-			      	</div>
-			      	
-			      </li>
-			     
-			    </ul>
-			    </div>	
-
-		  	</div> --%>
-		  	
-		  	
-		  	
 		  		<div style="padding-left: 10%; padding-right: 20%;">
 		  			
 		  			
@@ -644,7 +557,7 @@ function detailMovie(movieCd){
 		  			
 		  	
 		  	 
-		  	<div style="background-color: white-space; width: 100%; height: 1500px; padding-top: 50px;" >
+		  	<div style="background-color: white-space; width: 100%; padding-top: 50px;" >
 		  	
 		  	
 		  	<p style="color: black ; margin-left:435px; margin-top: 20px; font-size: 25px;">새로운 이벤트</p> 
@@ -692,11 +605,11 @@ function detailMovie(movieCd){
 		  		
 		  		
 		  		
-		  		<div style="margin-top: 150px;">
-		  			<img src="<%=cp%>/resource/images/sli5.jpg" width="100%" height="500px;">
+		  		<div style="margin-top: 150px; background-size: cover;">
+		  			<img src="<%=cp%>/resource/images/sli5.jpg" width="100%" height="600px;">
 		  		</div>
+		  		
 	
-
 		  	</div>
 		  		
 		  		

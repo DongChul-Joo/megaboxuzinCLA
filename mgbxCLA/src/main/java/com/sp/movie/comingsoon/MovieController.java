@@ -1,4 +1,4 @@
-package com.sp.movie;
+package com.sp.movie.comingsoon;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -19,8 +19,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.common.MyUtil;
 import com.sp.member.SessionInfo;
+import com.sp.movie.APISerializer;
 
-@Controller(".movieController.movieController")
+@Controller(".comingsoon.movieController")
 public class MovieController {
 	@Autowired
 	private MovieService service;
@@ -33,12 +34,13 @@ public class MovieController {
 	
 	
 	
-	@RequestMapping(value="/movie/newmovie")
+	@RequestMapping(value="/movie/comingsoon/newmovie")
 	public String showingList(
 			@RequestParam(value="page", defaultValue="1") int current_page,
 			HttpServletRequest req,
 			Model model
 			) { 
+		
 		
 		String cp= req.getContextPath();
 		
@@ -64,14 +66,15 @@ public class MovieController {
        
         List<Movie> list = service.readMovie(map);
 		
+        
         int listNum, n = 0;
         for(Movie dto2 : list) {
         	listNum = dataCount - (offset + n);
             dto2.setListNum(listNum);
-            dto2.setTotalScores(dto2.getMovieScores()*10);
+            System.out.println("결과======================================="+dto2.getDday());
             n++;
         }
-        String listUrl = cp+"/movie/newmovie";
+        String listUrl = cp+"/movie/comingsoon/newmovie";
         
         String paging = myUtil.paging(current_page, total_page, listUrl);
         
@@ -81,10 +84,10 @@ public class MovieController {
         model.addAttribute("total_page", total_page);
         model.addAttribute("paging", paging);
         
-		return ".movie.newmovie";
+		return ".movie.comingsoon.newmovie";
 	}
 	
-	@RequestMapping(value="/movie/showDetail", produces="application/json;charset=utf-8")
+	@RequestMapping(value="/movie/comingsoon/showDetail", produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String showDetail(
 			@RequestParam(defaultValue="") String movieCode
@@ -108,7 +111,7 @@ public class MovieController {
 	}
 	
 	
-	@RequestMapping(value="/movie/getAudience", produces="application/json;charset=utf-8")
+	@RequestMapping(value="/movie/comingsoon/getAudience", produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String getAudience() throws Exception{
 		
@@ -131,7 +134,7 @@ public class MovieController {
 	}
 	
 	
-	@RequestMapping(value="/movie/movieDetail")
+	@RequestMapping(value="/movie/comingsoon/movieDetail")
 	public String movieDetail(
 			@RequestParam(defaultValue="0") int movieCode, 
 			Model model,
@@ -151,11 +154,11 @@ public class MovieController {
 		}
 		model.addAttribute("movie", dto);
 		
-		return "/movie/movieDetail";
+		return "/movie/comingsoon/movieDetail";
 	}
 	
 	
-	@RequestMapping(value="/movie/listReply")
+	@RequestMapping(value="/movie/comingsoon/listReply")
 	public String listReply(
 			@RequestParam int movieCode, 
 			@RequestParam(value="pageNo", defaultValue="1") int current_page,
@@ -208,13 +211,12 @@ public class MovieController {
         model.addAttribute("paging", paging);
         model.addAttribute("info", info);
 		
-		return "movie/listReply";
+		return "movie/comingsoon/listReply";
 	}
 	
-	@RequestMapping(value="movie/insertReply", method=RequestMethod.POST)
+	@RequestMapping(value="movie/comingsoon/insertReply", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> insertReply(
-			@RequestParam int movieScores,
 			@RequestParam int movieCode,
 			@RequestParam String content,
 			Movie dto,
@@ -228,7 +230,6 @@ public class MovieController {
 			dto.setMovieCode(movieCode);
 			dto.setContent(content);
 			dto.setUserId(info.getUserId());
-			dto.setMovieScores(movieScores);
 			
 			service.insertReply(dto);
 		} catch (Exception e) {
@@ -244,7 +245,7 @@ public class MovieController {
 		return model;
 	}
 	
-	@RequestMapping(value="/movie/deleteReply")
+	@RequestMapping(value="/movie/comingsoon/deleteReply")
 	@ResponseBody
 	public Map<String, Object> deleteReply(
 			@RequestParam Map<String, Object> paramMap,
@@ -269,7 +270,7 @@ public class MovieController {
 		return map;
 	}
 	
-	@RequestMapping(value="/movie/updateDone")
+	@RequestMapping(value="/movie/comingsoon/updateDone")
 	@ResponseBody
 	public void updateForm(
 			@RequestParam Map<String, Object> paramMap,
@@ -288,7 +289,7 @@ public class MovieController {
 		}
 	}
 	
-	@RequestMapping(value="/movie/replyLike")
+	@RequestMapping(value="/movie/comingsoon/replyLike")
 	@ResponseBody
 	public Map<String, Object> replyLike(
 			@RequestParam Map<String, Object> paramMap,
@@ -336,7 +337,7 @@ public class MovieController {
 		return model;
 	}
 	
-	@RequestMapping(value="/movie/reportUserId")
+	@RequestMapping(value="/movie/comingsoon/reportUserId")
 	@ResponseBody
 	public Map<String, Object> insertReportUserId(
 			@RequestParam Map<String, Object> paramMap, 

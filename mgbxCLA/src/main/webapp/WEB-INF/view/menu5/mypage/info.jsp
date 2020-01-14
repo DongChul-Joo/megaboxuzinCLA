@@ -86,19 +86,17 @@ padding-right: 206px;
 					<td width="70">이용금액</td>
 					<td width="70">적립포인트</td>
 					<td width="70">사용포인트</td>
-					<td width="70">구분</td>
 				</tr>		
 				
 				
 				
-				<c:forEach var="dto" items="">
+				<c:forEach var="dto" items="${list}">
 				  <tr align="center" bgcolor="#ffffff" height="50" style="border-bottom: 1px solid #cccccc;"> 
+				      <td>${dto.msaveDate}</td>
 				      <td></td>
 				      <td></td>
 				      <td></td>
-				      <td></td>
-				      <td></td>
-				      <td></td>
+				      <td>${dto.msavePoint}</td>
 				      <td></td>
 				  </tr>
 		  		</c:forEach>

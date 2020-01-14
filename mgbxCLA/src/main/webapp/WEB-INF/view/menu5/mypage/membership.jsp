@@ -17,6 +17,14 @@ padding-bottom: 30px;
 }
 </style>
 
+
+<script type="text/javascript">
+function reservationCancel() {
+	alert("예약 취소하시겠습니까?")
+};
+
+</script>
+
 <div class="body-container">
 	<div class="nomemberR">예매 확인/취소</div>
 	
@@ -32,6 +40,7 @@ padding-bottom: 30px;
 					<td width="70">영화명</td>
 					<td width="70">영화관</td>
 					<td width="70">상영일시</td>
+					<td width="70">상영시간</td>
 					<td width="70">예매일</td>
 					<td width="70">취소</td>
 				</tr>		
@@ -44,8 +53,9 @@ padding-bottom: 30px;
 				      <td>${dto.movienm}</td>
 				      <td>${dto.cmName}</td>
 				      <td>${dto.showingdate}</td>
+				      <td>${dto.startTime}</td>
 				      <td>${dto.bookdate}</td>
-				      <td></td>
+				      <td><button type="button" class="btn" onclick="reservationCancel();">취소</button></td>
 				  </tr>
 		  		</c:forEach>		  		  			
 			</table>

@@ -264,45 +264,6 @@ function ajaxJSON(url, type, query, fn) {
 	});
 }
 
-function getAudience(movieCode){
-	var url ="<%=cp%>/movie/getAudience";
-	
-	jQuery.ajax({
-        type:"get"
-        ,url:url
-        ,data:""
-        ,dataType:"json"
-        ,success:function(data){
-        	console.log(data);
-        	
-        	var item = data.boxOfficeResult.dailyBoxOfficeList;
-        	if(item.length > 0){
-        		for(i=0; i<item.length; i++){
-	        		var code = item[i].movieCd;
-	        		
-	        		if(movieCode == code){
-	        			var dailyAudi = item[i].audiCnt;
-	        			var audience = item[i].audiAcc;
-	        		}
-        		}
-        	}
-        	
-       	
-       		if(dailyAudi > 0){
-       			jQuery("span[class=dailyAudience]").html(dailyAudi+"명");
-            }
-
-       		if(audience > 0){
-       			jQuery("span[class=audience]").html(audience+"명");
-            }
-            
-        }
-		,error:function(e){
-            console.log(e.responseText);
-	        
-        }
-	});
-}
 
 function modalExit() {
 	$("#showDetail").dialog("close");
@@ -311,7 +272,7 @@ function modalExit() {
 
 
 function showMovieDetail(movieCode){
-	var url ="<%=cp%>/movie/movieDetail";
+	var url ="<%=cp%>/movie/comingsoon/movieDetail";
 	var query ="movieCode="+movieCode; 
 	var selector = "#showDetail";
 	var type="get";
@@ -319,7 +280,6 @@ function showMovieDetail(movieCode){
 	$("#showDetail").empty();
 	ajaxHTML(url, type, query, selector);
 	detailMovie(movieCode);
-	getAudience(movieCode);
 	
     			$("#showDetail").dialog({
 					modal: true,
@@ -336,7 +296,7 @@ function showMovieDetail(movieCode){
 }
 
 function detailMovie(movieCd){
-	var url="<%=cp%>/movie/showDetail";
+	var url="<%=cp%>/movie/comingsoon/showDetail";
 	var query="movieCode="+movieCd;
 	
 	      jQuery.ajax({
@@ -439,98 +399,16 @@ function showTrailer(movieNm){
 
 var movieCode="0";
 function listPage(page) {
-	var url = "<%=cp%>/movie/listReply";
+	var url = "<%=cp%>/movie/comingsoon/listReply";
 
 	var query = "movieCode="+movieCode+"&pageNo="+page;
 	var selector = "#listReply";
 	
 	ajaxHTML(url, "get", query, selector);
 }
-
-
-var locked=0;
-function show(star){
-	
-	if(locked) return;
-	
-	var i;
-	var image;
-	var el;
-	var e= document.getElementById('startext');
-	var stateMsg;
-	
-	for(i=1; i <= star; i++){
-		image = 'image' + i;
-		el = document.getElementById(image);
-		el.src = "http://image2.megabox.co.kr/mop/home/star_mid_on.png";
-	}
-	
-	switch(star){
-	case 1:
-		stateMsg = "괜히 봤어요";
-		break;
-	case 2:
-		stateMsg = "기대하진 말아요"
-		break;
-	case 3:
-		stateMsg = "무난했어요";
-		break;
-	case 4:
-		stateMsg = "기대해도 좋아요!";
-		break;
-	case 5:
-		stateMsg = "너무 멋진 영화였어요!";
-		break;
-	default:
-		stateMsg="평점을 입력해주세요";
-	}
-	e.innerHTML = stateMsg;
-}
-
-function noshow(star){
-	if(locked) return;
-	
-	var i;
-	var image;
-	var el;
-	
-	for(i=1; i<= star; i++){
-		image = "image" + i;
-		el = document.getElementById(image);
-		el.src = "http://image2.megabox.co.kr/mop/home/star_mid_off.png";
-	}
-}
-
-function lock(star){
-	show(star);
-	locked =1;
-}
-
-function mark(star){
-	locked=0;
-	for(var v=0;v<=5;v++){
-		if(v>star){
-			noshow(v);		
-		}
-	}
-	show(star);
-	lock(star);
-	
-	document.movieCommentForm.star.value=star;
-}
-
-
 	
 function btnSendReply(movieCode){ 
 		var userId= $("strong[class=getUserId]").val();
-		var star= $("input[class=getStar]").val();
-		
-		console.log(star);
-		if(! star){
-			alert("별점을 입력 해주세요!")
-			return false;
-		}
-		
 		var content=$("textarea[class=writeReply]").val();
 		
 		console.log(content);
@@ -540,8 +418,8 @@ function btnSendReply(movieCode){
 		}
 		
 		content = encodeURIComponent(content);
-		var url="<%=cp%>/movie/insertReply";
-		var query="movieCode="+movieCode+"&content="+content+"&movieScores="+star;
+		var url="<%=cp%>/movie/comingsoon/insertReply";
+		var query="movieCode="+movieCode+"&content="+content;
 		
 		var fn = function(data){
 			$("textarea[class=writeReply]").empty();
@@ -566,7 +444,7 @@ function replyRemove(movieCode){
 	
 	var page=$("span[class=curBox]").val();
 	
-	var url="<%=cp%>/movie/deleteReply";
+	var url="<%=cp%>/movie/comingsoon/deleteReply";
 	var query="movieCode="+movieCode;
 	
 	var fn = function(data){
@@ -594,7 +472,7 @@ function replyEditDone(movieCode){
 	var content=$("#commentContent").val();
 	content = encodeURIComponent(content);
 	
-	var url="<%=cp%>/movie/updateDone";
+	var url="<%=cp%>/movie/comingsoon/updateDone";
 	var query="movieCode="+movieCode+"&content="+content;
 	
 	var fn= function(data){
@@ -610,7 +488,7 @@ function commentLike(obj){
 		var userId = $(obj).find(".rpUserId").val();
 		console.log(userId);
 		
-		var url="<%=cp%>/movie/replyLike";
+		var url="<%=cp%>/movie/comingsoon/replyLike";
 		var query="movieCode="+movieCode+"&userId="+userId;
 		
 		var fn = function(data){
@@ -639,7 +517,7 @@ function commentLike(obj){
 
 	
 function reportUser(userId, movieCode){
-	var url = "<%=cp%>/movie/reportUserId";
+	var url = "<%=cp%>/movie/comingsoon/reportUserId";
 	var query = "movieCode="+movieCode+"&userId="+userId;
 	
 	var fn = function(data){
@@ -724,6 +602,30 @@ function reportUser(userId, movieCode){
     margin-left: 10px;
     float: left;
 }
+
+.expect{
+    text-align: center;
+    display: block;
+    width: 53px;
+    height: 53px;
+    background: url(http://image2.megabox.co.kr/mop/home/btns/btn_movie.png) -618px -311px;
+    background-repeat: no-repeat;
+    font-size: 0;
+    letter-spacing: -999px;
+    color: transparent;
+    margin: 16px auto;
+} 
+
+.dday{
+	float: right;
+    width: 87px;
+    height: 30px;
+    text-align: center;
+    font-size: 18px;
+    background: url(http://image2.megabox.co.kr/mop/home/movie/d_day.png);
+    color: #fff;
+    margin-top: 10px;
+}
 </style>
 
 	<div class="sub_navi">
@@ -765,13 +667,13 @@ function reportUser(userId, movieCode){
 				      		</c:otherwise>
 				      	</c:choose>
 				   	  </div>
-				   	  
-				   	  <div style="height: 51px; width: 230px; border: 1px solid #e4e4e4; background-color: white; ">
-					   	 <span style="float:left; font-size: 15pt;">평점 : ${vo.movieScores}</span> 
-					   	 <span class="fullStar">
-					   	 	<span class="fill" style="width: ${vo.totalScores}%;"></span>
-					   	 </span>
+				   	 
+				   	 <div style="height: 51px; width: 230px; border: 1px solid #e4e4e4; background-color: white; ">
+						  <span style="float:left; font-size: 15pt; margin-top: 10px;">${vo.startDate}</span> 
+						   	 
+						  <span class="dday">D-${vo.dday}</span>
 				   	  </div>
+				   	 
 				   	  
 				      	<div style=" height: 110px; border: 1px solid #e4e4e4; width: 230px; background-color: white;">
 				      		<div class="ccc">

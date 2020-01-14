@@ -46,7 +46,7 @@ join showingmovie shm on shc.showingcode=shm.showingcode
 where scheduleCode=#{scheduleCode}
 </select>
 
-<select id="bookingSeatList" parameterType="Integer" resultType="List">
+<select id="bookingSeatList" parameterType="Integer" resultType="String">
 	select seatNumber from seat st left outer 
 	join booking bk on st.bookcode=bk.bookcode 
 	where schedulecode=#{schedulecode}

@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.sp.mypage.MyPage;
+
 @Controller("member.memberController")
 public class MemberController {
 	@Autowired
@@ -327,6 +329,13 @@ public class MemberController {
 			if(list.size()==0) {
 				return ".member.nonmembers"; 
 			} 
+			
+			
+			int listNum = 0;
+			for(Member dto : list) {
+				listNum++;
+				dto.setListNum(listNum);
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();

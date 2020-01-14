@@ -22,6 +22,8 @@ public class MyPage {
 	private int membershipCode;
 	private String membershipName;
 	private String itemImg;
+	private String startTime;
+	private String msaveDate;
 	
 	
 	public int getBookCode() {
@@ -143,6 +145,18 @@ public class MyPage {
 	}
 	public void setItemImg(String itemImg) {
 		this.itemImg = itemImg;
+	}
+	public String getStartTime() {
+		return startTime;
+	}
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+	public String getMsaveDate() {
+		return msaveDate;
+	}
+	public void setMsaveDate(String msaveDate) {
+		this.msaveDate = msaveDate;
 	}
 	
 	

@@ -31,16 +31,22 @@ public class MyPageController {
 		
 		MyPage dto=null;
 		MyPage dto1=null;
+		List<MyPage> list = null;
 		try {
 			
 			dto=service.listPoint(info.getUserId());
 			dto1=service.listMembership(info.getUserId());
 			
+			Map<String, Object> map = new HashMap<>();		
+			map.put("userId", info.getUserId());
+			list = service.listPoint2(map);
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-					
+				
+		model.addAttribute("list", list);
 		model.addAttribute("subMenu", "1");
 		model.addAttribute("dto", dto);
 		model.addAttribute("dto1", dto1);

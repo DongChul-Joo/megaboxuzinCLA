@@ -73,9 +73,6 @@
 			</div>
 			<div class="timeDiv">
 						<ol style="width:1085px;height: 100%;overflow: hidden;">
-							<c:forEach var="vv" begin="0" end="30">
-								<li data-tSelect="" data-time="${vv}">${vv}</li>
-							</c:forEach>
 						</ol>    
 			</div> 
 		</div>
@@ -107,9 +104,9 @@
 				      	</c:choose>
 				   	  </div>
 				   	  
-				   	  <div style="height: 10%; border: 1px solid #e4e4e4; background-color: white; ">
-					   	 <span style="float:left; font-size: 11pt;">평점 : 9.5</span>
-					   	 <span style="float:right; margin-right:5px; font-size: 11pt;">★★★★☆</span>
+				   	  <div style="height: 10%; border: 1px solid #e4e4e4; background-color: white;width: 100% ">
+					   	 <span style="float:left; font-size: 11pt;">평점: ${vo.movieScores}</span>
+					   	 <span class="fill" style="width: ${(vo.movieScores*11.4)}px;"></span>
 				   	  </div>
 				   	  
 				      <div style="height: 12%; border: 1px solid #e4e4e4;background-color: white;">

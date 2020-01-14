@@ -72,4 +72,15 @@ public class MyPageServiceImpl implements MyPageService {
 		return dto;
 	}
 
+	@Override
+	public List<MyPage> listPoint2(Map<String, Object> map) {
+		List<MyPage> list = null;
+				try {
+					list = dao.selectList("mypage.listPoint2" , map);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		return list;
+	}
+
 }
