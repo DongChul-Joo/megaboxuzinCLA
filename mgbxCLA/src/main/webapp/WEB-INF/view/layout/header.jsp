@@ -611,6 +611,19 @@ var selectSeatCount=0;
 
 function buyForm(data){
 	console.log(data);
+	$("#bookingTiketingForm").dialog({
+		modal: true,
+		height:650, 
+		width:1050,
+		title: "",
+		open:function(){
+       	 $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
+        },
+		close: function(event, ui) {
+
+		}
+	   
+	});
 }
 
 function nmemInsert(){
