@@ -103,16 +103,14 @@
 							</div>
 							
 							<div class="report" onclick="reportUser('${vo.userId}', ${vo.movieCode })">
-								<i class="i_report" aria-hidden="true"></i>신고하기
+								<i class="i_report" aria-hidden="true"></i>신고하기 ${vo.countUserId}
 							</div>
 							
 						</div>
-						
-							<c:if test="${sessionScope.member.userId==vo.userId}">
+							<c:if test="${sessionScope.member.userId==vo.userId && vo.countUserId <3}">
 								<button type="button" class="btn_delete" onclick="replyRemove('${vo.movieCode}')">삭제</button>
 								<button type="button" class="btn_modify" onclick="replyEdit(this)">수정</button>
 							</c:if>
-							
 						</div>
 						
 					</c:forEach>

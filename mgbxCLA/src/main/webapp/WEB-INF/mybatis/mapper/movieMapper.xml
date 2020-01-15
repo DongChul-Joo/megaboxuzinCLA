@@ -4,11 +4,11 @@
 <mapper namespace="movie">
 	
 	<select id="listShowingMovie" parameterType="map" resultType="com.sp.movie.Movie">
-		SELECT m.movieCode, movieNm, audits, thumbNail, NVL(movieScores,0) movieScores
+		SELECT m.movieCode, movieNm, audits, thumbNail, NVL(movieScores,0) movieScores, startDate
 		FROM movie m 
 		LEFT OUTER JOIN (select movieCode, ROUND(NVL(AVG(movieScores)*2,0),2) moviescores from movieScore  group by movieCode) s 
 		ON m.movieCode= s.movieCode
-		WHERE endDate > SYSDATE
+		WHERE endDate > SYSDATE and startDate &lt; SYSDATE
 		<if test="offset != '' and offset != null">
 			OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
 		</if>
@@ -35,9 +35,11 @@
 	
 	<select id="listReply" parameterType="map" resultType="com.sp.movie.Movie">
 		SELECT r.movieCode, r.userId, r.content, TO_CHAR(r.created, 'YY.MM.DD') created, s.movieScores,
-				(select count(*) from moviereplyLike MRL where r.movieCode = MRL.movieCode and r.userId = MRL.userId) likeCount
+				(select count(*) from moviereplyLike MRL where r.movieCode = MRL.movieCode and r.userId = MRL.userId) likeCount,
+				countUserId
 		FROM moviereply r
 		JOIN movieScore s on s.movieCode = r.movieCode AND r.userid = s.userid
+		LEFT OUTER JOIN (select userId,NVL(count(userId),0)countUserId from moviereport where movieCode= #{movieCode} group by userId) mp on mp.userId=r.userId
 		WHERE r.movieCode= #{movieCode}
 		ORDER BY r.created DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
@@ -66,7 +68,7 @@
 	<delete id="deleteLikeCount" parameterType="map">
 		delete from movieReplyLike 
 		WHERE movieCode=#{movieCode}
-		AND userId= #{userId}
+		AND likeUserId= #{likeUserId}
 	</delete>
 	
 	<delete id="deleteReportUserId" parameterType="map">

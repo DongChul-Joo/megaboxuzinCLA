@@ -157,7 +157,7 @@ public class MovieController {
 	
 	@RequestMapping(value="/movie/listReply")
 	public String listReply(
-			@RequestParam int movieCode, 
+			@RequestParam int movieCode,
 			@RequestParam(value="pageNo", defaultValue="1") int current_page,
 			Movie dto,
 			Model model
@@ -169,11 +169,10 @@ public class MovieController {
 		int rows = 10; 
 		int total_page = 0;
 		int dataCount = 0;
-		
 		Map<String, Object> map = new HashMap<>();
 		map.put("movieCode", movieCode);
+		
 		dataCount= service.replyCount(map);
-	    
 		
 		if(dataCount!=0) {
 	    		total_page = myUtil.pageCount(rows, dataCount);
@@ -271,13 +270,13 @@ public class MovieController {
 	
 	@RequestMapping(value="/movie/updateDone")
 	@ResponseBody
-	public void updateForm(
+	public String updateForm(
 			@RequestParam Map<String, Object> paramMap,
 			HttpSession session,
 			Movie dto
 			) {
+		String result="true";
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
-		
 		
 		try {
 			dto.setUserId(info.getUserId());
@@ -285,7 +284,10 @@ public class MovieController {
 			service.updateReply(paramMap);
 		} catch (Exception e) {
 			e.printStackTrace();
+			result="false";
 		}
+		
+		return result;
 	}
 	
 	@RequestMapping(value="/movie/replyLike")
@@ -347,6 +349,7 @@ public class MovieController {
 			Movie dto
 			) {
 		
+		String content="이 댓글은 신고로 인하여 볼 수 없습니다.";
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 		String state ="true";
 		Map<String, Object> map = new HashMap<>();
@@ -356,13 +359,13 @@ public class MovieController {
 			paramMap.put("reportUserId", dto.getReportUserId());
 			paramMap.put("movieCode", movieCode);
 			paramMap.put("userId", userId);
+			paramMap.put("content", content);
 			
 			service.insertReportUserId(paramMap);
 			
 			int countUserId = service.countReportUserId(paramMap);
-			System.out.println(countUserId+"::::::::::::::::");
 			if(countUserId >=3) {
-				service.deleteReply(paramMap);
+				service.updateReply(paramMap);
 			}
 		} catch (Exception e) {
 			state = "false";

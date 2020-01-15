@@ -78,7 +78,7 @@
 							
 						</div>
 						
-							<c:if test="${sessionScope.member.userId==vo.userId}">
+							<c:if test="${sessionScope.member.userId==vo.userId && vo.countUserId <3}">
 								<button type="button" class="btn_delete" onclick="replyRemove('${vo.movieCode}')">삭제</button>
 								<button type="button" class="btn_modify" onclick="replyEdit(this)">수정</button>
 							</c:if>

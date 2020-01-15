@@ -238,6 +238,7 @@ function ajaxHTML(url, type, query, selector) {
 		,data:query
 		,success:function(data) {
 			$(selector).html(data);
+			console.log(data);
 		}
 	});
 }
@@ -251,15 +252,9 @@ function ajaxJSON(url, type, query, fn) {
 		,success:function(data) {
 			fn(data);
 		}
-		,beforeSend:function(jqXHR) {
-	        jqXHR.setRequestHeader("AJAX", true);
-	    }
 	    ,error:function(jqXHR) {
-	    	if(jqXHR.status==403) {
-	    		login();
-	    		return false;
-	    	}
-	    	console.log(jqXHR.responseText);
+	    	console.log(jqXHR);
+	    	
 	    }
 	});
 }
@@ -440,7 +435,7 @@ function showTrailer(movieNm){
 var movieCode="0";
 function listPage(page) {
 	var url = "<%=cp%>/movie/listReply";
-
+	
 	var query = "movieCode="+movieCode+"&pageNo="+page;
 	var selector = "#listReply";
 	
@@ -598,7 +593,7 @@ function replyEditDone(movieCode){
 	var query="movieCode="+movieCode+"&content="+content;
 	
 	var fn= function(data){
-		console.log(data).html();
+		console.log(data);
 		listPage(1);
 	}
 	ajaxJSON(url, "post", query, fn);
@@ -643,13 +638,14 @@ function reportUser(userId, movieCode){
 	var query = "movieCode="+movieCode+"&userId="+userId;
 	
 	var fn = function(data){
+		
 		console.log(data);
 		var state = data.state;
 		
 		if(state =="true"){
-			alert("신고를 완료 하셨습니다. 3번이상 신고당하면 댓글이 자동 삭제 됩니다.");
+			alert("신고를 완료 하셨습니다. 3번이상 신고당하면 댓글이 가려집니다.");
 		} else if(state =="false"){
-			alert("신고를 실패 하였습니다.");
+			alert("신고는 한 번만 가능합니다.");
 		}
 		
 		listPage(1);

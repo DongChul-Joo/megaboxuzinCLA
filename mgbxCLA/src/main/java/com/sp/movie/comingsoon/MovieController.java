@@ -268,11 +268,13 @@ public class MovieController {
 	
 	@RequestMapping(value="/movie/comingsoon/updateDone")
 	@ResponseBody
-	public void updateForm(
+	public String updateForm(
 			@RequestParam Map<String, Object> paramMap,
 			HttpSession session,
 			Movie dto
 			) {
+		
+		String result="true";
 		SessionInfo info = (SessionInfo) session.getAttribute("member");
 		
 		
@@ -282,7 +284,10 @@ public class MovieController {
 			service.updateReply(paramMap);
 		} catch (Exception e) {
 			e.printStackTrace();
+			result="false";
 		}
+		
+		return result;
 	}
 	
 	@RequestMapping(value="/movie/comingsoon/replyLike")

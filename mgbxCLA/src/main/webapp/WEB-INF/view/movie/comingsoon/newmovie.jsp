@@ -251,15 +251,7 @@ function ajaxJSON(url, type, query, fn) {
 		,success:function(data) {
 			fn(data);
 		}
-		,beforeSend:function(jqXHR) {
-	        jqXHR.setRequestHeader("AJAX", true);
-	    }
 	    ,error:function(jqXHR) {
-	    	if(jqXHR.status==403) {
-	    		login();
-	    		return false;
-	    	}
-	    	console.log(jqXHR.responseText);
 	    }
 	});
 }
@@ -476,7 +468,6 @@ function replyEditDone(movieCode){
 	var query="movieCode="+movieCode+"&content="+content;
 	
 	var fn= function(data){
-		console.log(data).html();
 		listPage(1);
 	}
 	ajaxJSON(url, "post", query, fn);
@@ -527,7 +518,7 @@ function reportUser(userId, movieCode){
 		if(state =="true"){
 			alert("신고를 완료 하셨습니다. 3번이상 신고당하면 댓글이 자동 삭제 됩니다.");
 		} else if(state =="false"){
-			alert("신고를 실패 하였습니다.");
+			alert("신고는 한 번만 가능합니다.");
 		}
 		
 		listPage(1);
