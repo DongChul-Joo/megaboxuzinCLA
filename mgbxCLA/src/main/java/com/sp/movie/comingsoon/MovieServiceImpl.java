@@ -48,24 +48,11 @@ public class MovieServiceImpl implements MovieService{
 		
 		try {
 			dto=dao.selectOne("soonmovie.movieDetail", movieCode);
-			dao.selectOne("soonmovie.idCount", movieCode);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		return dto;
-	}
-	
-	@Override
-	public int idCount(int movieCode) {
-		int result = 0;
-		try {
-			result =dao.selectOne("soonmovie.idCount", movieCode);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return result;
 	}
 
 	@Override

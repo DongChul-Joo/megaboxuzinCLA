@@ -20,8 +20,6 @@ public interface MovieService {
 	
 	public void updateReply(Map<String, Object> map) throws Exception;
 	
-	public int idCount(int movieCode);
-	
 	public void replyLike(Map<String, Object> map) throws Exception;
 	
 	public int replyLikeCount(Map<String, Object> map) throws Exception;

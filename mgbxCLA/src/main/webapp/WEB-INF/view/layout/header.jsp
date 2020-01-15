@@ -17,6 +17,7 @@ height: 90%;
 float: left;
 cursor: pointer;
 }
+
 .seatBtns{
 width: 60px;
 height: 35px;

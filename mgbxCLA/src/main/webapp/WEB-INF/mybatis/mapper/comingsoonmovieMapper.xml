@@ -13,21 +13,17 @@
 	</select>
 	 
 	<select id="movieDetail" parameterType="Integer" resultType="com.sp.movie.comingsoon.Movie">
-		SELECT m.movieCode, m.movieNm, audits, thumbNail, movieStory,
-			 TO_CHAR(startDate,'YYYY.MM.DD') startDate, TO_CHAR(endDate, 'YYYY.MM.DD') endDate,
-		FROM movie m
-		WHERE m.movieCode=#{movieCode}
-	</select>
-	 
-	<select id="idCount" parameterType="Integer" resultType="Integer">
-		select NVL(count(*),0) countUserId from moviereply where moviecode =#{movieCode}
+		SELECT movieCode, movieNm, audits, thumbNail, movieStory,
+			 TO_CHAR(startDate,'YYYY.MM.DD') startDate, TO_CHAR(endDate, 'YYYY.MM.DD') endDate
+		FROM movie
+		WHERE movieCode=#{movieCode}
 	</select>
 	 
 	<select id="dataCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(*), 0)
 		FROM movie m
 	</select>
-	
+	  
 	
 	<select id="listReply" parameterType="map" resultType="com.sp.movie.comingsoon.Movie">
 		SELECT r.movieCode, r.userId, r.content, TO_CHAR(r.created, 'YY.MM.DD') created, s.movieScores,
@@ -50,10 +46,6 @@
 	
 	<delete id="deleteMovieReply" parameterType="map">
 		delete FROM movieReply where movieCode=#{movieCode} and userId=#{userId}
-	</delete>
-	
-	<delete id="deleteMovieScore" parameterType="map">
-		delete FROM movieScore where movieCode=#{movieCode} and userId=#{userId}
 	</delete>
 	
 	<delete id="deleteLikeCount" parameterType="map">
