@@ -615,9 +615,7 @@ function schduleCreateTimers(){
 }
 
 function schduleClealTimers(){
-	if(schduleTimer!=null){
-		schduleTimer=null;
-	}
+	clearInterval(schduleTimer);
 }
 
 function seatCreateTimers(){
