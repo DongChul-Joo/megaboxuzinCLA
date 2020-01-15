@@ -13,7 +13,7 @@
 background-image: url(<%=cp%>/resource/images/returnImage.png);
 background-size: 100% 100%;
 width: 40px;
-height: 90%;
+height: 89%;
 float: left;
 cursor: pointer;
 }
