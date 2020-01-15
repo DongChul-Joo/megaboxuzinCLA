@@ -15,7 +15,7 @@
    
 }
 .loginTF {
-  width: 372px; height: 35px;
+  width: 372px; height: 50px;
   padding: 5px;
   padding-left: 15px;
   border: 1px solid;
@@ -26,15 +26,17 @@
   border-color: #e4e4e4;
   
 }
+
+
 </style>
 
 
 
 
 <div class="body-container" style="padding-top: 140px; padding-bottom: 140px;">
-    <div style="width:400px; margin: 0px auto; padding-top:40px; ">
+    <div style="width:500px; margin: 0px auto; padding-top:100px; background-color: #f9f9f9; height: 500px;">
     	<div style="text-align: center;">
-        	<span style="font-weight: bold; font-size:27px; color: #424951;">회원 로그인</span>
+        	<span style="font-weight: bold; font-size:27px; color: #424951;">Login</span>
         </div>
         
 		<form name="loginForm" method="post" action="">
@@ -64,7 +66,7 @@
 		  </tr>
 
 		  <tr align="center" height="45">
-		      <td>
+		      <td style="padding-top: 50px;">
 		       		<a href="<%=cp%>/member/idFind">아이디찾기</a>&nbsp;&nbsp;&nbsp;
 		       		<a href="<%=cp%>/member/pwdFind">패스워드찾기</a>&nbsp;&nbsp;&nbsp;
 		       		<a href="<%=cp%>/member/nonmembers">비회원예매확인</a>&nbsp;&nbsp;

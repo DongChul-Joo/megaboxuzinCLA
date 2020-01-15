@@ -13,7 +13,7 @@
    color: #999999; font-size: 11pt;
 }
 .loginTF {
-  width: 340px; height: 35px;
+  width: 340px; height: 50px;
   padding: 5px;
   padding-left: 15px;
   border:1px solid #999999;
@@ -48,16 +48,17 @@
 </script>
 
 <div class="body-container" style="min-height: 780px;">
-    <div style="width:420px; margin: 0px auto; padding-top:200px;">
+    <div style="width:500px; margin: 0px auto; padding-top:200px;">
 	
     	<div style="text-align: center;">
-        	<span style="font-weight: bold; font-size:27px; color: #424951;">패스워드 재확인</span>
+        	<span style="font-weight: bold; font-size:27px; color: #424951;"></span>
         </div>
 	
 		<form name="pwdForm" method="post" action="">
-		  <table style="width:100%; margin: 20px auto; padding:30px;  border-collapse: collapse; border: 1px solid #DAD9FF;">
+		  <table style="width:100%; margin: 20px auto; padding:30px;  border-collapse: collapse; background-color:#f9f9f9; height: 500px;">
 		  <tr style="height:50px;"> 
-		      <td style="padding-left: 30px; text-align: left;">
+		      <td style="text-align: center; padding-top: 20px;">
+		      <p style="font-size: 30px; font-weight: 600;">패스워드 재확인</p>
 		          정보보호를 위해 패스워드를 다시 한 번 입력해주세요.
 		      </td>
 		  </tr>
