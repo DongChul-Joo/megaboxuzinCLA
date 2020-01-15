@@ -72,7 +72,7 @@ public class EventController {
 	    
 	    String query = "";
         String listUrl = cp+"/event/list?ecategoryCode="+ecategoryCode+"&state="+state;
-        String articleUrl = cp+"/event/article?ecategoryCode="+ecategoryCode+"&page="+current_page+"&state="+state;
+        String articleUrl = cp+"/event/article";
         if(keyword.length()!=0) {
         	query = "condition=" +condition + 
         	           "&keyword=" + URLEncoder.encode(keyword, "utf-8");	
@@ -84,7 +84,7 @@ public class EventController {
         }
         
         String paging = myUtil.paging(current_page, total_page, listUrl);
-       
+        
         model.addAttribute("list", list);
 		model.addAttribute("dataCount", dataCount);
 		model.addAttribute("total_page", total_page);
@@ -115,27 +115,15 @@ public class EventController {
 	@RequestMapping(value="/event/article", method=RequestMethod.GET)
 	public String article(
 			@RequestParam int ecode,
-			@RequestParam String page,
-			@RequestParam(defaultValue="all") String condition,
-			@RequestParam(defaultValue="") String keyword,
 			Model model
 			) throws Exception {
 		
-		keyword = URLDecoder.decode(keyword, "utf-8");
-		
-		String query="page="+page;
-		if(keyword.length()!=0) {
-			query+="&condition="+condition+"&keyword="+URLEncoder.encode(keyword,"UTF-8");
-		}
 		
 		Event dto = service.readEvent(ecode);
-		if(dto==null)
-			return "redirect:/event/list?"+query;
 		
 		model.addAttribute("dto", dto);
-		model.addAttribute("page", page);
-		model.addAttribute("query", query);
-		return ".event.article";
+
+		return "event/article";
 	}
 	
 	// 댓글 리스트 : AJAX-TEXT

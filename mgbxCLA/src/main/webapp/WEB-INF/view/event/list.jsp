@@ -17,8 +17,9 @@ font-weight: bold;
 display: inline-block;
 white-space: nowrap;
 width: 200px;
-height: 40px;
+height: 30px;
 display: block;
+margin-top: 10px;
 
 }
 
@@ -51,10 +52,10 @@ font-family: 'Sunflower', sans-serif;
 
 .center {
 text-align: center;
-height :100px;
+height :50px;
  background-color: white; 
  width:100%;
- border-top: 3px solid #503396;
+ border-bottom: 3px solid #503396;
 }
 
 .a1{
@@ -64,10 +65,328 @@ height :100px;
 </style>
 
 <script type="text/javascript">  
+
+
 function article(ecode) {
-	var url="${articleUrl}&ecode="+ecode;  
-	location.href=url;
+	var url="${articleUrl}";  
+	var query="ecode="+ecode;
+	var type="get";
+	var selector="#readEventForm";
+	$.ajax({
+		type:type
+		,url:url
+		,data:query
+		,success:function(data) {
+			$(selector).html(data);
+			listPage(1);
+		}
+		
+	    ,error:function(jqXHR) {
+	    
+	    }
+	});
+	
+	$("#readEventForm").dialog({
+		modal: true,
+		height:'auto',
+		width:850,
+		title: "",
+		open:function(){
+       	 $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
+        },
+		close: function(event, ui) {
+		}
+	});
+	
 }
+
+
+function eventRequest(){
+	var q = "ecode=${dto.ecode}&page=${page}";
+	var url = "<%=cp%>/event/rquest?" +q;
+	
+	if(confirm("이벤트를 응모 하시겠습니까?"))
+		location.href=url;
+ }
+
+function login() {
+	location.href="<%=cp%>/member/login";
+}
+
+function ajaxJSON(url, type, query, fn) {
+	$.ajax({
+		type:type
+		,url:url
+		,data:query
+		,dataType:"json"
+		,success:function(data) {
+			fn(data);
+		}
+		,beforeSend:function(jqXHR) {
+	        jqXHR.setRequestHeader("AJAX", true);
+	    }
+	    ,error:function(jqXHR) {
+	    	if(jqXHR.status==403) {
+	    		login();
+	    		return false;
+	    	}
+	    	console.log(jqXHR.responseText);
+	    }
+	});
+}
+
+
+function ajaxHTML(url, type, query, selector) {
+	$.ajax({
+		type:type
+		,url:url
+		,data:query
+		,success:function(data) {
+			console.log(data);
+			$(selector).html(data);
+		}
+		
+	    ,error:function(jqXHR) {
+	    
+	    }
+	});
+}
+
+
+function listPage(page) {
+	var url = "<%=cp%>/event/listReply";
+	var ecode=$(".btnSendReply").attr("data-code");
+	var query = "ecode="+ecode+"&pageNo="+page;
+	var selector = "#listReply";
+	
+	ajaxHTML(url, "get", query, selector);
+}
+
+//리플 등록
+
+	$(document).on("click",".btnSendReply",function(){
+		var ecode=$(this).attr("data-code");
+		var $tb = $(this).closest("table");
+		var content=$tb.find("textarea").val().trim();
+		if(! content) {
+			$tb.find("textarea").focus();
+			return false;
+		}
+		content = encodeURIComponent(content);
+		
+		var url="<%=cp%>/event/insertReply";
+		var query="ecode="+ecode+"&content="+content+"&answer=0";
+		
+		var fn = function(data){
+			$tb.find("textarea").val("");
+			
+			var state=data.state;
+			if(state=="true") {
+				listPage(1);
+			} else if(state=="false") {
+				alert("댓글을 추가 하지 못했습니다.");
+			}
+		};
+		
+		ajaxJSON(url, "post", query, fn);
+	});
+
+
+// 댓글 삭제
+
+	$(document).on("click", ".deleteReply", function(){
+		if(! confirm("게시물을 삭제하시겠습니까?")) {
+			return false;
+		}
+		
+		var rcode=$(this).attr("data-rcode");
+		var page=$(this).attr("data-pageNo");
+		
+		var url="<%=cp%>/event/deleteReply";
+		var query="rcode="+rcode+"&mode=reply";
+		
+		var fn = function(data){
+			listPage(page);
+		};
+		ajaxJSON(url, "post", query, fn);	
+	});
+
+//댓글별 답글 등록
+	$(document).on("click", ".btnSendReplyAnswer", function(){
+		var ecode=$(".btnSendReply").attr("data-code");
+		var rcode = $(this).attr("data-rcode");
+		var $td = $(this).closest("td");
+		var content=$td.find("textarea").val().trim();
+		if(! content) {
+			$td.find("textarea").focus();
+			return false;
+		}
+		content = encodeURIComponent(content);
+		
+		var url="<%=cp%>/event/insertReply";
+		var query="ecode="+ecode+"&content="+content+"&answer="+rcode;
+		
+		var fn = function(data){
+			$td.find("textarea").val("");
+			
+			var state=data.state;
+			if(state=="true") {
+				listReplyAnswer(rcode);
+				countReplyAnswer(rcode);
+			}
+		};
+		
+		ajaxJSON(url, "post", query, fn);
+		
+	});
+
+//답글 버튼(댓글별 답글 등록폼 및 답글리스트)
+	$(document).on("click", ".btnReplyAnswerLayout", function(){
+		var $trReplyAnswer = $(this).closest("tr").next();
+		
+		var isVisible = $trReplyAnswer.is(':visible');
+		var rcode = $(this).attr("data-rcode");
+			
+		if(isVisible) {
+			$trReplyAnswer.hide();
+		} else {
+			$trReplyAnswer.show();
+            
+			// 답글 리스트
+			listReplyAnswer(rcode);
+			// 답글 개수
+			countReplyAnswer(rcode);
+
+		}
+	});
+
+//댓글별 답글 개수
+function countReplyAnswer(answer) {
+	var url = "<%=cp%>/event/countReplyAnswer";
+	var query = {answer:answer};
+
+	var fn = function(data){
+		var count=data.count;
+		var vid="#answerCount"+answer;
+		$(vid).html(count);
+	};
+	
+	ajaxJSON(url, "post", query, fn);
+}
+
+//댓글별 답글 리스트
+function listReplyAnswer(answer) {
+	var url="<%=cp%>/event/listReplyAnswer";
+	var query = {answer:answer};
+	var selector = "#listReplyAnswer"+answer;
+
+	ajaxHTML(url, "get", query, selector);
+}
+
+//댓글별 답글 삭제
+	$(document).on("click", ".deleteReplyAnswer", function(){
+		if(! confirm("게시물을 삭제하시겠습니까 ? "))
+		    return;
+		
+		var rcode=$(this).attr("data-rcode");
+		var answer=$(this).attr("data-answer");
+		
+		var url="<%=cp%>/event/deleteReply";
+		var query="rcode="+rcode+"&mode=answer";
+		
+		var fn = function(data){
+			listReplyAnswer(answer);
+			countReplyAnswer(answer);
+		};
+		
+		ajaxJSON(url, "post", query, fn);
+	});
+
+// 댓글 좋아요 / 싫어요
+	// 댓글 좋아요 / 싫어요 등록
+	$(document).on("click", ".btnSendReplyLike", function(){
+		var rcode=$(this).attr("data-rcode");
+		var like_Hate=$(this).attr("data-like_Hate");
+		var $btn = $(this);
+		var msg="댓글이 마음에 들지 않으십니까?";
+		if(like_Hate==1)
+			msg="댓글이 마음에 드십니까?";
+		if(! confirm(msg)) {
+			return false;
+		}
+		
+		var url="<%=cp%>/event/insertReplyLike";
+		var query="rcode="+rcode+"&like_Hate="+like_Hate;
+		
+		var fn = function(data){
+			var state=data.state;
+			if(state=="true") {
+				var likeCount=data.likeCount;
+				var disLikeCount=data.disLikeCount;
+				
+				$btn.parent("td").children().eq(0).find("span").html(likeCount);
+				$btn.parent("td").children().eq(1).find("span").html(disLikeCount);
+			} else if(state=="false") {
+				alert("댓글 좋아요와 싫어요는 한번만 가능합니다 ~ !!!");
+			}
+		};
+		ajaxJSON(url, "post", query, fn);
+	});
+
+// 댓글 신고
+	$(document).on("click", ".btnSendReplyReport", function(){
+		var rcode=$(this).attr("data-rcode");
+		var $btn = $(this);
+		
+		var msg="게시물을 신고하시겠습니까?";
+		if(! confirm(msg)) {
+			return false;
+		}
+		
+		var url="<%=cp%>/event/insertReplyReport";
+		var query="rcode="+rcode;
+		
+		var fn = function(data){
+			var state=data.state;
+			if(state=="true") {
+				alert("게시물 신고를 완료했습니다.");
+			} else if(state=="false") {
+				alert("게시물 신고는 한번만 가능합니다.");
+			}
+		};
+		ajaxJSON(url, "post", query, fn);
+	});
+
+
+// 이벤트 응모
+
+	$(document).on("click", ".btnSendRequest", function(){
+		var ecode=$(".btnSendReply").attr("data-code");
+		var $btn = $(this);
+		
+		var msg="이벤트 응모하시겠습니까?";
+		if(! confirm(msg)) {
+			return false;
+		}
+		
+		var url="<%=cp%>/event/eventRequest";
+		var query="ecode="+ecode;
+		
+		var fn = function(data){
+			var state=data.state;
+			if(state=="true") {
+				alert("감사합니다 응모되셨습니다.");
+			} else if(state=="false") {
+				alert("이벤트는 한번만 응모 가능합니다.");
+			}
+		};
+		ajaxJSON(url, "post", query, fn);
+	});
+
+
+
+
+
 </script>
 
 <div class="center">
@@ -78,15 +397,15 @@ function article(ecode) {
         <li><a href="<%=cp%>/event/list?ecategoryCode=2">영화 이벤트</a></li>   
         <li><a href="<%=cp%>/event/list?ecategoryCode=3">제휴 이벤트</a></li>
         <li><a href="<%=cp%>/event/list?ecategoryCode=4">영화관이벤트</a></li>
-        <li><a href="<%=cp%>/event/listDott">당첨자발표</a></li>
+        <li><a href="<%=cp%>/roto/listDott">당첨자발표</a></li>
         <li><a href="<%=cp%>">현황 통계</a></li>
     </ul>
     </div>
 </div>
 
 
-<div class="body-container" style="width: 1000px; margin: 0px auto;">
-<div style="width: 100%; height: 5%;">
+<div class="body-container" style="width: 1000px; margin: 0px auto; margin-top: 50px;">
+<div style="width: 100%;">
 	<ul class="lo">
 		<li><a href="<%=cp%>/event/list?state=1&ecategoryCode=${ecategoryCode}">진행중 이벤트 | </a></li>
 		<li><a href="<%=cp%>/event/list?state=0&ecategoryCode=${ecategoryCode}">종료된 이벤트</a></li>
@@ -102,9 +421,9 @@ function article(ecode) {
     	<c:out value="</tr><tr>" escapeXml="false"/>
     </c:if>
 	<td width="20px" align="center" style="padding-bottom: 30px">
-		<div>
-			<img src="http://localhost:9090/mgbxAD/uploads/event/${dto.imageName}" width="200"
-				height="180" border="0" onclick="article('${dto.ecode}');">
+		<div style="cursor: pointer;">
+			<img src="<%=cp%>>/mgbxAD/uploads/event/${dto.imageName}"
+			width="200" height="250" border="0" onclick="article('${dto.ecode}');">
 		</div>
 		
 		<div style="height: 70px; width: 200px; border: 1px solid #BDBDBD; background-color: white;">
@@ -136,5 +455,7 @@ function article(ecode) {
 			 </td>
 		   </tr>
 		</table>
-
+	
 </div>
+
+<div id="readEventForm" style="display: none;width: 650;overflow: none;"></div>
