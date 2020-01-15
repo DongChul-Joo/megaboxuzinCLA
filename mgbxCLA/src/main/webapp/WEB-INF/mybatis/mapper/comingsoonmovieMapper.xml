@@ -23,7 +23,7 @@
 		SELECT NVL(COUNT(*), 0)
 		FROM movie m
 	</select>
-	  
+	   
 	
 	<select id="listReply" parameterType="map" resultType="com.sp.movie.comingsoon.Movie">
 		SELECT r.movieCode, r.userId, r.content, TO_CHAR(r.created, 'YY.MM.DD') created, s.movieScores,
