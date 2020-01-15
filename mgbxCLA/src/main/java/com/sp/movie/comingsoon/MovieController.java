@@ -145,10 +145,6 @@ public class MovieController {
 		
 		try {
 			dto=service.readDetail(movieCode);
-			dto.setCountUserId(service.idCount(movieCode));
-			
-			
-			dto.setTotalScores(dto.getMovieScores()*10);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
