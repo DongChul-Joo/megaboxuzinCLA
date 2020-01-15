@@ -608,9 +608,31 @@ var selMovieCountEnd=0;
 var totBookingCount=0;
 var selectSeatCount=0;
 
+var schduleTimer=null;
+
+function schduleCreateTimers(){
+	schduleTimer =setInterval("scheduleList()",10000);
+}
+
+function schduleClealTimers(){
+	if(schduleTimer!=null){
+		schduleTimer=null;
+	}
+}
+
+function seatCreateTimers(){
+	schduleTimer=setInterval("readBookingSeat()",10000);
+}
+
 
 function buyForm(data){
 	console.log(data);
+	
+	var type="get";
+	var url="<%=cp%>/booking/bookingTiketingForm";
+	var query=
+	ajaxHTMLBooking(url, type, query, selector);
+	
 	$("#bookingTiketingForm").dialog({
 		modal: true,
 		height:650, 
@@ -895,8 +917,7 @@ $(document).on('click',".clickSeat", function() {
 		  $(".totMoney").html(totprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
 });
 
-
-$(document).on("click",".btnsBooking",function(){
+function readBookingSeat(){
 	var scheduleCode=$(".schClass[data-select=select]").attr("data-schedulecode");
 	
 	var url="<%=cp%>/booking/readSeat";
@@ -911,7 +932,9 @@ $(document).on("click",".btnsBooking",function(){
 			
 		}
 	});
-		
+}
+$(document).on("click",".btnsBooking",function(){
+	readBookingSeat();
 		$("#bookingSeat").dialog({
 			modal: true,
 			height:680, 
@@ -919,8 +942,12 @@ $(document).on("click",".btnsBooking",function(){
 			title: "",
 			open:function(){
 	       	 $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
+	       	schduleClealTimers();
+	         seatCreateTimers();
 	        },
 			close: function(event, ui) {
+				schduleClealTimers();
+				schduleCreateTimers();
 				totBookingCount=0; 
 				selectSeatCount=0;
 			}
@@ -952,6 +979,7 @@ function bookingForm(){
 		open:function(){
        	 $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
          $('html').css('overflow','hidden');
+ 
         },
 		close: function(event, ui) {
 			timePosition=0;
@@ -962,6 +990,7 @@ function bookingForm(){
 			selMovieCountEnd=0;
 			totBookingCount=0; 
 			selectSeatCount=0;
+			schduleClealTimers();
 		 $('html').css('overflow','auto');
 		}
 	   
@@ -977,7 +1006,7 @@ function ajaxHTMLs(url, type, query, selector) {
 			$(selector).empty();
 			$(selector).html(data);
 			
-			
+			schduleCreateTimers();
 			var today = new Date();
 			   var time=today.getHours();
 			   var mi
@@ -1149,11 +1178,17 @@ $(document).on("click",".dateDiv li",function(){
 
 $(document).on("click",".timeDiv li",function(){
 	var hour=$(this).attr("data-time");
-	var position = $(".schClass[data-hour="+hour+"]").position().top;
-	if(typeof position === "undefined"){
-		return;
-	}
+	var position = $(".schClass[data-hour="+hour+"]");
 	
+	if(position.length==0){
+		return;
+	} 
+	
+	var today = new Date();
+	var time=today.getHours();
+
+	var top=((hour-time)*88.75)-88.75;
+
 	if((hour-5)<0){
 		timePosition=0;
 	}else if((hour-5)>20){
@@ -1166,7 +1201,7 @@ $(document).on("click",".timeDiv li",function(){
 	$(".timeDiv li").css("background","").css("color","").attr("data-tSelect","");
 	$(this).css("background","#198591").css("color","white").attr("data-tSelect","select").closest("ol").css("margin-left",timePosition+"px");
 
-	$(".scheduleList").animate({scrollTop:position},500);
+	$(".scheduleList").animate({scrollTop:top},500);
 });
 
 function timeToString(hour,min) {
@@ -1177,6 +1212,7 @@ function timeToString(hour,min) {
 }
 
 function scheduleList(){
+	console.log("1");
 	var query="";
 	var today = new Date();
 	var mi=today.getMinutes();

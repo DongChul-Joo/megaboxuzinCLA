@@ -76,7 +76,7 @@
 						</ol>    
 			</div> 
 		</div>
-		<div style="width: 100%; height: 85%;">
+		<div class="viewList" style="width: 100%; height: 85%;">
 			<p style="font-weight: bold;border-bottom: 1px solid black">상영목록<p>
 			<div class="scheduleList"></div>
 			</div>
