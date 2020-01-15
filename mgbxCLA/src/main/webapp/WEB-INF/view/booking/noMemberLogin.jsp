@@ -15,7 +15,7 @@
 					<tr>
 						<td>휴대폰</td>
 						<td>
-							<p style="margin-top: 1px; margin-bottom: 5px;">
+							<p style="margin-top: 1px; margin-bottom: 4px;">
 					            <select  name="tel1" >
 					                <option value="">선 택</option>
 					                <option value="010">010</option>
