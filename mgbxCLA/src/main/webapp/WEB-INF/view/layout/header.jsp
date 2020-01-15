@@ -621,7 +621,7 @@ function schduleClealTimers(){
 }
 
 function seatCreateTimers(){
-	schduleTimer=setInterval("readBookingSeat()",10000);
+	schduleTimer=setInterval("readBookingSeat()",20000);
 }
 
 
