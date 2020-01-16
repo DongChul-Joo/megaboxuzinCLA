@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="payDetail">
+	<select id="listPayDetail" parameterType="Integer" resultType="com.sp.paydetail.PayDetail">
+		select pdsudan,pdPrice,payInfo from payDetail where bookCode=#{bookCode}
+	</select>
+	
+	<delete id="deleteSeat" parameterType="map">
+		delete from seat where bookCode=#{bookCode}
+	</delete>
+	
+	<update id="bookingCancel" parameterType="map">
+	    update booking set cancelInfo=1 where bookCode =#{bookCode}
+	</update>
+	<delete id="deleteMileage" parameterType="map">
+		delete from mileage where userId=#{userId} and mileageInfo=#{bookCode} 
+	</delete>
+</mapper>

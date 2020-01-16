@@ -123,12 +123,6 @@
 			WHERE userId = #{userId}
 	</select>
 	
-	<select id="payDetailInfo" parameterType="Integer">
-		select pdsudan,pdPrice,payInfo from payDetail
-	</select>
-	
-	<delete id="deleteSeat" parameterType="Integer">
-		delete from seat where bookCode=#{bookCode}
-	</delete>
+
 	
 </mapper>

@@ -13,7 +13,7 @@
 background-image: url(<%=cp%>/resource/images/returnImage.png);
 background-size: 100% 100%;
 width: 40px;
-height: 89%;
+height: 90%;
 float: left;
 cursor: pointer;
 }
@@ -592,6 +592,31 @@ height: 20%;
 .selLogin{
 width: 100%;height: 90%;padding-top: 40px;
 }
+
+.menual {
+background-color: #333;
+width: 96%;
+color: white;
+}
+
+
+.paymentAmount{
+padding-left:0px;
+height: 70px;
+width: 100%;
+border-collapse: collapse;
+display: table;
+border-spacing: 0;
+margin: 5px auto;
+text-align: left;
+margin-top: 25px;
+}
+
+.paymentA{
+text-align: right;
+}
+
+
 </style>
 
 
@@ -629,7 +654,8 @@ function buyForm(data){
 	
 	var type="get";
 	var url="<%=cp%>/booking/bookingTiketingForm";
-	var query=
+	var query="";
+	var selector="#bookingTiketingForm";
 	ajaxHTMLBooking(url, type, query, selector);
 	
 	$("#bookingTiketingForm").dialog({
@@ -646,7 +672,12 @@ function buyForm(data){
 	   
 	});
 }
-
+$(function() {
+	$( "#accordion" ).accordion({
+		collapsible: true,
+		 heightStyle: "menu_payment"
+	});
+});
 function nmemInsert(){
 	var str;
 	
@@ -917,6 +948,11 @@ $(document).on('click',".clickSeat", function() {
 });
 
 function readBookingSeat(){
+	
+	var totBookingCount=0;
+	var selectSeatCount=0;
+
+	
 	var scheduleCode=$(".schClass[data-select=select]").attr("data-schedulecode");
 	
 	var url="<%=cp%>/booking/readSeat";

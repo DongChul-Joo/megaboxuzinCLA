@@ -185,5 +185,9 @@ public class BookingController {
 		return map;
 	}
 	
-	
+	@RequestMapping(value="/booking/bookingTiketingForm",method=RequestMethod.GET)
+	public String bookingTiketingForm() {
+		
+		return "booking/bookingTiketing";
+	}
 }

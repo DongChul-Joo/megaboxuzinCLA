@@ -88,6 +88,6 @@ $(document).ready(function () {
 	</div>
 	<div id="bookingLoginForm" style="width:300px;height:200px;display: none;overflow: hidden;">
 	</div>
-	<div id="bookingTiketingForm" style="display: none;width: 1000px;height: 600px;overflow:none;">
+	<div id="bookingTiketingForm" style="display: none;overflow:none;">
 		
 	</div>

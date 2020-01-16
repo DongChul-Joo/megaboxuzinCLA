@@ -1,6 +1,7 @@
 package com.sp.mypage;
 
 import java.io.File;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sp.common.MyUtil;
 import com.sp.member.SessionInfo;
+import com.sp.paydetail.PayDetail;
+import com.sp.paydetail.PayDetailService;
 
 @Controller("mypage.myPageController")
 public class MyPageController {
@@ -26,6 +29,9 @@ public class MyPageController {
 	private MyPageService service;
 	@Autowired
 	private MyUtil myUtil;
+	
+	@Autowired
+	private PayDetailService payService;
 	
 	@RequestMapping(value="/mypage/info")
 	public String info(
@@ -94,25 +100,24 @@ public class MyPageController {
 			
 			list = service.listReservation(map);
 			
-			SimpleDateFormat format1 = new SimpleDateFormat ( "yyyyMMdd");
-			SimpleDateFormat format2 = new SimpleDateFormat ( "HHmm");
-					
-			Date time = new Date();
-					
-			int time1 = Integer.parseInt(format1.format(time));
-			int time2 = Integer.parseInt(format2.format(time));
+
+			Date nowDayTime = new Date();
+
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm"); // String 날짜 형식을 정의 합니다. 
+
+			String nowDayTimeStr = sdf.format(nowDayTime);  // 현재일시를 같은 형식으로 파싱합니다.
+
+			Date nowDayTimeFormat = sdf.parse(nowDayTimeStr);	// 시간으로 변경을 합니다
+			
 			
 			int listNum = 0;
 			for(MyPage dto : list) {
 				listNum++;
 				dto.setListNum(listNum);
-				dto.setTimeCount(Integer.parseInt(dto.getStartTime().replaceAll(":", "")));
-				dto.setDayCount(Integer.parseInt(dto.getShowingdate().replaceAll("-", "")));
-				if(dto.getDayCount()>time1) {
-					dto.setCancelInfo(1);
-				}else if(dto.getDayCount()==time1&&(dto.getTimeCount()-time2)>10) {
-					dto.setCancelInfo(1);
-				}else {
+				String cancel=dto.getShowingdate()+" "+dto.getStartTime();
+				Date bookingCancelEnd=sdf.parse(cancel);
+				
+				if((bookingCancelEnd.getTime()/1000/60)-10<nowDayTimeFormat.getTime()/1000/60) {
 					dto.setCancelInfo(2);
 				}
 			}
@@ -251,8 +256,18 @@ public class MyPageController {
 	}
 	
 	@RequestMapping(value="/mypage/bookingCancel",method=RequestMethod.GET)
-	public String bookingCancel(int bookCode) {
+	public String bookingCancel(
+			HttpSession session,
+			int bookCode) {
+		
 		String result="false";
+		
+		
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		if(info==null) {
+			return result;
+		}
+	
 		
 		List<MyPage> list = null;
 		
@@ -260,24 +275,39 @@ public class MyPageController {
 		map.put("bookCode", bookCode);
 		list = service.listReservation(map);
 		
-		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyyMMdd");
-		SimpleDateFormat format2 = new SimpleDateFormat ( "HHmm");
-				
-		Date time = new Date();
-				
-		int time1 = Integer.parseInt(format1.format(time));
-		int time2 = Integer.parseInt(format2.format(time));
+		Date nowDayTime = new Date();
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm"); // String 날짜 형식을 정의 합니다. 
+
+		String nowDayTimeStr = sdf.format(nowDayTime);  // 현재일시를 같은 형식으로 파싱합니다.
+
+		Date nowDayTimeFormat;
 		
-		int bookingTime=Integer.parseInt(list.get(0).getStartTime().replaceAll(":", ""));
-		int bookingDay=Integer.parseInt(list.get(0).getShowingdate().replaceAll("-", ""));
+		try {
+			nowDayTimeFormat = sdf.parse(nowDayTimeStr);
+			String cancel=list.get(0).getShowingdate()+" "+list.get(0).getStartTime();
+			Date bookingCancelEnd=sdf.parse(cancel);
+			
+			
+			if((bookingCancelEnd.getTime()/1000/60)-10<nowDayTimeFormat.getTime()/1000/60) {
+				return result;
+			}
+			
+			List<PayDetail> plist=null;
+			plist=payService.listPayDetail(bookCode);
+			
+			map.put("userId", info.getUserId());
+			payService.canselBooking(map);
+			for(PayDetail pd:plist) {
+				if(pd.getPdSudan().equals("mileage")) {
+					payService.insertMileage(info.getUserId(), pd.getPdPrice());
+				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
 		
-		if(bookingDay>time1) {
-			
-		}else if(bookingDay==time1&&(bookingTime-time2)>10) {
-			
-		}else {
-			
-		}
 		
 		return result;
 		
