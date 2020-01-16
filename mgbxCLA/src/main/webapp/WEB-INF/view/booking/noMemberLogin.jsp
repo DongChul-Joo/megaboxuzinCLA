@@ -60,6 +60,6 @@
 				</table>
 			</div>
 			<p class="offOn">
-				<button style="border-radius:5px;float: right;width: 40px;height: 25px;background: white;border: 1px solid black;" type="button" onclick="blfClose();" >취소</button>
+				<button style="border-radius:5px;float: right;width: 40px;height: 25px;background: white;border: 1px solid black;" type="button" onclick="blfReturn();" >취소</button>
 				<button style="margin-right:2px;border-radius:5px;float: right;width: 40px;height: 25px;background: purple;border: 1px solid black;color: white" type="button" onclick="nmemInsert();" >확인</button>
 			</p>

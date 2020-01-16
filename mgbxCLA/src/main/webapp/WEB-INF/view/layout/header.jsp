@@ -6,7 +6,8 @@
    String cp = request.getContextPath();
 %>
 
-
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
 
 .returnImage{
@@ -593,30 +594,34 @@ height: 20%;
 width: 100%;height: 90%;padding-top: 40px;
 }
 
-.menual {
-background-color: #333;
-width: 96%;
-color: white;
+.menuals{
+background-color: #333;width: 96%;color: white;
 }
-
 
 .paymentAmount{
 padding-left:0px;
 height: 70px;
-width: 100%;
+width: 25%;
 border-collapse: collapse;
 display: table;
 border-spacing: 0;
 margin: 5px auto;
 text-align: left;
 margin-top: 25px;
+float: left;
+font-weight: bold;
 }
 
 .paymentA{
 text-align: right;
 }
-
-
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active
+{
+background: #333;width: 96%;color: white;outline: none;
+}
+.ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active{
+width: 96%;
+}
 </style>
 
 
@@ -637,7 +642,7 @@ var selectSeatCount=0;
 var schduleTimer=null;
 
 function schduleCreateTimers(){
-	schduleTimer =setInterval("scheduleList()",10000);
+	schduleTimer =setInterval("scheduleList()",300000);
 }
 
 function schduleClealTimers(){
@@ -645,26 +650,42 @@ function schduleClealTimers(){
 }
 
 function seatCreateTimers(){
-	schduleTimer=setInterval("readBookingSeat()",20000);
+	schduleTimer=setInterval("readBookingSeat()",60000);
 }
 
 
 function buyForm(data){
-	console.log(data);
+	
 	
 	var type="get";
 	var url="<%=cp%>/booking/bookingTiketingForm";
 	var query="";
 	var selector="#bookingTiketingForm";
-	ajaxHTMLBooking(url, type, query, selector);
+	$.ajax({
+		type:type
+		,url:url
+		,data:query
+		,success:function(data) {
+			$(selector).html(data);
+			$( "#accordion" ).accordion({
+				autoHeight: false,
+				collapsible: true,
+				 heightStyle: "menu_payment"
+			});  
+		}
+	    ,error:function(jqXHR) {
+	    	
+	    }
+	});
 	
 	$("#bookingTiketingForm").dialog({
 		modal: true,
-		height:650, 
+		height:550, 
 		width:1050,
 		title: "",
 		open:function(){
        	 $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
+  
         },
 		close: function(event, ui) {
 
@@ -672,12 +693,6 @@ function buyForm(data){
 	   
 	});
 }
-$(function() {
-	$( "#accordion" ).accordion({
-		collapsible: true,
-		 heightStyle: "menu_payment"
-	});
-});
 function nmemInsert(){
 	var str;
 	
@@ -825,6 +840,7 @@ function blfReturn(){
 }
 function blfClose(){
 	$("#bookingLoginForm").dialog("close");
+	seatCreateTimers();
 }
 function buyTiket(){
 	
@@ -833,16 +849,16 @@ function buyTiket(){
 		alert("좌석을 선택해 주세요.");
 		return;
 	}
+	schduleClealTimers();
 	var scheduleCode=$("input[name=scheduleCode]").val();
 	
 	var url="<%=cp%>/booking/logincheck";
 	var type="get";
 	var query="";
 	var fn=function(data){
+		console.log(data);
 		if(!data.data){
-			alert("로그인이 필요한 서비스입니다.");
-						
-						
+			alert("로그인이 필요한 서비스입니다.");						
 						$("#bookingLoginForm").dialog({
 							modal: true,
 							height:300, 
@@ -853,14 +869,11 @@ function buyTiket(){
 					       		blfReturn();
 					        },
 							close: function(event, ui) {
-			
 							}
 						   
 						});
 		}else{
 			buyForm(data);
-			alert("로그인이 필요한 서비스입니다.");
-			
 		}
 	}
 	ajaxJSONs(url, type, query, fn);
