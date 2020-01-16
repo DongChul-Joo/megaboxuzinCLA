@@ -154,8 +154,16 @@ public class MyPageController {
 	
 	@RequestMapping(value="/mypage/store", method=RequestMethod.GET)
 	public String store(
+			@RequestParam(value="page", defaultValue="1") int current_page,
 			HttpSession session,
+			HttpServletRequest req,
 			Model model) throws Exception {
+		
+		String cp = req.getContextPath();
+		
+		int rows = 10;
+		int total_page = 0;
+		int dataCount = 0;
 		
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		
@@ -163,14 +171,52 @@ public class MyPageController {
 		try {
 			Map<String, Object> map = new HashMap<String, Object>();			
 			map.put("userId", info.getUserId());
+			
+			dataCount = service.dataCountStore(map);
+			if(dataCount != 0)
+				total_page = myUtil.pageCount(rows, dataCount);
+			
+			
+			// 다른 사람이 자료를 삭제하여 전체 페이지수가 변화 된 경우
+	        if(total_page < current_page) 
+	            current_page = total_page;
+
+	        // 리스트에 출력할 데이터를 가져오기
+	        int offset = (current_page-1) * rows;
+			if(offset < 0) offset = 0;
+	        map.put("offset", offset);
+	        map.put("rows", rows);
+			
+			
+			
 			list = service.listStore(map);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
+		
+		String query = "";
+		String listUrl = cp+"/mypage/store";
+		String articleUrl = cp+"/mypage/store?page=" + current_page;
+		if(query.length()!=0) {
+        	listUrl = cp+"/mypage/store?" + query;
+        	articleUrl = cp+"/mypage/store?page=" + current_page + "&"+ query;
+        }
+		
+		
+		String paging = myUtil.paging(current_page, total_page, listUrl);
+		
+		
+		
 		model.addAttribute("subMenu", "3");
 		model.addAttribute("list", list);
+		model.addAttribute("articleUrl", articleUrl);
+		model.addAttribute("page", current_page);
+        model.addAttribute("dataCount", dataCount);
+        model.addAttribute("total_page", total_page);
+        model.addAttribute("paging", paging);
+        
 		return ".four.menu5.mypage.store";
 	}
 	

@@ -22,6 +22,19 @@
   font-size:14px;
   border-radius:4px;
 }
+.container {
+background-color: #f9f9f9;
+}
+
+.container {
+background-color: #f9f9f9;
+}
+
+.body-container{
+margin-top: 130px;
+
+}
+
 </style>
 <script type="text/javascript">
 	function bgLabel(ob, id) {
@@ -48,7 +61,7 @@
 </script>
 
 <div class="body-container">
-    <div style="width:500px; margin: 0px auto; padding-top:90px;">
+    <div style="width:500px; margin: 0px auto;border: 1px solid #e4e4e4;">
 	
     	<div style="text-align: center;">
         	<span style="font-weight: bold; font-size:27px; color: #424951;"></span>

@@ -277,5 +277,16 @@ public class MemberServiceImpl implements MemberService {
 		return list;
 	}
 
+	@Override
+	public int dataCountNonMember(Map<String, Object> map) {
+		int result = 0;
+			try {
+				result = dao.selectOne("member.dataCountNonMember", map);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		return result;
+	}
+
 	
 }

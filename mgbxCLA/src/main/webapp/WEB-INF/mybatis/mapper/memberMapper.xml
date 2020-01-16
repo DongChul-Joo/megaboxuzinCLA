@@ -107,6 +107,21 @@
 	<where>
 	userName=#{userName} AND birth=#{birth} AND email=#{email} AND tel=#{tel}
 	</where>
+	
+    </select>
+    
+    
+    <select id="dataCountNonMember" parameterType="map" resultType="Integer">
+    	 SELECT NVL(COUNT(*), 0)
+    	FROM customer c 
+    	JOIN BOOKING b ON c.customerCode = b.memberCode 
+    	JOIN showingSchedule s ON b.scheduleCode = s.scheduleCode 
+    	JOIN SHOWINGMOVIE s1 ON s.showingcode = s1.showingcode 
+    	JOIN cinema cn ON s1.cmCode = cn.cmcode 
+    	JOIN movie m ON s1.movieCode = m.moviecode
+    	<where>
+		userName=#{userName} AND birth=#{birth} AND email=#{email} AND tel=#{tel}
+		</where>
     </select>
     
     

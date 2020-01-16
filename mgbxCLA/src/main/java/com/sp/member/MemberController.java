@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.sp.mypage.MyPage;
+import com.sp.common.MyUtil;
 
 @Controller("member.memberController")
 public class MemberController {
 	@Autowired
 	private MemberService service;
+	
+	@Autowired
+	private MyUtil myUtil;
 	
 	@Autowired 
 	private BCryptPasswordEncoder bcryptEncoder;
@@ -318,12 +322,38 @@ public class MemberController {
 	
 	@RequestMapping(value="/member/nonmembers", method=RequestMethod.POST)
 	public String nonmemberReservationSubmit(
+			@RequestParam(value="page", defaultValue="1") int current_page,
+			HttpSession session,
+			HttpServletRequest req,
 			@RequestParam Map<String, Object> paramMap,
 			Model model
 			) { 
+		
+		String cp = req.getContextPath();
+		
+		int rows = 10;
+		int total_page = 0;
+		int dataCount = 0;
 		 
 		List<Member> list = null;
 		try {
+			
+			Map<String, Object> map = new HashMap<String, Object>();	
+			
+			dataCount = service.dataCountNonMember(map);
+			if(dataCount != 0)
+				total_page = myUtil.pageCount(rows, dataCount);
+			
+			// 다른 사람이 자료를 삭제하여 전체 페이지수가 변화 된 경우
+	        if(total_page < current_page) 
+	            current_page = total_page;
+
+	        // 리스트에 출력할 데이터를 가져오기
+	        int offset = (current_page-1) * rows;
+			if(offset < 0) offset = 0;
+	        map.put("offset", offset);
+	        map.put("rows", rows);
+			
 			
 		list = service.listNonMember(paramMap);
 			if(list.size()==0) {
@@ -340,7 +370,27 @@ public class MemberController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
+		
+		String query = "";
+		String listUrl = cp+"/mypage/nonmembersCheck";
+		String articleUrl = cp+"/mypage/nonmembersCheck?page=" + current_page;
+		if(query.length()!=0) {
+        	listUrl = cp+"/mypage/nonmembersCheck?" + query;
+        	articleUrl = cp+"/mypage/nonmembersCheck?page=" + current_page + "&"+ query;
+        }
+		
+		String paging = myUtil.paging(current_page, total_page, listUrl);
+		
+		
+		
 		model.addAttribute("list", list);
+		model.addAttribute("articleUrl", articleUrl);
+		model.addAttribute("page", current_page);
+        model.addAttribute("dataCount", dataCount);
+        model.addAttribute("total_page", total_page);
+        model.addAttribute("paging", paging);
 		return ".member.nonmembersCheck";
 	} 
 }

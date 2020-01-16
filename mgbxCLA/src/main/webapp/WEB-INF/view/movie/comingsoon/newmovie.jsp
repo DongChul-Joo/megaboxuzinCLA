@@ -228,6 +228,8 @@ textarea{
     float: right;
 }
 
+
+
 </style>
 
 <script type="text/javascript">
@@ -623,16 +625,16 @@ function reportUser(userId, movieCode){
 			<div class="sub_navi_wrap">
 			 	<ul style="margin: 0px auto;">
 				 	<li class="moviemenu">
-				 		<a style="border: none; font-size: 18px; float: left;" href="<%=cp%>/movie/newmovie">최신 개봉작</a>
+				 		<a class="listMovie" style="border: none; font-size: 18px; float: left;" href="<%=cp%>/movie/newmovie">최신 개봉작</a>
 				 	 </li>
 					 <li class="moviemenu">
-				 		<a style="border: none; font-size: 18px; float: left;" href="<%=cp%>/movie/comingsoon/newmovie">상영 예정작</a>
+				 		<a class="listMovie" style="border: none; font-size: 18px; float: left;" href="<%=cp%>/movie/comingsoon/newmovie">상영 예정작</a>
 				 	 </li>
 				 	<li class="moviemenu">
-				 		<a  style="border: none; font-size: 18px; float: left;">영화제</a>
+				 		<a class="listMovie" style="border: none; font-size: 18px; float: left;">영화제</a>
 				 	 </li>
 				 	<li class="moviemenu">
-				 		<a style="border: none; font-size: 18px; float: left;" href="<%=cp%>/movie/newmovie">예매</a>
+				 		<a class="listMovie" style="border: none; font-size: 18px; float: left;" href="<%=cp%>/movie/newmovie">예매</a>
 				 	 </li>
 				 </ul>
 			 </div>

@@ -120,4 +120,15 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		return result;
 	}
+
+	@Override
+	public int dataCountStore(Map<String, Object> map) {
+		int result = 0;
+		try {
+			result = dao.selectOne("mypage.dataCountStore", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

@@ -123,6 +123,17 @@
 			WHERE userId = #{userId}
 	</select>
 	
+	
+	<select id="dataCountStore" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM ITEM i 
+		JOIN BUYDETAIL b ON i.itemCode = b.itemCode
+		JOIN BUYITEM b1 ON b.buyCode = b1.buyCode
+		JOIN PAYDETAIL p ON b1.buyCode = p.buyCode
+		WHERE userId = #{userId}
+	</select>
+	
+	
 
 	
 </mapper>

@@ -22,5 +22,7 @@ public interface MemberService {
 	
 	public void generatePwd(Member dto) throws Exception;
 	public void generateId(Member dto) throws Exception;
+	public int dataCountNonMember(Map<String, Object> map);
+	
 
 }
