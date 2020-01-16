@@ -6,13 +6,14 @@
 	String cp=request.getContextPath();
 %>
 
+<script type="text/javascript">
+$(function(){
+	$("#readEventForm").parents(".ui-dialog:first").find(".ui-dialog-title").html("<p style='font-size: 15px; font-weight: bold;'>${dto.subject}</p>");
+});
+</script>
 
 
 <div class="body-container" style="width: 800px;">
-    <div class="body-title">
-        <h3><i class="far fa-image"></i> ${dto.subject} </h3>
-    </div>
-    
     <div>
     	<table style="width: 800px;">
     		<tr style="width: 100%; margin: 20px auto 0px; border-spacing: 0px; border-collapse: collapse;">
@@ -33,9 +34,9 @@
     	<a href="${dto.elink}">
     		<img src="https://localhost:9090/mgbxAD/uploads/event/${dto.imageFilename}" width="100%" style="margin: 0px 10px;">
     	</a>
-    	<c:if test="${dto.lott==1}">
+    	<c:if test="${dto.lott==1 && state==1}">
 	    	<div>
-	    		<button type="button" class="btnSendRequest" style="margin-top: 100px;">응모하기!</button>
+	    		<button type="button" class="btn btnSendRequest" style="width : 80px; height :30px; font-size: 15px; margin-top: 100px; padding: 3px 6px 3px 6px;">응모하기</button>
 	    	</div>
     	</c:if>
     </div>
@@ -49,12 +50,12 @@
 		</tr>
 		<tr>
 			<td style='padding:5px 5px 0px;'>
-				<textarea class='boxTA' style='width:99%; height: 70px;'></textarea>
+				<textarea class='boxTA' style='width:101%; height: 70px;'></textarea>
 		    </td>
 		</tr>
 		<tr>
 			<td align='right'>
-				<button data-code="${dto.ecode}" type='button' class='btnSendReply' style='padding:10px 20px;'>댓글 등록</button>
+				<button data-code="${dto.ecode}" type='button' class='btn btnSendReply' style='padding:10px 20px;'>댓글 등록</button>
 			</td>
 		</tr>
 	</table>

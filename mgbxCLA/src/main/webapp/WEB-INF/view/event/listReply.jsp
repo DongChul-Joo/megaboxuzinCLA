@@ -28,7 +28,7 @@
 	           <span>${vo.created}</span> |
 	                <span class="deleteReply" style="cursor: pointer;" data-rcode='${vo.rcode}' data-pageNo='${pageNo}'>삭제</span>
 	           		<button type='button' class='btnSendReplyReport' data-rcode='${vo.rcode}' title="신고">
-	           			<img src="<%=cp%>/resource/images/siren.png" style="width: 20px; height: 20px;"> 신고하기 </button>
+	           			<img src="<%=cp%>/resource/images/siren.png" style="width: 15px; height: 15px;"> 신고하기 </button>
 	        </td>
 	    </tr>
 	    <tr>
@@ -39,14 +39,14 @@
 	   
 	   <tr>
 	        <td style="padding:7px 5px; width: 10px; height: 10px; font-size: lagie; border-bottom:1px solid #cccccc;">
-	            <button type='button' class='btn btnReplyAnswerLayout' data-rcode='${vo.rcode}' style="width: 50px; height: 25px; font-size: 10px">
+	            <button type='button' class='btn btnReplyAnswerLayout' data-rcode='${vo.rcode}' style="width: 50px; height: 25px; font-size: 10px; padding: 3px 6px 3px 6px;">
 	            	답글 <span id="answerCount${vo.rcode}">${vo.answerCount}</span></button>
 	        </td>
 	        <td style="padding:7px 5px; border-bottom:1px solid #cccccc;"  align='right'>
-                <button type='button' class='btn btnSendReplyLike' data-rcode='${vo.rcode}' data-like_Hate='1'  title="좋아요" style="width: 70px; height: 25px; font-size: 10px">
-                	<img src="<%=cp%>/resource/images/good.png" style="width: 15px; height: 15px;"> 좋아요 <span>${vo.likeCount}</span></button>
-                <button type='button' class='btn btnSendReplyLike' data-rcode='${vo.rcode}' data-like_Hate='0' title="싫어요" style="width: 70px; height: 25px; font-size: 10px">
-                	<img src="<%=cp%>/resource/images/bad.png" style="width: 15px; height: 15px;"> 싫어요 <span>${vo.disLikeCount}</span></button>	        
+                <button type='button' class='btn btnSendReplyLike' data-rcode='${vo.rcode}' data-like_Hate='1'  title="좋아요" style="width: 70px; height: 25px; font-size: 10px; padding: 3px 6px 3px 6px;">
+                	<img src="<%=cp%>/resource/images/good.png" style="width: 10px; height: 10px;"> 좋아요 <span>${vo.likeCount}</span></button>
+                <button type='button' class='btn btnSendReplyLike' data-rcode='${vo.rcode}' data-like_Hate='0' title="싫어요" style="width: 70px; height: 25px; font-size: 10px; padding: 3px 6px 3px 6px;">
+                	<img src="<%=cp%>/resource/images/bad.png" style="width: 10px; height: 10px;"> 싫어요 <span>${vo.disLikeCount}</span></button>	        
 	        </td>
 	    </tr>
 	    
