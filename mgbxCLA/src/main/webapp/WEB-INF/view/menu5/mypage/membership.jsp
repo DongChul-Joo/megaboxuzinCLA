@@ -42,6 +42,7 @@ function reservationCancel() {
 					<td width="70">상영일시</td>
 					<td width="70">상영시간</td>
 					<td width="70">예매일</td>
+					<td width="70">좌석번호</td>
 					<td width="70">취소</td>
 				</tr>		
 				
@@ -55,10 +56,23 @@ function reservationCancel() {
 				      <td>${dto.showingdate}</td>
 				      <td>${dto.startTime}</td>
 				      <td>${dto.bookdate}</td>
-				      <td><button type="button" class="btn" onclick="reservationCancel();">취소</button></td>
+				      <td>${dto.seatNumber}</td>
+				      <td>${dto.cancelInfo}
+				     <c:if test="${dto.cancelInfo!=2}">
+				      <button type="button" class="btn" onclick="reservationCancel('${dto.bookCode}');">취소</button>
+				     </c:if>
+				      </td>
 				  </tr>
 		  		</c:forEach>		  		  			
 			</table>
+			
+			<table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
+		   <tr height="80">
+			<td align="center">
+			       ${dataCount==0?"등록된 게시물이 없습니다.":paging}
+			 </td>
+		   </tr>
+		</table>
 			
 			</div>
 		</div>

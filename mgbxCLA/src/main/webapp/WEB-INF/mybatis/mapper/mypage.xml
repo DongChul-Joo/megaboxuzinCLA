@@ -3,7 +3,8 @@
 <mapper namespace="mypage">
 
 	<select id="listReservation" parameterType="map" resultType="com.sp.mypage.MyPage">
-		 SELECT userId, userName, b.bookCode, TO_CHAR(b.bookdate, 'YYYY-MM-DD') bookdate , TO_CHAR(s.showingdate, 'YYYY-MM-DD') showingdate, s.startTime,  cn.cmName, m.movienm 
+		SELECT userId, userName, b.bookCode, TO_CHAR(b.bookdate, 'YYYY-MM-DD') bookdate , TO_CHAR(s.showingdate, 'YYYY-MM-DD') showingdate, 
+        s.startTime,  cn.cmName, m.movienm , seatNumber
     	FROM customer c 
         JOIN member m ON c.customerCode = m.customerCode
     	JOIN BOOKING b ON c.customerCode = b.memberCode 
@@ -11,7 +12,17 @@
     	JOIN SHOWINGMOVIE s1 ON s.showingcode = s1.showingcode 
     	JOIN cinema cn ON s1.cmCode = cn.cmcode 
     	JOIN movie m ON s1.movieCode = m.moviecode 
+        JOIN (select bookCode,LISTAGG(seatNumber, ',') WITHIN GROUP(ORDER BY bookCode)seatNumber from SEAT group by bookCode) s1 ON b.bookCode = s1.bookCode
     	WHERE userId = #{userId}
+    	<if test="bookCode!=null">
+    		and bookCode=#{bookCode}
+    	</if>
+    	
+        order By bookDate
+        
+        <if test="offset!=rows">
+    		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
+    	</if>
 	</select>
 	
 	<select id="listStore" parameterType="map" resultType="com.sp.mypage.MyPage">
@@ -39,6 +50,7 @@
     	JOIN cinema cn ON s1.cmCode = cn.cmcode 
     	JOIN movie m ON s1.movieCode = m.moviecode
     	WHERE userId = #{userId}
+    	OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
 	</select>
 	
 	<select id="listPoint2" parameterType="map" resultType="com.sp.mypage.MyPage">
@@ -64,5 +76,59 @@
         JOIN customer c ON m.customerCode = c.customerCode
         where userId =  #{userId}
 	</select>
+	
+	
+	<sql id="where-list">
+		<choose>
+			<when test="condition == 'all' ">
+			   ( INSTR(subject, #{keyword}) &gt; 0
+		          OR DBMS_LOB.INSTR(content, #{keyword}) &gt; 0 )
+			</when>
+			<when test="condition == 'created' ">
+			   ( TO_CHAR(created, 'YYYYMMDD') = #{keyword}
+		          OR TO_CHAR(created, 'YYYY-MM-DD') = #{keyword} )
+			</when>
+			<when test="condition == 'content'">
+			    DBMS_LOB.INSTR(content, #{keyword}) &gt; 0
+			</when>
+			<otherwise>
+			    INSTR(${condition}, #{keyword}) &gt; 0
+			</otherwise>
+		</choose>
+	</sql>
+	
+	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		 	SELECT NVL(COUNT(*), 0)
+	    	FROM customer c 
+	        JOIN member m ON c.customerCode = m.customerCode
+	    	JOIN BOOKING b ON c.customerCode = b.memberCode 
+	    	JOIN showingSchedule s ON b.scheduleCode = s.scheduleCode 
+	    	JOIN SHOWINGMOVIE s1 ON s.showingcode = s1.showingcode 
+	    	JOIN cinema cn ON s1.cmCode = cn.cmcode 
+	    	JOIN movie m ON s1.movieCode = m.moviecode 
+	        JOIN SEAT s1 ON b.bookCode = s1.bookCode
+			WHERE userId = #{userId}
+	</select>
+	
+	<select id="dataCountMovie" parameterType="map" resultType="Integer">
+			SELECT NVL(COUNT(*), 0)
+	    	FROM customer c 
+	        JOIN member m ON c.customerCode = m.customerCode
+	    	JOIN BOOKING b ON c.customerCode = b.memberCode 
+	    	JOIN showingSchedule s ON b.scheduleCode = s.scheduleCode 
+	    	JOIN SHOWINGMOVIE s1 ON s.showingcode = s1.showingcode 
+	    	JOIN cinema cn ON s1.cmCode = cn.cmcode 
+	    	JOIN movie m ON s1.movieCode = m.moviecode
+			WHERE userId = #{userId}
+	</select>
+	
+	<select id="payDetailInfo" parameterType="Integer">
+		select pdsudan,pdPrice,payInfo from payDetail
+	</select>
+	
+	<delete id="deleteSeat" parameterType="Integer">
+		delete from seat where bookCode=#{bookCode}
+	</delete>
 	
 </mapper>

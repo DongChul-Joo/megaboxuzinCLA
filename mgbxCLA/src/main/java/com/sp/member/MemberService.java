@@ -22,5 +22,5 @@ public interface MemberService {
 	
 	public void generatePwd(Member dto) throws Exception;
 	public void generateId(Member dto) throws Exception;
-	
+
 }

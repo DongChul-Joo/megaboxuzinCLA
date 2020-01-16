@@ -95,4 +95,29 @@ public class MyPageServiceImpl implements MyPageService {
 		}
 		
 	}
+
+	@Override
+	public int dataCount(Map<String, Object> map) {
+			int result=0;
+			
+			try {
+				result = dao.selectOne("mypage.dataCount", map);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		return result;
+	}
+
+	@Override
+	public int dataCountMovie(Map<String, Object> map) {
+		int result = 0;
+		
+		try {
+			result = dao.selectOne("mypage.dataCountMovie", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 }

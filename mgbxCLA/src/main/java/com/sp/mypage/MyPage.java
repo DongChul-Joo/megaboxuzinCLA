@@ -24,8 +24,32 @@ public class MyPage {
 	private String itemImg;
 	private String startTime;
 	private String msaveDate;
+	private String seatNumber;
+	
+	private int dayCount;
+	private int timeCount;
+	private int cancelInfo;
 	
 	
+	
+	public int getCancelInfo() {
+		return cancelInfo;
+	}
+	public void setCancelInfo(int cancelInfo) {
+		this.cancelInfo = cancelInfo;
+	}
+	public int getDayCount() {
+		return dayCount;
+	}
+	public void setDayCount(int dayCount) {
+		this.dayCount = dayCount;
+	}
+	public int getTimeCount() {
+		return timeCount;
+	}
+	public void setTimeCount(int timeCount) {
+		this.timeCount = timeCount;
+	}
 	public int getBookCode() {
 		return bookCode;
 	}
@@ -158,7 +182,12 @@ public class MyPage {
 	public void setMsaveDate(String msaveDate) {
 		this.msaveDate = msaveDate;
 	}
-	
-	
+	public String getSeatNumber() {
+		return seatNumber;
+	}
+	public void setSeatNumber(String seatNumber) {
+		this.seatNumber = seatNumber;
+	}
+
 		
 }

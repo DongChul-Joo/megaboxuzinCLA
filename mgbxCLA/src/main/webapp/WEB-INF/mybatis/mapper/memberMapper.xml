@@ -108,6 +108,9 @@
 	userName=#{userName} AND birth=#{birth} AND email=#{email} AND tel=#{tel}
 	</where>
     </select>
+    
+    
+
   
 
 </mapper>
