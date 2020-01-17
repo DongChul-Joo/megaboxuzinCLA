@@ -84,7 +84,7 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public void insertMyPage(MyPage dto, String pathname) throws Exception {
+	public void insertMyPage(MyPage dto) throws Exception {
 		
 		try {
 			
