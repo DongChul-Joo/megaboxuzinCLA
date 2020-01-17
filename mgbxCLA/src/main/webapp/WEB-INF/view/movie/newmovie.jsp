@@ -316,17 +316,17 @@ function showMovieDetail(movieCode){
 	detailMovie(movieCode);
 	getAudience(movieCode);
 	
-    			$("#showDetail").dialog({
-					modal: true,
-					height:2000,
-					width:1000,
-					title: "상세 정보", 
-					open:function(){
-			               $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
-		            },
-					close: function(event, ui) {
-						window.location.reload();
-					}
+    		$("#showDetail").dialog({
+				modal: true,
+				height:2000,
+				width:1000,
+				title: "상세 정보", 
+				open:function(){
+			    	$(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
+		        },
+				close: function(event, ui) {
+				window.location.reload();
+			}
 	});
 }
 
