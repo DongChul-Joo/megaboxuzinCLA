@@ -96,10 +96,13 @@ $(function(){
 	});	
 });
 </script>
+<div class="barContent">
+		<img style="width: 100%" height="272px;" src='<%=cp%>/resource/images/capture.png'>
+</div>
 
 <div class="body-container" style="min-height: 700px;margin-bottom: 20px;">
 	<div class="body-title">
-		<h3 style="padding-top: 100px;"> 상품정보 </h3>
+		<h3 style="padding-top: 20px;"> 상품정보 </h3>
 	</div>
 
   <div style="clear: both;">
@@ -107,7 +110,7 @@ $(function(){
 		<h4 style="margin:border-bottom-width: 10px;margin-bottom: 10px;">판매기간 : 2020-01-09~</h4>
 			
 		 <p>
-			<img src="/mgbxAD/uploads/item/${dto.itemImg}" width="380">
+			<img id="itemImg" src="/mgbxAD/uploads/item/${dto.itemImg}" width="380">
 		 </p>	
 		 <div>
 		 	<span>${dto.itemOrigin}</span>
@@ -115,7 +118,7 @@ $(function(){
 	</div>
 	
 	<div class="box2">
-		<div class="itemName" style="margin-bottom: 20px;padding-bottom: 10px; border-bottom: 2px #878787;">
+		<div style="margin-bottom: 20px;padding-bottom: 10px; border-bottom: 2px #878787;">
 			<h4 style="margin-bottom: 10px;">${dto.itemName}</h4>
 			<h5 style="text-align: right; margin-right: 10px;">${dto.itemPart}</h5>
 		</div>
@@ -229,6 +232,7 @@ function buy(){
 		alert("로그인이 필요합니다!");
 		location.href="<%=cp%>/member/login";
 		return;
+		
 	} else {
 		
 	var IMP = window.IMP; // 생략가능
@@ -239,9 +243,8 @@ function buy(){
 	var utel = "${sessionScope.customer.tel}";
 	var amount = $("#payAmt").text();
     var itemCount = $("#itemCount").val();
-    var itemPart =  $("#itemPart").val();
-    var itemName = $("#itemName").val();
-    var itemImg = $("#itemImg").val();
+    var itemPrice = $("#itemPrice").val();
+    var itemCode=$("#itemCode").val();
     
 	IMP.request_pay({
 	   	pg : 'html5_inicis', // 결제방식
@@ -256,29 +259,21 @@ function buy(){
 	}, function(rsp) {
 		if ( rsp.success ) { // 성공시
 			alert("결제가 완료되었습니다.");
-		    
-		    var f=document.storeForm;
-		    f.itemCount.value = itemCount;
-		    f.itemName.value = itemName;
-		    f.amount.value = amount;
-		    f.itemPart.value = itemPart;
-		    f.itemImg.value = itemImg;
-		    
-		    /* f.apply_num.value = rsp.apply_num; */
-		    
+			
+		
+			var f=document.storeForm;
+			f.amount.value=amount;
+			f.pdPayId.value=rsp.imp_uid;
+			f.pdPayCode.value=rsp.apply_num;
+			f.pdSudan.value=rsp.pay_method;
 			f.action="<%=cp%>/mypage/store";
 			f.submit();
-		
-			/*
-			var msg = '결제가 완료되었습니다.';
-			msg += '고유ID : ' + rsp.imp_uid;
-			msg += '상점 거래ID : ' + rsp.merchant_uid;
-			msg += '결제 금액 : ' + rsp.paid_amount;
-			msg += '카드 승인번호 : ' + rsp.apply_num;
-			*/
+			
+
 		} else { // 실패시
 			var msg = '결제에 실패하였습니다.';
 			msg += '에러내용 : ' + rsp.error_msg;
+			alert(msg);
 		}
 	});
 	}
@@ -287,14 +282,15 @@ function buy(){
 </script>
 
 <form name="storeForm" method="post">
+  
   <input type="hidden" name="itemCode" value="${dto.itemCode}"/>
-  <input type="hidden" name="itemName" value="${dto.itemName}"/>
   <input type="hidden" name="itemPrice" value="${dto.itemPrice}"/>
-  <input type="hidden" name="itemCount"/>
-  <input type="hidden" name="amount"/>
-  <input type="hidden" name="itemPart" value="${dto.itemPart}"/>
+  <input type="hidden" name="amount" value=""/>
+  <input type="hidden" name="itemCount" value=""/>
+  <input type="hidden" name="pdPayId" value=""/>
+  <input type="hidden" name="pdPayCode" value=""/>
   
-  
+
 </form>
 
 </div>
