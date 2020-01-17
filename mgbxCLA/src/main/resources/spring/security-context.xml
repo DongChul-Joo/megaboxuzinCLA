@@ -34,7 +34,7 @@
 		<intercept-url pattern="/member/complete" access="permitAll"/>
 		<intercept-url pattern="/resource/**" access="permitAll"/>
 		
-		
+
 		<form-login
 			login-page="/member/login"
 			login-processing-url="/member/login"
@@ -44,7 +44,7 @@
 			default-target-url="/"
 			always-use-default-target="true"
 			authentication-success-handler-ref="myAuthenticationSuccessHandler"
-		/>
+			authentication-failure-handler-ref="loginFailureHandler"/>
 		
 		<logout
 			logout-url="/member/logout"
@@ -55,7 +55,7 @@
 		<access-denied-handler error-page="/member/noAuthorized"/>
 		
 
-		<!-- 접근권한이 없으면 여기로 -->
+		<!-- 접근권한이 없으면 여기로 1명만 접속-->
 		<session-management>
 			<concurrency-control max-sessions="1"
 			expired-url="/member/expired"/>
@@ -70,6 +70,11 @@
 	
 	<beans:bean id="myAuthenticationSuccessHandler"
 	class="com.sp.security.LoginSuccessHandler"/>
+	
+	
+	<beans:bean id="loginFailureHandler" class="com.sp.security.LoginFailureHandler">
+		<beans:property name="defaultFailureUrl" value="/member/login?login_error"/>
+	</beans:bean>
 	
 	
 	<jdbc-user-service data-source-ref="dataSource"

@@ -24,5 +24,13 @@ public interface MemberService {
 	public void generateId(Member dto) throws Exception;
 	public int dataCountNonMember(Map<String, Object> map);
 	
+	public int checkFailureCount(String userId);
+	public void updateFailureCount(String userId) throws Exception;
+	public void updateFailureCountReset(String userId) throws Exception;
+	public void updateMemberEnabled(Map<String, Object> map) throws Exception;
+	public void insertMemberState(Member dto) throws Exception;
+	public List<Member> listMemberState(String userId);
+	public Member readMemberState(String userId);
+	
 
 }

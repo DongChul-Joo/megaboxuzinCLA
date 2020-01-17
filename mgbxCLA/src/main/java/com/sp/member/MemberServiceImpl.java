@@ -288,5 +288,88 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
+	@Override
+	public int checkFailureCount(String userId) {
+		int result = 0;
+		try {
+			result = dao.selectOne("member.checkFailureCount", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public void updateFailureCount(String userId) throws Exception {
+		try {
+			dao.selectOne("member.updateFailureCount", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public void updateFailureCountReset(String userId) throws Exception {
+		try {
+			dao.selectOne("member.updateFailureCountReset", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public void updateMemberEnabled(Map<String, Object> map) throws Exception {
+		try {
+			dao.selectOne("member.updateMemberEnabled", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public void insertMemberState(Member dto) throws Exception {
+		try {
+			dao.selectOne("member.insertMemberState", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public List<Member> listMemberState(String userId) {
+		List<Member> list = null;
+		try {
+			list = dao.selectOne("member.listMemberState", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public Member readMemberState(String userId) {
+		Member dto = null;
+		try {
+			dto = dao.selectOne("member.readMemberState", userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+
+	
+	
+	
+	
+	
+	
 	
 }

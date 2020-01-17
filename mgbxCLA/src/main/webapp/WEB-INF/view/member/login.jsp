@@ -76,7 +76,7 @@ background-color: #f9f9f9;
 		  
 
 		  <tr align="center" height="40" >
-		    	<td><span style="color: blue;">${message}</span></td>
+		    	<td><span style="color: blue;">${errorMsg}</span></td>
 		  </tr>
 		  
 		  </table>

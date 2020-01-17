@@ -57,7 +57,7 @@ function reservationCancel() {
 				      <td>${dto.startTime}</td>
 				      <td>${dto.bookdate}</td>
 				      <td>${dto.seatNumber}</td>
-				      <td>${dto.cancelInfo}
+				      <td>${dto.cancelInfo==2?"취소불가":""}
 				     <c:if test="${dto.cancelInfo!=2}">
 				      <button type="button" class="btn" onclick="reservationCancel('${dto.bookCode}');">취소</button>
 				     </c:if>

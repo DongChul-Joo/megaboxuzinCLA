@@ -80,7 +80,7 @@ public class MemberController {
 		return ".member.complete";
 	}
 	
-	@RequestMapping(value="/member/login", method=RequestMethod.GET)
+	@RequestMapping(value="/member/login")
 	public String loginForm(String login_error, Model model) {
 		//로그인 폼 
 		boolean bLoginError = login_error != null;

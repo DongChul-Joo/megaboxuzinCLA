@@ -81,9 +81,6 @@ padding-right: 206px;
 				
 				<tr align="center" bgcolor="#f8f8f8" height="40" style="border-top: 2px solid #731070; border-bottom: 1px solid #cccccc;">
 					<td width="35">일자</td>
-					<td width="70">지점</td>
-					<td width="70">이용내역</td>
-					<td width="70">이용금액</td>
 					<td width="70">적립포인트</td>
 					<td width="70">사용포인트</td>
 				</tr>		
@@ -93,10 +90,7 @@ padding-right: 206px;
 				<c:forEach var="dto" items="${list}">
 				  <tr align="center" bgcolor="#ffffff" height="50" style="border-bottom: 1px solid #cccccc;"> 
 				      <td>${dto.msaveDate}</td>
-				      <td></td>
-				      <td></td>
-				      <td></td>
-				      <td>${dto.msavePoint}</td>
+				      <td>${dto.mileage}</td>
 				      <td></td>
 				  </tr>
 		  		</c:forEach>

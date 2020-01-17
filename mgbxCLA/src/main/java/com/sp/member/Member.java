@@ -22,6 +22,12 @@ public class Member {
 	
 	private int listNum;
 	
+	
+	private long num;
+	private int stateCode;
+	private String memo;
+	private String registration_date;
+	
 	public long getCustomerCode() {
 		return customerCode;
 	}
@@ -184,6 +190,30 @@ public class Member {
 	public void setListNum(int listNum) {
 		this.listNum = listNum;
 	}
+	public long getNum() {
+		return num;
+	}
+	public void setNum(long num) {
+		this.num = num;
+	}
+	public int getStateCode() {
+		return stateCode;
+	}
+	public void setStateCode(int stateCode) {
+		this.stateCode = stateCode;
+	}
+	public String getMemo() {
+		return memo;
+	}
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
+	public String getRegistration_date() {
+		return registration_date;
+	}
+	public void setRegistration_date(String registration_date) {
+		this.registration_date = registration_date;
+	}
 	
-	
+
 }

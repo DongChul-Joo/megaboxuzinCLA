@@ -37,7 +37,7 @@ padding-bottom: 30px;
 				  <tr align="center" bgcolor="#ffffff" height="50" style="border-bottom: 1px solid #cccccc;"> 
 				      <td>${dto.itemPart}</td>
 				      <td>${dto.buyDate}</td>
-				      <td>${dto.itemName} , <img src="${dto.itemImg}" width="120px;"></td>
+				      <td>${dto.itemName}</td>
 				      <td>${dto.buyAmount}</td>
 				      <td>${dto.pdSudan}</td>
 				  </tr>

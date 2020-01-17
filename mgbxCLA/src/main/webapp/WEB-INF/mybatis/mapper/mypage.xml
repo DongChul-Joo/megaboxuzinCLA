@@ -54,17 +54,15 @@
 	</select>
 	
 	<select id="listPoint2" parameterType="map" resultType="com.sp.mypage.MyPage">
-		SELECT mileage , TO_CHAR(msaveDate , 'YYYY-MM-DD') msaveDate, msavePoint
-        FROM MILEAGEINFO m
-        JOIN MILEAGE m1 ON m.mileageCode = m1.mileageCode
+		SELECT mileage , TO_CHAR(msaveDate , 'YYYY-MM-DD') msaveDate
+        FROM MILEAGE
         WHERE userId =  #{userId}
 	</select>
 	
 	
 	<select id="listPoint" parameterType="String" resultType="com.sp.mypage.MyPage">
 		SELECT mileage
-        FROM MILEAGEINFO m
-        JOIN MILEAGE m1 ON m.mileageCode = m1.mileageCode
+        FROM MILEAGE
         WHERE userId =  #{userId}
 	</select>
 	
