@@ -33,24 +33,6 @@
 </style>
 
 <script type="text/javascript">
-function deleteItem() {
-
-		var q = "itemCode=${dto.itemCode}&${query}";
-		var url = "<%=cp%>/item/delete?" + q;
-		
-		if(confirm("위 상품을 삭제하시겠습니까?"))
-			location.href=url;
-
-}
-
-function updateItem() {
-
-		var q = "itemCode=${dto.itemCode}&page=${page}";
-		var url = "<%=cp%>/item/update?" + q;
-		location.href=url;
-
-}
-
 $(function(){
 	$(".btn_plus").click(function(){
 		var price = $(this).attr("data-price");
