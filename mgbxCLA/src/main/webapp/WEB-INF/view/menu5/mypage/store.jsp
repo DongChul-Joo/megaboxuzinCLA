@@ -37,13 +37,21 @@ padding-bottom: 30px;
 				  <tr align="center" bgcolor="#ffffff" height="50" style="border-bottom: 1px solid #cccccc;"> 
 				      <td>${dto.itemPart}</td>
 				      <td>${dto.buyDate}</td>
-				      <td>${dto.itemName} , <img src="${dto.itemImg}" width="120px;"></td>
+				      <td>${dto.itemName}</td>
 				      <td>${dto.buyAmount}</td>
 				      <td>${dto.pdSudan}</td>
 				  </tr>
 		  		</c:forEach>
 		  		  			
 			</table>
+			
+			<table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
+		   <tr height="80">
+			<td align="center">
+			       ${dataCount==0?"등록된 게시물이 없습니다.":paging}
+			 </td>
+		   </tr>
+		</table>
 			
 			</div>
 		</div>

@@ -6,8 +6,6 @@
 	String cp=request.getContextPath();
 %>
 <style>
-
-
 .title{
 font-size: 20px;
 text-overflow: ellipsis;
@@ -20,12 +18,14 @@ width: 200px;
 height: 30px;
 display: block;
 margin-top: 10px;
-
 }
 
 .ll {
 list-style:none;
 font-family: center;
+width:40%;
+height:100%;
+margin: 0px auto;
 }
 
 
@@ -42,34 +42,31 @@ float: left;
 .lo li{
 list-style:none;
 float: left;
+margin: 20px 0;
 }
 
 
-.*{
+.* {
 font-family: 'Sunflower', sans-serif;
 
 }
 
 .center {
 text-align: center;
-height :50px;
- background-color: white; 
- width:100%;
- border-bottom: 3px solid #503396;
+height :60px;
+background-color: white; 
+padding-top : 5px;
+width:100%;
+border-top : 1px;
+border-bottom: 3px solid #503396;
+background-color: #EAEAEA;
 }
-
-.a1{
-
-}
-
 </style>
 
 <script type="text/javascript">  
-
-
 function article(ecode) {
 	var url="${articleUrl}";  
-	var query="ecode="+ecode;
+	var query="ecode="+ecode+"&state=${state}";
 	var type="get";
 	var selector="#readEventForm";
 	$.ajax({
@@ -91,8 +88,10 @@ function article(ecode) {
 		height:'auto',
 		width:850,
 		title: "",
+		position: { my:"center top+30", at:"center top+30", of: window },
 		open:function(){
-       	 $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
+       	 //$(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
+       	 $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").css({"background":"none","border":"none","border-bottom":"1px solid #cccccc"});
         },
 		close: function(event, ui) {
 		}
@@ -193,7 +192,6 @@ function listPage(page) {
 
 
 // 댓글 삭제
-
 	$(document).on("click", ".deleteReply", function(){
 		if(! confirm("게시물을 삭제하시겠습니까?")) {
 			return false;
@@ -383,36 +381,28 @@ function listReplyAnswer(answer) {
 		ajaxJSON(url, "post", query, fn);
 	});
 
-
-
-
-
 </script>
 
 <div class="center">
-	<div style="width: 60%;margin: 10px auto;">
     <ul class="ll" > 
         <li><a href="<%=cp%>/event/list?ecategoryCode=0">전체</a></li>
         <li><a href="<%=cp%>/event/list?ecategoryCode=1">메가박수진이벤트</a></li>
         <li><a href="<%=cp%>/event/list?ecategoryCode=2">영화 이벤트</a></li>   
         <li><a href="<%=cp%>/event/list?ecategoryCode=3">제휴 이벤트</a></li>
         <li><a href="<%=cp%>/event/list?ecategoryCode=4">영화관이벤트</a></li>
-        <li><a href="<%=cp%>/roto/listDott">당첨자발표</a></li>
-        <li><a href="<%=cp%>">현황 통계</a></li>
     </ul>
-    </div>
 </div>
 
 
-<div class="body-container" style="width: 1000px; margin: 0px auto; margin-top: 50px;">
+<div class="body-container" style="width: 1000px; margin: 50px auto 25px;">
 <div style="width: 100%;">
 	<ul class="lo">
 		<li><a href="<%=cp%>/event/list?state=1&ecategoryCode=${ecategoryCode}">진행중 이벤트 | </a></li>
-		<li><a href="<%=cp%>/event/list?state=0&ecategoryCode=${ecategoryCode}">종료된 이벤트</a></li>
+		<li><a href="<%=cp%>/event/list?state=0&ecategoryCode=${ecategoryCode}">&nbsp;종료된 이벤트</a></li>
 	</ul>
 
 </div>
-<table style="width: 1000px; margin: 80px auto; border-spacing: 0px;">
+<table style="width: 1000px; margin: 80px auto 5px; border-spacing: 0px;">
 <c:forEach var="dto" items="${list}" varStatus="status">
 	<c:if test="${dtatus.index==0}">
 		<tr>
@@ -423,10 +413,10 @@ function listReplyAnswer(answer) {
 	<td width="20px" align="center" style="padding-bottom: 30px">
 		<div style="cursor: pointer;">
 			<img src="<%=cp%>>/mgbxAD/uploads/event/${dto.imageName}"
-			width="200" height="250" border="0" onclick="article('${dto.ecode}');">
+			width="230" height="300" border="0" onclick="article('${dto.ecode}');">
 		</div>
 		
-		<div style="height: 70px; width: 200px; border: 1px solid #BDBDBD; background-color: white;">
+		<div style="height: 70px; width: 230px; border: 1px solid #BDBDBD; background-color: white;">
 			<p class="title" onclick="javascript:article('${dto.ecode}');">
 				${dto.subject}
 				</p>
@@ -455,7 +445,6 @@ function listReplyAnswer(answer) {
 			 </td>
 		   </tr>
 		</table>
-	
 </div>
 
-<div id="readEventForm" style="display: none;width: 650;overflow: none;"></div>
+<div id="readEventForm" style="display: none; overflow: none;"></div>

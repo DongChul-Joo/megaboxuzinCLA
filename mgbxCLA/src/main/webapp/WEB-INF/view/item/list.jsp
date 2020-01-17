@@ -10,7 +10,6 @@
 .imgLayout{
 	width: 190px;
 	height: 190px;
-
 	margin-bottom: 80px;
 	cursor: pointer;
 }
@@ -37,11 +36,17 @@ function article(itemCode) {
 }
 
 </script>
-
+<body>
+	<div class="barContent">
+		<img style="width: 100%" height="272px;" src='<%=cp%>/resource/images/capture.png'>
+	</div>
 <div class="body-container" style="width: 840px; height: 2100px;">
-	<div class="body-title" style="margin-top: 30px;">
-		<h3>|<img style="width: 40px;" src="<%=cp%>/resource/images/movietk.png"> 상품</h3>
-
+	
+	<div> <h4>
+		<a href="javascript:window.scrollTo(0,420);">영화티켓</a> | 
+		<a href="javascript:window.scrollTo(0,1060);">특별할인</a> |
+		<a href="javascript:window.scrollTo(0,1700);">먹거리</a> </h4>
+	
 	</div>
 	
 	<div>
@@ -111,3 +116,4 @@ function article(itemCode) {
 	
 
 </div>
+</body>

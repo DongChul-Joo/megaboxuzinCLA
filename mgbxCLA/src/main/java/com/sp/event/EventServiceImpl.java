@@ -161,28 +161,28 @@ public class EventServiceImpl implements EventService{
 	}
 	
 	// 이벤트 추첨 완료 리스트
-		@Override
-		public List<Event> listDott(Map<String, Object> map) {
-			List<Event> list=null;
-			try {
-				list=dao.selectList("event.listDott", map);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return list;
+	@Override
+	public List<Event> listDott(Map<String, Object> map) {
+		List<Event> list=null;
+		try {
+			list=dao.selectList("event.listDott", map);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		// 이벤트 추첨 완료 개수
-		@Override
-		public int DottCount(Map<String, Object> map) {
-			int result=0;
-			
-			try {
-				result=dao.selectOne("event.dottCount", map);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-			return result;
+		return list;
+	}
+	
+	// 이벤트 추첨 완료 개수
+	@Override
+	public int DottCount(Map<String, Object> map) {
+		int result=0;
+		
+		try {
+			result=dao.selectOne("event.dottCount", map);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
+		
+		return result;
+	}
 }

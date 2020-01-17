@@ -31,11 +31,7 @@
 background-color: #f9f9f9;
 }
 
-
 </style>
-
-
-
 
 <div class="body-container" style="padding-top: 140px; padding-bottom: 140px;">
     <div style="width:500px; margin: 0px auto; padding-top:100px; background-color: #f9f9f9; height: 500px;">
@@ -80,7 +76,7 @@ background-color: #f9f9f9;
 		  
 
 		  <tr align="center" height="40" >
-		    	<td><span style="color: blue;">${message}</span></td>
+		    	<td><span style="color: blue;">${errorMsg}</span></td>
 		  </tr>
 		  
 		  </table>

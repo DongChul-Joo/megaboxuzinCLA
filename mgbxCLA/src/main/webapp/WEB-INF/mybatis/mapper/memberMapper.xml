@@ -107,10 +107,59 @@
 	<where>
 	userName=#{userName} AND birth=#{birth} AND email=#{email} AND tel=#{tel}
 	</where>
+	
     </select>
     
     
+    <select id="dataCountNonMember" parameterType="map" resultType="Integer">
+    	 SELECT NVL(COUNT(*), 0)
+    	FROM customer c 
+    	JOIN BOOKING b ON c.customerCode = b.memberCode 
+    	JOIN showingSchedule s ON b.scheduleCode = s.scheduleCode 
+    	JOIN SHOWINGMOVIE s1 ON s.showingcode = s1.showingcode 
+    	JOIN cinema cn ON s1.cmCode = cn.cmcode 
+    	JOIN movie m ON s1.movieCode = m.moviecode
+    	<where>
+		userName=#{userName} AND birth=#{birth} AND email=#{email} AND tel=#{tel}
+		</where>
+    </select>
+    
+    
+    <!-- 패스워드 실패 / 회원 상태 -->
+	<select id="checkFailureCount" parameterType="String" resultType="Integer">
+		SELECT NVL(faiure_cnt, 0) faiure_cnt
+		FROM member
+		WHERE userId = #{userId}
+	</select>
+	
+	<update id="updateFailureCountReset" parameterType="String">
+		UPDATE member SET faiure_cnt = 0
+		WHERE userId = #{userId}
+	</update>
+	
+	<update id="updateFailureCount" parameterType="String">
+		UPDATE member SET faiure_cnt = faiure_cnt + 1
+		WHERE userId = #{userId}
+	</update>
+	
+	<insert id="insertMemberState" parameterType="com.sp.member.Member">
+		INSERT INTO memberState(num, userId, stateCode, memo)
+			VALUES (memberState_seq.NEXTVAL, #{userId}, #{stateCode}, #{memo})
+	</insert>
+	
+	<select id="listMemberState" parameterType="String" resultType="com.sp.member.Member">
+		SELECT num, userId, stateCode, memo, registration_date
+		FROM memberState
+		WHERE userId = #{userId}
+		ORDER BY num DESC
+	</select>
 
-  
+	<select id="readMemberState" parameterType="String" resultType="com.sp.member.Member">
+		SELECT num, userId, stateCode, memo, registration_date
+		FROM memberState
+		WHERE userId = #{userId}
+		ORDER BY num DESC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
 
 </mapper>
