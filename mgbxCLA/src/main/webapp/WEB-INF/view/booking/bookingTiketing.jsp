@@ -63,59 +63,76 @@
 				
 			</div>
 
- 
+ 			<div class="membershipData" style="font-size: 20px; text-align: center;padding-top: 50px;font-weight: bold;"></div>
 			</div>
 		
 		
+		
 		<div style="width: 100%; height: 25%; background-color: white ;">
-				<div class="paymentAmount">총 결제금액
+				<div class="paymentAmount" id="bookingTotPrice">
+					<p>총 결제금액</p>
 					<div style="width: 85%; padding-top: 10px;" >
-					<div class="paymentA" style="width: 100%; float: left; text-align: right;">원</div>
+					<input type="text" readonly="readonly" class="paymentA" value="" name="totPrice" style="border:none;width: 80%; float: left; text-align: right;"></input>원
 					</div>
 				</div>
-				<div class="paymentAmount">할인수단/관람권
+				<div class="paymentAmount" >
+					<p>쿠폰/관람권</p>
 					<div style="width: 85%; padding-top: 10px;" >
 					<div class="paymentA" style="width: 20%; float: left; text-align:right;">-</div>
-					<div class="paymentA" style="width: 80%; float: left;">원</div>
+					<input type="text" readonly="readonly" class="paymentA" value="0" name="discountPrice" style="border:none;width: 60%; float: left;"></input>원
 					</div>
+		
 				</div>
-				<div class="paymentAmount">일반결제
-				    <div style="width: 85%; padding-top: 10px;" >
-					<div class="paymentA" style="width: 20%; float: left;text-align:right;">-</div>
-					<div class="paymentA" style="width: 80%; float: left;">원</div>
+				<div class="paymentAmount" >
+					<p>멤버십할인</p>
+					<div style="width: 85%; padding-top: 10px;" >
+					<div class="paymentA" style="width: 20%; float: left; text-align:right;">-</div>
+					<input type="text" readonly="readonly" class="paymentA" value="0" name="discountPrice" style="border:none;width: 60%; float: left;"></input>원
 					</div>
+		
 				</div>
-				<div class="paymentAmount">남은 결제금액
+				<div class="paymentAmount" >
+					<p>마일리지</p>
 				    <div style="width: 85%; padding-top: 10px;" >
-					<div class="paymentA" style="width: 100%; float: left; text-align: right;">원</div>			
+				    <div class="paymentA" style="width: 20%; float: left; text-align:right;">-</div>
+					<input type="text" readonly="readonly" class="paymentA" value="0" name="delMileage" style="border:none;width: 60%; float: left; text-align: right;"></input>원			
 					</div>
 				</div>
 				
 		</div>
 	</div>
 		
-		<div class="bookingMovieInfo" style="width: 20%; height: 100%; background-color: #404040; float: left;">
-			<div style="width: 100%;height: 70%; color: white;font-size: 15px;">
+		<div class="bookingMovieInfo" style="width: 20%; height: 100%; background-color: #404040; float: left;display: inline-block;">
+			<div style="width: 100%;height: 100%; color: white;font-size: 15px;">
 				
-				<div style="width: 100%; height: 70%; background-color: #e4e4e4;">
-					 
+				<div style="width: 100%; height: 50%; background-image: url('${dto.thumbNail}');background-size:cover">
+					 <c:if test="${dto.thumbNail=='No images'}">
+					${dto.thumbNail}
+					</c:if>
 				</div>
 				
-				<div style="margin: 0 auto; width: 90%; padding-top: 5px;">
+				<div class="tiketInfo" style="margin: 0 auto; width: 100%; height:30%; padding-top: 5px;display: inline-block;">
 					<p style="margin-top: 10px;">▷연령 제한 : ${dto.audits}</p>
 					<p style="margin-top: 10px;">▷제목 : ${dto.movieNm}</p>
 					<p style="margin-top: 10px;">▷상영관 :<br>${dto.branName}<br>${dto.cmName}</p>
+					<span style="margin-top: 10px;">▷선택좌석 :</span>
+					<div id="seatSelectJone" style="width: 100%;height: 25%;display: inline-block;"></div>
 				</div>
 				
-				<div class="totMoney" style="width: 90%;height: 13%;font-weight: bold;font-size: 20px;color:white;text-align: right;">0원
+				<div class="realMoney" style="width: 90%;height: 8%;font-weight: bold;font-size: 20px;color:white;text-align: right;">
 				</div>
 				
 				<div style="margin-left: auto; margin-right:auto; display: table;">
-					<button class="seatBtns" style="background: purple;color: white; width: 80px; height: 35px; border: purple;" type="button" onclick="buyTiket();">결제</button>
-					<button class="seatBtns" onclick="closedSeat();" style="margin-left:5px;background: white; border: white; width: 80px; height: 35px;" type="button">취소</button>
-					<input name="scheduleCode" type="hidden" value="${dto.scheduleCode}">
+					<button class="seatBtns" style="background: purple;color: white; width: 80px; height: 35px; border: purple;" type="button" onclick="payTiket();">결제</button>
+					<button class="seatBtns" onclick="closedSeat();" style="color:black;margin-left:5px;background: white; border: white; width: 80px; height: 35px;" type="button">취소</button>
+					
 				</div>
 				
 			</div>
-		</div>	
+		<form name="bookingSubmitForm" method="post">
+			<input name="scheduleCode" type="hidden" value="${dto.scheduleCode}">
+		</form>
+		</div>
+		
+			
 		

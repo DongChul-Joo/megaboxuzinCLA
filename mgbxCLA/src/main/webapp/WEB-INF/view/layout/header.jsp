@@ -612,6 +612,12 @@ float: left;
 font-weight: bold;
 }
 
+.paymentAmount p{
+text-align: center;
+font-size: 20px;
+color: purple;
+}
+
 .paymentA{
 text-align: right;
 }
@@ -622,9 +628,22 @@ background: #333;width: 96%;color: white;outline: none;
 .ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active{
 width: 96%;
 }
+
+.seatPrePay{
+    color: white;
+    font-size: 13px;
+    background: purple;
+    border: 1px solid black;
+    margin-left: 2px;
+    padding: 2px;
+    float: left;
+    width: 15%;
+    height: 50%;
+    text-align: center;
+}
 </style>
 
-
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <script type="text/javascript">
 var timePosition=0;
@@ -653,14 +672,109 @@ function seatCreateTimers(){
 	schduleTimer=setInterval("readBookingSeat()",60000);
 }
 
+function deagi(){
+	var IMP = window.IMP; // 생략가능
+	IMP.init('imp36876789');  // 가맹점 식별 코드
+	
+	
+	IMP.request_pay({
+	   	pg : 'html5_inicis', // 결제방식
+	    pay_method : 'card',	// 결제 수단
+	    merchant_uid : 'merchant_' + new Date().getTime(),
+	   	name : 'buyTicket',	// order 테이블에 들어갈 주문명 혹은 주문 번호
+	    amount : 100,	// 결제 금액 amount
+	    buyer_email : $("input[name=email]").val(),	// 구매자 email
+	   	buyer_name :  $("input[name=userName]").val(),	// 구매자 이름
+	    buyer_tel :  $("input[name=tel]").val(),	// 구매자 전화번호
+	    m_redirect_url : '/khx/payEnd.action'	// 결제 완료 후 보낼 컨트롤러의 메소드명
+	}, function(rsp) {
+		if ( rsp.success ) { // 성공시
+			alert("결제가 완료되었습니다.");
+			
+			
 
-function buyForm(data){
+		} else { // 실패시
+			var msg = '결제에 실패하였습니다.\n' + rsp.error_msg;
+			alert(msg);
+		}
+	});
 	
+}
+function payTiket(){
 	
+	var fom=$("form[name=bookingSubmitForm]").serialize() ;
+		fom+="&realPrice="+$(".realMoney").attr("data-price");
+		alert($("input[name=customerCode]").val());
+	$.ajax({
+		type : 'post',
+		url : '<%=cp%>/booking/bookingSubmit',
+		data : fom,
+		dataType : 'json',
+		error: function(xhr, status, error){
+			alert(error);
+		},
+		success : function(data){
+			if(data=='false'){
+				alert("오류로 인해 결제를 진행 할 수 없습니다.");
+				return;	
+			}
+		},
+	});
+	
+	deagi();
+	
+}
+function buyInit(){
+	var selectSeat=$(".clickSeat");
+	for(var i=0;i<selectSeat.length;i++){
+		var seatId=$(selectSeat[i]).attr("data-row")+$(selectSeat[i]).attr("data-col");
+		var tag="<div class='seatPrePay' data-seat='"+seatId+"'>"+seatId+"</div>";
+		var seatNumber="<input type='text' name='seatNumber' value='"+seatId+"'>";
+		$("#seatSelectJone").append(tag);
+		$("form[name=bookingSubmitForm]").append(seatNumber);
+	}
+	
+	var payDetail=$(".peopleSelectjone select");
+	var totPrice=0;
+	var price=0;
+	var bookCount=0
+	for(var i=0;i<payDetail.length;i++){
+		
+		if($(payDetail[i]).val()==0){
+			continue;
+		}
+		
+		var price=$(payDetail[i]).attr("data-price");
+		var ageInfo=$(payDetail[i]).attr("data-rainge");
+		var clientNumber=$(payDetail[i]).val();
+		
+		var payDetails="<input type='text' name='pdList["+i+"].ageInfo' value='"+ageInfo+"'>";
+		    payDetails+="<input type='text' name='pdList["+i+"].originalPrice' value='"+(price*clientNumber)+"'>";
+		    payDetails+="<input type='text' name='pdList["+i+"].clientNumber' value='"+clientNumber+"'>";
+		    payDetails+="<input type='text' name='pdList["+i+"].discountPrice' value='0'>";
+		    payDetails+="<input type='text' name='pdList["+i+"].finalPrice' value='"+(price*clientNumber)+"'>";
+		    payDetails+="<input type='text' name='pdList["+i+"].ticketInfo' value='일반구매'>";
+		    
+		    totPrice+=price*clientNumber;
+		    $("form[name=bookingSubmitForm]").append(payDetails);
+		    
+		bookCount+=clientNumber;
+	}
+	$("input[name=totPrice]").val(totPrice);
+	$(".realMoney").attr("data-price",totPrice).html(totPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
+	var totappend="<input type='hidden' name='totalPrice' value='"+totPrice+"'>";
+		totappend+="<input type='hidden' name='bookCount' value='"+bookCount+"'>";
+	$("form[name=bookingSubmitForm]").append(totappend);
+}
+function buyForm(udata){
+	
+	var scheduleCode=$(".bookingMovieInfo input[name=scheduleCode]").val();
 	var type="get";
 	var url="<%=cp%>/booking/bookingTiketingForm";
-	var query="";
+	var query="scheduleCode="+scheduleCode;
 	var selector="#bookingTiketingForm";
+	
+	
 	$.ajax({
 		type:type
 		,url:url
@@ -672,6 +786,20 @@ function buyForm(data){
 				collapsible: true,
 				 heightStyle: "menu_payment"
 			});  
+			var totappend="<input type='hidden' name='customerCode' value='"+udata.data.customerCode+"'>";
+			totappend+="<input type='hidden' name='email' value='"+udata.data.email+"'>";
+			totappend+="<input type='hidden' name='userName' value='"+udata.data.userName+"'>";
+			totappend+="<input type='hidden' name='tel' value='"+udata.data.tel+"'>";
+			
+			if(udata.data.membershipName!=null){
+				$(".membershipData").html("멤버십 등급 :"+udata.data.membershipName+"  /  할인률 :"+udata.data.disCount+"%");
+			
+				totappend+="<input type='hidden' name='memberShip' value='"+udata.data.disCount+"'>";
+			}
+			
+			$("form[name=bookingSubmitForm]").append(totappend);
+			buyInit();
+		
 		}
 	    ,error:function(jqXHR) {
 	    	
@@ -680,7 +808,7 @@ function buyForm(data){
 	
 	$("#bookingTiketingForm").dialog({
 		modal: true,
-		height:550, 
+		height:650, 
 		width:1050,
 		title: "",
 		open:function(){

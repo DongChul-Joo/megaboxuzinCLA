@@ -14,4 +14,7 @@ public interface BookingService {
 	public List<SchedulePrice> bookingPrice(int scheduleCode) throws Exception;
 	public void customerInsert(Member dto) throws Exception;
 	public Member customerCheck(Member dto) throws Exception;
+	
+	public int bookingSeq() throws Exception;
+	public void bookingInsert(BookingInfo bkif) throws Exception;
 }
