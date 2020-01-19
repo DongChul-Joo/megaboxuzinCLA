@@ -19,9 +19,24 @@ padding-bottom: 30px;
 
 
 <script type="text/javascript">
-function reservationCancel() {
-	alert("예약 취소하시겠습니까?")
-};
+function reservationCancel(bookCode) {
+	
+	if(confirm("예매를 취소 하시겠습니까?")==true){
+		if(confirm("정말로 예매를 취소 하시겠습니까?")==true){
+			var query="bookCode="+bookCode;
+			$.ajax({
+			      type:"get"
+			      ,url:"<%=cp%>/mypage/bookingCancel"
+			      ,data:query
+			      ,dataType:"json"
+			      ,success:function(data) {
+			         console.log(data);
+			      }
+			   });
+		}
+	}
+	
+}
 
 </script>
 
@@ -57,8 +72,8 @@ function reservationCancel() {
 				      <td>${dto.startTime}</td>
 				      <td>${dto.bookdate}</td>
 				      <td>${dto.seatNumber}</td>
-				      <td>${dto.cancelInfo==2?"취소불가":""}
-				     <c:if test="${dto.cancelInfo!=2}">
+				      <td>${dto.cancelInfo==2?"취소불가":(dto.cancelInfo==1?"취소완료":"")}
+				     <c:if test="${dto.cancelInfo==0}">
 				      <button type="button" class="btn" onclick="reservationCancel('${dto.bookCode}');">취소</button>
 				     </c:if>
 				      </td>

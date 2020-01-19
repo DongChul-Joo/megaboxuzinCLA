@@ -24,12 +24,12 @@ width: 60px;
 height: 35px;
 outline: none;
 border: 1px solid black;
-font-weight: bold;
+font-weight: 100;
 border-radius: 5px;
 }
 
 .seatBtns:hover{
-font-size: 17px;
+font-weight: bold;
 }
 #bookingSeat div{
 padding: 0;
@@ -700,6 +700,12 @@ function deagi(){
 	});
 	
 }
+
+function closedPay(){
+	$("#bookingTiketingForm").dialog("close");
+	seatCreateTimers();
+}
+
 function payTiket(){
 	
 	var fom=$("form[name=bookingSubmitForm]").serialize() ;
@@ -729,7 +735,7 @@ function buyInit(){
 	for(var i=0;i<selectSeat.length;i++){
 		var seatId=$(selectSeat[i]).attr("data-row")+$(selectSeat[i]).attr("data-col");
 		var tag="<div class='seatPrePay' data-seat='"+seatId+"'>"+seatId+"</div>";
-		var seatNumber="<input type='text' name='seatNumber' value='"+seatId+"'>";
+		var seatNumber="<input type='hidden' name='seatNumber' value='"+seatId+"'>";
 		$("#seatSelectJone").append(tag);
 		$("form[name=bookingSubmitForm]").append(seatNumber);
 	}
@@ -748,12 +754,12 @@ function buyInit(){
 		var ageInfo=$(payDetail[i]).attr("data-rainge");
 		var clientNumber=$(payDetail[i]).val();
 		
-		var payDetails="<input type='text' name='pdList["+i+"].ageInfo' value='"+ageInfo+"'>";
-		    payDetails+="<input type='text' name='pdList["+i+"].originalPrice' value='"+(price*clientNumber)+"'>";
-		    payDetails+="<input type='text' name='pdList["+i+"].clientNumber' value='"+clientNumber+"'>";
-		    payDetails+="<input type='text' name='pdList["+i+"].discountPrice' value='0'>";
-		    payDetails+="<input type='text' name='pdList["+i+"].finalPrice' value='"+(price*clientNumber)+"'>";
-		    payDetails+="<input type='text' name='pdList["+i+"].ticketInfo' value='일반구매'>";
+		var payDetails="<input type='hidden' name='pdList["+i+"].ageInfo' value='"+ageInfo+"'>";
+		    payDetails+="<input type='hidden' name='pdList["+i+"].originalPrice' value='"+(price*clientNumber)+"'>";
+		    payDetails+="<input type='hidden' name='pdList["+i+"].clientNumber' value='"+clientNumber+"'>";
+		    payDetails+="<input type='hidden' name='pdList["+i+"].discountPrice' value='0'>";
+		    payDetails+="<input type='hidden' name='pdList["+i+"].finalPrice' value='"+(price*clientNumber)+"'>";
+		    payDetails+="<input type='hidden' name='pdList["+i+"].ticketInfo' value='일반구매'>";
 		    
 		    totPrice+=price*clientNumber;
 		    $("form[name=bookingSubmitForm]").append(payDetails);
@@ -811,6 +817,7 @@ function buyForm(udata){
 		height:650, 
 		width:1050,
 		title: "",
+		position: { my:"center", at:"center", of: window },
 		open:function(){
        	 $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
   
@@ -992,6 +999,7 @@ function buyTiket(){
 							height:300, 
 							width:350,
 							title: "",
+							position: { my:"center", at:"center", of: window },
 							open:function(){
 					       	 $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
 					       		blfReturn();
@@ -1116,6 +1124,7 @@ $(document).on("click",".btnsBooking",function(){
 			height:680, 
 			width:1050,
 			title: "",
+			position: { my:"center", at:"center", of: window },
 			open:function(){
 	       	 $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
 	       	schduleClealTimers();
@@ -1152,6 +1161,7 @@ function bookingForm(){
 		height:680, 
 		width:850,
 		title: "",
+		position: { my:"center", at:"center", of: window }, 
 		open:function(){
        	 $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
          $('html').css('overflow','hidden');
@@ -1274,6 +1284,7 @@ function movieSerach(){
 		height:800,
 		width:900,
 		title: "영화목록",
+		position: { my:"center", at:"center", of: window },
 		open:function(){
        	 $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
         },
@@ -1424,7 +1435,7 @@ function scheduleList(){
 						tag+="<p><a>3D</a></p></div>";
 					}
 					tag+="<div class='branJone'><p>"+data[i].branName+"</p><p>"+data[i].cmName+"</p><p>"+(data[i].cmSeatTot-data[i].seatCount)+"/"+data[i].cmSeatTot+"</p></div></div>";
-	
+					console.log(data[i].seatCount);
 				$(".scheduleList").append(tag);
 				if(i==0){
 					var time=parseInt(data[i].starttime.substring(0,2));
@@ -1459,6 +1470,7 @@ $(document).on("click",".cinemaLi", function(){
       height:600,
       width:900,
       title: "",
+      position: { my:"center", at:"center", of: window },
       open:function(){
      	 $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
      	 listAreas("${areaList[0].parent}");

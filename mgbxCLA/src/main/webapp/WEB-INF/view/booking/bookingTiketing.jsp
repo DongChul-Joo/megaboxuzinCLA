@@ -111,7 +111,7 @@
 					</c:if>
 				</div>
 				
-				<div class="tiketInfo" style="margin: 0 auto; width: 100%; height:30%; padding-top: 5px;display: inline-block;">
+				<div class="tiketInfo" style="padding-left: 20px;margin: 0 auto; width: 100%; height:30%; padding-top: 5px;display: inline-block;">
 					<p style="margin-top: 10px;">▷연령 제한 : ${dto.audits}</p>
 					<p style="margin-top: 10px;">▷제목 : ${dto.movieNm}</p>
 					<p style="margin-top: 10px;">▷상영관 :<br>${dto.branName}<br>${dto.cmName}</p>
@@ -119,12 +119,12 @@
 					<div id="seatSelectJone" style="width: 100%;height: 25%;display: inline-block;"></div>
 				</div>
 				
-				<div class="realMoney" style="width: 90%;height: 8%;font-weight: bold;font-size: 20px;color:white;text-align: right;">
+				<div class="realMoney" style="width: 90%;height: 6%;font-weight: bold;font-size: 20px;color:white;text-align: right;">
 				</div>
 				
-				<div style="margin-left: auto; margin-right:auto; display: table;">
-					<button class="seatBtns" style="background: purple;color: white; width: 80px; height: 35px; border: purple;" type="button" onclick="payTiket();">결제</button>
-					<button class="seatBtns" onclick="closedSeat();" style="color:black;margin-left:5px;background: white; border: white; width: 80px; height: 35px;" type="button">취소</button>
+				<div style="margin-left: auto; margin-right:auto;height: 8%; display: table;">
+					<button class="seatBtns" style="background: purple;color: white; width: 80px; height: 35px; " type="button" onclick="payTiket();">결제</button>
+					<button class="seatBtns" onclick="closedPay();" style="color:black;margin-left:5px;background: white;  width: 80px; height: 35px;" type="button">취소</button>
 					
 				</div>
 				

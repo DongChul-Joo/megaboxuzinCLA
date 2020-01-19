@@ -2,8 +2,8 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="payDetail">
-	<select id="listPayDetail" parameterType="Integer" resultType="com.sp.paydetail.PayDetail">
-		select pdsudan,pdPrice,payInfo from payDetail where bookCode=#{bookCode}
+	<select id="listPayDetail" parameterType="Integer" resultType="com.sp.booking.BookingInfo">
+		select moviePayCode,bookCode,payKind ,totalPrice ,payInfo from bookingPayDetail where bookCode=#{bookCode}
 	</select>
 	
 	<delete id="deleteSeat" parameterType="map">
@@ -13,7 +13,5 @@
 	<update id="bookingCancel" parameterType="map">
 	    update booking set cancelInfo=1 where bookCode =#{bookCode}
 	</update>
-	<delete id="deleteMileage" parameterType="map">
-		delete from mileage where userId=#{userId} and mileageInfo=#{bookCode} 
-	</delete>
+
 </mapper>

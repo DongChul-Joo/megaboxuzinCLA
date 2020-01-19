@@ -11,7 +11,7 @@
 				join branch br on cm.brancode=br.brancode 
 					join movie mv on shm.moviecode=mv.movieCode
 					left outer join (select scheduleCode,NVL(count(seatcode),0) seatcode from seat st left outer 
-                 				  join booking bk on st.bookcode=bk.bookcode group by scheduleCode) 
+                 				  join booking bk on st.bookcode=bk.bookcode where cancelInfo!=1 group by scheduleCode ) 
                  				  sc on shc.scheduleCode=sc.scheduleCode
 		
 		<where>
@@ -49,13 +49,13 @@ where scheduleCode=#{scheduleCode}
 <select id="bookingSeatList" parameterType="Integer" resultType="String">
 	select seatNumber from seat st left outer 
 	join booking bk on st.bookcode=bk.bookcode 
-	where schedulecode=#{schedulecode}
+	where schedulecode=#{schedulecode} and cancelInfo!=1
 </select>
 
 <select id="seatCount" parameterType="Integer" resultType="Integer">
 	select NVL(count(seatcode),0) seatcode from seat st left outer 
 	join booking bk on st.bookcode=bk.bookcode 
-	where schedulecode=#{schedulecode}
+	where schedulecode=#{schedulecode} and cancelInfo!=1
 </select>
 
 

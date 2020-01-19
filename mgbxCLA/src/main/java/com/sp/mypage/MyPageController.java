@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sp.booking.BookingInfo;
 import com.sp.common.MyUtil;
 import com.sp.member.Member;
 import com.sp.member.MemberService;
 import com.sp.member.SessionInfo;
-import com.sp.paydetail.PayDetail;
 import com.sp.paydetail.PayDetailService;
 
 @Controller("mypage.myPageController")
@@ -120,7 +120,7 @@ public class MyPageController {
 				String cancel=dto.getShowingdate()+" "+dto.getStartTime();
 				Date bookingCancelEnd=sdf.parse(cancel);
 				
-				if((bookingCancelEnd.getTime()/1000/60)-10<nowDayTimeFormat.getTime()/1000/60) {
+				if(((bookingCancelEnd.getTime()/1000/60)-10<nowDayTimeFormat.getTime()/1000/60)&&dto.getCancelInfo()!=1) {
 					dto.setCancelInfo(2);
 				}
 			}
@@ -257,24 +257,27 @@ public class MyPageController {
 	}
 	
 	@RequestMapping(value="/mypage/bookingCancel",method=RequestMethod.GET)
-	public String bookingCancel(
+	@ResponseBody
+	public Map<String,Object> bookingCancel(
 			HttpSession session,
 			int bookCode) {
 		
-		String result="false";
-		
-		
+		Map<String,Object> map = new HashMap<>();
+
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		if(info==null) {
-			return result;
+			map.put("result", "false");
+			map.put("state", "로그인이 되어있지않습니다.");
+			return map;
 		}
 	
 		
 		List<MyPage> list = null;
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("bookCode", bookCode);
-		list = service.listReservation(map);
+		Map<String, Object> maps = new HashMap<String, Object>();
+		maps.put("bookCode", bookCode);
+		maps.put("userId", info.getUserId());
+		list = service.listReservation(maps);
 		
 		Date nowDayTime = new Date();
 
@@ -291,26 +294,34 @@ public class MyPageController {
 			
 			
 			if((bookingCancelEnd.getTime()/1000/60)-10<nowDayTimeFormat.getTime()/1000/60) {
-				return result;
+				map.put("result", "false");
+				map.put("state", "취소는 상영시간 10분 전까지만 가능합니다.");
+				return map;
 			}
 			
-			List<PayDetail> plist=null;
+			List<BookingInfo> plist=null;
 			plist=payService.listPayDetail(bookCode);
 			
 			map.put("userId", info.getUserId());
-			payService.canselBooking(map);
-			for(PayDetail pd:plist) {
-				if(pd.getPdSudan().equals("mileage")) {
-					payService.insertMileage(info.getUserId(), pd.getPdPrice());
+			payService.canselBooking(maps);
+			for(BookingInfo pd:plist) {
+				if(pd.getPayKind().equals("mileage")) {
+					payService.insertMileage(info.getUserId(), pd.getTotalPrice());
+				}else if(pd.getPayKind().equals("Card")) {
+					map.put("payCancelData", pd);
+					map.put("result", "true");
 				}
 			}
 			
+			
+			
 		} catch (Exception e) {
+			map.put("result", "false");
 			e.printStackTrace();
 		}	
 		
 		
-		return result;
+		return map;
 		
 	}
 	
