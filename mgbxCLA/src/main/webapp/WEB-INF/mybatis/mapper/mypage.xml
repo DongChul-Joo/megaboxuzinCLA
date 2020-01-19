@@ -32,6 +32,7 @@
 		JOIN BUYITEM b1 ON b.buyCode = b1.buyCode
 		JOIN PAYDETAIL p ON b1.buyCode = p.buyCode
 		WHERE userId = #{userId}
+		OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
 	</select>
 	
 	<select id="listMyMovieStory" parameterType="map" resultType="com.sp.mypage.MyPage">
@@ -45,6 +46,7 @@
     	JOIN cinema cn ON s1.cmCode = cn.cmcode 
     	JOIN movie m ON s1.movieCode = m.moviecode
     	WHERE userId = #{userId}
+    	order By b.bookCode desc
     	OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
 	</select>
 	
@@ -52,6 +54,7 @@
 		SELECT mileage , TO_CHAR(msaveDate , 'YYYY-MM-DD') msaveDate
         FROM MILEAGE
         WHERE userId =  #{userId}
+        OFFSET #{offset} ROWS FETCH FIRST #{rows} ROWS ONLY
 	</select>
 	
 	
@@ -124,6 +127,13 @@
 		JOIN BUYITEM b1 ON b.buyCode = b1.buyCode
 		JOIN PAYDETAIL p ON b1.buyCode = p.buyCode
 		WHERE userId = #{userId}
+	</select>
+	
+	
+	<select id="dataCountMileage" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+        FROM MILEAGE
+        WHERE userId = #{userId}
 	</select>
 	
 	

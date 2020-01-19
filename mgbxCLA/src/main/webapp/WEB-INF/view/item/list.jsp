@@ -22,6 +22,10 @@
      cursor: pointer;
 }
 
+.titleM{
+font-size: 40px;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -38,14 +42,14 @@ function article(itemCode) {
 </script>
 <body>
 	<div class="barContent">
-		<img style="width: 100%" height="272px;" src='<%=cp%>/resource/images/capture.png'>
+		<img style="width: 100%; background-size: cover; height: 620px;" src='<%=cp%>/resource/images/popcorn.jpg'>
 	</div>
 <div class="body-container" style="width: 840px; height: 2100px;">
 	
 	<div> <h4>
-		<a href="javascript:window.scrollTo(0,420);">영화티켓</a> | 
-		<a href="javascript:window.scrollTo(0,1060);">특별할인</a> |
-		<a href="javascript:window.scrollTo(0,1700);">먹거리</a> </h4>
+		<a class="titleM" href="javascript:window.scrollTo(0,420);">영화티켓</a> | 
+		<a class="titleM" href="javascript:window.scrollTo(0,1060);">특별할인</a> |
+		<a class="titleM" href="javascript:window.scrollTo(0,1700);">먹거리</a> </h4>
 	
 	</div>
 	

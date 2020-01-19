@@ -14,6 +14,7 @@ public interface MyPageService {
 	public int dataCount(Map<String, Object> map);
 	public int dataCountMovie(Map<String, Object> map);
 	public int dataCountStore(Map<String, Object> map);
+	public int dataCountMileage(Map<String, Object> map);
 	
 	
 	
