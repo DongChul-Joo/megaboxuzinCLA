@@ -301,5 +301,4 @@ function openSearch(){
 		
 		
 	</div>
-	<button type="button" onclick="bookingForm()">예매</button>
 </div>
