@@ -64,13 +64,20 @@ public class BranchClaController {
 			) {
 		
 		BranchCla dto=null;
+		List<BranchSchdule> list=null;
 		try {
 			dto=service.readBranch(branCode);
+			list=service.branScheduleList(branCode);
+			for(BranchSchdule dtt:list) {
+				dtt.setStartTime(dtt.getStartTimes().split("/"));
+				dtt.setSeatCount(dtt.getSeatCounts().split("/"));
+			}
 		} catch (Exception e) {
 			return "redirect:/error/dataAccessFailure";
 		}
 		
 		model.addAttribute("dto",dto);
+		model.addAttribute("list",list);
 		
 		return "branchCla/article";
 	}

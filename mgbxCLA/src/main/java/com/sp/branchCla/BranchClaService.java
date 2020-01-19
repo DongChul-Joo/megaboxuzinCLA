@@ -10,4 +10,6 @@ public interface BranchClaService {
 	
 	public BranchCla readBranch(int branCode) throws Exception;
 	
+	public List<BranchSchdule> branScheduleList(int branCode) throws Exception;
+	
 }

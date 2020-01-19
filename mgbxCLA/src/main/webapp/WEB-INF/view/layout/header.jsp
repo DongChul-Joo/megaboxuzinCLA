@@ -8,8 +8,7 @@
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<style>
-
+<style>       
 .returnImage{
 background-image: url(<%=cp%>/resource/images/returnImage.png);
 background-size: 100% 100%;
@@ -109,6 +108,7 @@ font-weight: bold;
     border-color: green;
     border-radius: 5px;
     background-color: #3DB7CC;
+    margin-right: 2px;
 }
 .btn {
 	font-weight: 600;
@@ -400,13 +400,17 @@ height: 87%;
 width: 100%;
 height: 12%;
 text-align: center;
-padding-top: 18px;
+padding-top: 10px;
 border: 1px solid #cccccc;
 border-spacing: 0;
 border-collapse: collapse;
 border-top: none;
 cursor: pointer;
 font-weight: bold;
+}
+
+#areaListUL li:hover{
+background:rgb(229, 229, 229);
 }
 
 #branListUL{
@@ -425,6 +429,11 @@ padding-top: 5px;
 font-weight: bold;
 
 }
+#branListUL li:hover{
+background-color: #198591;
+color: white;
+} 
+
 #bookingMap{
 width: 59%;
 height:87%; 
@@ -640,6 +649,57 @@ width: 96%;
     width: 15%;
     height: 50%;
     text-align: center;
+}
+.age15{
+background: orange;
+font-size: 15px;
+color: white;
+text-align: center;
+border-style: solid;
+border-width: 1px;
+border-color: black;
+border-radius: 5px;
+margin-right: 2px;
+}
+.age청불{
+background: red;
+font-size: 15px;
+color: white;
+text-align: center;
+border-style: solid;
+border-width: 1px;
+border-color: black;
+border-radius: 5px;
+margin-right: 2px;
+}
+.age전체{
+background: green;
+font-size: 15px;
+color: white;
+text-align: center;
+border-style: solid;
+border-width: 1px;
+border-color: black;
+border-radius: 5px;
+margin-right: 2px;
+}
+
+.ui-dialog .ui-dialog-buttonpane button{
+width: 70px;
+    height: 35px;
+    background: white;
+    color: black;
+    border: 1px solid black;
+    font-weight: bold;
+
+}
+.ui-dialog .ui-dialog-buttonpane button:hover{
+background: purple;
+color: white;
+}
+
+.listOfMovie:hover{
+background: rgb(25, 133, 145);    
 }
 </style>
 
@@ -1610,7 +1670,7 @@ $(document).on("click", "#branListUL li", function() {
 	    $("#branchSelectList").append(selectBranchs);
 	    
 	    this.setAttribute("class","selectBranchActive");
-	    maps(this.getAttribute("data-Addr"),this.getAttribute("data-branName"));
+	    maps(this.getAttribute("data-Addr"),this.getAttribute("data-branName"),'bookingMap');
 	    selBranchCount++;
 	});
 
@@ -1747,7 +1807,7 @@ $(document).on("click",".listOfMovie",function(){
     <div class="header-right">
         <div style="float: right; margin-top: 13px;">
             <c:if test="${empty sessionScope.member}">
-            
+             
   
                 <a href="<%=cp%>/member/login" class="btn btn-outline-primary1">로그인</a>
                 <a href="<%=cp%>/member/member" class="btn btn-outline-primary1">회원가입</a>
@@ -1773,20 +1833,68 @@ $(document).on("click",".listOfMovie",function(){
 	
 </div>
 
+<div class="floating">
+						
+					<div>
+					<a href="<%=cp%>" style="color: black;">
+					<img src="<%=cp%>/resource/images/iconn.png" width="20px;" height="20px;">
+					<br>
+					2019년 <br>
+					VIP안내
+					</a>
+					</div> 
+					
+				
+					
+					<div>
+					<a href="<%=cp%>/movie/newmovie" style="color: black;">
+					최신영화
+					</a>
+					</div> 
+					
+					<div>
+					<a href="<%=cp%>/branchCla/branchCla" style="color: black;">
+					영화관
+					</a>
+					</div> 
+					
+					<div>
+					<a href="<%=cp%>/movieschedule/schedulemovie" style="color: black; height: 100px;">
+					예매내역
+					</a>
+					</div> 
+					
+					<div>
+					<a href="javascript:bookingForm()" style="color: black; height: 100px;">
+					빠른예매
+					</a>
+					</div> 
+					
+					<div>
+					
+					</div>
+					
+
+				
+					
+
+					</div>
+
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=04e4431a8f42ef7f22f5a23dfe0e8324&libraries=servicesappkey=APIKEY&libraries=services"></script>
 	<script>
-function maps(addr,bn){
+function maps(addr,bn,id){
 		
 	var addr1=addr;
 	var branName=bn;
-		var mapContainer = document.getElementById('bookingMap'), // 지도를 표시할 div 
+		var mapContainer = document.getElementById(id), // 지도를 표시할 div 
 	    mapOption = {
 	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	        draggable: false,
 	        level: 3 // 지도의 확대 레벨
 	    };  
 
 	// 지도를 생성합니다    
-	var map = new kakao.maps.Map(mapContainer, mapOption); 
+	 var map = new kakao.maps.Map(mapContainer, mapOption); 
 
 	// 주소-좌표 변환 객체를 생성합니다
 	var geocoder = new kakao.maps.services.Geocoder();
@@ -1818,5 +1926,6 @@ function maps(addr,bn){
 	    
 	});    
 	}
+
 	</script>
 
