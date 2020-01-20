@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +36,9 @@ public class MainController {
 		
 		
 		List<Movie> list = service.readMovie(map);
+		for(Movie dto : list) {
+			dto.setTotalScores(dto.getMovieScores()*10);
+		}
 		
 		model.addAttribute("list", list);
 		model.addAttribute("dataCount", dataCount);
@@ -92,16 +97,21 @@ public class MainController {
 	@RequestMapping(value="/main/movieDetail")
 	public String movieDetail(
 			@RequestParam(defaultValue="0") int movieCode, 
-			Model model
-			) {
+			Model model,
+			HttpSession session
+			) throws Exception{
 		
-		Movie dto = null;
+			Movie dto = new Movie();
+		
 		try {
 			dto=service.readDetail(movieCode);
+			dto.setCountUserId(service.idCount(movieCode));
+			
+			
+			dto.setTotalScores(dto.getMovieScores()*10);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		model.addAttribute("movie", dto);
 		
 		return "/main/detailMovie";

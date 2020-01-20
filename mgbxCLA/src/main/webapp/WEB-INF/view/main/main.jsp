@@ -117,17 +117,11 @@
 	text-align: center;
 	}
 	
-
-    
-
-
-
     .swiper-container {
       width: 100%;
       height:  600px;
     }
     .swiper-slide {
-      text-align: center;
       font-size: 18px;
       background: #fff;
       /* Center slide text vertically */
@@ -513,12 +507,14 @@ function detailMovie(movieCd){
 							      		</c:otherwise>
 				      				</c:choose>
 					      			
-					      			 <div style="height: 51px; width: 300px; border: 1px solid #e4e4e4; background-color: white; ">
-					   	 				<span style="float:left; font-size: 15pt;">평점 : 9.5</span>
-					   	 				<span style="float:right; margin-right:5px; font-size: 15pt;">★★★★☆</span>
-				   	  				</div>
+					      			 <div style="height: 51px; width: 298px; border: 1px solid #e4e4e4; background-color: white; ">
+					   	 				<span style="float:left; font-size: 15pt;">평점 : ${vo.movieScores}</span> 
+								   		 <span class="fullStar">
+								   	 		<span class="fill" style="width: ${vo.totalScores}%;"></span>
+								   		 </span>
+							   	 	 </div>
 				   	  				
-					      			<div style="border: 1px solid #e4e4e4; width: 300px; height: 100px;">
+					      			<div style="border: 1px solid #e4e4e4; width: 300px; height: 100px; text-align: center;">
 										<c:choose>
 				      						<c:when test="${vo.audits == '전체'}">
 				      							<p class="ddd" style="margin-left: 5px; margin-right: 5px; font-size: 10pt; color: white; height:25px; width: 14%; float: left;
@@ -584,15 +580,6 @@ function detailMovie(movieCd){
 						      
 						      
 						      </div>
-						      
-							      <div class="swiper-slide">Slide 5</div>
-							      <div class="swiper-slide">Slide 6</div>
-							      <div class="swiper-slide">Slide 7</div>
-							      <div class="swiper-slide">Slide 8</div>
-							      <div class="swiper-slide">Slide 9</div>
-							      <div class="swiper-slide">Slide 10</div>
-							      
-							   
 		  	
 							      
 						    </div>

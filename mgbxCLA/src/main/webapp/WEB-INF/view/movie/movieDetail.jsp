@@ -34,19 +34,19 @@ listPage(1);
 				<h2 style="height: 100%; margin: 0px auto;">
 					<c:choose>
 					      <c:when test="${movie.audits == '전체'}">
-					      		<p style="margin-left: 5px; margin-right: 10px; font-size: 12pt; color: white; height:32px; width: 33px; float: left;
+					      		<p style="margin-left: 5px; margin-right: 10px; font-size: 12pt; color: white; height:32px; width: 36px; float: left; text-align:center;
 					      						 border-style: solid; border-width: 3px; border-color: green; border-radius: 5px; background: green; ">${movie.audits}</p>
 					      </c:when>
 					      <c:when test="${movie.audits == '12'}">
-					      	<p style="margin-left: 5px; margin-right: 10px; font-size: 12pt; color: white; height:32px; width: 33px; float: left;
+					      	<p style="margin-left: 5px; margin-right: 10px; font-size: 12pt; color: white; height:32px; width: 36px; float: left; text-align:center;
 					      						 border-style: solid; border-width: 3px; border-color: #3DB7CC; border-radius: 5px; background-color: #3DB7CC; ">${movie.audits}</p>
 					      </c:when>
 					      <c:when test="${movie.audits == '15'}">
-					      		<p  style="margin-left: 5px; margin-right: 10px; font-size: 12pt; color: white; height:32px; width: 33px; float: left;
+					      		<p  style="margin-left: 5px; margin-right: 10px; font-size: 12pt; color: white; height:32px; width: 36px; float: left; text-align:center;
 					      						 border-style: solid; border-width: 3px; border-color: orange; border-radius: 5px; background: orange;">${movie.audits}</p>
 					      </c:when>
 					      <c:otherwise>
-					      	<p style="margin-left: 5px; margin-right: 10px; font-size: 12pt; color: white; height:32px; width: 33px; float: left;
+					      	<p style="margin-left: 5px; margin-right: 10px; font-size: 12pt; color: white; height:32px; width: 36px; float: left; text-align:center;
 					      						 border-style: solid; border-width: 3px; border-color: red; border-radius: 5px; background: red; ">${movie.audits}</p>
 					      </c:otherwise>
 				     </c:choose>
