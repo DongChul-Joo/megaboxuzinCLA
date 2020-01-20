@@ -5,230 +5,6 @@
 <%
 	String cp=request.getContextPath();
 %>
-<style type="text/css">
-
-#movieDetail{
-
-	float: left;
-	margin: 0px auto;
-}
-
-.type{
-margin-top: 15px;
-list-style: none;
-}
-
-.input {
-    overflow: hidden;
-    height: 86px;
-    border: 1px solid #e1e1e1;
-    float: left;
-}
-
-
-.writeReply{
-    height: 84px;
-    font-size: 14px;
-    border: 1px solid #e1e1e1;
-    background-color: #fff;
-}
-
-textarea{
-	display: block;
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #d9d9d9;
-    background-color: #f8f8f8;
-    font-size: 12px;
-    line-height: 21px;
-    color: #333;
-    overflow: auto;
-    vertical-align: top;
-}
-
-.starwrap {
-    cursor: pointer;
-    text-align: center;
-    padding-top: 15px;
-    float: left;
-    display: block;
-}
-
-.btn movie{
-    width: 100%;
-    height: 100%;
-    vertical-align: middle;
-    background-position: -600px -100px;
-}
-
-
-.writewrap{
-    overflow: hidden;
-    margin-bottom: 30px;
-    width: 930px;
-}
-
-.rate{
-	width :158px;
-	float: left;
-}
-
-.reply {
-    clear: both;
-    overflow: hidden;
-    width: 100%;
-    display: table;
-    border : 1px solid #f0f0f0;
-    margin-left: 25px;
-    float: left;
-}
-
-.row{
-	display: table-row;
-    height: 100%;
-    margin-left: 0px;
-}
-
-.cell{
-	display: table-cell;
-    vertical-align: top;
-    width: 450px;
-    height: 200px;
-    border-bottom: 1px solid #f0f0f0;
-    overflow: hidden;
-    padding: 20px 20px;
-    position: relative;
-    float: left;
-    margin: 0px auto;
-    border-right: 2px solid #f0f0f0;
-}
-
-.small_star{
-	display: block;
-    position: relative;
-    width: 73px;
-    height: 12px;
-    background: url(http://image2.megabox.co.kr/mop/home/star_s.png) 0 -12px no-repeat;
-    margin-top: 2px;
-}
-
-.small_fill{
-	position: absolute;
-    width: 73px;
-    height: 12px;
-    background: url(http://image2.megabox.co.kr/mop/home/star_s.png) 0 0 no-repeat;
-}
-
-.fullStar{
-	float: right;
-    position: relative;
-    width: 119px;
-    height: 20px;
-    background: url(http://image2.megabox.co.kr/mop/home/bg_star.png) 0 0 no-repeat;
-}
-
-.fill{
-	position: absolute;
-    width: 119px;
-    height: 20px;
-    float: right;
-    background: url(http://image2.megabox.co.kr/mop/home/bg_star.png) 0 -20px no-repeat;
-}
-
-
-.blind{
-	font-size: 12px;
-    color: #666;
-    display: inline-block;
-    margin-right: 6px;
-    float: left;
-}
-
-.p{
-	color: #333;
-    font-size: 14px;
-    line-height: 20px;
-    margin: 4px 0 35px;
-
-}
-
-.text{
-	width: 100%;
-    position: relative;
-    float: left;
-}
-
-.name{
-	font-size: 18px;
-    line-height: 18px;
-    color: #503396;
-    display: inline-block;
-	font-weight: 700;
-	font-family: '나눔고딕';
-	float: left;
-}
-
-.recommend{
-	float: left;
-    cursor: pointer;
-    font-size: 12px;
-    margin-right: 15px;
-}
-
-.i_recommend{
-	background-image: url(http://image2.megabox.co.kr/mop/home/moviePost/moviePost_icon.png) !important;
-    background-position: -242px -50px;
-    background-repeat: no-repeat;
-    overflow: hidden;
-    display: inline-block;
-    width: 16px;
-    height: 15px;
-    vertical-align: middle;
-    margin: -1px 4px 0 0;
-}
-
-.report{
-	float: left;
-    font-size: 12px;
-    color: #999;
-    cursor: pointer;
-}
-
-.i_report{
-	background-image: url(http://image2.megabox.co.kr/mop/home/moviePost/moviePost_icon.png) !important;
-    background-position: -210px -50px;
-    background-repeat: no-repeat;
-    overflow: hidden;
-    display: inline-block;
-    width: 15px;
-    height: 15px;
-    vertical-align: middle;
-    margin: -1px 5px 0 8px;
- }
- 
- 
-.btn_modify{
-	display: inline-block;
-    width: 40px;
-    height: 25px;
-    border: none;
-    vertical-align: middle;
-    margin-top: -5px;
-    float: right;
-}
-
-
-.btn_delete{
-	display: inline-block;
-  	width: 40px;
-    height: 25px;
-    border: none;
-    vertical-align: middle;
-    margin-top: -5px;
-    float: right;
-}
-
-</style>
 
 <script type="text/javascript">
 function ajaxHTML(url, type, query, selector) {
@@ -238,7 +14,6 @@ function ajaxHTML(url, type, query, selector) {
 		,data:query
 		,success:function(data) {
 			$(selector).html(data);
-			console.log(data);
 		}
 	});
 }
@@ -268,7 +43,6 @@ function getAudience(movieCode){
         ,data:""
         ,dataType:"json"
         ,success:function(data){
-        	console.log(data);
         	
         	var item = data.boxOfficeResult.dailyBoxOfficeList;
         	if(item.length > 0){
@@ -316,17 +90,17 @@ function showMovieDetail(movieCode){
 	detailMovie(movieCode);
 	getAudience(movieCode);
 	
-    			$("#showDetail").dialog({
-					modal: true,
-					height:2000,
-					width:1000,
-					title: "상세 정보", 
-					open:function(){
-			               $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
-		            },
-					close: function(event, ui) {
-						window.location.reload();
-					}
+    		$("#showDetail").dialog({
+				modal: true,
+				height:2000,
+				width:1000,
+				title: "상세 정보", 
+				open:function(){
+			    	$(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
+		        },
+				close: function(event, ui) {
+				window.location.reload();
+			}
 	});
 }
 
@@ -341,7 +115,6 @@ function detailMovie(movieCd){
 	         ,dataType:"json"
 	         ,success:function(data){
 	            
-	        	 console.log(data);
 	        	
 	        	var director="";
 	        	if(data.movieInfoResult.movieInfo.directors.length > 0){
@@ -520,7 +293,6 @@ function btnSendReply(movieCode){
 		var userId= $("strong[class=getUserId]").val();
 		var star= $("input[class=getStar]").val();
 		
-		console.log(star);
 		if(! star){
 			alert("별점을 입력 해주세요!")
 			return false;
@@ -528,7 +300,6 @@ function btnSendReply(movieCode){
 		
 		var content=$("textarea[class=writeReply]").val();
 		
-		console.log(content);
 		if(! content) {
 			content.focus();
 			return false;
@@ -593,7 +364,6 @@ function replyEditDone(movieCode){
 	var query="movieCode="+movieCode+"&content="+content;
 	
 	var fn= function(data){
-		console.log(data);
 		listPage(1);
 	}
 	ajaxJSON(url, "post", query, fn);
@@ -603,7 +373,6 @@ function replyEditDone(movieCode){
 function commentLike(obj){
 		var moviecode=$("#movieCode").val();
 		var userId = $(obj).find(".rpUserId").val();
-		console.log(userId);
 		
 		var url="<%=cp%>/movie/replyLike";
 		var query="movieCode="+movieCode+"&userId="+userId;
@@ -626,7 +395,6 @@ function commentLike(obj){
 				count = data.count;
 				alert("좋아요가 취소 되었습니다.");
 			}
-			console.log(count);
 			jQuery(html).html(count);
 		}
 		ajaxJSON(url, "post", query, fn);
@@ -639,7 +407,6 @@ function reportUser(userId, movieCode){
 	
 	var fn = function(data){
 		
-		console.log(data);
 		var state = data.state;
 		
 		if(state =="true"){
@@ -659,67 +426,7 @@ function reportUser(userId, movieCode){
 	*{margin:0;padding:0;}
 	
 	
-	.moviemenu{
-	margin-left: 100px;
-	float: left;
-	}
 	
-	.sub_navi{
-	background-color : #f2f2f2;
-	border-top: 1px solid #e1e1e1;
-	border-bottom: 3px solid #503396;
-	height: 60px;
-	width: 100%
-	
-	}
-	.sub_navi_wrap{
-	width: 60%;
-	padding-top: 15px;
-	margin: auto;
-	height: 55px;
-	
-	}
-
-  
-    .bbb {
-    border: none;
-    height: 40px;
-    width: 90px;
-    }
-
-	
-	.ccc{
-	
-	text-align: center;
-	margin-top: 10px;
-	
-	
-	}
-	
-	.ddd {
-		margin-top: 15px;
-		margin-bottom: 10px;
-	}
-	
-	.a1 {
-		display: inline-block;
-	}
-.sub_navi li{
-	list-style: none;
-}
-
-#newMovie li{
-	list-style: none;
-}
-
-.textarea {
-	margin-bottom: 1px;
-    overflow: hidden;
-    margin-top: 7px;
-    width: 300px;
-    margin-left: 10px;
-    float: left;
-}
 </style>
 
 	<div class="sub_navi">
@@ -734,15 +441,12 @@ function reportUser(userId, movieCode){
 				 	<li class="moviemenu">
 				 		<a  style="border: none; font-size: 18px; float: left;">영화제</a>
 				 	 </li>
-				 	<li class="moviemenu">
-				 		<a style="border: none; font-size: 18px; float: left;" href="<%=cp%>/movie/newmovie">예매</a>
-				 	 </li>
 				 </ul>
 			 </div>
 		</div>	
 
 	
-	<div id="newMovie" style="width: 100%;margin: 0 auto; min-height: 1800px;">
+	<div id="newMovie" style="width: 79%;margin: 0 auto; min-height: 1800px;">
 		
 		<ul>
 			<li style="margin-left: 50px;">
@@ -790,7 +494,7 @@ function reportUser(userId, movieCode){
 				      			</c:choose>
 				      			<p class="ddd" style="margin-left: 5px; font-weight: bold; font-size: 15pt; width: 70%; float: left; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: inline-block;">${vo.movieNm}</p>
 				      			<button type="button" name ="movieDetail" class="btn btn-outline-primary1" onclick="showMovieDetail('${vo.movieCode}')">상세정보</button>
-				      			<button type="button" class="btn btn-outline-primary1">예매하기</button>
+				      			<button type="button" class="btn btn-outline-primary1" onclick="bookingForm();">예매하기</button>
 				      		</div>
 				      </div>
 			      </div>

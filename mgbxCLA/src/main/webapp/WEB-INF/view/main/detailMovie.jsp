@@ -5,60 +5,17 @@
 <%
 	String cp=request.getContextPath();
 %>
-<style>
-div{
-float: left;
-margin: 0px auto;
-}
-
-.type{
-margin-top: 15px;
-
-
-
-}
-
-</style>
-
 
 <script>
-var movieNm ="${movie.movieNm}"+' 예고편';
-
+movieCode="${movie.movieCode}";
 $(document).ready(function () {
-	showTrailer();
+	var movieNm ="${movie.movieNm}"+' 예고편';
+	showTrailer(movieNm);
 });
 
-function showTrailer(){
-	
-	$.ajax({
-		  dataType: "json",
-		  url: 
-		    'https://www.googleapis.com/youtube/v3/search'+
-		    '?part=snippet'+
-		    '&maxResults=1'+
-		    '&order=relevance'+
-		    '&q='+encodeURI(movieNm)+
-		    '&type=video'+
-		    '&videoDefinition=high'+
-		    '&key=AIzaSyChPQ7wyJdU2QcGXf3DJqeqAy4uHhdRdLA'
-		    
-		}).done(function(data){
-		    /* Initial */
-		    var tag = document.createElement('script');
-		    tag.src = "https://www.youtube.com/iframe_api";
-		    var firstScriptTag = document.getElementsByTagName('script')[0];
-		    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-	
-		    onYouTubeIframeAPIReady = function(event){
-		        player = new YT.Player('youtube-player', {
-		            videoId: data.items[0].id.videoId
-		        });
-		    }
-		});
-}
+listPage(1);
 
 </script>
-
 
 <div id="movieDetail" style="width: 950px; min-height: 2000px; float: left;">
 	<input type="hidden" id="movieCode" value="${movie.movieCode}">
@@ -77,19 +34,19 @@ function showTrailer(){
 				<h2 style="height: 100%; margin: 0px auto;">
 					<c:choose>
 					      <c:when test="${movie.audits == '전체'}">
-					      		<p style="margin-left: 5px; margin-right: 10px; font-size: 12pt; color: white; height:32px; width: 33px; float: left;
+					      		<p style="margin-left: 5px; margin-right: 10px; font-size: 12pt; color: white; height:32px; width: 36px; float: left; text-align:center;
 					      						 border-style: solid; border-width: 3px; border-color: green; border-radius: 5px; background: green; ">${movie.audits}</p>
 					      </c:when>
 					      <c:when test="${movie.audits == '12'}">
-					      	<p style="margin-left: 5px; margin-right: 10px; font-size: 12pt; color: white; height:32px; width: 33px; float: left;
+					      	<p style="margin-left: 5px; margin-right: 10px; font-size: 12pt; color: white; height:32px; width: 36px; float: left; text-align:center;
 					      						 border-style: solid; border-width: 3px; border-color: #3DB7CC; border-radius: 5px; background-color: #3DB7CC; ">${movie.audits}</p>
 					      </c:when>
 					      <c:when test="${movie.audits == '15'}">
-					      		<p  style="margin-left: 5px; margin-right: 10px; font-size: 12pt; color: white; height:32px; width: 33px; float: left;
+					      		<p  style="margin-left: 5px; margin-right: 10px; font-size: 12pt; color: white; height:32px; width: 36px; float: left; text-align:center;
 					      						 border-style: solid; border-width: 3px; border-color: orange; border-radius: 5px; background: orange;">${movie.audits}</p>
 					      </c:when>
 					      <c:otherwise>
-					      	<p style="margin-left: 5px; margin-right: 10px; font-size: 12pt; color: white; height:32px; width: 33px; float: left;
+					      	<p style="margin-left: 5px; margin-right: 10px; font-size: 12pt; color: white; height:32px; width: 36px; float: left; text-align:center;
 					      						 border-style: solid; border-width: 3px; border-color: red; border-radius: 5px; background: red; ">${movie.audits}</p>
 					      </c:otherwise>
 				     </c:choose>
@@ -117,7 +74,7 @@ function showTrailer(){
 						<strong style="font-size: 30px;">1위</strong>
 						<span>19.6%</span> 
 					</p>
-					<button class="btn" style="margin-top: 5px; margin-right: 10px; float:right;">예매하기</button>
+					<button class="btn" style="margin-top: 5px; margin-right: 10px; float:right;" onclick="bookingForm();">예매하기</button>
 				</div>
 				
 				<ul style="margin-top: 25px; ">
@@ -153,7 +110,12 @@ function showTrailer(){
 					
 					<li class="type">
 						<strong>
-							누적관객 : <span class="audience" style="width: 300px; margin-right: 10px;"></span>| <strong>전일관객 : <span class="dailyAudience" style="width: 300px; margin-left: 10px;"></span></strong>
+							누적관객 : <span class="audience" style="width: 300px; margin-right: 10px;"></span>|
+							
+							<strong>전일관객 : 
+								<span class="dailyAudience" style="width: 300px; margin-left: 10px;">
+								</span>
+							</strong>
 						</strong>
 					</li>
 				</ul>
@@ -184,3 +146,4 @@ function showTrailer(){
 	
 </div>
 
+	
