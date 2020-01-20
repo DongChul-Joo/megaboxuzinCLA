@@ -8,8 +8,7 @@
 
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<style>
-
+<style>       
 .returnImage{
 background-image: url(<%=cp%>/resource/images/returnImage.png);
 background-size: 100% 100%;
@@ -24,12 +23,12 @@ width: 60px;
 height: 35px;
 outline: none;
 border: 1px solid black;
-font-weight: bold;
+font-weight: 100;
 border-radius: 5px;
 }
 
 .seatBtns:hover{
-font-size: 17px;
+font-weight: bold;
 }
 #bookingSeat div{
 padding: 0;
@@ -109,6 +108,7 @@ font-weight: bold;
     border-color: green;
     border-radius: 5px;
     background-color: #3DB7CC;
+    margin-right: 2px;
 }
 .btn {
 	font-weight: 600;
@@ -400,13 +400,17 @@ height: 87%;
 width: 100%;
 height: 12%;
 text-align: center;
-padding-top: 18px;
+padding-top: 10px;
 border: 1px solid #cccccc;
 border-spacing: 0;
 border-collapse: collapse;
 border-top: none;
 cursor: pointer;
 font-weight: bold;
+}
+
+#areaListUL li:hover{
+background:rgb(229, 229, 229);
 }
 
 #branListUL{
@@ -425,6 +429,11 @@ padding-top: 5px;
 font-weight: bold;
 
 }
+#branListUL li:hover{
+background-color: #198591;
+color: white;
+} 
+
 #bookingMap{
 width: 59%;
 height:87%; 
@@ -612,6 +621,12 @@ float: left;
 font-weight: bold;
 }
 
+.paymentAmount p{
+text-align: center;
+font-size: 20px;
+color: purple;
+}
+
 .paymentA{
 text-align: right;
 }
@@ -622,9 +637,73 @@ background: #333;width: 96%;color: white;outline: none;
 .ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active{
 width: 96%;
 }
+
+.seatPrePay{
+    color: white;
+    font-size: 13px;
+    background: purple;
+    border: 1px solid black;
+    margin-left: 2px;
+    padding: 2px;
+    float: left;
+    width: 15%;
+    height: 50%;
+    text-align: center;
+}
+.age15{
+background: orange;
+font-size: 15px;
+color: white;
+text-align: center;
+border-style: solid;
+border-width: 1px;
+border-color: black;
+border-radius: 5px;
+margin-right: 2px;
+}
+.age청불{
+background: red;
+font-size: 15px;
+color: white;
+text-align: center;
+border-style: solid;
+border-width: 1px;
+border-color: black;
+border-radius: 5px;
+margin-right: 2px;
+}
+.age전체{
+background: green;
+font-size: 15px;
+color: white;
+text-align: center;
+border-style: solid;
+border-width: 1px;
+border-color: black;
+border-radius: 5px;
+margin-right: 2px;
+}
+
+.ui-dialog .ui-dialog-buttonpane button{
+width: 70px;
+    height: 35px;
+    background: white;
+    color: black;
+    border: 1px solid black;
+    font-weight: bold;
+
+}
+.ui-dialog .ui-dialog-buttonpane button:hover{
+background: purple;
+color: white;
+}
+
+.listOfMovie:hover{
+background: rgb(25, 133, 145);    
+}
 </style>
 
-
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <script type="text/javascript">
 var timePosition=0;
@@ -653,14 +732,115 @@ function seatCreateTimers(){
 	schduleTimer=setInterval("readBookingSeat()",60000);
 }
 
+function deagi(){
+	var IMP = window.IMP; // 생략가능
+	IMP.init('imp36876789');  // 가맹점 식별 코드
+	
+	
+	IMP.request_pay({
+	   	pg : 'html5_inicis', // 결제방식
+	    pay_method : 'card',	// 결제 수단
+	    merchant_uid : 'merchant_' + new Date().getTime(),
+	   	name : 'buyTicket',	// order 테이블에 들어갈 주문명 혹은 주문 번호
+	    amount : 100,	// 결제 금액 amount
+	    buyer_email : $("input[name=email]").val(),	// 구매자 email
+	   	buyer_name :  $("input[name=userName]").val(),	// 구매자 이름
+	    buyer_tel :  $("input[name=tel]").val(),	// 구매자 전화번호
+	    m_redirect_url : '/khx/payEnd.action'	// 결제 완료 후 보낼 컨트롤러의 메소드명
+	}, function(rsp) {
+		if ( rsp.success ) { // 성공시
+			alert("결제가 완료되었습니다.");
+			
+			
 
-function buyForm(data){
+		} else { // 실패시
+			var msg = '결제에 실패하였습니다.\n' + rsp.error_msg;
+			alert(msg);
+		}
+	});
 	
+}
+
+function closedPay(){
+	$("#bookingTiketingForm").dialog("close");
+	seatCreateTimers();
+}
+
+function payTiket(){
 	
+	var fom=$("form[name=bookingSubmitForm]").serialize() ;
+		fom+="&realPrice="+$(".realMoney").attr("data-price");
+		alert($("input[name=customerCode]").val());
+	$.ajax({
+		type : 'post',
+		url : '<%=cp%>/booking/bookingSubmit',
+		data : fom,
+		dataType : 'json',
+		error: function(xhr, status, error){
+			alert(error);
+		},
+		success : function(data){
+			if(data=='false'){
+				alert("오류로 인해 결제를 진행 할 수 없습니다.");
+				return;	
+			}
+		},
+	});
+	
+	deagi();
+	
+}
+function buyInit(){
+	var selectSeat=$(".clickSeat");
+	for(var i=0;i<selectSeat.length;i++){
+		var seatId=$(selectSeat[i]).attr("data-row")+$(selectSeat[i]).attr("data-col");
+		var tag="<div class='seatPrePay' data-seat='"+seatId+"'>"+seatId+"</div>";
+		var seatNumber="<input type='hidden' name='seatNumber' value='"+seatId+"'>";
+		$("#seatSelectJone").append(tag);
+		$("form[name=bookingSubmitForm]").append(seatNumber);
+	}
+	
+	var payDetail=$(".peopleSelectjone select");
+	var totPrice=0;
+	var price=0;
+	var bookCount=0
+	for(var i=0;i<payDetail.length;i++){
+		
+		if($(payDetail[i]).val()==0){
+			continue;
+		}
+		
+		var price=$(payDetail[i]).attr("data-price");
+		var ageInfo=$(payDetail[i]).attr("data-rainge");
+		var clientNumber=$(payDetail[i]).val();
+		
+		var payDetails="<input type='hidden' name='pdList["+i+"].ageInfo' value='"+ageInfo+"'>";
+		    payDetails+="<input type='hidden' name='pdList["+i+"].originalPrice' value='"+(price*clientNumber)+"'>";
+		    payDetails+="<input type='hidden' name='pdList["+i+"].clientNumber' value='"+clientNumber+"'>";
+		    payDetails+="<input type='hidden' name='pdList["+i+"].discountPrice' value='0'>";
+		    payDetails+="<input type='hidden' name='pdList["+i+"].finalPrice' value='"+(price*clientNumber)+"'>";
+		    payDetails+="<input type='hidden' name='pdList["+i+"].ticketInfo' value='일반구매'>";
+		    
+		    totPrice+=price*clientNumber;
+		    $("form[name=bookingSubmitForm]").append(payDetails);
+		    
+		bookCount+=clientNumber;
+	}
+	$("input[name=totPrice]").val(totPrice);
+	$(".realMoney").attr("data-price",totPrice).html(totPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+"원");
+	var totappend="<input type='hidden' name='totalPrice' value='"+totPrice+"'>";
+		totappend+="<input type='hidden' name='bookCount' value='"+bookCount+"'>";
+	$("form[name=bookingSubmitForm]").append(totappend);
+}
+function buyForm(udata){
+	
+	var scheduleCode=$(".bookingMovieInfo input[name=scheduleCode]").val();
 	var type="get";
 	var url="<%=cp%>/booking/bookingTiketingForm";
-	var query="";
+	var query="scheduleCode="+scheduleCode;
 	var selector="#bookingTiketingForm";
+	
+	
 	$.ajax({
 		type:type
 		,url:url
@@ -672,6 +852,20 @@ function buyForm(data){
 				collapsible: true,
 				 heightStyle: "menu_payment"
 			});  
+			var totappend="<input type='hidden' name='customerCode' value='"+udata.data.customerCode+"'>";
+			totappend+="<input type='hidden' name='email' value='"+udata.data.email+"'>";
+			totappend+="<input type='hidden' name='userName' value='"+udata.data.userName+"'>";
+			totappend+="<input type='hidden' name='tel' value='"+udata.data.tel+"'>";
+			
+			if(udata.data.membershipName!=null){
+				$(".membershipData").html("멤버십 등급 :"+udata.data.membershipName+"  /  할인률 :"+udata.data.disCount+"%");
+			
+				totappend+="<input type='hidden' name='memberShip' value='"+udata.data.disCount+"'>";
+			}
+			
+			$("form[name=bookingSubmitForm]").append(totappend);
+			buyInit();
+		
 		}
 	    ,error:function(jqXHR) {
 	    	
@@ -680,9 +874,10 @@ function buyForm(data){
 	
 	$("#bookingTiketingForm").dialog({
 		modal: true,
-		height:550, 
+		height:650, 
 		width:1050,
 		title: "",
+		position: { my:"center", at:"center", of: window },
 		open:function(){
        	 $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
   
@@ -864,6 +1059,7 @@ function buyTiket(){
 							height:300, 
 							width:350,
 							title: "",
+							position: { my:"center", at:"center", of: window },
 							open:function(){
 					       	 $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
 					       		blfReturn();
@@ -988,6 +1184,7 @@ $(document).on("click",".btnsBooking",function(){
 			height:680, 
 			width:1050,
 			title: "",
+			position: { my:"center", at:"center", of: window },
 			open:function(){
 	       	 $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
 	       	schduleClealTimers();
@@ -1024,6 +1221,7 @@ function bookingForm(){
 		height:680, 
 		width:850,
 		title: "",
+		position: { my:"center", at:"center", of: window }, 
 		open:function(){
        	 $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
          $('html').css('overflow','hidden');
@@ -1146,6 +1344,7 @@ function movieSerach(){
 		height:800,
 		width:900,
 		title: "영화목록",
+		position: { my:"center", at:"center", of: window },
 		open:function(){
        	 $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
         },
@@ -1296,7 +1495,7 @@ function scheduleList(){
 						tag+="<p><a>3D</a></p></div>";
 					}
 					tag+="<div class='branJone'><p>"+data[i].branName+"</p><p>"+data[i].cmName+"</p><p>"+(data[i].cmSeatTot-data[i].seatCount)+"/"+data[i].cmSeatTot+"</p></div></div>";
-	
+					console.log(data[i].seatCount);
 				$(".scheduleList").append(tag);
 				if(i==0){
 					var time=parseInt(data[i].starttime.substring(0,2));
@@ -1331,6 +1530,7 @@ $(document).on("click",".cinemaLi", function(){
       height:600,
       width:900,
       title: "",
+      position: { my:"center", at:"center", of: window },
       open:function(){
      	 $(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
      	 listAreas("${areaList[0].parent}");
@@ -1470,7 +1670,7 @@ $(document).on("click", "#branListUL li", function() {
 	    $("#branchSelectList").append(selectBranchs);
 	    
 	    this.setAttribute("class","selectBranchActive");
-	    maps(this.getAttribute("data-Addr"),this.getAttribute("data-branName"));
+	    maps(this.getAttribute("data-Addr"),this.getAttribute("data-branName"),'bookingMap');
 	    selBranchCount++;
 	});
 
@@ -1607,7 +1807,7 @@ $(document).on("click",".listOfMovie",function(){
     <div class="header-right">
         <div style="float: right; margin-top: 13px;">
             <c:if test="${empty sessionScope.member}">
-            
+             
   
                 <a href="<%=cp%>/member/login" class="btn btn-outline-primary1">로그인</a>
                 <a href="<%=cp%>/member/member" class="btn btn-outline-primary1">회원가입</a>
@@ -1633,20 +1833,68 @@ $(document).on("click",".listOfMovie",function(){
 	
 </div>
 
+<div class="floating">
+						
+					<div>
+					<a href="<%=cp%>" style="color: black;">
+					<img src="<%=cp%>/resource/images/iconn.png" width="20px;" height="20px;">
+					<br>
+					2019년 <br>
+					VIP안내
+					</a>
+					</div> 
+					
+				
+					
+					<div>
+					<a href="<%=cp%>/movie/newmovie" style="color: black;">
+					최신영화
+					</a>
+					</div> 
+					
+					<div>
+					<a href="<%=cp%>/branchCla/branchCla" style="color: black;">
+					영화관
+					</a>
+					</div> 
+					
+					<div>
+					<a href="<%=cp%>/movieschedule/schedulemovie" style="color: black; height: 100px;">
+					예매내역
+					</a>
+					</div> 
+					
+					<div>
+					<a href="javascript:bookingForm()" style="color: black; height: 100px;">
+					빠른예매
+					</a>
+					</div> 
+					
+					<div>
+					
+					</div>
+					
+
+				
+					
+
+					</div>
+
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=04e4431a8f42ef7f22f5a23dfe0e8324&libraries=servicesappkey=APIKEY&libraries=services"></script>
 	<script>
-function maps(addr,bn){
+function maps(addr,bn,id){
 		
 	var addr1=addr;
 	var branName=bn;
-		var mapContainer = document.getElementById('bookingMap'), // 지도를 표시할 div 
+		var mapContainer = document.getElementById(id), // 지도를 표시할 div 
 	    mapOption = {
 	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	        draggable: false,
 	        level: 3 // 지도의 확대 레벨
 	    };  
 
 	// 지도를 생성합니다    
-	var map = new kakao.maps.Map(mapContainer, mapOption); 
+	 var map = new kakao.maps.Map(mapContainer, mapOption); 
 
 	// 주소-좌표 변환 객체를 생성합니다
 	var geocoder = new kakao.maps.services.Geocoder();
@@ -1678,5 +1926,6 @@ function maps(addr,bn){
 	    
 	});    
 	}
+
 	</script>
 

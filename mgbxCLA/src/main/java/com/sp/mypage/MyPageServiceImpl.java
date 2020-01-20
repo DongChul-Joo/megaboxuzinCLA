@@ -84,7 +84,7 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public void insertMyPage(MyPage dto, String pathname) throws Exception {
+	public void insertMyPage(MyPage dto) throws Exception {
 		
 		try {
 			
@@ -126,6 +126,17 @@ public class MyPageServiceImpl implements MyPageService {
 		int result = 0;
 		try {
 			result = dao.selectOne("mypage.dataCountStore", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public int dataCountMileage(Map<String, Object> map) {
+		int result = 0;
+		try {
+			result = dao.selectOne("mypage.dataCountMileage", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

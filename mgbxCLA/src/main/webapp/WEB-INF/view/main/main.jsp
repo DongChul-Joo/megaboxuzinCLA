@@ -442,26 +442,28 @@ function detailMovie(movieCd){
 					</a>
 					</div> 
 					
+				
+					
 					<div>
-					<a href="<%=cp%>/movieschedule/schedulecinema" style="color: black;">
+					<a href="<%=cp%>/movie/newmovie" style="color: black;">
+					최신영화
+					</a>
+					</div> 
+					
+					<div>
+					<a href="<%=cp%>/branchCla/branchCla" style="color: black;">
 					영화관
 					</a>
 					</div> 
 					
 					<div>
-					<a href="<%=cp%>/movieschedule/schedulespecial" style="color: black;">
-					특별관
-					</a>
-					</div> 
-					
-					<div>
 					<a href="<%=cp%>/movieschedule/schedulemovie" style="color: black; height: 100px;">
-					상영시간표
+					예매내역
 					</a>
 					</div> 
 					
 					<div>
-					<a href="<%=cp%>/ticketing/ticketing" style="color: black; height: 100px;">
+					<a href="javascript:bookingForm()" style="color: black; height: 100px;">
 					빠른예매
 					</a>
 					</div> 

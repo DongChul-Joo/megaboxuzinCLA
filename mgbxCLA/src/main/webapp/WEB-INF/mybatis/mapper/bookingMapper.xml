@@ -11,7 +11,7 @@
 				join branch br on cm.brancode=br.brancode 
 					join movie mv on shm.moviecode=mv.movieCode
 					left outer join (select scheduleCode,NVL(count(seatcode),0) seatcode from seat st left outer 
-                 				  join booking bk on st.bookcode=bk.bookcode group by scheduleCode) 
+                 				  join booking bk on st.bookcode=bk.bookcode where cancelInfo!=1 group by scheduleCode ) 
                  				  sc on shc.scheduleCode=sc.scheduleCode
 		
 		<where>
@@ -49,13 +49,13 @@ where scheduleCode=#{scheduleCode}
 <select id="bookingSeatList" parameterType="Integer" resultType="String">
 	select seatNumber from seat st left outer 
 	join booking bk on st.bookcode=bk.bookcode 
-	where schedulecode=#{schedulecode}
+	where schedulecode=#{schedulecode} and cancelInfo!=1
 </select>
 
 <select id="seatCount" parameterType="Integer" resultType="Integer">
 	select NVL(count(seatcode),0) seatcode from seat st left outer 
 	join booking bk on st.bookcode=bk.bookcode 
-	where schedulecode=#{schedulecode}
+	where schedulecode=#{schedulecode} and cancelInfo!=1
 </select>
 
 
@@ -66,4 +66,24 @@ where scheduleCode=#{scheduleCode}
 <select id="customerCheck" parameterType="com.sp.member.Member" resultType="com.sp.member.Member">
 	select customercode,tel,email,username,birth from customer where username=#{userName} and tel=#{tel}
 </select>
+
+<select id="bookingSeq" resultType="Integer">
+ 	  SELECT booking_Seq.NEXTVAL FROM dual 
+</select>
+<insert id="insertBooking" parameterType="com.sp.booking.BookingInfo">
+	insert into booking(bookCode,bookCount,totalPrice,realPrice,scheduleCode,memberCode)
+	 values(#{bookCode},#{bookCount},#{totalPrice},#{realPrice},#{scheduleCode},#{customerCode})
+</insert>
+
+<insert id="insertSeat" parameterType="map">
+	insert into seat(seatCode,seatNumber,bookCode) values(seat_seq.nextval,#{seatNumber},#{bookCode})
+</insert>
+
+<insert id="insertBookingDetail" parameterType="com.sp.booking.BookingDetail">
+	insert into bookingDetail(bookDetailCode,ticketInfo,ageInfo,clientNumber,
+	discountPrice,originalPrice,finalPrice,bookCode)
+	values(bookingDetail_seq.nextval,#{ticketInfo},#{ageInfo},#{clientNumber},
+	#{discountPrice},#{originalPrice},#{finalPrice},#{bookCode})
+</insert>
+
 </mapper>

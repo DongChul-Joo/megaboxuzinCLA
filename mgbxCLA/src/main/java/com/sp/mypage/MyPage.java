@@ -11,6 +11,13 @@ public class MyPage {
 	private String cmName;
 	private String movienm;
 	
+	private int itemCode;
+	private int itemCount;
+	private int itemPrice;
+	private int amount;
+	private String pdPayId;
+	private String pdPayCode;
+	
 	private String itemPart;
 	private String buyDate;
 	private String itemName;
@@ -187,6 +194,42 @@ public class MyPage {
 	}
 	public void setSeatNumber(String seatNumber) {
 		this.seatNumber = seatNumber;
+	}
+	public int getItemCode() {
+		return itemCode;
+	}
+	public void setItemCode(int itemCode) {
+		this.itemCode = itemCode;
+	}
+	public int getItemCount() {
+		return itemCount;
+	}
+	public void setItemCount(int itemCount) {
+		this.itemCount = itemCount;
+	}
+	public int getItemPrice() {
+		return itemPrice;
+	}
+	public void setItemPrice(int itemPrice) {
+		this.itemPrice = itemPrice;
+	}
+	public int getAmount() {
+		return amount;
+	}
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+	public String getPdPayId() {
+		return pdPayId;
+	}
+	public void setPdPayId(String pdPayId) {
+		this.pdPayId = pdPayId;
+	}
+	public String getPdPayCode() {
+		return pdPayCode;
+	}
+	public void setPdPayCode(String pdPayCode) {
+		this.pdPayCode = pdPayCode;
 	}
 
 		

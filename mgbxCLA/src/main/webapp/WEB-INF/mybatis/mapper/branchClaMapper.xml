@@ -20,4 +20,20 @@
 	
 </select>
 
+
+<select id="branScheduleList" parameterType="Integer" resultType="com.sp.branchCla.BranchSchdule">
+ select  mv.movieCode,movieNm,br.branCode,branName,cmName,showingDate,cmSeatTot,audits,LISTAGG(NVL(seatcode,0), '/') WITHIN GROUP(ORDER BY showingNum) seatCounts,
+    LISTAGG(starttime, '/') WITHIN GROUP(ORDER BY showingNum) startTimes
+    from movie mv
+        
+    join  showingMovie swm on mv.movieCode=swm.movieCode
+        join cinema cm on swm.cmcode=cm.cmcode 
+            join branch br on cm.brancode=br.brancode
+               left outer join  SHOWINGSCHEDULE shc on shc.showingcode=swm.showingcode
+                    left outer join (select scheduleCode,NVL(count(seatcode),0) seatcode from seat st left outer 
+                 				  join booking bk on st.bookcode=bk.bookcode where cancelInfo!=1 group by scheduleCode ) 
+                 				  sc on shc.scheduleCode=sc.scheduleCode
+                                 	where to_char(showingdate,'yyyy-mm-dd')=to_char(sysdate,'yyyy-mm-dd') and br.branCode=#{branCode} 
+                                    group by mv.movieCode,movieNm,br.branCode,branName,cmName,showingDate,cmSeatTot,audits,NVL(seatcode,0) 
+</select>
 </mapper>

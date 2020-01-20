@@ -1,7 +1,5 @@
 package com.sp.mypage;
 
-import java.io.File;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -17,10 +15,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sp.booking.BookingInfo;
 import com.sp.common.MyUtil;
+import com.sp.member.Member;
+import com.sp.member.MemberService;
 import com.sp.member.SessionInfo;
-import com.sp.paydetail.PayDetail;
 import com.sp.paydetail.PayDetailService;
 
 @Controller("mypage.myPageController")
@@ -32,13 +33,22 @@ public class MyPageController {
 	
 	@Autowired
 	private PayDetailService payService;
+	@Autowired
+	private MemberService memberService;
 	
 	@RequestMapping(value="/mypage/info")
 	public String info(
+			@RequestParam(value="page", defaultValue="1") int current_page,
 			HttpSession session,
+			HttpServletRequest req,
 			Model model) throws Exception {
 		
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		
+		String cp = req.getContextPath();
+		int rows = 3; // 한 화면에 보여주는 게시물 수
+		int total_page = 0;
+		int dataCount = 0;
 		
 		MyPage dto=null;
 		MyPage dto1=null;
@@ -50,17 +60,49 @@ public class MyPageController {
 			
 			Map<String, Object> map = new HashMap<>();		
 			map.put("userId", info.getUserId());
+			dataCount = service.dataCountMileage(map);
+			
+			if(dataCount != 0)
+				total_page = myUtil.pageCount(rows, dataCount);
+			
+			// 다른 사람이 자료를 삭제하여 전체 페이지수가 변화 된 경우
+	        if(total_page < current_page) 
+	            current_page = total_page;
+
+	        // 리스트에 출력할 데이터를 가져오기
+	        int offset = (current_page-1) * rows;
+			if(offset < 0) offset = 0;
+	        map.put("offset", offset);
+	        map.put("rows", rows);
+			
+			
 			list = service.listPoint2(map);
 			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		String query = "";
+		String listUrl = cp+"/mypage/info";
+		String articleUrl = cp+"/mypage/info?page=" + current_page;
+		if(query.length()!=0) {
+        	listUrl = cp+"/mypage/info?" + query;
+        	articleUrl = cp+"/mypage/info?page=" + current_page + "&"+ query;
+        }
+		
+		String paging = myUtil.paging(current_page, total_page, listUrl);
+		
 				
 		model.addAttribute("list", list);
 		model.addAttribute("subMenu", "1");
 		model.addAttribute("dto", dto);
 		model.addAttribute("dto1", dto1);
+		model.addAttribute("articleUrl", articleUrl);
+		model.addAttribute("page", current_page);
+        model.addAttribute("dataCount", dataCount);
+        model.addAttribute("total_page", total_page);
+        model.addAttribute("paging", paging);
 		return ".four.menu5.mypage.info";
 	}
 	
@@ -117,7 +159,7 @@ public class MyPageController {
 				String cancel=dto.getShowingdate()+" "+dto.getStartTime();
 				Date bookingCancelEnd=sdf.parse(cancel);
 				
-				if((bookingCancelEnd.getTime()/1000/60)-10<nowDayTimeFormat.getTime()/1000/60) {
+				if(((bookingCancelEnd.getTime()/1000/60)-10<nowDayTimeFormat.getTime()/1000/60)&&dto.getCancelInfo()!=1) {
 					dto.setCancelInfo(2);
 				}
 			}
@@ -159,13 +201,12 @@ public class MyPageController {
 			HttpServletRequest req,
 			Model model) throws Exception {
 		
-		String cp = req.getContextPath();
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		
-		int rows = 10;
+		String cp = req.getContextPath();
+		int rows = 10; // 한 화면에 보여주는 게시물 수
 		int total_page = 0;
 		int dataCount = 0;
-		
-		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		
 		List<MyPage> list = null;
 		try {
@@ -173,9 +214,9 @@ public class MyPageController {
 			map.put("userId", info.getUserId());
 			
 			dataCount = service.dataCountStore(map);
+			
 			if(dataCount != 0)
 				total_page = myUtil.pageCount(rows, dataCount);
-			
 			
 			// 다른 사람이 자료를 삭제하여 전체 페이지수가 변화 된 경우
 	        if(total_page < current_page) 
@@ -204,9 +245,7 @@ public class MyPageController {
         	articleUrl = cp+"/mypage/store?page=" + current_page + "&"+ query;
         }
 		
-		
 		String paging = myUtil.paging(current_page, total_page, listUrl);
-		
 		
 		
 		model.addAttribute("subMenu", "3");
@@ -216,7 +255,6 @@ public class MyPageController {
         model.addAttribute("dataCount", dataCount);
         model.addAttribute("total_page", total_page);
         model.addAttribute("paging", paging);
-        
 		return ".four.menu5.mypage.store";
 	}
 	
@@ -226,11 +264,9 @@ public class MyPageController {
 			HttpSession session,
 			Model model) throws Exception {
 		
-		String root=session.getServletContext().getRealPath("/");
-		String path=root+"uploads"+File.separator+"myPage";
-		
+
 		try {
-			service.insertMyPage(dto, path);
+			service.insertMyPage(dto);
 		} catch (Exception e) {
 		}
 		
@@ -302,24 +338,27 @@ public class MyPageController {
 	}
 	
 	@RequestMapping(value="/mypage/bookingCancel",method=RequestMethod.GET)
-	public String bookingCancel(
+	@ResponseBody
+	public Map<String,Object> bookingCancel(
 			HttpSession session,
 			int bookCode) {
 		
-		String result="false";
-		
-		
+		Map<String,Object> map = new HashMap<>();
+
 		SessionInfo info = (SessionInfo)session.getAttribute("member");
 		if(info==null) {
-			return result;
+			map.put("result", "false");
+			map.put("state", "로그인이 되어있지않습니다.");
+			return map;
 		}
 	
 		
 		List<MyPage> list = null;
 		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("bookCode", bookCode);
-		list = service.listReservation(map);
+		Map<String, Object> maps = new HashMap<String, Object>();
+		maps.put("bookCode", bookCode);
+		maps.put("userId", info.getUserId());
+		list = service.listReservation(maps);
 		
 		Date nowDayTime = new Date();
 
@@ -336,28 +375,52 @@ public class MyPageController {
 			
 			
 			if((bookingCancelEnd.getTime()/1000/60)-10<nowDayTimeFormat.getTime()/1000/60) {
-				return result;
+				map.put("result", "false");
+				map.put("state", "취소는 상영시간 10분 전까지만 가능합니다.");
+				return map;
 			}
 			
-			List<PayDetail> plist=null;
+			List<BookingInfo> plist=null;
 			plist=payService.listPayDetail(bookCode);
 			
 			map.put("userId", info.getUserId());
-			payService.canselBooking(map);
-			for(PayDetail pd:plist) {
-				if(pd.getPdSudan().equals("mileage")) {
-					payService.insertMileage(info.getUserId(), pd.getPdPrice());
+			payService.canselBooking(maps);
+			for(BookingInfo pd:plist) {
+				if(pd.getPayKind().equals("mileage")) {
+					payService.insertMileage(info.getUserId(), pd.getTotalPrice());
+				}else if(pd.getPayKind().equals("Card")) {
+					map.put("payCancelData", pd);
+					map.put("result", "true");
 				}
 			}
 			
+			
+			
 		} catch (Exception e) {
+			map.put("result", "false");
 			e.printStackTrace();
 		}	
 		
 		
-		return result;
+		return map;
 		
 	}
 	
+	@RequestMapping(value="/mypage/memberCheck", method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> memberCheck(
+			HttpSession session) {
+		Map<String, Object> map = new HashMap<>();
+		
+		SessionInfo info=(SessionInfo)session.getAttribute("member");
+		if(info==null) {
+			map.put("data", info);
+		} else {
+			Member dto = null;
+			dto=memberService.readMember(info.getUserId());
+			map.put("data", dto);
+		}
+		return map;
+	}
 
 }

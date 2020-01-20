@@ -10,13 +10,28 @@
 		
 		<h3 style="font-weight: bold;">${dto.branName}</h3>
 		
-		<div id="branImgArea" data-img="url('http://localhost:9090/mgbxAD/branchImg/branch/${dto.imageFilename}')" style="height: 400px;background-image: url('http://localhost:9090/mgbxAD/branchImg/branch/${dto.imageFilename}');background-size: 100% 100%;">
+		<div id="branImgArea" data-img="url('http://localhost:9090/mgbxAD/branchImg/branch/${dto.imageFilename}')">
 		<div>
 		
-		<h3 class="cmdquf">상영시간표</h3>
+		<h3 class="cmdquf">금일 상영시간표</h3>
 		
-		<div style="height: 500px; ">
-		  <h1>여기다가 상영시간표 넣으면 됩니다.</h1>
+		<div class="branSchdule">
+		  <table>
+		  	<c:forEach var="bb" items="${list}">
+		  		<tr class="bsTrClass">
+		  			<td class="bsTd" style="font-size: 15px;"><span class="age${bb.audits}">${bb.audits}</span><span>${bb.movieNm}</span></td>
+		  			<td class="bsTd" style="background: none;"><p>${bb.cmName}</p>
+		  				<p>총 좌석 : ${bb.cmSeatTot}</p>
+		  			</td>
+		  			<td class="bsLastTd">
+		  				<c:forEach var="vs" items="${bb.startTime}" varStatus="status">
+		  					<span >${vs}<br>${bb.cmSeatTot-bb.seatCount[status.count-1]}/${bb.cmSeatTot}</span>		  				
+		  				</c:forEach>
+		  			</td>
+		  		</tr>
+		  		
+		  	</c:forEach>
+		  </table>
 		</div>
 		
 	</div>
@@ -41,19 +56,21 @@
 				</div>
 				
 				<div>
-					<h3 class="cmdquf">약도 /교통 /주차</h3>
+					<h3 class="cmdquf" >약도 /교통 /주차 </h3> <button  style="float: right;" class="btn" type="button" onclick="openSearch()">길찾기</button>
 				</div>
 				
-				
-				<div style="height: 300px;">
-				<h1>여기다가 지도를 넣는 곳입니다.</h1>
+			
+				<div id="branMap" data-addr="${dto.branAddr1}" data-branName="${dto.branName}" style="height: 500px;width: 100%">
+							
+			</div>
+				<div style="color: white;background-color: rgba( 000, 000, 000, 0.7 );height: 150px;">
+							  <p style="font-size: 20px; margin-top: 20px;margin-left: 30px">우편번호 : ${dto.branZip}</p>
+						      <p style="font-size: 20px;margin-left: 30px;margin-top: 20px;">주소 : ${dto.branAddr1} ${dto.branAddr2}</p> 
+			
 				</div>
 	
 				
-			<div style="color: white;background-color: rgba( 000, 000, 000, 0.7 );height: 150px;margin-top: 250px">
-				  <p style="font-size: 20px; margin-top: 20px;margin-left: 30px">우편번호 : ${dto.branZip}</p>
-			      <p style="font-size: 20px;margin-left: 30px">주소 : ${dto.branAddr1} ${dto.branAddr2}</p> 
-			</div>
+	
 		</div>
 	
 	</div>

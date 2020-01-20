@@ -1,5 +1,6 @@
 package com.sp.booking;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -94,6 +95,41 @@ public class BookingServiceImpl implements BookingService{
 			throw e;
 		}
 		return dtt;
+	}
+
+	@Override
+	public int bookingSeq() throws Exception {
+		int seq=0;
+		try {
+			seq=dao.selectOne("booking.bookingSeq");
+		} catch (Exception e) {
+			throw e;
+		}
+		return seq;
+	}
+
+	@Override
+	public void bookingInsert(BookingInfo bkif) throws Exception {
+		
+		
+		try {
+			
+			dao.insertData("booking.insertBooking",bkif);
+			for(int i=0;i<bkif.getSeatNumber().length;i++) {
+				Map<String,Object> map =new HashMap<String, Object>();
+				map.put("bookCode", bkif.getBookCode());
+				map.put("seatNumber", bkif.getSeatNumber()[i]);
+				dao.insertData("booking.insertSeat", map);
+			}
+			for(int v=0;v<bkif.getPdList().size();v++) {
+				bkif.getPdList().get(v).setBookCode(bkif.getBookCode());
+				dao.insertData("booking.insertBookingDetail",bkif.getPdList().get(v));
+			}
+			
+		} catch (Exception e) {
+			throw e;
+		}
+		
 	}
 
 }

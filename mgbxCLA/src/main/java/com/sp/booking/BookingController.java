@@ -186,8 +186,52 @@ public class BookingController {
 	}
 	
 	@RequestMapping(value="/booking/bookingTiketingForm",method=RequestMethod.GET)
-	public String bookingTiketingForm() {
+	public String bookingTiketingForm(
+			int scheduleCode,
+			Model model
+			) {
+		
+		Booking dto=null;
+		try {
+			dto=bookingService.readSeat(scheduleCode);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		model.addAttribute("dto",dto);
 		
 		return "booking/bookingTiketing";
 	}
+	
+	@RequestMapping(value="/booking/bookingSubmit",method=RequestMethod.POST)
+	@ResponseBody
+	public String bookingSubmit(
+			BookingInfo bkif
+			) {
+		String result="true";
+		
+			if(bkif.getMemberShip()!=0) {
+				BookingDetail bkdt= new BookingDetail();
+				bkdt.setAgeInfo("");
+				bkdt.setClientNumber(bkif.getBookCount());
+				bkdt.setDiscountPrice(bkif.getTotalPrice()/100*bkif.getMemberShip());
+				bkdt.setTicketInfo("멤버십할인");
+				bkdt.setOriginalPrice(bkif.getTotalPrice());
+				bkdt.setFinalPrice(bkdt.getOriginalPrice()-bkdt.getDiscountPrice());
+				bkif.getPdList().add(bkdt);
+			}
+	
+		try {
+			System.out.println(bkif.getCustomerCode());
+			bkif.setBookCode(bookingService.bookingSeq());
+			bookingService.bookingInsert(bkif);
+			
+		} catch (Exception e) {
+			result="false";
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
 }

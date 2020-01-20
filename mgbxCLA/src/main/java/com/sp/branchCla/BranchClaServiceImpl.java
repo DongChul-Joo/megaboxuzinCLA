@@ -45,4 +45,17 @@ public class BranchClaServiceImpl implements BranchClaService{
 		return dto;
 	}
 
+	@Override
+	public List<BranchSchdule> branScheduleList(int branCode) throws Exception {
+		List<BranchSchdule> list=null;
+		try {
+			list=dao.selectList("branchCla.branScheduleList",branCode);
+		} catch (Exception e) {
+			throw e;
+		}
+		
+
+		return list;
+	}
+
 }
