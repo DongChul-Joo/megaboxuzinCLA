@@ -35,7 +35,7 @@
 							<input type="hidden" class="getStar"  name="star">
 							
 							<div style="width: 570px; min-height: 97px; float: left;">
-									<textarea  class="writeReply" title="댓글쓰기" rows="10" cols="30" maxlength="100" ${not empty info.userId ? "placeholder='댓글을 남겨주세요'" : "readonly='readonly' placeholder='로그인 후 이용가능한 서비스입니다.'"}></textarea>
+									<textarea  class="writeReply" title="댓글쓰기" rows="10" cols="30" maxlength="100" ${not empty info.userId ? "placeholder='댓글을 남겨주세요'" : "readonly='readonly' placeholder='로그인 해야 댓글을 달 수 있어요~.'"}></textarea>
 							</div>
 							<div style="width: 84px; height: 100%; float: left;">
 									<button type="button" onclick="btnSendReply('${dto.movieCode}')" style="height: 86px; width: 86px; float: right; border: 1px solid #e1e1e1;">등록</button>
@@ -59,7 +59,7 @@
 						<div style="width: 60px; float: left;"><img src="http://image2.megabox.co.kr/mop/home/user/profile_m.png" width="60px;" height="60px;"></div>
 						
 						<div class="textarea"> 
-							<div class="name"><strong class="getUserId">${vo.userId}</strong></div>
+							<div class="name"><strong class="getUserId" style="color: #4374D9;">${vo.userId}</strong></div>
 							<div class="text">
 								<span style="float: left;">${vo.created}</span>
 								<div>

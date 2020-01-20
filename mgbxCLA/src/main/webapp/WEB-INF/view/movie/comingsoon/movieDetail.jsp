@@ -66,7 +66,7 @@ listPage(1);
 						<strong style="font-size: 30px;">1위</strong>
 						<span>19.6%</span> 
 					</p>
-					<button class="btn" style="margin-top: 5px; margin-right: 10px; float:right;">예매하기</button>
+					<button class="btn" style="margin-top: 5px; margin-right: 10px; float:right;" onclick="bookingForm();">예매하기</button>
 				</div>
 				
 				<ul style="margin-top: 25px; ">
