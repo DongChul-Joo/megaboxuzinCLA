@@ -539,7 +539,7 @@ function detailMovie(movieCd){
 				      					
 					      				<p class="ddd" style="margin-left: 5px; font-weight: bold; font-size: 15pt; width: 70%; float: left; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: inline-block;">${vo.movieNm}</p>
 					      				<button type="button" name ="movieDetail" class="btn btn-outline-primary1" onclick="showMovieDetail('${vo.movieCode}')">상세정보</button>
-					      				<button type="button" class="btn btn-outline-primary1">예매하기</button>
+					      				<button type="button" class="btn btn-outline-primary1" onclick="bookingForm();">예매하기</button>
 									</div>
 								</div>
 						   </div>
