@@ -446,7 +446,7 @@ function reportUser(userId, movieCode){
 		</div>	
 
 	
-	<div id="newMovie" style="width: 100%;margin: 0 auto; min-height: 1800px;">
+	<div id="newMovie" style="width: 79%;margin: 0 auto; min-height: 1800px;">
 		
 		<ul>
 			<li style="margin-left: 50px;">
