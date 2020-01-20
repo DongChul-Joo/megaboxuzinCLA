@@ -48,7 +48,7 @@ padding-bottom: 30px;
 			<table style="width: 100%; margin: 0px auto; border-spacing: 0px;">
 		   <tr height="80">
 			<td align="center">
-			       ${dataCount==0?"등록된 게시물이 없습니다.":paging}
+			       ${dataCount==0?"구매한 상품이 없습니다.":paging}
 			 </td>
 		   </tr>
 		</table>
