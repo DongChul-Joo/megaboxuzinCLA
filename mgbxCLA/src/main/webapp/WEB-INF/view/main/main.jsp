@@ -457,7 +457,7 @@ function detailMovie(movieCd){
 					</div> 
 					
 					<div>
-					<a href="<%=cp%>/movieschedule/schedulemovie" style="color: black; height: 100px;">
+					<a href="<%=cp%>" style="color: black; height: 100px;">
 					예매내역
 					</a>
 					</div> 
