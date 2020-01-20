@@ -58,7 +58,7 @@ padding-right: 206px;
 						<ul style="padding-top: 20px;">
 							<li class="ro1">
 							<strong class="row1">현재 보유 포인트</strong>
-							<strong>${dto.mileage}P</strong>
+							<strong>${dto.mileage}0P</strong>
 							</li>
 							<li class="ro1">
 							<strong class="row2">티켓구매 누적 포인트</strong>
