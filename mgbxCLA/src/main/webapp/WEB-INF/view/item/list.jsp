@@ -57,9 +57,9 @@ function article(itemCode) {
 <div class="body-container" style="width: 840px; height: 2100px;">
 	
 	<div> <h4>
-		<a class="titleM" href="javascript:window.scrollTo(0,420);">영화티켓</a> | 
-		<a class="titleM" href="javascript:window.scrollTo(0,1060);">특별할인</a> |
-		<a class="titleM" href="javascript:window.scrollTo(0,1700);">먹거리</a> </h4>
+		<a class="titleM" href="javascript:window.scrollTo(0,780);">영화티켓</a> | 
+		<a class="titleM" href="javascript:window.scrollTo(0,1430);">특별할인</a> |
+		<a class="titleM" href="javascript:window.scrollTo(0,2060);">먹거리</a> </h4>
 	
 	</div>
 	
