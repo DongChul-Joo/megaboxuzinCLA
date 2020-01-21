@@ -15,7 +15,7 @@
 }
 .itemName {
      width:180px;
-     height:70px;
+     height:60px;
      line-height:25px;
      margin:5px auto;
      border: 1px solid #DAD9FF;
@@ -23,9 +23,19 @@
 }
 
 .titleM{
-font-size: 40px;
+font-size: 30px;
+color: purple;
+ font-weight: bold;  
+}
+.titleM:hover{
+color: purple;
+ text-decoration: none;
+border-bottom: 2px solid purple;
 }
 
+.itemName div{
+font-weight: bold;
+}
 </style>
 
 <script type="text/javascript">
@@ -90,9 +100,9 @@ function article(itemCode) {
 					<div class="imgLayout">
 						<img src="/mgbxAD/uploads/item/${dto.itemImg}" width="180" 
 							height="180" border="0" onclick="javascript:article('${dto.itemCode}');">
-						<div class="itemName" onclick="javascript:article('${dto.itemCode}')">	
-							<div style="display:block; width: 150px; height: 20px; word-wrap:break-word;">${dto.itemName}</div>
-							<div style="text-align: right; margin-right: 5px;padding-top: 25px;">${dto.itemPrice}원</div>
+						<div class="itemName" style="padding-bottom: 10px" onclick="javascript:article('${dto.itemCode}')">	
+							<div style="padding-top:5px;display:block; width: 150px; height: 50%; word-wrap:break-word;text-overflow: ellipsis; overflow: hidden; white-space: nowrap; display: inline-block;">${dto.itemName}</div>
+							<div style="text-align: right; margin-right: 5px;">${dto.itemPrice}원</div>
 						</div>
 					</div>
 				</td>	

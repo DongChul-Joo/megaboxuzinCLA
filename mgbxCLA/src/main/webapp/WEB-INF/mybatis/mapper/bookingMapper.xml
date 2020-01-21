@@ -64,7 +64,9 @@ where scheduleCode=#{scheduleCode}
 </select>
 
 <select id="customerCheck" parameterType="com.sp.member.Member" resultType="com.sp.member.Member">
-	select customercode,tel,email,username,birth from customer where username=#{userName} and tel=#{tel}
+	select ct.customercode,tel,email,username,birth from customer ct
+left outer join member mb on ct.customercode=mb.customerCode
+where username=#{userName} and tel=#{tel} and userId is null
 </select>
 
 <select id="bookingSeq" resultType="Integer">

@@ -736,6 +736,14 @@ function deagi(){
 	var IMP = window.IMP; // 생략가능
 	IMP.init('imp36876789');  // 가맹점 식별 코드
 	
+	var pom=document.bookingSubmitForm;
+	
+	var email=pom.email.value;
+	console.log(email);
+	var userName=pom.userName.value;
+	console.log(userName);
+	var tel=pom.tel.value;
+	console.log(tel);
 	
 	IMP.request_pay({
 	   	pg : 'html5_inicis', // 결제방식
@@ -743,16 +751,16 @@ function deagi(){
 	    merchant_uid : 'merchant_' + new Date().getTime(),
 	   	name : 'buyTicket',	// order 테이블에 들어갈 주문명 혹은 주문 번호
 	    amount : 100,	// 결제 금액 amount
-	    buyer_email : $("input[name=email]").val(),	// 구매자 email
-	   	buyer_name :  $("input[name=userName]").val(),	// 구매자 이름
-	    buyer_tel :  $("input[name=tel]").val(),	// 구매자 전화번호
+	    buyer_email : email,	// 구매자 email
+	   	buyer_name :  userName,	// 구매자 이름
+	    buyer_tel : tel,	// 구매자 전화번호
 	    m_redirect_url : '/khx/payEnd.action'	// 결제 완료 후 보낼 컨트롤러의 메소드명
 	}, function(rsp) {
 		if ( rsp.success ) { // 성공시
 			alert("결제가 완료되었습니다.");
-			
-			
-
+			rsp.imp_uid
+			rsp.pay_method
+			rsp.paid_amount
 		} else { // 실패시
 			var msg = '결제에 실패하였습니다.\n' + rsp.error_msg;
 			alert(msg);
@@ -1859,7 +1867,7 @@ $(document).on("click",".listOfMovie",function(){
 					</div> 
 					
 					<div>
-					<a href="<%=cp%>"style="color: black; height: 100px;">
+					<a href="<%=cp%>/movieschedule/schedulemovie" style="color: black; height: 100px;">
 					예매내역
 					</a>
 					</div> 
