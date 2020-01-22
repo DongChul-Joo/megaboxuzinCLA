@@ -17,9 +17,20 @@
 		
 		<div class="branSchdule">
 		  <table>
-		  	<c:forEach var="bb" items="${list}">
+		  	<c:forEach var="bb" items="${list}" varStatus="status">
 		  		<tr class="bsTrClass">
-		  			<td class="bsTd" style="font-size: 15px;"><span class="age${bb.audits}">${bb.audits}</span><span>${bb.movieNm}</span></td>
+		  			<td class="bsTd" style="font-size: 15px;">
+		  			<c:if test="${status.count==1}">
+		  				<span class="age${bb.audits}">${bb.audits}</span><span>${bb.movieNm}</span>
+		  			</c:if>
+		  			<c:if test="${status.count>1}">
+		  				<c:if test="${bb.movieNm!=list.get(status.count-2).movieNm}">
+		  					<span class="age${bb.audits}">${bb.audits}</span><span>${bb.movieNm}</span>
+		  				</c:if>
+		  			</c:if>
+		  	
+		  			
+		  			</td>
 		  			<td class="bsTd" style="background: none;"><p>${bb.cmName}</p>
 		  				<p>총 좌석 : ${bb.cmSeatTot}</p>
 		  			</td>
@@ -56,7 +67,7 @@
 				</div>
 				
 				<div>
-					<h3 class="cmdquf" >약도 /교통 /주차 </h3> <button  style="float: right;" class="btn" type="button" onclick="openSearch()">길찾기</button>
+					<h3 class="cmdquf" >약도 /교통 /주차 </h3>
 				</div>
 				
 			
@@ -65,8 +76,8 @@
 			</div>
 				<div style="color: white;background-color: rgba( 000, 000, 000, 0.7 );height: 150px;">
 							  <p style="font-size: 20px; margin-top: 20px;margin-left: 30px">우편번호 : ${dto.branZip}</p>
-						      <p style="font-size: 20px;margin-left: 30px;margin-top: 20px;">주소 : ${dto.branAddr1} ${dto.branAddr2}</p> 
-			
+						      <p style="font-size: 20px;margin-left: 30px;margin-top: 20px;">주소 : ${dto.branAddr1} ${dto.branAddr2} <button style="margin-left: 20px" class="btn" type="button" onclick="openSearch()">길찾기</button></p> 
+		
 				</div>
 	
 				

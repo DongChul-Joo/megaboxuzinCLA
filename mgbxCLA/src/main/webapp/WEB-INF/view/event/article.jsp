@@ -21,7 +21,7 @@ $(function(){
 			    	 이벤트 기간 : ${dto.sdate} ~ ${dto.edate}
 				</td>
 				<td width="40%" align="right" style="padding-right: 10px; border-spacing: 0px; border-collapse: collapse;">
-				<c:if test="${event.lott != 0}">
+				<c:if test="${dto.lott != 0}">
 			    	당첨자 발표 : ${dto.lottDate}
 				</c:if>
 				</td>
@@ -32,7 +32,7 @@ $(function(){
     </div>
     <div style="width: 80%; margin: 10px auto 0px; text-align: center; margin-bottom: 50px">
     	<a href="${dto.elink}">
-    		<img src="https://localhost:9090/mgbxAD/uploads/event/${dto.imageFilename}" width="100%" style="margin: 0px 10px;">
+    		<img src="/mgbxAD/uploads/event/${dto.imageFilename}" width="100%" style="margin: 0px 10px;">
     	</a>
     	<c:if test="${dto.lott==1 && state==1}">
 	    	<div>

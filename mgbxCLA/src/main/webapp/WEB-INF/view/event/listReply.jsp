@@ -26,6 +26,7 @@
 	        </td>
 	       <td width='50%' style='padding: 10px 5px; padding-top: 35px; border-left:none;' align='right'>
 	           <span>${vo.created}</span> |
+	           		<span class="deleteReply" style="cursor: pointer;" data-rcode='${vo.rcode}' data-pageNo='${pageNo}'>수정</span> |
 	                <span class="deleteReply" style="cursor: pointer;" data-rcode='${vo.rcode}' data-pageNo='${pageNo}'>삭제</span>
 	           		<button type='button' class='btnSendReplyReport' data-rcode='${vo.rcode}' title="신고">
 	           			<img src="<%=cp%>/resource/images/siren.png" style="width: 15px; height: 15px;"> 신고하기 </button>

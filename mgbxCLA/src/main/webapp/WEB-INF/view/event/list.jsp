@@ -7,7 +7,7 @@
 %>
 <style>
 .title{
-font-size: 20px;
+font-size: 18px;
 text-overflow: ellipsis;
 overflow: hidden;
 margin-left: 5px; 
@@ -23,7 +23,7 @@ margin-top: 10px;
 .ll {
 list-style:none;
 font-family: center;
-width:40%;
+width:50%;
 height:100%;
 margin: 0px auto;
 }
@@ -390,6 +390,7 @@ function listReplyAnswer(answer) {
         <li><a href="<%=cp%>/event/list?ecategoryCode=2">영화 이벤트</a></li>   
         <li><a href="<%=cp%>/event/list?ecategoryCode=3">제휴 이벤트</a></li>
         <li><a href="<%=cp%>/event/list?ecategoryCode=4">영화관이벤트</a></li>
+        <li><a href="<%=cp%>/roto/listDott">당첨자발표</a></li>
     </ul>
 </div>
 
@@ -412,7 +413,7 @@ function listReplyAnswer(answer) {
     </c:if>
 	<td width="20px" align="center" style="padding-bottom: 30px">
 		<div style="cursor: pointer;">
-			<img src="<%=cp%>>/mgbxAD/uploads/event/${dto.imageName}"
+			<img src="/mgbxAD/uploads/event/${dto.imageName}"
 			width="230" height="300" border="0" onclick="article('${dto.ecode}');">
 		</div>
 		
